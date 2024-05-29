@@ -1,6 +1,7 @@
 import "./App.css";
 import { Text } from "@chakra-ui/react";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Icons from './constants/icon'
 
 function App() {
   return (

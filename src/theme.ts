@@ -4,9 +4,11 @@ export const theme = extendTheme({
   colors: {
     brand: {
       page: "#E5E5E5",
-      light: "#5D5A6F",
+      offwhite: "#5D5A6F",
       dark: "#0A033C",
-      red: "#FF6652",
+      orange: "#FF6652",
+      red: "#E53B07",
+      grey: "#D8D8D8"
     },
   },
 });
