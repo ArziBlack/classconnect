@@ -3,7 +3,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <HStack>
+    <HStack justifyContent="space-between" w="100vw">
         <Box>hi</Box>
         <Box>hi</Box>
         <Box>hi</Box>
