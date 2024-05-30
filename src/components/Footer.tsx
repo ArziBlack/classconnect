@@ -13,16 +13,17 @@ import { FaFacebook } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
-
 function Footer() {
   return (
-    <Box border={"2px"} borderColor={"red"} p={4}>
+    <Box p={4}>
       <Flex
-        w="100%"
+        maxW="1240px"
+        mx="auto"
         flexWrap="wrap"
         justifyContent="space-around"
         h={{ base: "auto", md: "236px" }}
         gap={4}
+        color={"brand.offwhite"}
       >
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
@@ -37,7 +38,7 @@ function Footer() {
                 alt="logo"
                 src={Logo}
               />
-              <Heading size="md" color="blue">
+              <Heading size="md" color="brand.dark">
                 Hep
               </Heading>
             </Flex>
@@ -47,7 +48,7 @@ function Footer() {
               <BsTwitter />
               <BsLinkedin />
             </Flex>
-            <Box px="5px" py={"10px"}>
+            <Box px="5px" py={"10px"} gap={10}>
               <Text>© 2024 Help.co</Text>
               <Text>Hep is a registered trademark of Hep.co</Text>
             </Box>
@@ -59,10 +60,10 @@ function Footer() {
           justifyContent="center"
         >
           <Box textAlign={"left"} w={{ base: "100%", md: "195px" }} h="auto">
-            <Heading size="md" color="blue">
+            <Heading size="md" color="brand.dark">
               Courses
             </Heading>
-            <Box py="10px">
+            <Box py="10px" gap={10}>
               <Text>Classroom Courses</Text>
               <Text>Visual classroom courses</Text>
               <Text>E-learning Courses</Text>
@@ -77,10 +78,10 @@ function Footer() {
           justifyContent="center"
         >
           <Box textAlign={"left"} w={{ base: "100%", md: "125px" }} h="auto">
-            <Heading size="md" color="blue">
+            <Heading size="md" color="brand.dark">
               Community
             </Heading>
-            <Box py="10px">
+            <Box py="10px" gap={10}>
               <Text>Leaners</Text>
               <Text>Partners</Text>
               <Text>Developers</Text>
@@ -96,7 +97,7 @@ function Footer() {
           justifyContent="center"
         >
           <Box textAlign={"left"} w={{ base: "100%", md: "173px" }} h="auto">
-            <Heading size="md" color="blue">
+            <Heading size="md" color="brand.dark">
               Quick link
             </Heading>
             <Box py="10px">
@@ -115,7 +116,7 @@ function Footer() {
           justifyContent="center"
         >
           <Box textAlign={"left"} w={{ base: "100%", md: "70px" }} h="auto">
-            <Heading size="md" color="blue">
+            <Heading size="md" color="brand.dark">
               More
             </Heading>
             <Box py="10px">
