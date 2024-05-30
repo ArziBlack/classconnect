@@ -60,3 +60,4 @@ export const PRESENT = present;
 export const PRICE_TAG = price_tag;
 export const JAVA = java;
 export const LIGHTBULB = lightbulb;
+export const LOGO = logo;
