@@ -1,12 +1,12 @@
 import "./App.css";
 
 import Footer from "./components/Footer";
-import FooterBanner from "./components/FooterBanner";
+import NewsletterSection from "./components/NewsletterSection";
 
 function App() {
   return (
     <div>
-      <FooterBanner />
+      <NewsletterSection />
       <Footer />
     </div>
   );
