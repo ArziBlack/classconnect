@@ -1,12 +1,12 @@
-import { Box, Text, Image, Flex, Heading } from "@chakra-ui/react";
+import "tachyons";
+import { Box, Text, Image, Link } from "@chakra-ui/react";
+import { Flex, Heading } from '@chakra-ui/layout';
 import PageFinal from "../components/Signup/PageFinal";
 import PageOne from "../components/Signup/PageOne";
 import PageTwo from "../components/Signup/PageTwo";
 import MultistepProgressBar from "../components/MultistepProgressBar";
 import { SIGN_UP } from "../constants/image";
 import { LOGO } from "../constants/icon";
-import { Link } from "react-router-dom";
-import "tachyons";
 import { ChangeEvent, useState } from "react";
 
 const SignUp = () => {
@@ -30,7 +30,7 @@ const SignUp = () => {
         setPage("pageone");
     }
   };
-  const [formData, setFormData] = useState<object>({
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -39,8 +39,7 @@ const SignUp = () => {
     country: "",
     role: "",
   });
-  const { firstName, lastName, email, password, password2, country, role } =
-    formData;
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -49,9 +48,9 @@ const SignUp = () => {
   };
   log(formData);
   return (
-    <Box bg="white" color="black" overflow="hidden">
-      <Flex w="100vw">
-        <Flex flex="1" h="105vh" flexDir="column" justifyContent="center">
+    <Box bg="white" color="black" overflow="hidden" >
+      <Flex w="100vw" p='24px' h='100vh'>
+        <Flex flex="1" flexDir="column" justifyContent="center">
           <Box
             padding="60px"
             h="100%"
@@ -102,13 +101,13 @@ const SignUp = () => {
             <Text as="a" mt={6} textAlign="center" fontSize="16px">
               Already have an account?{" "}
               <b className=" text-[#002C8A]">
-                <Link to="/auth/login">Sign in</Link>
+                <Link href="/">Sign in</Link>
               </b>
             </Text>
           </Box>
         </Flex>
         <Box flex="2" bgImage={SIGN_UP} bgSize="cover" borderRadius="60px">
-          <Box h="100%" w="100%" borderRadius="60px" padding="20px">
+          <Box h="100%" w="100%" borderRadius="60px" padding="20px"  bgGradient="linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))">
             <Box
               p="20px"
               display="flex"

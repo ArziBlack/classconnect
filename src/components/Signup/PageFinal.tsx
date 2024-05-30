@@ -9,8 +9,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Select1 from 'react-select';
+import { useDispatch, useSelector } from "react-redux";
 
 const PageFinal = ({ onChange, data }: any) => {
+  const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<object>({});
   useEffect(() => {
