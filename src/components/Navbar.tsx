@@ -37,5 +37,9 @@ const Navbar = () => {
     </HStack>
   );
 };
+  );
+};
+
+export default Navbar;
 
 export default Navbar;
