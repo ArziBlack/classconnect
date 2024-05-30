@@ -1,14 +1,23 @@
 import "./App.css";
-import { Text, VStack } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PricingPackages from "./components/Pricing";
+import SecondaryHero from "./components/SecondaryHero";
+import { PRICING } from "./constants/illlustrations";
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Pricing", href: "/pricing" },
+];
 
 function App() {
   return (
-    <VStack backgroundColor={`brand.page`} height={`full`}>
-      <Login/>
-    </VStack>
+    <>
+      <SecondaryHero
+        title="Our Pre-ready Pricing Packages"
+        links={links}
+        imageUrl={PRICING}
+      />
+      <PricingPackages />
+    </>
   );
 }
 
