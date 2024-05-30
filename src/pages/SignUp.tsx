@@ -7,7 +7,7 @@ import { SIGN_UP } from "../constants/image";
 import { LOGO } from "../constants/icon";
 import { Link } from "react-router-dom";
 import "tachyons";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const SignUp = () => {
   const { log } = console;
@@ -41,7 +41,7 @@ const SignUp = () => {
   });
   const { firstName, lastName, email, password, password2, country, role } =
     formData;
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,

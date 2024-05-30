@@ -1,13 +1,20 @@
 import "./App.css";
-import { Text, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <VStack backgroundColor={`brand.page`} height={`full`}>
-      <Login/>
+      <Router>
+        {/* <Navbar/> */}
+        <Routes>
+          <Route index element={<Login/>}/>
+          <Route path='/signup' element={<SignUp/>}/>
+        </Routes>
+      </Router>
     </VStack>
   );
 }
