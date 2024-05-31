@@ -1,12 +1,14 @@
 import Footer from "./components/Footer";
-import NewsletterSection from "./components/NewsletterSection";
-import ApplyInstructor from "./components/ApplyInstructor";
+// import NewsletterSection from "./components/NewsletterSection";
+// import ApplyInstructor from "./components/ApplyInstructor";
+import CustomComponent from "./components/CustomComponent";
 
 function App() {
   return (
     <div>
-      <ApplyInstructor />
-      <NewsletterSection />
+      <CustomComponent />
+      {/* <ApplyInstructor /> */}
+      {/* <NewsletterSection /> */}
       <Footer />
     </div>
   );
