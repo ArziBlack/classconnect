@@ -41,6 +41,7 @@ const Navbar = () => {
         pos={`fixed`}
         bg={`brand.page`}
         zIndex="1000"
+        maxWidth={`1444px`}
         css={{
             background: scrolled ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)" : ""
         }}
@@ -135,7 +136,7 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }}>
+      <Stack px={{ base: "4", md: "16" }} maxW={`1444px`}>
         <Outlet />
       </Stack>
     </VStack>

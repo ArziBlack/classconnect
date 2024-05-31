@@ -6,7 +6,7 @@ import Button from "./Button";
 import LessonCard from "./LessonCard";
 import { data } from "../utils/data";
 const Lessons = () => {
-  return (
+return (
     <VStack paddingY="40px">
       <Heading>Qualified Lessons for Students</Heading>
       <Description>

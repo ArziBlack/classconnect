@@ -1,17 +1,18 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/react";
 import Button from "./Button";
-import { COLLEGE_HERO } from "../constants/illlustrations";
+import { CAREER } from "../constants/illlustrations";
 
-const CollegeLevel = () => {
+const Career = () => {
   return (
     <Flex
       w={`full`}
       justifyContent={`space-between`}
       paddingTop={{ base: "20", md: "58" }}
-      flexDir={{ base: "column-reverse", md: "row" }}
+      flexDir={{ base: "column-reverse", md: "row-reverse" }}
       alignItems="center"
-      bg={`brand.pagedark`}
-      h="600px"
+      // bg={`brand.pagedark`}
+      h="550px"
       borderRadius={`20px`}
       marginY="40px"
     >
@@ -25,19 +26,6 @@ const CollegeLevel = () => {
         textAlign={{ base: "center", md: "left" }}
         p={20}
       >
-        <Box>
-          <Text
-            color={`brand.action`}
-            padding={`2`}
-            bg={`brand.pagedarker`}
-            borderRadius={10}
-            fontSize={`16px`}
-            display="inline-block"
-            fontWeight={`500`}
-          >
-            College Level
-          </Text>
-        </Box>
         <Heading
           // fontSize={{ base: "2xl", md: "xxx-large" }}
           size={{ base: "xl", md: "3xl" }}
@@ -47,14 +35,14 @@ const CollegeLevel = () => {
           paddingRight={{ base: "0", md: "20px" }}
           paddingY={{ base: "5", md: "0" }}
         >
-          Don’t waste time in COVID-19 pandemic. Develop your skills.
+          Want to share your knowledge? Join us a Mentor
         </Heading>
         <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
           High-definition video is video of higher resolution and quality than
           standard-definition. While there is no standardized meaning for
           high-definition, generally any video.
         </Text>
-        <Button text="Register Now" />
+        <Button text="Career Information" />
       </Box>
       <Box
         flex="1"
@@ -64,19 +52,17 @@ const CollegeLevel = () => {
         marginY={`10px`}
         h="full"
         w="full"
+        p="15px"
       >
         <Image
-          src={COLLEGE_HERO}
-          h={{ base: "300px", md: "550px" }}
-          w={{ base: "300px", md: "550px" }}
-          display={`flex`}
+          src={CAREER}
+          h={{ base: "300px", md: "500px" }}
+          w={{ base: "300px", md: "500px" }}
           objectFit={`contain`}
-          justifySelf={`end`}
-          alignSelf={`flex-end`}
         />
       </Box>
     </Flex>
   );
 };
 
-export default CollegeLevel;
+export default Career;
