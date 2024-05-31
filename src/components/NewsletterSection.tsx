@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Text,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 import photo1 from "../assets/icons/photo1.png";
 import photo2 from "../assets/icons/photo2.png";
 import photo3 from "../assets/icons/photo3.png";
@@ -16,11 +8,6 @@ import photo5 from "../assets/icons/photo5.png";
 import photo6 from "../assets/icons/photo6.png";
 
 const NewsletterSection: React.FC = () => {
-  const bgColor = useColorModeValue("blue.900", "gray.800");
-  const textColor = useColorModeValue("white", "gray.100");
-  const inputBgColor = useColorModeValue("gray.700", "gray.600");
-  const buttonBgColor = useColorModeValue("purple.500", "purple.400");
-
   return (
     <Box
       maxW="1240px"
@@ -28,8 +15,8 @@ const NewsletterSection: React.FC = () => {
       h={{ base: "auto", md: "320px" }}
       py={{ base: 6, md: 10 }}
       px={{ base: 4, md: 5 }}
-      bg={bgColor}
-      color={textColor}
+      bg={"brand.dark"}
+      color={"brand.page"}
       textAlign="center"
       borderRadius="lg"
       position="relative"
@@ -40,7 +27,7 @@ const NewsletterSection: React.FC = () => {
         src={photo1}
         alt="Profile 1"
         position="absolute"
-        top={{ base: "10%", md: "20%" }}
+        top={{ base: "8%", md: "10%" }}
         left={{ base: "2%", md: "5%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
@@ -49,8 +36,8 @@ const NewsletterSection: React.FC = () => {
         src={photo2}
         alt="Profile 2"
         position="absolute"
-        top={{ base: "30%", md: "50%" }}
-        left={{ base: "5%", md: "10%" }}
+        top={{ base: "35%", md: "39%" }}
+        left={{ base: "5%", md: "15%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
       />
@@ -58,7 +45,7 @@ const NewsletterSection: React.FC = () => {
         src={photo3}
         alt="Profile 3"
         position="absolute"
-        top={{ base: "70%", md: "80%" }}
+        top={{ base: "60%", md: "70%" }}
         left={{ base: "2%", md: "5%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
@@ -67,7 +54,7 @@ const NewsletterSection: React.FC = () => {
         src={photo4}
         alt="Profile 4"
         position="absolute"
-        top={{ base: "10%", md: "20%" }}
+        top={{ base: "8%", md: "10%" }}
         right={{ base: "2%", md: "5%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
@@ -76,8 +63,8 @@ const NewsletterSection: React.FC = () => {
         src={photo5}
         alt="Profile 5"
         position="absolute"
-        top={{ base: "30%", md: "50%" }}
-        right={{ base: "5%", md: "10%" }}
+        top={{ base: "35%", md: "40%" }}
+        right={{ base: "5%", md: "15%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
       />
@@ -85,33 +72,38 @@ const NewsletterSection: React.FC = () => {
         src={photo6}
         alt="Profile 6"
         position="absolute"
-        top={{ base: "70%", md: "80%" }}
+        top={{ base: "60%", md: "70%" }}
         right={{ base: "2%", md: "5%" }}
         boxSize={{ base: "30px", md: "50px" }}
         borderRadius="full"
       />
-
-      <Text fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold">
-        Subscribe For Get Update Every New Courses
-      </Text>
-      <Text fontSize={{ base: "sm", md: "md" }} my={4}>
-        20k+ students daily learn with Eduvi. Subscribe for new courses.
-      </Text>
+      <Box
+        alignContent="center"
+        width={{ base: "60%", md: "50%", sm: "70%" }}
+        mx={{ base: "auto", md: "auto" }}
+      >
+        <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold">
+          Subscribe For Get Update Every New Courses
+        </Text>
+        <Text color={"brand.page"} fontSize={{ base: "sm", md: "md" }} my={4}>
+          20k+ students daily learn with Hep. Subscribe for new courses.
+        </Text>
+      </Box>
       <Flex justify="center" mt={6}>
         <Box as="form" display="flex" maxW="md" w="100%">
           <Input
             placeholder="enter your email"
             type="email"
             variant="filled"
-            bg={inputBgColor}
+            bg={"brand.grey"}
             color="white"
-            _placeholder={{ color: "gray.300" }}
+            _placeholder={{ color: "brand.offwhite" }}
             borderRightRadius="0"
             flex="1"
           />
           <Button
-            colorScheme="purple"
-            bg={buttonBgColor}
+            colorScheme={"brand.action"}
+            bg={"brand.action"}
             borderLeftRadius="0"
             px={{ base: 4, md: 8 }}
           >
