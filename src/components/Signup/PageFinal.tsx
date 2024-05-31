@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SyntheticEvent, useEffect, useState } from "react";
 import {
   Box,
@@ -9,9 +8,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Select1 from 'react-select';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { SignupProps } from "../../typings/home";
 
-const PageFinal = ({ onChange, data }: any) => {
+const PageFinal = ({ onChange, data }: SignupProps) => {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<object>({});

@@ -1,10 +1,11 @@
-import React from "react";
 import Hero from "../components/Hero";
+import Classes from "../components/Classes";
 
 const Home = () => {
   return (
     <>
       <Hero />
+      <Classes/>
     </>
   );
 };
