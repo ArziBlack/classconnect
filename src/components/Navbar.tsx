@@ -22,7 +22,11 @@ import { FaUserPlus } from "react-icons/fa";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [placement, setPlacement] = useState("left");
+  const [scrolled, setScrolled] = useState(false);
+  window.onscroll = () => {
+    setScrolled(window.scrollY === 0 ? false : true)
+    return () => (window.onscroll = null)
+  };
 
   return (
     <VStack height={`100%`} minH={`100vh`} pos={`relative`}>
@@ -30,11 +34,16 @@ const Navbar = () => {
         justifyContent="space-between"
         w="100vw"
         paddingTop="2"
+        paddingBottom="2"
         paddingX={{ base: "4", md: "12" }}
+        // paddingY={`4px`}
         gap={10}
         pos={`fixed`}
         bg={`brand.page`}
         zIndex="1000"
+        css={{
+            background: scrolled ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)" : ""
+        }}
       >
         <HStack flex={1}>
           <Image src={LOGO} marginRight="1.4" />
@@ -43,7 +52,6 @@ const Navbar = () => {
           </Text>
         </HStack>
 
-        {/* Hamburger Icon for Mobile */}
         <IconButton
           display={{ base: "flex", md: "none" }}
           icon={<FaBars />}
@@ -93,8 +101,7 @@ const Navbar = () => {
         </HStack>
       </HStack>
 
-      {/* Drawer for Mobile Navigation */}
-      <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
