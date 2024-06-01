@@ -1,5 +1,5 @@
 import "./App.css";
-import { Text, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -23,3 +23,5 @@ function App() {
 }
 
 export default App;
+
+
