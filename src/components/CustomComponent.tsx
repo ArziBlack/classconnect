@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Box,
-  Text,
+  Img,
+  Heading,
   Flex,
   IconButton,
   AspectRatio,
-  Img,
 } from "@chakra-ui/react";
 import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
+import Pattern from "../assets/images/Pattern.png";
 
 const CustomComponent: React.FC = () => {
   const playerRef = useRef<any>(null);
@@ -63,24 +64,42 @@ const CustomComponent: React.FC = () => {
   };
 
   return (
-    <Box maxW="1024px" mx="auto">
-      <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb="4">
+    <Box maxW="1024px" mx="auto" px={{ base: 4, md: 8 }} position="relative">
+      <Box
+        zIndex={1}
+        position="absolute"
+        right={{ base: -4, md: -12 }}
+        top={{ base: -4, md: -12 }}
+        width={{ base: "100px", md: "150px" }}
+      >
+        <Img src={Pattern} />
+      </Box>
+      <Heading as="h2" size="lg" fontWeight="bold" textAlign="center" mb={4}>
         How to apply to join as instructor
-      </Text>
-      <Box p="5" bg="white" borderRadius="22px" boxShadow="lg">
-        <Box position="relative" borderRadius="22px" overflow="hidden">
+      </Heading>
+      <Box
+        p={5}
+        bg="white"
+        borderRadius="22px"
+        boxShadow="lg"
+        position="relative"
+        zIndex={2}
+      >
+        <Box borderRadius="22px" overflow="hidden">
           <AspectRatio ratio={16 / 9}>
             <div id="youtube-player" />
           </AspectRatio>
           <Flex
             position="absolute"
-            bottom="0"
-            left="0"
-            right="0"
+            bottom={0}
+            left={0}
+            right={0}
             align="center"
+            borderBottomRightRadius="22px"
+            borderBottomLeftRadius="22px"
             justifyContent="center"
             bg="rgba(0, 0, 0, 0.5)"
-            p="2"
+            p={2}
           >
             <IconButton
               aria-label="Previous"
@@ -97,6 +116,7 @@ const CustomComponent: React.FC = () => {
               color="white"
               onClick={handlePlayPause}
               sx={{ "&:hover": { bg: "transparent" } }}
+              mx={2}
             />
             <IconButton
               aria-label="Next"
