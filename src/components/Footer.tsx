@@ -6,6 +6,7 @@ import {
   Flex,
   Spacer,
   Image,
+  VStack
 } from "@chakra-ui/react";
 
 import Logo from "../assets/icons/Logo.png";
@@ -15,10 +16,10 @@ import { BsTwitter } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
 function Footer() {
   return (
-    <Box p={4}>
+    <VStack py={4} w={`full`} px={{ base: "4", md: "16" }} maxW={`1444px`} >
       <Flex
-        maxW="1240px"
-        mx="auto"
+        w="100%"
+        // mx="auto"
         flexWrap="wrap"
         justifyContent="space-around"
         h={{ base: "auto", md: "236px" }}
@@ -130,7 +131,7 @@ function Footer() {
           </Box>
         </HStack>
       </Flex>
-    </Box>
+    </VStack>
   );
 }
 

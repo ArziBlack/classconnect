@@ -13,37 +13,42 @@ import {
   DrawerContent,
   DrawerCloseButton,
   IconButton,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
 import { Outlet, Link as ReactRouterLink } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
+import Footer from "./Footer";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrolled, setScrolled] = useState(false);
   window.onscroll = () => {
-    setScrolled(window.scrollY === 0 ? false : true)
-    return () => (window.onscroll = null)
+    setScrolled(window.scrollY === 0 ? false : true);
+    return () => (window.onscroll = null);
   };
 
   return (
-    <VStack height={`100%`} minH={`100vh`} pos={`relative`}>
+    <VStack height={`100%`} minH={`100vh`} pos={`relative`} w="100%">
       <HStack
         justifyContent="space-between"
         w="100vw"
+        height={`80px`}
         paddingTop="2"
-        paddingBottom="2"
-        paddingX={{ base: "4", md: "12" }}
+        paddingBottom="4"
+        px={{ base: "4", md: "16" }}
         // paddingY={`4px`}
         gap={10}
         pos={`fixed`}
         bg={`brand.page`}
         zIndex="1000"
         maxWidth={`1444px`}
+        alignItems={`center`}
         css={{
-            background: scrolled ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)" : ""
+          background: scrolled
+            ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
+            : "",
         }}
       >
         <HStack flex={1}>
@@ -102,7 +107,7 @@ const Navbar = () => {
         </HStack>
       </HStack>
 
-      <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
@@ -139,6 +144,7 @@ const Navbar = () => {
       <Stack px={{ base: "4", md: "16" }} maxW={`1444px`}>
         <Outlet />
       </Stack>
+      <Footer />
     </VStack>
   );
 };
