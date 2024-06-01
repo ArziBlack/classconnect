@@ -10,7 +10,7 @@ import photo6 from "../assets/icons/photo6.png";
 const NewsletterSection: React.FC = () => {
   return (
     <Box
-      maxW="1240px"
+      w="full"
       mx="auto"
       h={{ base: "auto", md: "320px" }}
       py={{ base: 6, md: 10 }}
