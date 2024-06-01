@@ -1,15 +1,16 @@
-import "./App.css";
-import { Text, VStack } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
+import Footer from "./components/Footer";
+import NewsletterSection from "./components/NewsletterSection";
 
 function App() {
   return (
-    <VStack backgroundColor={`brand.page`} height={`full`}>
-      <Login/>
-    </VStack>
-  );
-}
+    <div>
+      <NewsletterSection />
+      <Footer />
+    </div>
+    );
+    }
+  export default App;
 
-export default App;
+
