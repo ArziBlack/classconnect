@@ -24,20 +24,20 @@ const CollegeLevel = () => {
         textAlign={{ base: "center", md: "left" }}
         p={{ base: 4, md: 20 }} // Adjusted padding
       >
-        <Box>
-          <Text
-            color={`brand.action`}
-            padding={`2`}
-            bg={`brand.pagedarker`}
-            borderRadius={10}
-            fontSize={`16px`}
-            display="inline-block"
-            fontWeight={`500`}
-          >
-            College Level
-          </Text>
-        </Box>
         <Box flex="1">
+          <Box display={`flex`}>
+            <Text
+              color={`brand.action`}
+              padding={`2`}
+              bg={`brand.pagedarker`}
+              borderRadius={10}
+              fontSize={`16px`}
+              display="inline-block"
+              fontWeight={`500`}
+            >
+              College Level
+            </Text>
+          </Box>
           <Heading
             size={{ base: "xl", md: "3xl" }}
             as="h2"
