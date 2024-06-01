@@ -11,19 +11,18 @@ const CollegeLevel = () => {
       flexDir={{ base: "column-reverse", md: "row" }}
       alignItems="center"
       bg={`brand.pagedark`}
-      h="600px"
       borderRadius={`20px`}
       marginY="40px"
     >
       <Box
-        flex="1"
+        flex={{ base: "none", md: 1 }} // Adjusted flex basis
         display="flex"
-        flexDir={`column`}
+        flexDir={{ base: "column", md: "row" }} // Adjusted flex direction
         alignItems={{ base: "center", md: "flex-start" }}
         justifyContent={`space-between`}
         paddingY={{ base: "10", md: "20" }}
         textAlign={{ base: "center", md: "left" }}
-        p={20}
+        p={{ base: 4, md: 20 }} // Adjusted padding
       >
         <Box>
           <Text
@@ -38,41 +37,38 @@ const CollegeLevel = () => {
             College Level
           </Text>
         </Box>
-        <Heading
-          // fontSize={{ base: "2xl", md: "xxx-large" }}
-          size={{ base: "xl", md: "3xl" }}
-          as="h2"
-          fontWeight={600}
-          color={`brand.dark`}
-          paddingRight={{ base: "0", md: "20px" }}
-          paddingY={{ base: "5", md: "0" }}
-        >
-          Don’t waste time in COVID-19 pandemic. Develop your skills.
-        </Heading>
-        <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
-          High-definition video is video of higher resolution and quality than
-          standard-definition. While there is no standardized meaning for
-          high-definition, generally any video.
-        </Text>
-        <Button text="Register Now" />
+        <Box flex="1">
+          <Heading
+            size={{ base: "xl", md: "3xl" }}
+            as="h2"
+            fontWeight={600}
+            color={`brand.dark`}
+            paddingRight={{ base: "0", md: "20px" }}
+            paddingY={{ base: "5", md: "0" }}
+          >
+            Don’t waste time in COVID-19 pandemic. Develop your skills.
+          </Heading>
+          <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
+            High-definition video is video of higher resolution and quality than
+            standard-definition. While there is no standardized meaning for
+            high-definition, generally any video.
+          </Text>
+          <Button text="Register Now" />
+        </Box>
       </Box>
       <Box
-        flex="1"
+        flex={{ base: "none", md: 1 }} // Adjusted flex basis
         display="flex"
         justifyContent="flex-end"
         alignItems="flex-end"
-        marginY={`10px`}
-        h="full"
-        w="full"
+        h={{ base: "full", md: "550px" }}
+        w={{ base: "full", md: "550px" }}
       >
         <Image
           src={COLLEGE_HERO}
-          h={{ base: "300px", md: "550px" }}
-          w={{ base: "300px", md: "550px" }}
-          display={`flex`}
-          objectFit={`contain`}
-          justifySelf={`end`}
-          alignSelf={`flex-end`}
+          h="full"
+          w="full"
+          objectFit={{ base: "cover", md: "contain" }}
         />
       </Box>
     </Flex>
