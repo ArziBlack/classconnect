@@ -2,15 +2,12 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
+  Heading,
   Image,
   Input,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Select,
-  Text,
-  VStack,
+  Text
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { HERO } from "../constants/illlustrations";
@@ -20,17 +17,19 @@ const Hero = () => {
     <Flex
       w={`full`}
       justifyContent={`space-between`}
-      px={`12`}
-      paddingTop={`58`}
+      paddingTop={{ base: "20", md: "58" }}
+      flexDir={{ base: "column-reverse", md: "row" }}
       gap={10}
+      alignItems="center"
     >
       <Box
         flex="1"
         display="flex"
         flexDir={`column`}
-        alignItems={`flex-start`}
-        justifyContent={`space-around`}
-        paddingY={`20`}
+        alignItems={{ base: "center", md: "flex-start" }}
+        justifyContent={`space-between`}
+        paddingY={{ base: "10", md: "20" }}
+        textAlign={{ base: "center", md: "left" }}
       >
         <Box>
           <Text
@@ -39,38 +38,49 @@ const Hero = () => {
             bg={`white`}
             borderRadius={10}
             fontSize={`16px`}
+            display="inline-block"
           >
             Never Stop Learning
           </Text>
         </Box>
-        <Text fontSize={`xxx-large`} fontWeight={600} color={`brand.dark`} textAlign={`justify`} paddingRight={`20px`}>
+        <Heading
+          // fontSize={{ base: "2xl", md: "xxx-large" }}
+          size={{ base: "xl", md: "3xl" }}
+          as="h2"
+          fontWeight={600}
+          color={`brand.dark`}
+          paddingRight={{ base: "0", md: "20px" }}
+          paddingY={{ base: "5", md: "0" }}
+        >
           Grow up your Skills by online courses with HEP Educational Platform
-        </Text>
+        </Heading>
         <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
           Eduvi is a Global training provider based across the UK that
           specialises in accredited and bespoke training courses. We crush the
-          barriers togetting a degree.
+          barriers to getting a degree.
         </Text>
         <InputGroup
-          border={`1px`}
+          border={`none`}
           borderRadius={`12px`}
           display={`flex`}
           w={`100%`}
           padding={`4px`}
+          flexDirection={{ base: "column", md: "row" }}
+          bg={`white`}
         >
-          <Select value={`primary`} flex={1}>
-            <option value="">primary</option>
-            <option value="">secondary</option>
-          </Select>|
-          <Input flex={2} outline={`none`} border={`none`} placeholder="Class/Content"/>
-          <Button bg={`brand.dark`} padding={`2px`} flex={1}>
+          <Select value={`primary`} flex={1} mb={{ base: "2", md: "0" }}>
+            <option value="primary">Primary</option>
+            <option value="secondary">Secondary</option>
+          </Select>
+          <Input flex={2} outline={`none`} border={`none`} placeholder="Class/Content" mb={{ base: "2", md: "0" }} />
+          <Button bg={`brand.action`} padding={`2px`} flex={1} borderRadius={`9px`}>
             <FaSearch color="#fff" />
-            <Text color={`white`}>Search</Text>
+            <Text color={`white`} paddingLeft={`7px`}>Search</Text>
           </Button>
         </InputGroup>
       </Box>
-      <Box flex="1">
-        <Image src={HERO} h={`550px`} w={`550px`} />
+      <Box flex="1" display="flex" justifyContent="center" alignItems="center">
+        <Image src={HERO} h={{ base: "300px", md: "550px" }} w={{ base: "300px", md: "550px" }} />
       </Box>
     </Flex>
   );

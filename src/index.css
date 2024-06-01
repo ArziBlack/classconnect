@@ -1,0 +1,59 @@
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-Thin.otf);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-ExtraLight.otf);
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-Light.otf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-Regular.otf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-Bold.otf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-ExtraBold.otf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url(assets/fonts/Metropolis/Metropolis-Medium.otf);
+  font-weight: 700;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 0px;
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}

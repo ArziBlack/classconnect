@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 
 function App() {
   return (
-    <VStack backgroundColor={`brand.page`} height={`full`}>
+    <VStack backgroundColor={`brand.page`} height={`full`} fontFamily={`Metropolis`}>
       <Router>
         <Routes>
           <Route path="/" element={<Navbar/>}>
