@@ -14,6 +14,7 @@ import { FaFacebook } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
+
 function Footer() {
   return (
     <VStack py={4} w={`full`} px={{ base: "4", md: "16" }} maxW={`1444px`} >

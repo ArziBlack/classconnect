@@ -73,8 +73,8 @@ const Navbar = () => {
           paddingX={`55px`}
           display={{ base: "none", md: "flex" }}
         >
-          <ChakraLink as={ReactRouterLink} to="/library">
-            Library
+          <ChakraLink as={ReactRouterLink} to="/">
+            Home
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/courses">
             Courses
@@ -114,8 +114,8 @@ const Navbar = () => {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <VStack alignItems="flex-start">
-              <ChakraLink as={ReactRouterLink} to="/library" onClick={onClose}>
-                Library
+              <ChakraLink as={ReactRouterLink} to="/" onClick={onClose}>
+                Home
               </ChakraLink>
               <ChakraLink as={ReactRouterLink} to="/courses" onClick={onClose}>
                 Courses
