@@ -17,7 +17,6 @@ const Hero = () => {
     <Flex
       w={`full`}
       justifyContent={`space-between`}
-      paddingTop={{ base: "20", md: "58" }}
       flexDir={{ base: "column-reverse", md: "row" }}
       gap={10}
       alignItems="center"

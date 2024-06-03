@@ -141,7 +141,7 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`}>
+      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`} paddingTop={{ base: "25", md: "62" }}>
         <Outlet />
       </Stack>
       <Footer />

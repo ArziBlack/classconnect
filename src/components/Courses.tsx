@@ -1,12 +1,18 @@
-import { VStack, Stack, SimpleGrid, Box } from "@chakra-ui/layout";
+import {
+  VStack,
+  Box,
+  Link as ChakraLink,
+  SimpleGrid,
+  Heading,
+} from "@chakra-ui/layout";
 import SecondaryHero from "./SecondaryHero";
 import { COURSES } from "../constants/illlustrations";
-import LessonCard from "./LessonCard";
-import { data } from "../utils/data";
+import { Outlet, Link as ReactRouterLink } from "react-router-dom";
+import { courseLinks } from "../utils/course";
 
 const Courses = () => {
   return (
-    <VStack pt="100px">
+    <VStack paddingTop={`50px`}>
       <SecondaryHero
         title="Eduvi Courses For All Standards"
         imageUrl={COURSES}
@@ -15,21 +21,36 @@ const Courses = () => {
           { label: "courses", href: "/courses" },
         ]}
       />
-      <Stack>
-      <Box>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="12">
-          {data.map((item, index) => (
-            <LessonCard
-              key={index}
-              image={item.image}
-              title={item.title}
-              description={item.description}
-              bgColor={item.bgColor}
-            />
-          ))}
-        </SimpleGrid>
-      </Box>
-      </Stack>
+      <VStack w="100%" display={`flex`}>
+        <Box py="40px">
+          <SimpleGrid columns={{ base: 4, sm: 5, md: 6, lg: 7 }} spacing={`10`}>
+            {courseLinks.map((item, index) => (
+              <Box
+                key={index}
+                py={`10px`}
+                bg="#fff"
+                px="8px"
+                borderRadius={`5px`}
+                display={`flex`}
+                alignItems={`center`}
+                justifyContent={`center`}
+              >
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to={item.link}
+                  fontWeight={`600`}
+                >
+                  {item.route}
+                </ChakraLink>
+              </Box>
+            ))}
+          </SimpleGrid>
+          <Heading as={`h3`} fontSize={`26px`} pt="35px">Standard Classes</Heading>
+        </Box>
+        <Box>
+          <Outlet />
+        </Box>
+      </VStack>
     </VStack>
   );
 };
