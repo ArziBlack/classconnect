@@ -9,6 +9,7 @@ import {
   Heading,
   ListIcon,
   ListItem,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import CButton from "./Button";
 import { SlClose } from "react-icons/sl";
@@ -70,7 +71,7 @@ const packages: Package[] = [
 ];
 
 const PricingPackages: React.FC = () => {
-  const {} = useSelector((store: IRootState) => store.other);
+  const { fees } = useSelector((store: IRootState) => store.other);
   useEffect(() => {
     getHomePage();
   }, []);
@@ -102,12 +103,12 @@ const PricingPackages: React.FC = () => {
         </Text>
       </Flex>
 
-      <Flex justifyContent="center" flexWrap="wrap" gap={8}>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
         {packages.map((pack) => (
           <Box
             p={6}
             width={"full"}
-            maxW={"370px"}
+            // maxW={"370px"}
             key={pack.name}
             borderWidth="1px"
             borderRadius="lg"
@@ -165,7 +166,7 @@ const PricingPackages: React.FC = () => {
             />
           </Box>
         ))}
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 };

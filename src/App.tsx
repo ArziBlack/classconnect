@@ -1,9 +1,9 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { VStack } from "@chakra-ui/react";
+import "./App.css";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import PricingPackages from "./components/Pricing";
 import Courses from "./components/Courses";
