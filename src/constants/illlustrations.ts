@@ -4,7 +4,8 @@ import video from "../assets/illustrations/video.png";
 import pattern from "../assets/illustrations/Pattern_1.png";
 import college_hero from "../assets/illustrations/college_hero.png";
 import college_pattern from "../assets/illustrations/college_pattern.png";
-import career from "../assets/illustrations/career.png"
+import career from "../assets/illustrations/career.png";
+import courses from "../assets/illustrations/courses.png";
 
 export const Illustrations: object = {
   pricing,
@@ -17,3 +18,4 @@ export const PATTERN = pattern;
 export const COLLEGE_HERO = college_hero;
 export const COLLEGE_PATTERN = college_pattern;
 export const CAREER = career;
+export const COURSES = courses;

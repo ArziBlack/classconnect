@@ -13,7 +13,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   IconButton,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
@@ -43,7 +43,7 @@ const Navbar = () => {
         pos={`fixed`}
         bg={`brand.page`}
         zIndex="1000"
-        maxWidth={`1444px`}
+        maxWidth={`1280px`}
         alignItems={`center`}
         css={{
           background: scrolled
@@ -141,7 +141,7 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }} maxW={`1444px`}>
+      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`}>
         <Outlet />
       </Stack>
       <Footer />
