@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Text,
@@ -14,6 +14,9 @@ import CButton from "./Button";
 import { SlClose } from "react-icons/sl";
 import { PRICE_TAG } from "../constants/icon";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { getHomePage } from "../services/others/otherSlice";
+import { useSelector } from "react-redux";
+import { IRootState } from "../app/store";
 
 interface Package {
   name: string;
@@ -67,6 +70,11 @@ const packages: Package[] = [
 ];
 
 const PricingPackages: React.FC = () => {
+  const {} = useSelector((store: IRootState) => store.other);
+  useEffect(() => {
+    getHomePage();
+  }, []);
+
   return (
     <Box
       px={4}

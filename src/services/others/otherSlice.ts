@@ -3,7 +3,9 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import otherService from "./otherService";
 
 interface OtherState {
-  data: Array<string>;
+  home: Array<string>;
+  fees: Array<string>;
+  tnc: Array<string>;
   error: string;
   message: string;
   isLoading: boolean;
@@ -11,7 +13,9 @@ interface OtherState {
 }
 
 const initialState: OtherState = {
-  data:[],
+  home:[],
+  fees:[],
+  tnc:[],
   error: "",
   message: "",
   isLoading: false,
@@ -46,7 +50,8 @@ const otherSlice = createSlice({
         })
         .addCase(getHomePage.fulfilled, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
-            state.message = action.payload; // Assuming action.payload is a message
+            state.home = action.payload;
+            // state.message = action.payload; // Assuming action.payload is a message
         })
         .addCase(getHomePage.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
@@ -55,8 +60,9 @@ const otherSlice = createSlice({
         .addCase(getTutionFees.pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(getTutionFees.fulfilled, (state) => {
+        .addCase(getTutionFees.fulfilled, (state, action) => {
             state.isLoading = false;
+            state.fees = action.payload;
         })
         .addCase(getTutionFees.rejected, (state, action: PayloadAction<any>) => {
             state.isLoading = false;
