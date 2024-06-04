@@ -18,6 +18,9 @@ import present from '../assets/icons/present.png'
 import price_tag from '../assets/icons/price-tag.png'
 import java from '../assets/icons/java.png'
 import lightbulb from '../assets/icons/lightbulb.png'
+import audio from '../assets/icons/audio.png'
+import live from '../assets/icons/live.png'
+import play from '../assets/icons/play.png'
 
 export const Icons: object = {
     one,
@@ -61,3 +64,6 @@ export const PRICE_TAG = price_tag;
 export const JAVA = java;
 export const LIGHTBULB = lightbulb;
 export const LOGO = logo;
+export const AUDIO = audio;
+export const LIVE = live;
+export const PLAY = play;

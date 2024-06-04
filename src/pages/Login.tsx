@@ -18,11 +18,13 @@ import { AppDispatch, IRootState } from "../app/store.ts";
 import { LOGIN_IMG } from "../constants/image.ts";
 import { LOGO } from "../constants/icon.ts";
 import { login } from "../services/auth/authSlice.ts";
+import { useToast } from "@chakra-ui/react";
 
 const Login = () => {
+  const toast = useToast();
   const dispatch = useDispatch<AppDispatch>();
   // const navigate = useNavigate();
-  const { isLoading, isError, isSuccess } = useSelector(
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (store: IRootState) => store.auth
   );
   const [check, setCheck] = useState<boolean>(false);
@@ -34,10 +36,33 @@ const Login = () => {
   function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     if (userData.email === "" || userData.password === "") {
-      setInputError("Input Fields cannot be blank!!");
+      toast({
+        title: 'Fields cannot be blank',
+        description: "An error occured.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'top',
+      });
       return;
     }
     dispatch(login(userData));
+    isError && toast({
+      title: 'An Error occured',
+      description: `${message}`,
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+      position: 'top'
+    });
+    isSuccess && toast({
+      title: 'Account created.',
+      description: "We've created your account for you.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+      position: 'top'
+    });
   }
   const [userData, setUserData] = useState({
     email: "",
