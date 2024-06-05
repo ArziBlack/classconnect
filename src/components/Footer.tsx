@@ -4,8 +4,9 @@ import {
   HStack,
   Text,
   Flex,
-  Spacer,
   Image,
+  VStack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import Logo from "../assets/icons/Logo.png";
@@ -13,24 +14,25 @@ import { FaFacebook } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
+
 function Footer() {
   return (
-    <Box p={4}>
-      <Flex
-        maxW="1240px"
-        mx="auto"
-        flexWrap="wrap"
-        justifyContent="space-around"
+    <VStack py={4} w={`full`} px={{ base: "4", md: "16" }} maxW={`1280px`}>
+      <SimpleGrid
+        w="100%"
+        alignItems={`start`}
+        justifyItems={`center`}
         h={{ base: "auto", md: "236px" }}
-        gap={4}
         color={"brand.offwhite"}
+        columns={{ base: 1, md: 5 }}
+        spacing={`5`}
       >
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
           justifyContent="center"
         >
-          <Box textAlign={"left"} w={{ base: "100%", md: "167px" }} h="auto">
-            <Flex w="114px" h="30px" gap="1" py="2px">
+          <Box textAlign={"left"} w={{ base: "100%", md: "100%" }} h="auto">
+            <Flex w="100%" h="30px" gap="1" py="2px">
               <Image
                 boxSize="18px"
                 mt="3px"
@@ -54,12 +56,12 @@ function Footer() {
             </Box>
           </Box>
         </HStack>
-        <Spacer />
+        {/* <Spacer /> */}
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
           justifyContent="center"
         >
-          <Box textAlign={"left"} w={{ base: "100%", md: "195px" }} h="auto">
+          <Box textAlign={"left"} w={{ base: "100%", md: "100%" }} h="auto">
             <Heading size="md" color="brand.dark">
               Courses
             </Heading>
@@ -72,12 +74,12 @@ function Footer() {
             </Box>
           </Box>
         </HStack>
-        <Spacer />
+        {/* <Spacer /> */}
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
           justifyContent="center"
         >
-          <Box textAlign={"left"} w={{ base: "100%", md: "125px" }} h="auto">
+          <Box textAlign={"left"} w={{ base: "100%", md: "100%" }} h="auto">
             <Heading size="md" color="brand.dark">
               Community
             </Heading>
@@ -91,12 +93,12 @@ function Footer() {
             </Box>
           </Box>
         </HStack>
-        <Spacer />
+        {/* <Spacer /> */}
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
           justifyContent="center"
         >
-          <Box textAlign={"left"} w={{ base: "100%", md: "173px" }} h="auto">
+          <Box textAlign={"left"} w={{ base: "100%", md: "100%" }} h="auto">
             <Heading size="md" color="brand.dark">
               Quick link
             </Heading>
@@ -110,12 +112,12 @@ function Footer() {
             </Box>
           </Box>
         </HStack>
-        <Spacer />
+        {/* <Spacer /> */}
         <HStack
           flexBasis={{ base: "100%", md: "auto" }}
           justifyContent="center"
         >
-          <Box textAlign={"left"} w={{ base: "100%", md: "70px" }} h="auto">
+          <Box textAlign={"left"} w={{ base: "100%", md: "100%" }} h="auto">
             <Heading size="md" color="brand.dark">
               More
             </Heading>
@@ -129,8 +131,8 @@ function Footer() {
             </Box>
           </Box>
         </HStack>
-      </Flex>
-    </Box>
+      </SimpleGrid>
+    </VStack>
   );
 }
 
