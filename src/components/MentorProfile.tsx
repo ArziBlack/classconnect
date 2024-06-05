@@ -16,6 +16,7 @@ import {
   HStack,
   Link,
   Img,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import {
   FaStar,
@@ -40,16 +41,21 @@ const HeadNav: React.FC = () => (
 
 const UserProfile: React.FC = () => (
   <Box mb={8}>
-    <Flex align="center" p={4} mt={5}>
-      <Image h={170} mt={-40} alt="Kristin Watson" src={kristainwatson} />
-      <Box ml={4}>
+    <Flex align="center" p={4} mt={5} direction={{ base: "column", md: "row" }}>
+      <Image
+        h={170}
+        mt={{ base: 0, md: -40 }}
+        alt="Kristin Watson"
+        src={kristainwatson}
+      />
+      <Box ml={{ base: 0, md: 4 }} mt={{ base: 4, md: 0 }}>
         <Text fontSize="2xl" fontWeight="bold">
           Kristin Watson
         </Text>
         <Text color="gray.500">Founder & Mentor</Text>
       </Box>
       <Spacer />
-      <Box bottom={-7}>
+      <Box mt={{ base: 4, md: 0 }}>
         <Button colorScheme="purple">Contact Now</Button>
       </Box>
     </Flex>
@@ -106,11 +112,9 @@ const Sidebar: React.FC = () => {
   return (
     <Box
       bg="white"
-      w={300}
-      mt={50}
-      right={50}
+      w={{ base: "100%", md: 300 }}
+      mt={{ base: 4, md: 50 }}
       p={4}
-      h={303}
       borderRadius="md"
       boxShadow="md"
     >
@@ -165,20 +169,24 @@ const Sidebar: React.FC = () => {
 };
 
 const MentorProfile: React.FC = () => {
+  const gridTemplateColumns = useBreakpointValue({
+    base: "1fr",
+    md: "3fr 1fr",
+  });
+
   return (
     <ChakraProvider>
       <Box p={4} maxW="1024px" mx="auto">
         <HeadNav />
         <Img
-          as="img"
           src={bg}
           alt="Background"
           w="100%"
-          h="173px"
+          h={{ base: "120px", md: "173px" }}
           objectFit="cover"
           borderRadius={"15px"}
         />
-        <Grid templateColumns="3fr 1fr" gap={6} mt={4}>
+        <Grid templateColumns={gridTemplateColumns} gap={6} mt={4}>
           <Box>
             <UserProfile />
             <UserInfo />
