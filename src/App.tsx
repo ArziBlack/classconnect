@@ -14,6 +14,7 @@ import HighSchool from "./Routes/Home/Courses/HighSchool";
 import Science from "./Routes/Home/Courses/Science";
 import Engineering from "./Routes/Home/Courses/Engineering";
 import Kindergarten from "./Routes/Home/Courses/Kindergarten";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           </Route>
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/reset" element={<ResetPassword />} />
         </Routes>
       </Router>
     </VStack>
