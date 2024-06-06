@@ -17,19 +17,33 @@ import {
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
-import { Outlet, Link as ReactRouterLink } from "react-router-dom";
+import {
+  Outlet,
+  Link as ReactRouterLink,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrolled, setScrolled] = useState(false);
   window.onscroll = () => {
-    setScrolled(window.scrollY === 0 ? false : true)
-    return () => (window.onscroll = null)
+    setScrolled(window.scrollY === 0 ? false : true);
+    return () => (window.onscroll = null);
+  };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const openSignInModal = () => {
+    if (location.pathname !== "/signin") {
+      navigate("/signin");
+    }
   };
 
   return (
-    <VStack height={`100%`} minH={`100vh`} pos={`relative`}>
+    <VStack height={`100%`} pos={`relative`}>
       <HStack
         justifyContent="space-between"
         w="100vw"
@@ -42,7 +56,9 @@ const Navbar = () => {
         bg={`brand.page`}
         zIndex="1000"
         css={{
-            background: scrolled ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)" : ""
+          background: scrolled
+            ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
+            : "",
         }}
       >
         <HStack flex={1}>
@@ -94,14 +110,20 @@ const Navbar = () => {
             <Text>Register</Text>
             <FaUserPlus />
           </HStack>
+
           <HStack>
-            <Text paddingLeft="1.4">Signin</Text>
+            <ChakraLink
+              as={ReactRouterLink}
+              to={location.pathname !== "/signin" && "/signin"}
+            >
+              Signin
+            </ChakraLink>
             <FaUser />
           </HStack>
         </HStack>
       </HStack>
 
-      <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
@@ -135,9 +157,6 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }}>
-        <Outlet />
-      </Stack>
     </VStack>
   );
 };

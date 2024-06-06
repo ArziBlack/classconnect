@@ -1,12 +1,6 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import Button from "./Button"
-import { COLLEGE_HERO } from "../constants/illlustrations";
+import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import Button from "./Button";
+import { COLLEGE_HERO } from "../constants/illustrations";
 
 const CollegeLevel = () => {
   return (
@@ -60,9 +54,15 @@ const CollegeLevel = () => {
           standard-definition. While there is no standardized meaning for
           high-definition, generally any video.
         </Text>
-        <Button text="Register Now"/>
+        <Button text="Register Now" />
       </Box>
-      <Box flex="1" display="flex" justifyContent="flex-end" alignItems="center" marginY={`10px`}>
+      <Box
+        flex="1"
+        display="flex"
+        justifyContent="flex-end"
+        alignItems="center"
+        marginY={`10px`}
+      >
         <Image
           src={COLLEGE_HERO}
           h={{ base: "300px", md: "550px" }}
