@@ -1,5 +1,6 @@
 import auth from "../assets/illustrations/auth.svg";
 import video from "../assets/illustrations/video.png";
+import career from "../assets/illustrations/career.png";
 import pricing from "../assets/illustrations/pricing.svg";
 import pattern from "../assets/illustrations/Pattern_1.png";
 import hero_right from "../assets/illustrations/hero_right.png";
@@ -12,6 +13,7 @@ export const Illustrations: object = {
 
 export const AUTH = auth;
 export const VIDEO = video;
+export const CAREER = career;
 export const PATTERN = pattern;
 export const HERO = hero_right;
 export const PRICING = pricing;
