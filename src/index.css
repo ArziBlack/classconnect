@@ -1,3 +1,7 @@
+#root {
+  margin: 0 auto;
+}
+
 @font-face {
   font-family: Metropolis;
   src: url(assets/fonts/Metropolis/Metropolis-Thin.otf);
@@ -40,15 +44,13 @@
   font-weight: 700;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {

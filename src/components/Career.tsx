@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import Button from "./Button";
-import { CAREER } from "../constants/illlustrations";
+import { CAREER } from "../constants/illustrations";
 
 const Career = () => {
   return (

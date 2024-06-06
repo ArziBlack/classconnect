@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import Button from "./Button";
-import { COLLEGE_HERO } from "../constants/illlustrations";
+import { COLLEGE_HERO } from "../constants/illustrations";
 
 const CollegeLevel = () => {
   return (

@@ -7,10 +7,10 @@ import {
   Input,
   InputGroup,
   Select,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-import { HERO } from "../constants/illlustrations";
+import { HERO } from "../constants/illustrations";
 
 const Hero = () => {
   return (
@@ -71,15 +71,32 @@ const Hero = () => {
             <option value="primary">Primary</option>
             <option value="secondary">Secondary</option>
           </Select>
-          <Input flex={2} outline={`none`} border={`none`} placeholder="Class/Content" mb={{ base: "2", md: "0" }} />
-          <Button bg={`brand.action`} padding={`2px`} flex={1} borderRadius={`9px`}>
+          <Input
+            flex={2}
+            outline={`none`}
+            border={`none`}
+            placeholder="Class/Content"
+            mb={{ base: "2", md: "0" }}
+          />
+          <Button
+            bg={`brand.action`}
+            padding={`2px`}
+            flex={1}
+            borderRadius={`9px`}
+          >
             <FaSearch color="#fff" />
-            <Text color={`white`} paddingLeft={`7px`}>Search</Text>
+            <Text color={`white`} paddingLeft={`7px`}>
+              Search
+            </Text>
           </Button>
         </InputGroup>
       </Box>
       <Box flex="1" display="flex" justifyContent="center" alignItems="center">
-        <Image src={HERO} h={{ base: "300px", md: "550px" }} w={{ base: "300px", md: "550px" }} />
+        <Image
+          src={HERO}
+          h={{ base: "300px", md: "550px" }}
+          w={{ base: "300px", md: "550px" }}
+        />
       </Box>
     </Flex>
   );

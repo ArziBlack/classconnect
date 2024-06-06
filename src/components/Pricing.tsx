@@ -72,18 +72,19 @@ const packages: Package[] = [
 
 const PricingPackages: React.FC = () => {
   const { fees } = useSelector((store: IRootState) => store.other);
+
   useEffect(() => {
     getHomePage();
   }, []);
 
   return (
     <Box
+      pt={12}
       px={4}
-      py={8}
       mx="auto"
       fontWeight={"400"}
       color={"brand.offwhite"}
-      fontFamily={"Metropolis"}
+      maxW="1240px"
     >
       <Flex mx="auto" maxW="840px" flexDir={"column"} mt={4}>
         <Heading

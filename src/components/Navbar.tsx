@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   HStack,
-  Stack,
   Image,
   Text,
   Link as ChakraLink,
@@ -17,9 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
-import { Outlet, Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, useLocation } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
-import Footer from "./Footer";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,8 +27,16 @@ const Navbar = () => {
     return () => (window.onscroll = null);
   };
 
+  const location = useLocation();
+
+  // const openSignInModal = () => {
+  //   if (location.pathname !== "/signin") {
+  //     navigate("/signin");
+  //   }
+  // };
+
   return (
-    <VStack height={`100%`} minH={`100vh`} pos={`relative`} w="100%">
+    <VStack height={`100%`} pos={`relative`}>
       <HStack
         justifyContent="space-between"
         w="100vw"
@@ -100,8 +106,14 @@ const Navbar = () => {
             <Text>Register</Text>
             <FaUserPlus />
           </HStack>
+
           <HStack>
-            <Text paddingLeft="1.4">Signin</Text>
+            <ChakraLink
+              as={ReactRouterLink}
+              to={location.pathname !== "/signin" ? "/signin" : "/"}
+            >
+              Signin
+            </ChakraLink>
             <FaUser />
           </HStack>
         </HStack>
@@ -141,10 +153,6 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`} paddingTop={{ base: "25", md: "62" }}>
-        <Outlet />
-      </Stack>
-      <Footer />
     </VStack>
   );
 };
