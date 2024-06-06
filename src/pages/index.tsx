@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Box, useDisclosure } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import SignInModal from "./Login";
+import Footer from "../components/Footer";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Layout = () => {
       <Box as="main" px={{ base: "4", md: "16" }}>
         <Outlet />
       </Box>
+      <Footer />
       <SignInModal isOpen={isOpen} onClose={closeModal} />
     </>
   );

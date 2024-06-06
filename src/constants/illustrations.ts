@@ -16,6 +16,7 @@ export const AUTH = auth;
 export const VIDEO = video;
 export const CAREER = career;
 export const PATTERN = pattern;
+export const COURSES = courses;
 export const HERO = hero_right;
 export const PRICING = pricing;
 export const COLLEGE_HERO = college_hero;

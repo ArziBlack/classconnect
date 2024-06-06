@@ -72,6 +72,7 @@ const packages: Package[] = [
 
 const PricingPackages: React.FC = () => {
   const { fees } = useSelector((store: IRootState) => store.other);
+
   useEffect(() => {
     getHomePage();
   }, []);

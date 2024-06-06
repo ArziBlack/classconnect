@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   HStack,
-  Stack,
   Image,
   Text,
   Link as ChakraLink,
@@ -17,14 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
-import {
-  Outlet,
-  Link as ReactRouterLink,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link as ReactRouterLink, useLocation } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
-import Footer from "./Footer";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,14 +27,13 @@ const Navbar = () => {
     return () => (window.onscroll = null);
   };
 
-  const navigate = useNavigate();
   const location = useLocation();
 
-  const openSignInModal = () => {
-    if (location.pathname !== "/signin") {
-      navigate("/signin");
-    }
-  };
+  // const openSignInModal = () => {
+  //   if (location.pathname !== "/signin") {
+  //     navigate("/signin");
+  //   }
+  // };
 
   return (
     <VStack height={`100%`} pos={`relative`}>
@@ -60,9 +52,6 @@ const Navbar = () => {
         maxWidth={`1280px`}
         alignItems={`center`}
         css={{
-          background: scrolled
-            ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
-            : "",
           background: scrolled
             ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
             : "",
@@ -121,7 +110,7 @@ const Navbar = () => {
           <HStack>
             <ChakraLink
               as={ReactRouterLink}
-              to={location.pathname !== "/signin" && "/signin"}
+              to={location.pathname !== "/signin" ? "/signin" : "/"}
             >
               Signin
             </ChakraLink>
@@ -130,7 +119,6 @@ const Navbar = () => {
         </HStack>
       </HStack>
 
-      <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
@@ -165,10 +153,6 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`} paddingTop={{ base: "25", md: "62" }}>
-        <Outlet />
-      </Stack>
-      <Footer />
     </VStack>
   );
 };

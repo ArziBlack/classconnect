@@ -6,9 +6,9 @@ import {
   Heading,
 } from "@chakra-ui/layout";
 import SecondaryHero from "./SecondaryHero";
-import { COURSES } from "../constants/illlustrations";
 import { Outlet, Link as ReactRouterLink } from "react-router-dom";
 import { courseLinks } from "../utils/course";
+import { COURSES } from "../constants/illustrations";
 
 const Courses = () => {
   return (
@@ -45,7 +45,9 @@ const Courses = () => {
               </Box>
             ))}
           </SimpleGrid>
-          <Heading as={`h3`} fontSize={`26px`} pt="35px">Standard Classes</Heading>
+          <Heading as={`h3`} fontSize={`26px`} pt="35px">
+            Standard Classes
+          </Heading>
         </Box>
         <Box>
           <Outlet />
