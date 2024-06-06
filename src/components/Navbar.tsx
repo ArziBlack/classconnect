@@ -24,6 +24,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
+import Footer from "./Footer";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,16 +48,21 @@ const Navbar = () => {
       <HStack
         justifyContent="space-between"
         w="100vw"
+        height={`80px`}
         paddingTop="2"
-        paddingBottom="2"
-        paddingX={{ base: "4", md: "12" }}
+        paddingBottom="4"
+        px={{ base: "4", md: "16" }}
         // paddingY={`4px`}
         gap={10}
         pos={`fixed`}
         bg={`brand.page`}
         zIndex="1000"
-        maxWidth={`1444px`}
+        maxWidth={`1280px`}
+        alignItems={`center`}
         css={{
+          background: scrolled
+            ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
+            : "",
           background: scrolled
             ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
             : "",
@@ -84,8 +90,8 @@ const Navbar = () => {
           paddingX={`55px`}
           display={{ base: "none", md: "flex" }}
         >
-          <ChakraLink as={ReactRouterLink} to="/library">
-            Library
+          <ChakraLink as={ReactRouterLink} to="/">
+            Home
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/courses">
             Courses
@@ -125,14 +131,15 @@ const Navbar = () => {
       </HStack>
 
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <VStack alignItems="flex-start">
-              <ChakraLink as={ReactRouterLink} to="/library" onClick={onClose}>
-                Library
+              <ChakraLink as={ReactRouterLink} to="/" onClick={onClose}>
+                Home
               </ChakraLink>
               <ChakraLink as={ReactRouterLink} to="/courses" onClick={onClose}>
                 Courses
@@ -158,9 +165,10 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Stack px={{ base: "4", md: "16" }} maxW={`1444px`}>
+      <Stack px={{ base: "4", md: "16" }} maxW={`1280px`} paddingTop={{ base: "25", md: "62" }}>
         <Outlet />
       </Stack>
+      <Footer />
     </VStack>
   );
 };

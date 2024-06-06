@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Text,
@@ -9,11 +9,15 @@ import {
   Heading,
   ListIcon,
   ListItem,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import CButton from "./Button";
 import { SlClose } from "react-icons/sl";
 import { PRICE_TAG } from "../constants/icon";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { getHomePage } from "../services/others/otherSlice";
+import { useSelector } from "react-redux";
+import { IRootState } from "../app/store";
 
 interface Package {
   name: string;
@@ -67,6 +71,11 @@ const packages: Package[] = [
 ];
 
 const PricingPackages: React.FC = () => {
+  const { fees } = useSelector((store: IRootState) => store.other);
+  useEffect(() => {
+    getHomePage();
+  }, []);
+
   return (
     <Box
       pt={12}
@@ -94,12 +103,12 @@ const PricingPackages: React.FC = () => {
         </Text>
       </Flex>
 
-      <Flex justifyContent="center" flexWrap="wrap" gap={8} maxW="1240px">
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
         {packages.map((pack) => (
           <Box
             p={6}
             width={"full"}
-            maxW={"370px"}
+            // maxW={"370px"}
             key={pack.name}
             borderWidth="1px"
             borderRadius="lg"
@@ -157,7 +166,7 @@ const PricingPackages: React.FC = () => {
             />
           </Box>
         ))}
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 };

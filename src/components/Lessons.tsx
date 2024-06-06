@@ -5,6 +5,7 @@ import Description from "./Description";
 import Button from "./Button";
 import LessonCard from "./LessonCard";
 import { data } from "../utils/data";
+
 const Lessons = () => {
 return (
     <VStack paddingY="40px">
