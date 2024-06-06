@@ -1,3 +1,22 @@
+
+import Footer from "./components/Footer";
+import MentorProfile from "./components/MentorProfile";
+import NewsletterSection from "./components/NewsletterSection";
+import ApplyInstructor from "./components/ApplyInstructor";
+import CustomComponent from "./components/CustomComponent";
+
+function App() {
+  return (
+    <div>
+       <ApplyInstructor />
+      <CustomComponent />
+     <NewsletterSection />
+      <MentorProfile />
+      <Footer />
+    </div>
+  );
+}
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { VStack } from "@chakra-ui/react";
 import "./App.css";
@@ -46,5 +65,6 @@ function App() {
     </VStack>
   );
 }
+
 
 export default App;
