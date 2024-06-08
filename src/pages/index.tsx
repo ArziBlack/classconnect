@@ -47,7 +47,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <Box as="main" px={{ base: "4", md: "16" }}>
+      <Box as="main" px={{ base: "4", md: "16" }} maxWidth={`1280px`}>
         <Outlet />
       </Box>
       <Footer />

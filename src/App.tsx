@@ -1,7 +1,7 @@
 import "./App.css";
 import { VStack } from "@chakra-ui/react";
 import Layout from "./pages/index";
-import PricingPackages from "./components/Pricing";
+// import PricingPackages from "./components/PricingPackages";
 import Courses from "./components/Courses";
 import AllCourses from "./Routes/Home/Courses/Index";
 import College from "./Routes/Home/Courses/College";
@@ -15,6 +15,7 @@ import ResetPassword from "./components/ResetPassword";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Pricing from "./pages/Pricing";
 function App() {
   return (
     <VStack backgroundColor="brand.page" height="full" fontFamily="Metropolis">
@@ -22,9 +23,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="signin" element={null} />
-            <Route path="register" element={null} />
-            <Route path="pricing" element={<PricingPackages />} />
+            <Route path="signin" element={<Home />} />
+            <Route path="register" element={<Home />} />
+            <Route path="pricing" element={<Pricing />} />
             <Route path="courses" element={<Courses />}>
               <Route index element={<AllCourses />} />
               <Route path="kindergarten" element={<Kindergarten />} />
@@ -35,8 +36,8 @@ function App() {
               <Route path="engineering" element={<Engineering />} />
             </Route>
             <Route path="signup" element={<SignUp />} />
-            <Route path="reset" element={<ResetPassword />} />
           </Route>
+          <Route path="reset" element={<ResetPassword />} />
         </Routes>
       </Router>
     </VStack>
