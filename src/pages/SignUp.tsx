@@ -1,6 +1,6 @@
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
-import { Flex, Heading } from '@chakra-ui/layout';
+import { Flex, Heading } from "@chakra-ui/layout";
 import PageFinal from "../components/Signup/PageFinal";
 import PageOne from "../components/Signup/PageOne";
 import PageTwo from "../components/Signup/PageTwo";
@@ -8,6 +8,7 @@ import MultistepProgressBar from "../components/MultistepProgressBar";
 import { SIGN_UP } from "../constants/image";
 import { LOGO } from "../constants/icon";
 import { ChangeEvent, useState } from "react";
+import PageA from "../components/Signup/PageA";
 
 const SignUp = () => {
   const { log } = console;
@@ -25,6 +26,9 @@ const SignUp = () => {
         break;
       case "3":
         setPage("pagethree");
+        break;
+      case "4":
+        setPage("pagefour");
         break;
       default:
         setPage("pageone");
@@ -48,8 +52,8 @@ const SignUp = () => {
   };
   log(formData);
   return (
-    <Box bg="white" color="black" overflow="hidden" >
-      <Flex w="100vw" p='24px' h='100vh'>
+    <Box bg="white" color="black" overflow="hidden">
+      <Flex w="100vw" p="24px" h="100vh">
         <Flex flex="1" flexDir="column" justifyContent="center">
           <Box
             padding="60px"
@@ -88,13 +92,20 @@ const SignUp = () => {
                     />
                   ),
                   pagetwo: (
+                    <PageA
+                      onClick={nextPage}
+                      onChange={onChange}
+                      data={formData}
+                    />
+                  ),
+                  pagethree: (
                     <PageTwo
                       onClick={nextPage}
                       onChange={onChange}
                       data={formData}
                     />
                   ),
-                  pagethree: <PageFinal onChange={onChange} data={formData} />,
+                  pagefour: <PageFinal onChange={onChange} data={formData} />,
                 }[page]
               }
             </Box>
@@ -107,7 +118,13 @@ const SignUp = () => {
           </Box>
         </Flex>
         <Box flex="2" bgImage={SIGN_UP} bgSize="cover" borderRadius="60px">
-          <Box h="100%" w="100%" borderRadius="60px" padding="20px"  bgGradient="linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))">
+          <Box
+            h="100%"
+            w="100%"
+            borderRadius="60px"
+            padding="20px"
+            bgGradient="linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))"
+          >
             <Box
               p="20px"
               display="flex"
