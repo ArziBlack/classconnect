@@ -1,6 +1,6 @@
 import { VStack, Heading, HStack } from "@chakra-ui/layout";
 import { Text, Box, Image } from "@chakra-ui/react";
-import { PATTERN, VIDEO } from "../constants/illlustrations";
+import { PATTERN, VIDEO } from "../constants/illustrations";
 import { AUDIO, LIVE, PLAY } from "../constants/icon";
 import Button from "./Button";
 
@@ -53,13 +53,20 @@ const Classes = () => {
         <HStack
           justifyContent={`space-between`}
           w={{ base: "90%", md: "60%" }}
-          pos={{base: "relative", md:"absolute"}}
+          pos={{ base: "relative", md: "absolute" }}
           bottom={{ base: "20px", md: "75px" }}
           flexDir={{ base: "column", md: "row" }}
           gap={{ base: "10px", md: "10%" }}
-        //   gridColumn={`3 repeat`}
+          //   gridColumn={`3 repeat`}
         >
-          <HStack padding="2" bg="white" borderRadius="5px" paddingX="3" width={{base:"full", md:""}} justifyContent={`space-between`}>
+          <HStack
+            padding="2"
+            bg="white"
+            borderRadius="5px"
+            paddingX="3"
+            width={{ base: "full", md: "" }}
+            justifyContent={`space-between`}
+          >
             <Image
               src={AUDIO}
               padding="5px"
@@ -68,7 +75,14 @@ const Classes = () => {
             />
             <Text fontWeight="600">Audio Classes</Text>
           </HStack>
-          <HStack padding="2" bg="white" borderRadius="5px" paddingX="3" width={{base:"full", md:""}} justifyContent={`space-between`}>
+          <HStack
+            padding="2"
+            bg="white"
+            borderRadius="5px"
+            paddingX="3"
+            width={{ base: "full", md: "" }}
+            justifyContent={`space-between`}
+          >
             <Image
               src={LIVE}
               padding="5px"
@@ -77,7 +91,14 @@ const Classes = () => {
             />
             <Text fontWeight="600">Live Classes</Text>
           </HStack>
-          <HStack padding="2" bg="white" borderRadius="5px" paddingX="3" width={{base:"full", md:""}} justifyContent={`space-between`}>
+          <HStack
+            padding="2"
+            bg="white"
+            borderRadius="5px"
+            paddingX="3"
+            width={{ base: "full", md: "" }}
+            justifyContent={`space-between`}
+          >
             <Image
               src={PLAY}
               padding="5px"
