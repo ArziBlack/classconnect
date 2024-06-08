@@ -87,7 +87,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
             <Box
               h="100%"
               maxH="610px"
-              p={{ base: "20px", md: "60px" }}
+              p={{ base: "20px", md: "" }}
               overflow="hidden"
               fontFamily="Metropolis"
             >
