@@ -4,12 +4,14 @@ import {
   FormControl,
   FormLabel,
   Select,
+  Text,
   Checkbox,
   Button,
 } from "@chakra-ui/react";
-import Select1 from 'react-select';
+import Select1 from "react-select";
 import { useDispatch } from "react-redux";
 import { SignupProps } from "../../typings/home";
+import CButton from "../Button";
 
 const PageFinal = ({ onChange, data }: SignupProps) => {
   const dispatch = useDispatch();
@@ -45,8 +47,10 @@ const PageFinal = ({ onChange, data }: SignupProps) => {
           <Select1
             options={countries}
             value={selectedCountry}
-            onChange={(selectedOption:object) => setSelectedCountry(selectedOption)}>
-          </Select1>
+            onChange={(selectedOption: object) =>
+              setSelectedCountry(selectedOption)
+            }
+          ></Select1>
         </FormControl>
       </Box>
       <Box w="100%" mb={6}>
@@ -59,7 +63,7 @@ const PageFinal = ({ onChange, data }: SignupProps) => {
           <option value="Finance Officer">Finance Officer</option>
         </Select>
       </Box>
-      <Box w="100%" mb={8}>
+      <Box w="100%" mb={6}>
         <FormLabel fontWeight="bold" fontSize="15px">
           How did you discover Tensfer?
         </FormLabel>
@@ -70,26 +74,25 @@ const PageFinal = ({ onChange, data }: SignupProps) => {
           <option value="others">Others</option>
         </Select>
       </Box>
-      <Box display="flex" mb={6}>
-        <Checkbox mt={-4} defaultChecked onChange={handleCheckBox}></Checkbox>
-        <h4 className="text-[14px] ml-2">
+      <Box display="flex" mb={6} gap={2}>
+        <Checkbox defaultChecked onChange={handleCheckBox}></Checkbox>
+        <Text fontSize="14px">
           By creating an account, you agree to our{" "}
-          <span className="font-semibold">
+          <Text
+            display={"inline-block"}
+            cursor={"pointer"}
+            _hover={{ color: "brand.action" }}
+          >
             Terms & Conditions and Privacy Policy
-          </span>
-        </h4>
+          </Text>
+        </Text>
       </Box>
-      <Button
+      <CButton
         type="submit"
-        borderRadius="md"
-        color="white"
-        bg="#002C8A"
-        _hover={{ bg: "#002C6A" }}
-        width="320px"
+        text="Register"
+        width="full"
         isDisabled={check ? false : true}
-      >
-        Register
-      </Button>
+      />
     </>
   );
 };

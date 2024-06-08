@@ -4,22 +4,44 @@ import { Box, useDisclosure } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import SignInModal from "./Login";
 import Footer from "../components/Footer";
+import RegisterModal from "./Register";
 
 const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isSignInOpen,
+    onOpen: onSignInOpen,
+    onClose: onSignInClose,
+  } = useDisclosure();
+  const {
+    isOpen: isRegisterOpen,
+    onOpen: onRegisterOpen,
+    onClose: onRegisterClose,
+  } = useDisclosure();
 
   React.useEffect(() => {
     if (location.pathname === "/signin") {
-      onOpen();
+      onSignInOpen();
     } else {
-      onClose();
+      onSignInClose();
     }
-  }, [location, onOpen, onClose]);
 
-  const closeModal = () => {
+    if (location.pathname === "/register") {
+      onRegisterOpen();
+    } else {
+      onRegisterClose();
+    }
+  }, [location, onSignInOpen, onSignInClose, onRegisterOpen, onRegisterClose]);
+
+  const closeSignInModal = () => {
     navigate(-1);
+    onSignInClose();
+  };
+
+  const closeRegisterModal = () => {
+    navigate(-1);
+    onRegisterClose();
   };
 
   return (
@@ -29,7 +51,8 @@ const Layout = () => {
         <Outlet />
       </Box>
       <Footer />
-      <SignInModal isOpen={isOpen} onClose={closeModal} />
+      <SignInModal isOpen={isSignInOpen} onClose={closeSignInModal} />
+      <RegisterModal isOpen={isRegisterOpen} onClose={closeRegisterModal} />
     </>
   );
 };

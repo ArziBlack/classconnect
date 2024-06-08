@@ -1,5 +1,7 @@
+import { ChangeEvent } from "react";
+
 export interface SignupProps {
-    onClick: () => string;
-    onChange: () => void;
-    data: object;
+  onClick: () => string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  data: object;
 }
