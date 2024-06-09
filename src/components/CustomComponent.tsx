@@ -10,8 +10,27 @@ import {
 import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
 import Pattern from "../assets/images/Pattern.png";
 
+type YTPlayer = {
+  playVideo: () => void;
+  pauseVideo: () => void;
+  getCurrentTime: () => number;
+  seekTo: (seconds: number, allowSeekAhead?: boolean) => void;
+};
+
+declare global {
+  interface Window {
+    YT: {
+      Player: new (elementId: string, options: YT.PlayerOptions) => YTPlayer;
+      PlayerState: {
+        PLAYING: number;
+      };
+    };
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
 const CustomComponent: React.FC = () => {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -22,8 +41,8 @@ const CustomComponent: React.FC = () => {
     firstScriptTag?.parentNode?.insertBefore(tag, firstScriptTag);
 
     // Replace 'your-video-id' with the actual video ID
-    (window as any).onYouTubeIframeAPIReady = () => {
-      playerRef.current = new (window as any).YT.Player("youtube-player", {
+    window.onYouTubeIframeAPIReady = () => {
+      playerRef.current = new window.YT.Player("youtube-player", {
         videoId: "fBUfJFcxjiM", // Replace with your video URL
         events: {
           onReady: onPlayerReady,
@@ -33,12 +52,12 @@ const CustomComponent: React.FC = () => {
     };
   }, []);
 
-  const onPlayerReady = (event: any) => {
-    // Player is ready
+  const onPlayerReady = () => {
+    // This function can be extended to handle player ready state
   };
 
-  const onPlayerStateChange = (event: any) => {
-    if (event.data === (window as any).YT.PlayerState.PLAYING) {
+  const onPlayerStateChange = (event: { data: number }) => {
+    if (event.data === window.YT.PlayerState.PLAYING) {
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
@@ -47,20 +66,20 @@ const CustomComponent: React.FC = () => {
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      playerRef.current.pauseVideo();
+      playerRef.current?.pauseVideo();
     } else {
-      playerRef.current.playVideo();
+      playerRef.current?.playVideo();
     }
   };
 
   const handleNext = () => {
-    const currentTime = playerRef.current.getCurrentTime();
-    playerRef.current.seekTo(currentTime + 10);
+    const currentTime = playerRef.current?.getCurrentTime() ?? 0;
+    playerRef.current?.seekTo(currentTime + 10);
   };
 
   const handlePrevious = () => {
-    const currentTime = playerRef.current.getCurrentTime();
-    playerRef.current.seekTo(currentTime - 10);
+    const currentTime = playerRef.current?.getCurrentTime() ?? 0;
+    playerRef.current?.seekTo(currentTime - 10);
   };
 
   return (

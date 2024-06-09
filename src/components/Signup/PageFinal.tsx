@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { SignupProps } from "../../typings/home";
 import CButton from "../Button";
 
-const PageFinal = ({ onChange, data }: SignupProps) => {
+const PageFinal = (props: SignupProps) => {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<object>({});

@@ -4,7 +4,6 @@ import {
   Flex,
   Text,
   Heading,
-  //   Button,
   Tabs,
   TabList,
   TabIndicator,
@@ -16,6 +15,7 @@ import {
   ListIcon,
   Image,
   useTab,
+  UseTabProps,
 } from "@chakra-ui/react";
 import { PiCircleFill } from "react-icons/pi";
 import applyInstructor from "../assets/icons/applyInstructor.png";
@@ -23,7 +23,7 @@ import Button from "./Button";
 
 const ApplyInstructor: React.FC = () => {
   const CustomTab: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const tabProps = useTab("");
+    const tabProps = useTab() as UseTabProps;
 
     return (
       <Tab
@@ -85,7 +85,7 @@ const ApplyInstructor: React.FC = () => {
                 </ListItem>
                 <ListItem>
                   <ListIcon as={PiCircleFill} color="red.500" />
-                  Purse graduate studies
+                  Pursue graduate studies
                 </ListItem>
               </List>
             </TabPanel>

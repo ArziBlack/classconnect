@@ -1,5 +1,4 @@
 import { SimpleGrid } from '@chakra-ui/layout'
-import React from 'react'
 import { data } from '../../../utils/data'
 import LessonCard from '../../../components/LessonCard'
 
