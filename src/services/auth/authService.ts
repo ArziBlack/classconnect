@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://hep-coding.onrender.com";
+const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 
 // Register User or Student
 

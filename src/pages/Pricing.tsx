@@ -2,9 +2,9 @@ import { Box } from "@chakra-ui/react";
 import PricingPackages from "../components/PricingPackages.tsx";
 import { PRICING } from "../constants/illustrations";
 import SecondaryHero from "../components/SecondaryHero";
-import { IRootState } from "../app/store";
+import { AppDispatch, IRootState } from "../app/store";
 import { getHomePage, getTutionFees } from "../services/others/otherSlice.ts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Pricing = () => {
@@ -12,13 +12,16 @@ const Pricing = () => {
     { label: "Home", href: "/" },
     { label: "Pricing", href: "/pricing" },
   ];
+
+  const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
-    getHomePage();
-    getTutionFees();
+    dispatch(getHomePage());
+    dispatch(getTutionFees());
   }, []);
+
   const { fees, home, isLoading } = useSelector((store: IRootState) => store.other);
   console.log(fees);
-  console.log("hi");
   console.log(home);
   console.log(isLoading);
   return (

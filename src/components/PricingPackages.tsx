@@ -76,7 +76,6 @@ interface IPricing {
 }
 
 const PricingPackages: React.FC<IPricing> = ({ isLoading }) => {
-  console.log(isLoading);
   
   return (
     <Box
@@ -106,8 +105,8 @@ const PricingPackages: React.FC<IPricing> = ({ isLoading }) => {
       </Flex>
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-        {packages.map((pack) => (
-          <Skeleton isLoaded={!isLoading} borderRadius={`18px`}>
+        {packages.map((pack, idx) => (
+          <Skeleton isLoaded={isLoading} borderRadius={`18px`} key={idx}>
             <Box
               p={6}
               width={"full"}

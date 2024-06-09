@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import otherService from "./otherService.ts";
+import axios from "axios";
+
+const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
 interface IFees {
   statusCode: number;
@@ -35,7 +38,7 @@ interface OtherState {
   home: IWelcomeMsg | null;
   fees: IFees | null;
   tnc: string;
-  error: string;
+  error: string | null;
   message: string;
   isLoading: boolean;
   isSuccess: boolean;
@@ -45,42 +48,69 @@ const initialState: OtherState = {
   home: null,
   fees: null,
   tnc: "",
-  error: "",
+  error: null,
   message: "",
   isLoading: false,
   isSuccess: false,
 };
 
-export const getHomePage = createAsyncThunk("other/welcome", async () => {
-  return await otherService.getHomePage().catch((error) => console.log(error));
-});
+export const getHomePage = createAsyncThunk(
+  "other/welcome",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getHomePage();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
-export const getTnC_Policy = createAsyncThunk("other/policy", async () => {
-  return await otherService
-    .getTnC_Policy()
-    .catch((error) => console.log(error));
-});
+export const getTnC_Policy = createAsyncThunk(
+  "other/policy",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/getAllTuitionFees`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
-export const getTutionFees = createAsyncThunk("other/fees", async () => {
-  return await otherService
-    .getTutionFees()
-    .catch((error) => console.log(error));
-});
+export const getTutionFees = createAsyncThunk(
+  "other/fees",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getTutionFees();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const otherSlice = createSlice({
   name: "other",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      (state.isLoading = false),
+        (state.isSuccess = false),
+        (state.error = ""),
+        (state.message = "");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getHomePage.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getHomePage.fulfilled, (state, action: PayloadAction<IWelcomeMsg>) => {
-        state.isLoading = false;
-        state.home = action.payload;
-        // state.message = action.payload; // Assuming action.payload is a message
-      })
+      .addCase(
+        getHomePage.fulfilled,
+        (state, action: PayloadAction<IWelcomeMsg>) => {
+          state.isLoading = false;
+          state.home = action.payload;
+        }
+      )
       .addCase(getHomePage.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
@@ -102,10 +132,13 @@ const otherSlice = createSlice({
       .addCase(getTnC_Policy.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getTnC_Policy.fulfilled, (state, action: PayloadAction<string>) => {
-        state.isLoading = false;
-        state.tnc = action.payload
-      })
+      .addCase(
+        getTnC_Policy.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.tnc = action.payload;
+        }
+      )
       .addCase(getTnC_Policy.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
@@ -113,4 +146,5 @@ const otherSlice = createSlice({
   },
 });
 
+export const { reset } = otherSlice.actions;
 export default otherSlice.reducer;

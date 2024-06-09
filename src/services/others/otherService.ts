@@ -8,15 +8,16 @@ const getHomePage = async () => {
     return response.data;
 }
 
-// Get Tution Fees Packages
+// Get Tuition Fees Packages
 const getTutionFees = async () => {
-    const response = await axios.get(API_BASE_URL + '/getAllTuitionFees');
+    const response = await axios.get(`${API_BASE_URL}/getAllTuitionFees`);
+    console.log(response.data);
     return response.data;
 }
 
 // Get Terms, Condition and Privacy Policy
 const getTnC_Policy = async () => {
-    const response = await axios.get(API_BASE_URL + '/agreement');
+    const response = await axios.get(`${API_BASE_URL}/agreement`);
     return response.data;
 }
 
