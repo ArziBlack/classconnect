@@ -5,8 +5,7 @@ import {
   FormLabel,
   Select,
   Text,
-  Checkbox,
-  Button,
+  Checkbox
 } from "@chakra-ui/react";
 import Select1 from "react-select";
 import { useDispatch } from "react-redux";

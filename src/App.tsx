@@ -1,7 +1,6 @@
 import "./App.css";
 import { VStack } from "@chakra-ui/react";
 import Layout from "./pages/index";
-// import PricingPackages from "./components/PricingPackages";
 import Courses from "./components/Courses";
 import AllCourses from "./Routes/Home/Courses/Index";
 import College from "./Routes/Home/Courses/College";
@@ -16,6 +15,8 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Pricing from "./pages/Pricing";
+import VerifyAccount from "./pages/VerifyEmail";
+import NotFound from "./pages/NotFound";
 function App() {
   return (
     <VStack backgroundColor="brand.page" height="full" fontFamily="Metropolis">
@@ -38,6 +39,8 @@ function App() {
             <Route path="signup" element={<SignUp />} />
           </Route>
           <Route path="reset" element={<ResetPassword />} />
+          <Route path="verify" element={<VerifyAccount />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
     </VStack>

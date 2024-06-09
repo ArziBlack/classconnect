@@ -14,7 +14,6 @@ import PageFinal from "../components/Signup/PageFinal";
 import PageOne from "../components/Signup/PageOne";
 import PageTwo from "../components/Signup/PageTwo";
 import MultistepProgressBar from "../components/MultistepProgressBar";
-import { LOGO } from "../constants/icon";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA.tsx";
 
