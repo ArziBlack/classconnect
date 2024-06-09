@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import {
   Box,
@@ -15,16 +14,15 @@ import {
   ListItem,
   ListIcon,
   Image,
-  useTab,
-  UseTabProps,
+  useTab
 } from "@chakra-ui/react";
 import { PiCircleFill } from "react-icons/pi";
 import applyInstructor from "../assets/icons/applyInstructor.png";
 import Button from "./Button";
 
-const ApplyInstructor: React.FC = () => {
-  const CustomTab: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const tabProps = useTab() as UseTabProps;
+const ApplyInstructor= () => {
+  const CustomTab = ({ children }) => {
+    const tabProps = useTab();
 
     return (
       <Tab

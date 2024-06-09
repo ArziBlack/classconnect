@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { PRICING } from "../constants/illustrations.ts";
 import SecondaryHero from "../components/SecondaryHero.tsx";
-import ApplyInstructor from "../components/ApplyInstructor.tsx";
+import ApplyInstructor from "../components/ApplyInstructor.jsx";
 import CustomComponent from "../components/CustomComponent.tsx";
 
 const Tutor = () => {
