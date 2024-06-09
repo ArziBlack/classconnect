@@ -1,7 +1,6 @@
 // PrivacyP.tsx
 import React from "react";
 import SecondaryHero from "../components/SecondaryHero";
-import Footer from "../components/Footer";
 import { PRIVACY_P_ILLUSTRATION } from "../constants/illustrations";
 
 // Define the PrivacyP component
