@@ -1,8 +1,9 @@
 import CButton from "../Button";
 import { Box, FormControl, FormLabel } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Select1, { SingleValue } from "react-select";
 import { states, genders } from "../../typings/states";
+import { IGuardian, IStudent } from "../../typings/signup";
 
 // Define the type for the option objects used in react-select
 interface SelectOption {
@@ -13,6 +14,8 @@ interface SelectOption {
 // Define the type for the props
 interface PageAProps {
   onClick: (page: string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  data: IGuardian | IStudent;
 }
 
 const PageA: React.FC<PageAProps> = ({ onClick }) => {
