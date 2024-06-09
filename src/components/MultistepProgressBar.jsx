@@ -1,13 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-import { ProgressBar, ProgressBarProps, Step } from "react-step-progress-bar";
+import { ProgressBar, Step } from "react-step-progress-bar";
 import "../styles/Progressbar.css";
-import { IMultistepProgressBarProps } from "../typings/signup";
+// import { IMultistepProgressBarProps } from "../typings/signup";
 
-const MultistepProgressBar: React.FC<IMultistepProgressBarProps> = ({
+const MultistepProgressBar = ({
   page,
   onPageIndexClick,
 }) => {
-  let stepPercentage: number = 0;
+  let stepPercentage = 0;
 
   switch (page) {
     case "pageone":
@@ -28,10 +28,10 @@ const MultistepProgressBar: React.FC<IMultistepProgressBarProps> = ({
   }
 
   return (
-    <ProgressBar percent={stepPercentage} {...({} as ProgressBarProps)}>
+    <ProgressBar percent={stepPercentage}>
       {["1", "2", "3", "4"].map((pageIndex, index) => (
         <Step key={index} transition="scale">
-          {({ accomplished }: { accomplished: boolean }) => (
+          {({ accomplished }) => (
             <div
               className={`indexedStep ${accomplished ? "accomplished" : ""}`}
               onClick={() => onPageIndexClick(pageIndex)}
