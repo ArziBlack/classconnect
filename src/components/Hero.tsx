@@ -1,12 +1,10 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Image,
   Input,
   InputGroup,
-  Select,
   Text,
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
@@ -87,7 +85,6 @@ const Hero = () => {
             padding={`2px`}
             bg={`brand.action`}
             borderRadius={`9px`}
-            w={{}}
           />
         </InputGroup>
       </Box>

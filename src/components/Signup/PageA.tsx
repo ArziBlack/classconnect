@@ -1,22 +1,28 @@
 import CButton from "../Button";
 import { Box, FormControl, FormLabel } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Select1 from "react-select";
-import { FaRegUser } from "react-icons/fa6";
+import Select1, { SingleValue } from "react-select";
 import { states, genders } from "../../typings/states";
 
-// import { SignupProps } from '../../typings/home'
+// Define the type for the option objects used in react-select
+interface SelectOption {
+  value: string;
+  label: string;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PageA = ({ data, onChange, onClick }: any) => {
-  const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState<object>({});
+// Define the type for the props
+interface PageAProps {
+  onClick: (page: string) => void;
+}
 
-  const [selectedState, setSelectedState] = useState<object>({
+const PageA: React.FC<PageAProps> = ({ onClick }) => {
+  const [countries, setCountries] = useState<SelectOption[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<SelectOption | null>(null);
+  const [selectedState, setSelectedState] = useState<SelectOption>({
     value: "abia",
     label: "Abia",
   });
-  const [selectedGender, setSelectedGender] = useState<object>({
+  const [selectedGender, setSelectedGender] = useState<SelectOption>({
     value: "male",
     label: "Male",
   });
@@ -42,10 +48,10 @@ const PageA = ({ data, onChange, onClick }: any) => {
           <Select1
             options={genders}
             value={selectedGender}
-            onChange={(selectedOption: object) =>
-              setSelectedGender(selectedOption)
+            onChange={(selectedOption: SingleValue<SelectOption>) =>
+              setSelectedGender(selectedOption as SelectOption)
             }
-          ></Select1>
+          />
         </FormControl>
       </Box>
       <Box w="100%" mb={3}>
@@ -56,10 +62,10 @@ const PageA = ({ data, onChange, onClick }: any) => {
           <Select1
             options={countries}
             value={selectedCountry}
-            onChange={(selectedOption: object) =>
-              setSelectedCountry(selectedOption)
+            onChange={(selectedOption: SingleValue<SelectOption>) =>
+              setSelectedCountry(selectedOption as SelectOption)
             }
-          ></Select1>
+          />
         </FormControl>
       </Box>
       <Box w="100%" mb={3}>
@@ -70,10 +76,10 @@ const PageA = ({ data, onChange, onClick }: any) => {
           <Select1
             options={states}
             value={selectedState}
-            onChange={(selectedOption: object) =>
-              setSelectedState(selectedOption)
+            onChange={(selectedOption: SingleValue<SelectOption>) =>
+              setSelectedState(selectedOption as SelectOption)
             }
-          ></Select1>
+          />
         </FormControl>
       </Box>
       <CButton

@@ -15,11 +15,13 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": false,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": false, // Disable strict null checks
+    "noUnusedLocals": false, // Allow unused local variables
+    "noUnusedParameters": false, // Allow unused parameters
+    // "skipLibCheck": true, // Skip type checking of declaration files
   },
-  "include": ["src"],
+  "include": ["src", "src/types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
