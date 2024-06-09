@@ -1,65 +1,46 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-import { ProgressBar, Step } from "react-step-progress-bar";
+import { ProgressBar, ProgressBarProps, Step } from "react-step-progress-bar";
 import "../styles/Progressbar.css";
+import { IMultistepProgressBarProps } from "../typings/signup";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const MultistepProgressBar = ({ page, onPageIndexClick }: any) => {
-  // eslint-disable-next-line no-var
-  var stepPercentage: number = 0;
+const MultistepProgressBar: React.FC<IMultistepProgressBarProps> = ({
+  page,
+  onPageIndexClick,
+}) => {
+  let stepPercentage: number = 0;
 
-  if (page === "pageone") {
-    stepPercentage = 15;
-  } else if (page === "pagetwo") {
-    stepPercentage = 50;
-  } else if (page === "pagethree") {
-    stepPercentage = 83;
-  } else if (page === "pagefour") {
-    stepPercentage = 100;
-  } else {
-    stepPercentage = 0;
+  switch (page) {
+    case "pageone":
+      stepPercentage = 15;
+      break;
+    case "pagetwo":
+      stepPercentage = 50;
+      break;
+    case "pagethree":
+      stepPercentage = 83;
+      break;
+    case "pagefour":
+      stepPercentage = 100;
+      break;
+    default:
+      stepPercentage = 0;
+      break;
   }
+
   return (
-    <ProgressBar percent={stepPercentage}>
-      <Step>
-        {({ accomplished, index }: any) => (
-          <div
-            className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageIndexClick("1")}
-          >
-            {index + 1}
-          </div>
-        )}
-      </Step>
-      <Step>
-        {({ accomplished, index }: any) => (
-          <div
-            className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageIndexClick("2")}
-          >
-            {index + 1}
-          </div>
-        )}
-      </Step>
-      <Step>
-        {({ accomplished, index }: any) => (
-          <div
-            className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageIndexClick("3")}
-          >
-            {index + 1}
-          </div>
-        )}
-      </Step>
-      <Step>
-        {({ accomplished, index }: any) => (
-          <div
-            className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageIndexClick("4")}
-          >
-            {index + 1}
-          </div>
-        )}
-      </Step>
+    <ProgressBar percent={stepPercentage} {...({} as ProgressBarProps)}>
+      {["1", "2", "3", "4"].map((pageIndex, index) => (
+        <Step key={index} transition="scale">
+          {({ accomplished }: { accomplished: boolean }) => (
+            <div
+              className={`indexedStep ${accomplished ? "accomplished" : ""}`}
+              onClick={() => onPageIndexClick(pageIndex)}
+            >
+              {index + 1}
+            </div>
+          )}
+        </Step>
+      ))}
     </ProgressBar>
   );
 };

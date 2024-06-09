@@ -10,7 +10,7 @@ import Science from "./Routes/Home/Courses/Science";
 import Engineering from "./Routes/Home/Courses/Engineering";
 import Kindergarten from "./Routes/Home/Courses/Kindergarten";
 import ResetPassword from "./components/ResetPassword";
-import SignUp from "./pages/SignUp";
+// import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import VerifyAccount from "./pages/VerifyEmail";
@@ -61,7 +61,7 @@ function AppContent() {
           <Route path="science" element={<Science />} />
           <Route path="engineering" element={<Engineering />} />
         </Route>
-        <Route path="signup" element={<SignUp />} />
+        {/* <Route path="signup" element={<SignUp />} /> */}
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />

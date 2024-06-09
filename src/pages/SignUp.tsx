@@ -9,6 +9,7 @@ import { SIGN_UP } from "../constants/image";
 import { LOGO } from "../constants/icon";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA";
+import { IStudent } from "../typings/signup";
 
 const SignUp = () => {
   const { log } = console;
@@ -34,14 +35,23 @@ const SignUp = () => {
         setPage("pageone");
     }
   };
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    password2: "",
-    country: "",
-    role: "",
+  const [formData, setFormData] = useState<IStudent>({
+    first_name: null,
+  last_name: null,
+  student_email: null,
+  sex: null,
+  country: null,
+  state: null,
+  course: null,
+  dateOfBirth: null,
+  classTime_options: null,
+  payment_plan: null,
+  class_type: null,
+  salutation: null,
+  password: "",
+  profileImage: null,
+  agreement_status: false,
+  student_phoneNum: null
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
