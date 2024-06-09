@@ -60,6 +60,32 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     role: "",
   });
 
+  const [parentData, setParentData] = useState({
+    studentFirstname:"",
+    studentLastName:"",
+    salutation: "",
+    parentName: "",
+    parentEmail: "",
+    parentPhoneNo: "",
+    password: "",
+    profileImage: "",
+    paymentPlan: "",
+    dateOfBirth: "",
+    classType: "",
+    course: "",
+    state: "",
+    country: "",
+    sex: "",
+    studentEmail: "",
+    classTimeOptions: [
+      "Wednesday 5:00pm - 7:00pm WAT",
+      "Saturday 8:00pm - 10:00pm WAT",
+      "Sunday 10:00am- 12:00noon WAT",
+      "Sunday 8:00pm - 10:00pm WAT"
+    ],
+    agreementStatus: false,
+  });
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
