@@ -15,7 +15,7 @@ import { Flex, Heading } from "@chakra-ui/layout";
 import PageFinal from "../components/Signup/PageFinal";
 import PageOne from "../components/Signup/PageOne";
 import PageTwo from "../components/Signup/PageTwo";
-import MultistepProgressBar from "../components/MultistepProgressBar";
+import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA.tsx";
 import { IGuardian } from "../typings/signup.ts";
