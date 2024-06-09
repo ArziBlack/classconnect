@@ -14,6 +14,8 @@ import { FaFacebook } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 function Footer() {
   return (
@@ -124,7 +126,9 @@ function Footer() {
               <Text>Press</Text>
               <Text>Inventors</Text>
               <Text>Terms</Text>
-              <Text>Privacy</Text>
+              <ChakraLink as={ReactRouterLink} to={"/privacyP"}>
+                <Text>Privacy</Text>
+              </ChakraLink>
               <Text>Help</Text>
               <Text>Contact</Text>
             </Box>

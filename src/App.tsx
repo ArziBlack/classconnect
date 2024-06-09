@@ -19,6 +19,7 @@ import VerifyAccount from "./pages/VerifyEmail";
 import NotFound from "./pages/NotFound";
 import MentorProfile from "./components/MentorProfile";
 import Tutor from "./pages/Tutor";
+import PrivacyP from "./pages/PrivacyP";
 function App() {
   return (
     <VStack backgroundColor="brand.page" height="full" fontFamily="Metropolis">
@@ -40,6 +41,7 @@ function App() {
               <Route path="science" element={<Science />} />
               <Route path="engineering" element={<Engineering />} />
             </Route>
+            <Route path="privacyP" element={<PrivacyP />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
           <Route path="reset" element={<ResetPassword />} />

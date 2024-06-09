@@ -7,7 +7,7 @@ import college_hero from "../assets/illustrations/college_hero.png";
 import college_pattern from "../assets/illustrations/college_pattern.png";
 import career from "../assets/illustrations/career.png";
 import courses from "../assets/illustrations/courses.png";
-
+import privacy_p_illustration from "../assets/illustrations/privacy_p_illustration.png";
 export const Illustrations: object = {
   pricing,
 };
@@ -21,3 +21,4 @@ export const HERO = hero_right;
 export const PRICING = pricing;
 export const COLLEGE_HERO = college_hero;
 export const COLLEGE_PATTERN = college_pattern;
+export const PRIVACY_P_ILLUSTRATION = privacy_p_illustration;
