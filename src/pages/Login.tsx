@@ -9,17 +9,19 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  Link as ChakraLink,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import CButton from "../components/Button";
 import { useToast } from "@chakra-ui/react";
-import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
 import InputField from "../components/Input.tsx";
 import { AUTH } from "../constants/illustrations.ts";
 import { login } from "../services/auth/authSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, IRootState } from "../app/store.ts";
 import { useState, ChangeEvent, SyntheticEvent } from "react";
+import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
+import { Link as ReactRouterLink, useLocation } from "react-router-dom";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -253,16 +255,18 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                     />
                     <Text as="a" textAlign="center" fontSize="12px">
                       Don't have an account?{" "}
-                      <Text
-                        display={"inline-block"}
-                        cursor="pointer"
+                      <ChakraLink
                         w="fit-content"
+                        cursor="pointer"
+                        to={"/register"}
+                        as={ReactRouterLink}
+                        display={"inline-block"}
                         _hover={{
                           color: "brand.action",
                         }}
                       >
                         Create one for Free.
-                      </Text>
+                      </ChakraLink>
                     </Text>
                   </Box>
                 </Flex>

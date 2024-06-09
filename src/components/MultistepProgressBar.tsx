@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 import { ProgressBar, Step } from "react-step-progress-bar";
 import "../styles/Progressbar.css";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MultistepProgressBar = ({ page, onPageIndexClick }: any) => {
   // eslint-disable-next-line no-var
   var stepPercentage: number = 0;

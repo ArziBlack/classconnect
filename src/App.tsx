@@ -16,6 +16,8 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Pricing from "./pages/Pricing";
+import MentorProfile from "./components/MentorProfile";
+import Tutor from "./pages/Tutor";
 function App() {
   return (
     <VStack backgroundColor="brand.page" height="full" fontFamily="Metropolis">
@@ -26,6 +28,8 @@ function App() {
             <Route path="signin" element={<Home />} />
             <Route path="register" element={<Home />} />
             <Route path="pricing" element={<Pricing />} />
+            <Route path="tutor" element={<Tutor />} />
+            <Route path="about" element={<MentorProfile />} />
             <Route path="courses" element={<Courses />}>
               <Route index element={<AllCourses />} />
               <Route path="kindergarten" element={<Kindergarten />} />

@@ -17,12 +17,11 @@ import { BsLinkedin } from "react-icons/bs";
 
 function Footer() {
   return (
-    <VStack py={4} w={`full`} px={{ base: "4", md: "16" }} maxW={`1280px`}>
+    <VStack py={4} w={`full`} fontFamily={"Metropolis"} fontSize={"14px"}>
       <SimpleGrid
         w="100%"
         alignItems={`start`}
         justifyItems={`center`}
-        h={{ base: "auto", md: "236px" }}
         color={"brand.offwhite"}
         columns={{ base: 1, md: 5 }}
         spacing={`5`}

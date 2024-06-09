@@ -4,7 +4,7 @@ export const theme = extendTheme({
   colors: {
     brand: {
       red: "#E53B07",
-      page: "#F7F5FA",
+      page: "#ffff",
       grey: "#D8D8D8",
       dark: "#0A033C",
       action: "#9C4DF4",

@@ -7,7 +7,7 @@ const CollegeLevel = () => {
     <Flex
       w={`full`}
       justifyContent={`space-between`}
-      paddingTop={{ base: "20", md: "58" }}
+      paddingTop={{ base: "20", md: "0" }}
       flexDir={{ base: "column-reverse", md: "row" }}
       alignItems="center"
       bg={`brand.pagedark`}
@@ -15,14 +15,14 @@ const CollegeLevel = () => {
       marginY="40px"
     >
       <Box
-        flex={{ base: "none", md: 1 }} // Adjusted flex basis
+        flex={{ base: "none", md: 1 }}
         display="flex"
-        flexDir={{ base: "column", md: "row" }} // Adjusted flex direction
+        flexDir={{ base: "column", md: "row" }}
         alignItems={{ base: "center", md: "flex-start" }}
         justifyContent={`space-between`}
         paddingY={{ base: "10", md: "20" }}
         textAlign={{ base: "center", md: "left" }}
-        p={{ base: 4, md: 20 }} // Adjusted padding
+        p={{ base: 4, md: 20 }}
       >
         <Box flex="1">
           <Box display={`flex`}>
@@ -39,10 +39,11 @@ const CollegeLevel = () => {
             </Text>
           </Box>
           <Heading
-            size={{ base: "xl", md: "3xl" }}
             as="h2"
-            fontWeight={600}
+            fontWeight={500}
             color={`brand.dark`}
+            fontFamily={"Metropolis"}
+            size={{ base: "xl", md: "2xl" }}
             paddingRight={{ base: "0", md: "20px" }}
             paddingY={{ base: "5", md: "0" }}
           >
@@ -61,8 +62,8 @@ const CollegeLevel = () => {
         display="flex"
         justifyContent="flex-end"
         alignItems="flex-end"
-        h={{ base: "full", md: "550px" }}
-        w={{ base: "full", md: "550px" }}
+        h={{ base: "full" }}
+        w={{ base: "full" }}
       >
         <Image
           src={COLLEGE_HERO}
