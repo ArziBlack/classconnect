@@ -2,8 +2,10 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import Button from "./Button";
 import { CAREER } from "../constants/illustrations";
+import { useNavigate } from "react-router-dom";
 
 const Career = () => {
+  const navigate = useNavigate();
   return (
     <Flex
       w="full"
@@ -27,10 +29,11 @@ const Career = () => {
       >
         <Box flex="1">
           <Heading
-            size={{ base: "xl", md: "3xl" }}
             as="h2"
-            fontWeight={600}
-            color="brand.dark"
+            fontWeight={500}
+            color={`brand.dark`}
+            fontFamily={"Metropolis"}
+            size={{ base: "x", md: "2xl" }}
             paddingRight={{ base: "0", md: "20px" }}
             paddingY={{ base: "5", md: "0" }}
           >
@@ -41,7 +44,10 @@ const Career = () => {
             standard-definition. While there is no standardized meaning for
             high-definition, generally any video.
           </Text>
-          <Button text="Career Information" />
+          <Button
+            text="Career Information"
+            onClick={() => navigate("/tutor")}
+          />
         </Box>
       </Box>
       <Box

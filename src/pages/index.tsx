@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import SignInModal from "./Login";
 import Footer from "../components/Footer";
 import RegisterModal from "./Register";
+import NewsletterSection from "../components/NewsletterSection";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -45,15 +46,16 @@ const Layout = () => {
   };
 
   return (
-    <>
+    <Box maxW={`1280px`} px={{ base: "4", md: "16" }}>
       <Navbar />
-      <Box as="main" px={{ base: "4", md: "16" }} maxWidth={`1280px`}>
+      <Box as="main">
         <Outlet />
       </Box>
+      <NewsletterSection />
       <Footer />
       <SignInModal isOpen={isSignInOpen} onClose={closeSignInModal} />
       <RegisterModal isOpen={isRegisterOpen} onClose={closeRegisterModal} />
-    </>
+    </Box>
   );
 };
 

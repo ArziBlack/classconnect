@@ -38,13 +38,7 @@ const ApplyInstructor: React.FC = () => {
   };
 
   return (
-    <Flex
-      direction={{ base: "column", md: "row" }}
-      p={5}
-      borderRadius="md"
-      maxW="1240px"
-      mx="auto"
-    >
+    <Flex direction={{ base: "column", md: "row" }} borderRadius="md">
       <Box flexShrink={0} px={5} pt={5} bg="pink.100" borderRadius="md">
         <Image borderRadius="md" src={applyInstructor} alt="Instructor" />
       </Box>

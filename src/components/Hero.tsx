@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { HERO } from "../constants/illustrations";
+import CButton from "./Button";
 
 const Hero = () => {
   return (
@@ -27,50 +28,50 @@ const Hero = () => {
         flexDir={`column`}
         alignItems={{ base: "center", md: "flex-start" }}
         justifyContent={`space-between`}
-        paddingY={{ base: "10", md: "20" }}
         textAlign={{ base: "center", md: "left" }}
       >
         <Box>
           <Text
-            color={`brand.red`}
+            mb={"10px"}
             padding={`2`}
-            bg={`white`}
+            bg={`#f6f3f3`}
             borderRadius={10}
             fontSize={`16px`}
+            color={`brand.red`}
             display="inline-block"
           >
             Never Stop Learning
           </Text>
         </Box>
         <Heading
-          // fontSize={{ base: "2xl", md: "xxx-large" }}
-          size={{ base: "xl", md: "3xl" }}
           as="h2"
-          fontWeight={600}
+          fontWeight={500}
           color={`brand.dark`}
-          paddingRight={{ base: "0", md: "20px" }}
+          fontFamily={"Metropolis"}
+          size={{ base: "xl", md: "2xl" }}
           paddingY={{ base: "5", md: "0" }}
+          paddingRight={{ base: "0", md: "20px" }}
         >
-          Grow up your Skills by online courses with HEP Educational Platform
+          Grow up your Skills with online courses on HEP Educational Platform
         </Heading>
-        <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
-          Eduvi is a Global training provider based across the UK that
-          specialises in accredited and bespoke training courses. We crush the
-          barriers to getting a degree.
+        <Text
+          fontSize={`medium`}
+          color={`brand.offwhite`}
+          paddingY={`10px`}
+          fontWeight={400}
+        >
+          HEP is a Global training provider based in Nigeria that specializes in
+          accredited and bespoke training courses. We crush the barriers to
+          getting a degree.
         </Text>
         <InputGroup
-          border={`none`}
-          borderRadius={`12px`}
-          display={`flex`}
           w={`100%`}
-          padding={`4px`}
+          border={`none`}
+          display={`flex`}
+          bg={"#f6f3f3"}
+          borderRadius={`12px`}
           flexDirection={{ base: "column", md: "row" }}
-          bg={`white`}
         >
-          <Select value={`primary`} flex={1} mb={{ base: "2", md: "0" }}>
-            <option value="primary">Primary</option>
-            <option value="secondary">Secondary</option>
-          </Select>
           <Input
             flex={2}
             outline={`none`}
@@ -78,17 +79,16 @@ const Hero = () => {
             placeholder="Class/Content"
             mb={{ base: "2", md: "0" }}
           />
-          <Button
-            bg={`brand.action`}
-            padding={`2px`}
+          <CButton
             flex={1}
+            outlined
+            text="Search"
+            icon={FaSearch}
+            padding={`2px`}
+            bg={`brand.action`}
             borderRadius={`9px`}
-          >
-            <FaSearch color="#fff" />
-            <Text color={`white`} paddingLeft={`7px`}>
-              Search
-            </Text>
-          </Button>
+            w={{}}
+          />
         </InputGroup>
       </Box>
       <Box flex="1" display="flex" justifyContent="center" alignItems="center">

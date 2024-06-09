@@ -1,63 +1,76 @@
-import { useState } from "react";
 import {
+  Text,
   HStack,
   Image,
-  Text,
-  Link as ChakraLink,
   VStack,
   Drawer,
   DrawerBody,
+  IconButton,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
-  IconButton,
   useDisclosure,
+  DrawerCloseButton,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
 import { Link as ReactRouterLink, useLocation } from "react-router-dom";
-import { FaUserPlus } from "react-icons/fa";
+
+type NavbarLinksProp = {
+  onClick?: () => void;
+};
+
+const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/tutor", label: "Tutor" },
+    { to: "/about", label: "About" },
+    { to: "/courses", label: "Courses" },
+    { to: "/pricing", label: "Pricing" },
+  ];
+
+  return (
+    <>
+      {links.map((link) => (
+        <ChakraLink
+          pb={"2px"}
+          to={link.to}
+          key={link.to}
+          opacity={0.7}
+          onClick={onClick}
+          as={ReactRouterLink}
+          borderBottom="2px solid transparent"
+          transition="border-bottom 0.3s ease-in-out"
+          _hover={{
+            opacity: "1",
+            textDecor: "none",
+            borderBottom: "2px solid",
+          }}
+        >
+          {link.label}
+        </ChakraLink>
+      ))}
+    </>
+  );
+};
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [scrolled, setScrolled] = useState(false);
-  window.onscroll = () => {
-    setScrolled(window.scrollY === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
-
   const location = useLocation();
 
-  // const openSignInModal = () => {
-  //   if (location.pathname !== "/signin") {
-  //     navigate("/signin");
-  //   }
-  // };
-
   return (
-    <VStack height={`100%`} pos={`relative`}>
+    <VStack height="100%" pos="sticky" top={0} zIndex="1000" maxWidth="1280px">
       <HStack
-        justifyContent="space-between"
-        w="100vw"
-        height={`80px`}
-        paddingTop="2"
-        paddingBottom="4"
-        px={{ base: "4", md: "16" }}
-        // paddingY={`4px`}
+        py="2"
+        width="full"
         gap={10}
-        pos={`fixed`}
-        bg={`brand.page`}
-        zIndex="1000"
-        maxWidth={`1280px`}
-        alignItems={`center`}
-        css={{
-          background: scrolled
-            ? "linear-gradient(to top, transparent 0%, #F7F5FA 50%)"
-            : "",
-        }}
+        height="80px"
+        bg="brand.page"
+        alignItems="center"
+        justifyContent="space-between"
       >
-        <HStack flex={1}>
+        <HStack>
           <Image src={LOGO} marginRight="1.4" />
           <Text paddingLeft="1.4" fontWeight={500}>
             HEP
@@ -65,88 +78,64 @@ const Navbar = () => {
         </HStack>
 
         <IconButton
-          display={{ base: "flex", md: "none" }}
           icon={<FaBars />}
           onClick={onOpen}
+          bg={"transaprent"}
           aria-label="Open Menu"
+          display={{ base: "flex", md: "none" }}
         />
 
         <HStack
-          fontSize="18px"
-          fontWeight={300}
           flex={3}
-          justifyContent={`space-between`}
-          paddingX={`55px`}
+          gap={8}
+          fontSize="16px"
+          fontWeight={700}
+          justify="center"
           display={{ base: "none", md: "flex" }}
         >
-          <ChakraLink as={ReactRouterLink} to="/">
-            Home
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/courses">
-            Courses
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/pricing">
-            Pricing
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/mentor">
-            Mentor
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/about">
-            About
-          </ChakraLink>
+          <NavbarLinks />
         </HStack>
 
         <HStack
-          flex={0.8}
-          justifyContent={`space-between`}
-          paddingLeft={`45px`}
-          display={{ base: "none", md: "flex" }}
+          ml="auto"
+          pb={"2px"}
+          opacity={0.7}
+          borderBottom="2px solid transparent"
+          display={{ base: "none", md: "block" }}
+          transition="border-bottom 0.3s ease-in-out"
+          _hover={{
+            opacity: "1",
+            textDecor: "none",
+            borderBottom: "2px solid",
+          }}
         >
           <HStack>
-            <Text>Register</Text>
-            <FaUserPlus />
-          </HStack>
-
-          <HStack>
             <ChakraLink
+              fontSize="16px"
+              fontWeight={700}
               as={ReactRouterLink}
+              _hover={{
+                textDecor: "none",
+              }}
               to={location.pathname !== "/signin" ? "/signin" : "/"}
             >
-              Signin
+              Login
             </ChakraLink>
             <FaUser />
           </HStack>
         </HStack>
       </HStack>
 
-      <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <VStack alignItems="flex-start">
-              <ChakraLink as={ReactRouterLink} to="/" onClick={onClose}>
-                Home
-              </ChakraLink>
-              <ChakraLink as={ReactRouterLink} to="/courses" onClick={onClose}>
-                Courses
-              </ChakraLink>
-              <ChakraLink as={ReactRouterLink} to="/pricing" onClick={onClose}>
-                Pricing
-              </ChakraLink>
-              <ChakraLink as={ReactRouterLink} to="/mentor" onClick={onClose}>
-                Mentor
-              </ChakraLink>
-              <ChakraLink as={ReactRouterLink} to="/about" onClick={onClose}>
-                About
-              </ChakraLink>
+              <NavbarLinks onClick={onClose} />
               <HStack>
-                <Text>Register</Text>
-                <FaUserPlus />
-              </HStack>
-              <HStack>
-                <Text>Signin</Text>
+                <Text>Login</Text>
                 <FaUser />
               </HStack>
             </VStack>
