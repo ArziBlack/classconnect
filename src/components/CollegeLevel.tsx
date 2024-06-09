@@ -47,12 +47,13 @@ const CollegeLevel = () => {
             paddingRight={{ base: "0", md: "20px" }}
             paddingY={{ base: "5", md: "0" }}
           >
-            Don’t waste time in COVID-19 pandemic. Develop your skills.
+            Make the most of every moment. Invest in your future with our
+            courses
           </Heading>
           <Text fontSize={`medium`} color={`brand.offwhite`} paddingY={`10px`}>
-            High-definition video is video of higher resolution and quality than
-            standard-definition. While there is no standardized meaning for
-            high-definition, generally any video.
+            Unlock your potential with our expert-led courses. Explore new
+            skills, advance your career, and seize opportunities for growth.
+            Start your journey today
           </Text>
           <Button text="Register Now" />
         </Box>

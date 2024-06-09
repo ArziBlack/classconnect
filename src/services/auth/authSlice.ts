@@ -103,7 +103,7 @@ const authSlice = createSlice({
         state.Loaded = false;
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.payload.message;
         state.user = null;
       });
   },

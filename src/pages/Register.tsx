@@ -18,7 +18,7 @@ import PageTwo from "../components/Signup/PageTwo";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA.tsx";
-import { IGuardian } from "../typings/signup.ts";
+import { IGuardian, IStudent } from "../typings/signup.ts";
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -53,14 +53,23 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         setPage("pageone");
     }
   };
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+  const [formData, setFormData] = useState<IStudent>({
+    first_name: null,
+    last_name: null,
+    student_email: null,
+    sex: null,
+    country: null,
+    state: null,
+    course: null,
+    dateOfBirth: null,
+    classTime_options: null,
+    payment_plan: null,
+    class_type: null,
+    salutation: null,
     password: "",
-    password2: "",
-    country: "",
-    role: "",
+    profileImage: null,
+    agreement_status: false,
+    student_phoneNum: null,
   });
 
   const [guardianData, setGuardianData] = useState<IGuardian>({
@@ -82,7 +91,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     password: "",
     profileImage: null,
     agreement_status: false,
-    student_phoneNum: null
+    student_phoneNum: null,
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
