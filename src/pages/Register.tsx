@@ -20,6 +20,8 @@ import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
 import GuardianB from "../components/Signup/GuardianB.tsx";
+import GuardianD from "../components/Signup/GuardianD.tsx";
+import GuardianC from "../components/Signup/GuardianC.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -285,7 +287,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                               />
                             ),
                             pagethree: (
-                              <PageTwo
+                              <GuardianC
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
