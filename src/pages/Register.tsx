@@ -17,17 +17,21 @@ import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA.tsx";
 import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
+import CButton from "../components/Button.tsx";
 
-const SignUpType = ()=> {
-  return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <h2 className=" text-2xl font-bold">Sign Up as:</h2>
-      <span className="text-lg">Student</span>
-      <span className="text-lg">Guardian</span>
-    </div>
-  )
-}
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
+
+  const SignUpType = () => {
+    return (
+      <div className="w-full flex flex-col items-center justify-center">
+        <h2 className=" text-2xl font-bold">Sign Up as:</h2>
+        <span className="text-lg" onClick={() => setSignUpAsGuardian(false)}>Student</span>
+        <span className="text-lg" onClick={() => setSignUpAsGuardian(true)}>Guardian</span>
+        <CButton text="Next" onClick={toggleSignUpType} />
+      </div>
+    );
+  };
+  
   const closeModal = () => {
     onClose();
   };
@@ -35,6 +39,11 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
+  const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
+
+  function toggleSignUpType() {
+    setSignTypeModal(!signTypeModal);
+  }
 
   function nextPage(page: string) {
     setPage(page);
@@ -123,6 +132,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onChangeGuardian = (e: ChangeEvent<HTMLInputElement>) => {
+    setGuardianData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -231,40 +247,81 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       Join thousands of students advancing their careers on HEP
                       Coding.
                     </Text>
-                    {<Box>
-                      <MultistepProgressBar
-                        page={page}
-                        onPageIndexClick={nextPageIndex}
-                      />
-                      {
+                    {signTypeModal === true? (<SignUpType/>) : (signUpAsGuardian === true ? (
+                      <Box>
+                        <MultistepProgressBar
+                          page={page}
+                          onPageIndexClick={nextPageIndexGuardian}
+                        />
                         {
-                          pageone: (
-                            <PageOne
-                              onClick={nextPage}
-                              onChange={onChange}
-                              data={formData}
-                            />
-                          ),
-                          pagetwo: (
-                            <PageA
-                              onClick={nextPage}
-                              onChange={onChange}
-                              data={formData}
-                            />
-                          ),
-                          pagethree: (
-                            <PageTwo
-                              onClick={nextPage}
-                              onChange={onChange}
-                              data={formData}
-                            />
-                          ),
-                          pagefour: (
-                            <PageFinal onChange={onChange} data={formData} />
-                          ),
-                        }[page]
-                      }
-                    </Box>}
+                          {
+                            pageone: (
+                              <PageOne
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagetwo: (
+                              <PageA
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagethree: (
+                              <PageTwo
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagefour: (
+                              <PageFinal
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                          }[page]
+                        }
+                      </Box>
+                    ) :
+                    signUpAsGuardian === false && (
+                      <Box>
+                        <MultistepProgressBar
+                          page={page}
+                          onPageIndexClick={nextPageIndex}
+                        />
+                        {
+                          {
+                            pageone: (
+                              <PageOne
+                                onClick={nextPage}
+                                onChange={onChange}
+                                data={formData}
+                              />
+                            ),
+                            pagetwo: (
+                              <PageA
+                                onClick={nextPage}
+                                onChange={onChange}
+                                data={formData}
+                              />
+                            ),
+                            pagethree: (
+                              <PageTwo
+                                onClick={nextPage}
+                                onChange={onChange}
+                                data={formData}
+                              />
+                            ),
+                            pagefour: (
+                              <PageFinal onChange={onChange} data={formData} />
+                            ),
+                          }[page]
+                        }
+                      </Box>
+                    ))}
                   </Box>
                   <Text as="a" textAlign="center" fontSize="16px">
                     Already have an account?{" "}
