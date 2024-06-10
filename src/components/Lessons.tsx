@@ -22,7 +22,7 @@ return (
           <Tab>College</Tab>
         </TabList>
       </Tabs>
-      <Box>
+      <Box height={`500px`} overflowY={`hidden`} position={`relative`} overflowX={`hidden`}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="12">
           {data.map((item, index) => (
             <LessonCard
@@ -34,9 +34,12 @@ return (
             />
           ))}
         </SimpleGrid>
+        <Box pos={`absolute`} h="55%" bgGradient='linear(to-b, transparent, white)' w="full" display={`flex`} alignItems={`end`} justifyContent={`center`} right={`0px`} left={`0px`} bottom={`0px`}>
+          <Button text="Load more..."/>
+        </Box>
       </Box>
       <Box marginY="35px"></Box>
-      <Button text={`Visit More Classes`}/>
+      {/* <Button text={`Visit More Classes`}/> */}
     </VStack>
   );
 };
