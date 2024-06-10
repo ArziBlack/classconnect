@@ -4,12 +4,15 @@ import { IGuardianProps } from "../../typings/home";
 import { ICountry, IGender, IState } from "../../typings/signup";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import InputField from "../Input";
+import { FaRegUser } from "react-icons/fa6";
 
 const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
   const [countries, setCountries] = useState<ICountry[]>([]);
   const [states, setStates] = useState<IState[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(true);
   const [, setStateLoading] = useState<boolean>(false);
+  
   const gender: IGender[] = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
@@ -38,7 +41,7 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
         setStateLoading(true);
         try {
           const response = await axios.get<IState[]>(
-            `https://api.example.com/states?countryCode=${selectedCountry}`
+            `https://api.example.com/states?countryCode=${data.country}`
           );
           setStates(response.data);
           setStateLoading(false);
@@ -84,7 +87,7 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
         </Select>
       </Box>
       <Box w="100%" mb={3}>
-        <Select name="country" onChange={onChange} placeholder="Select a state">
+        <Select name="state" onChange={onChange} placeholder="Select a state">
           {states.map((state, idx) => (
             <option key={idx} value={state.name}>
               {state.name}
@@ -92,7 +95,18 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
           ))}
         </Select>
       </Box>
-
+      <Box w="100%" mb={3}>
+        <InputField
+          required
+          type="number"
+          name="student_phoneNum"
+          icon={FaRegUser}
+          placeholder="+234 9037289192"
+          label="Student Phone Number"
+          onChange={onChange}
+          value={data.student_phoneNum}
+        />
+      </Box>
       <CButton
         my={3}
         text="Next"

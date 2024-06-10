@@ -22,6 +22,7 @@ import GuardianA from "../components/Signup/GuardianA.tsx";
 import GuardianB from "../components/Signup/GuardianB.tsx";
 import GuardianD from "../components/Signup/GuardianD.tsx";
 import GuardianC from "../components/Signup/GuardianC.tsx";
+import GuardianE from "../components/Signup/GuardianE.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -99,6 +100,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         break;
       case "5":
         setPage("pagefive");
+        break;
+      case "6":
+        setPage("pagesix");
         break;
       default:
         setPage("pageone");
@@ -301,6 +305,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                               />
                             ),
                             pagefive: (
+                              <GuardianE
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagefinal: (
                               <PageFinal
                                 onChange={onChangeGuardian}
                                 data={guardianData}
