@@ -6,3 +6,9 @@ export interface SignupProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   data: IStudent | IGuardian;
 }
+
+export interface IGuardianProps {
+  onClick?: (e: SyntheticEvent<HTMLFormElement, SubmitEvent> | string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  data: IGuardian;
+}

@@ -21,10 +21,11 @@ export interface IGuardian {
   payment_plan: string | null;
   class_type: string | null;
   salutation: string | null;
-  parent_name: string | null;
+  parent_name?: string | null;
   parent_phoneNum: number | null;
   parent_email: string | null;
   password: string;
+  confirm_password?: string;
   profileImage: string | null;
   agreement_status: boolean;
   student_phoneNum: number | null;
@@ -44,6 +45,7 @@ export interface IStudent {
   class_type: string | null;
   salutation: string | null;
   password: string;
+  confirm_password?: string;
   profileImage: string | null;
   agreement_status: boolean;
   student_phoneNum: number;
