@@ -3,52 +3,50 @@ import InputField from "../Input";
 import { Box } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
+import { SignupProps } from '../../typings/home'
 
-// import { SignupProps } from '../../typings/home'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PageOne = ({ data, onChange, onClick }: any) => {
+const PageOne = ({ data, onChange, onClick }: SignupProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
         <InputField
           required
           type="text"
-          name="firstName"
+          name="first_name"
           icon={FaRegUser}
           placeholder="John"
           label="First Name"
           onChange={onChange}
-          value={data?.firstName}
+          value={data.first_name}
         />
       </Box>
       <Box w="100%" mb={3}>
         <InputField
           required
           type="text"
-          name="lastName"
+          name="last_name"
           icon={FaRegUser}
           label="Last Name"
           placeholder="Doe"
           onChange={onChange}
-          value={data?.lastName}
+          value={data.last_name}
         />
       </Box>
       <Box w="100%" mb={3}>
         <InputField
           required
           type="email"
-          name="email"
+          name="stutent_email"
           label="Email"
           onChange={onChange}
-          value={data?.email}
+          value={data.student_email}
           icon={IoMailOutline}
           placeholder="johndoe@email.com"
         />
       </Box>
 
       <CButton
-        my={4}
+        my={3}
         text="Next"
         width="full"
         onClick={() => onClick("pagetwo")}

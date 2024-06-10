@@ -1,7 +1,8 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, SyntheticEvent } from "react";
+import { IGuardian, IStudent } from "./signup";
 
 export interface SignupProps {
-  onClick?: () => string;
+  onClick?: (e: SyntheticEvent<HTMLFormElement, SubmitEvent> | string) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  data: object;
+  data: IStudent | IGuardian;
 }

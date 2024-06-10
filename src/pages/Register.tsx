@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   Modal,
   ModalBody,
@@ -18,13 +16,17 @@ import PageTwo from "../components/Signup/PageTwo";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
 import PageA from "../components/Signup/PageA.tsx";
-import { IGuardian, IStudent } from "../typings/signup.ts";
+import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
 
-interface RegisterModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+const SignUpType = ()=> {
+  return (
+    <div className="w-full flex flex-col items-center justify-center">
+      <h2 className=" text-2xl font-bold">Sign Up as:</h2>
+      <span className="text-lg">Student</span>
+      <span className="text-lg">Guardian</span>
+    </div>
+  )
 }
-
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const closeModal = () => {
     onClose();
@@ -32,9 +34,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
+  const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
+
   function nextPage(page: string) {
     setPage(page);
   }
+
   const nextPageIndex = (pageIndex: string) => {
     switch (pageIndex) {
       case "1":
@@ -48,6 +53,28 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         break;
       case "4":
         setPage("pagefour");
+        break;
+      default:
+        setPage("pageone");
+    }
+  };
+
+  const nextPageIndexGuardian = (pageIndex: string) => {
+    switch (pageIndex) {
+      case "1":
+        setPage("pageone");
+        break;
+      case "2":
+        setPage("pagetwo");
+        break;
+      case "3":
+        setPage("pagethree");
+        break;
+      case "4":
+        setPage("pagefour");
+        break;
+      case "5":
+        setPage("pagefive");
         break;
       default:
         setPage("pageone");
@@ -204,7 +231,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       Join thousands of students advancing their careers on HEP
                       Coding.
                     </Text>
-                    <Box>
+                    {<Box>
                       <MultistepProgressBar
                         page={page}
                         onPageIndexClick={nextPageIndex}
@@ -237,7 +264,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                           ),
                         }[page]
                       }
-                    </Box>
+                    </Box>}
                   </Box>
                   <Text as="a" textAlign="center" fontSize="16px">
                     Already have an account?{" "}

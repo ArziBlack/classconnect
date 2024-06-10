@@ -3,6 +3,11 @@ export interface IMultistepProgressBarProps {
   onPageIndexClick: (pageIndex: string) => void;
 }
 
+export interface RegisterModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+  }
+
 export interface IGuardian {
   first_name: string | null;
   last_name: string | null;
