@@ -26,7 +26,7 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
           type="text"
           name="last_name"
           icon={FaRegUser}
-          label="Guardian Phone No"
+          label="Student Last Name"
           placeholder="Milton"
           onChange={onChange}
           value={data.last_name}
@@ -36,8 +36,8 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
         <InputField
           required
           type="email"
-          name="parent_email"
-          label="Guardian_Email"
+          name="student_email"
+          label="Student Email"
           onChange={onChange}
           value={data.student_email}
           icon={IoMailOutline}
@@ -49,7 +49,7 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
         my={3}
         text="Next"
         width="full"
-        onClick={() => onClick("pagetwo")}
+        onClick={() => onClick("pagefour")}
       />
     </> 
   )

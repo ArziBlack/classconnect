@@ -102,7 +102,7 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
             my={3}
             text="Next"
             width="full"
-            onClick={() => onClick("pagefour")}
+            onClick={() => onClick("pagethree")}
           />
         </Box>
       </Box>

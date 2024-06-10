@@ -294,6 +294,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                               />
                             ),
                             pagefour: (
+                              <GuardianD
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagefive: (
                               <PageFinal
                                 onChange={onChangeGuardian}
                                 data={guardianData}
