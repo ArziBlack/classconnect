@@ -5,13 +5,11 @@ import Select1, { SingleValue } from "react-select";
 import { states, genders } from "../../typings/states";
 import { IGuardian, IStudent } from "../../typings/signup";
 
-// Define the type for the option objects used in react-select
 interface SelectOption {
   value: string;
   label: string;
 }
 
-// Define the type for the props
 interface PageAProps {
   onClick: (page: string) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;

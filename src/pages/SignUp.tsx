@@ -37,21 +37,21 @@ const SignUp = () => {
   };
   const [formData, setFormData] = useState<IStudent>({
     first_name: null,
-  last_name: null,
-  student_email: null,
-  sex: null,
-  country: null,
-  state: null,
-  course: null,
-  dateOfBirth: null,
-  classTime_options: null,
-  payment_plan: null,
-  class_type: null,
-  salutation: null,
-  password: "",
-  profileImage: null,
-  agreement_status: false,
-  student_phoneNum: null
+    last_name: null,
+    student_email: null,
+    sex: null,
+    country: null,
+    state: null,
+    course: null,
+    dateOfBirth: null,
+    classTime_options: null,
+    payment_plan: null,
+    class_type: null,
+    salutation: null,
+    password: "",
+    profileImage: null,
+    agreement_status: false,
+    student_phoneNum: null,
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import { PRICING } from "../constants/illustrations.ts";
 import SecondaryHero from "../components/SecondaryHero.tsx";
-import ApplyInstructor from "../components/ApplyInstructor.tsx";
-import CustomComponent from "../components/CustomComponent.tsx";
+// import ApplyInstructor from "../components/ApplyInstructor.jsx";
+import CustomComponent from "../components/CustomComponent.jsx";
 
 const Tutor = () => {
   const links = [
@@ -17,7 +17,7 @@ const Tutor = () => {
         imageUrl={PRICING}
         title="Our Pre-ready Pricing Packages"
       />
-      <ApplyInstructor />
+      {/* <ApplyInstructor /> */}
       <CustomComponent />
     </Box>
   );

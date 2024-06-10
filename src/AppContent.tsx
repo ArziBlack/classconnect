@@ -9,7 +9,7 @@ import HighSchool from "./Routes/Home/Courses/HighSchool";
 import Science from "./Routes/Home/Courses/Science";
 import Engineering from "./Routes/Home/Courses/Engineering";
 import Kindergarten from "./Routes/Home/Courses/Kindergarten";
-import ResetPassword from "./components/ResetPassword";
+import ResetPassword from "./pages/ResetPassword";
 // import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
@@ -17,6 +17,7 @@ import VerifyAccount from "./pages/VerifyEmail";
 import NotFound from "./pages/NotFound";
 import MentorProfile from "./components/MentorProfile";
 import Tutor from "./pages/Tutor";
+import PrivacyP from "./pages/PrivacyP";
 
 function AppContent() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function AppContent() {
           <Route path="science" element={<Science />} />
           <Route path="engineering" element={<Engineering />} />
         </Route>
+        <Route path="privacyP" element={<PrivacyP/>}/>
         {/* <Route path="signup" element={<SignUp />} /> */}
       </Route>
       <Route path="reset" element={<ResetPassword />} />

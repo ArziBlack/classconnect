@@ -26,10 +26,25 @@ const login = async (formData: object) => {
   return response.data;
 };
 
+// Verify User or Guardian
+
+const verify = async () => {
+  const response = await axios.post(`${API_BASE_URL}/student/verify`);
+  return response.data;
+}
+
+// Reset Password
+
+const resetPassword = async (resetData) => {
+  const response = await axios.post(`${API_BASE_URL}/student/resetPassword`, resetData)
+  return response.data
+}
 
 const authService = {
   register,
   login,
+  verify,
+  resetPassword
 };
 
 export default authService;

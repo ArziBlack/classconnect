@@ -3,45 +3,45 @@ import InputField from "../Input";
 import { Box } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
-import { SignupProps } from '../../typings/home'
+import { IGuardianProps } from "../../typings/home";
 
-const PageOne = ({ data, onChange, onClick }: SignupProps) => {
+const GuardianA = ({ data, onChange, onClick }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
         <InputField
           required
           type="text"
-          name="first_name"
+          name="parent_name"
           icon={FaRegUser}
           placeholder="John"
-          label="First Name"
+          label="Guardian Full Name"
           onChange={onChange}
-          value={data.first_name}
+          value={data.parent_name}
         />
       </Box>
       <Box w="100%" mb={3}>
         <InputField
           required
-          type="text"
-          name="last_name"
+          type="number"
+          name="parent_phoneNum"
           icon={FaRegUser}
-          label="Last Name"
-          placeholder="Doe"
+          label="Guardian Phone No"
+          placeholder="+2349037289192"
           onChange={onChange}
-          value={data.last_name}
+          value={data.parent_phoneNum}
         />
       </Box>
       <Box w="100%" mb={3}>
         <InputField
           required
           type="email"
-          name="stutent_email"
-          label="Email"
+          name="parent_email"
+          label="Guardian_Email"
           onChange={onChange}
           value={data.student_email}
           icon={IoMailOutline}
-          placeholder="johndoe@email.com"
+          placeholder="guardian@email.com"
         />
       </Box>
 
@@ -55,4 +55,4 @@ const PageOne = ({ data, onChange, onClick }: SignupProps) => {
   );
 };
 
-export default PageOne;
+export default GuardianA;

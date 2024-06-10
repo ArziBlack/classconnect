@@ -8,9 +8,10 @@ import college_pattern from "../assets/illustrations/college_pattern.png";
 import career from "../assets/illustrations/career.png";
 import courses from "../assets/illustrations/courses.png";
 import privacy_p_illustration from "../assets/illustrations/privacy_p_illustration.png";
-export const Illustrations: object = {
-  pricing,
-};
+import collabration from "../assets/illustrations/collabration.jpg";
+import excel from "../assets/illustrations/excel.jpg";
+import graduate from "../assets/illustrations/graduate.jpg";
+import remote from "../assets/illustrations/remote.jpg";
 
 export const AUTH = auth;
 export const VIDEO = video;
@@ -22,3 +23,7 @@ export const PRICING = pricing;
 export const COLLEGE_HERO = college_hero;
 export const COLLEGE_PATTERN = college_pattern;
 export const PRIVACY_P_ILLUSTRATION = privacy_p_illustration;
+export const COLLABRATION = collabration;
+export const EXCEL = excel;
+export const GRADUATE = graduate;
+export const REMOTE = remote;
