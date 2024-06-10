@@ -11,15 +11,21 @@ const MultistepProgressBar = ({
 
   switch (page) {
     case "pageone":
-      stepPercentage = 15;
+      stepPercentage = 17;
       break;
     case "pagetwo":
-      stepPercentage = 50;
+      stepPercentage = 34;
       break;
     case "pagethree":
-      stepPercentage = 83;
+      stepPercentage = 51;
       break;
     case "pagefour":
+      stepPercentage = 68;
+      break;
+    case "pagefive":
+      stepPercentage = 85;
+      break;
+    case "pagefinal":
       stepPercentage = 100;
       break;
     default:
