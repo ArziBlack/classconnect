@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-import { ProgressBar, Step } from "react-step-progress-bar";
+import { ProgressBar } from "react-step-progress-bar";
 import "../styles/Progressbar.css";
 // import { IMultistepProgressBarProps } from "../typings/signup";
 
 const MultistepProgressBar = ({
   page,
-  onPageIndexClick,
+  // onPageIndexClick,
 }) => {
   let stepPercentage = 0;
 
@@ -29,7 +29,8 @@ const MultistepProgressBar = ({
 
   return (
     <ProgressBar percent={stepPercentage}>
-      {["1", "2", "3", "4"].map((pageIndex, index) => (
+      {/* Removed the Step with Number Tag because of the large number of pages that will be displayed in the step circles at the top */}
+      {/* {["1", "2", "3", "4"].map((pageIndex, index) => (
         <Step key={index} transition="scale">
           {({ accomplished }) => (
             <div
@@ -40,7 +41,7 @@ const MultistepProgressBar = ({
             </div>
           )}
         </Step>
-      ))}
+      ))} */}
     </ProgressBar>
   );
 };
