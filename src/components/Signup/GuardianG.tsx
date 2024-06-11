@@ -1,9 +1,34 @@
-import React from 'react'
+import { useState } from "react";
+import { Box, Checkbox, Text } from "@chakra-ui/react";
+import { IGuardianProps } from "../../typings/home";
+import CButton from "../Button";
 
-const GuardianG = () => {
-  return (
-    <div>GuardianG</div>
-  )
+const GuardianG = ({ submit: Submit }: IGuardianProps) => {
+  const [check, setCheck] = useState(true);
+  function handleCheckBox() {
+    setCheck(!check);
+    check ? console.log("I was checked") : console.log("You just unchecked me");
 }
 
-export default GuardianG
+  return (
+    <>
+      <Box w="100%" mb={3}>Final Page</Box>
+      <Box display="flex" mb={6} gap={2}>
+        <Checkbox defaultChecked onChange={handleCheckBox}></Checkbox>
+        <Text fontSize="14px">
+          By creating an account, you agree to our{" "}
+          <Text
+            display={"inline-block"}
+            cursor={"pointer"}
+            _hover={{ color: "brand.action" }}
+          >
+            Terms & Conditions and Privacy Policy
+          </Text>
+        </Text>
+      </Box>
+      <CButton my={3} text="Submit" width="full" onClick={Submit} />
+    </>
+  );
+};
+
+export default GuardianG;

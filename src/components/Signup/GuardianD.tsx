@@ -1,55 +1,117 @@
 import CButton from "../Button";
-import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
-import { FaRegUser } from "react-icons/fa6";
-import { IoMailOutline } from "react-icons/io5";
+import { Box, Select } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
+import { ICountry, IGender, IState } from "../../typings/signup";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import InputField from "../Input";
+import { FaRegUser } from "react-icons/fa6";
 
 const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
+  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [states, setStates] = useState<IState[]>([]);
+  const [, setLoading] = useState<boolean>(true);
+  const [, setStateLoading] = useState<boolean>(false);
+  
+  const gender: IGender[] = [
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
+  ];
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await axios.get<ICountry[]>(
+          "https://restcountries.com/v2/all"
+        );
+        setCountries(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  useEffect(() => {
+    if (data.country) {
+      const fetchStates = async () => {
+        setStateLoading(true);
+        try {
+          const response = await axios.get<IState[]>(
+            `https://api.example.com/states?countryCode=${data.country}`
+          );
+          setStates(response.data);
+          setStateLoading(false);
+        } catch (error) {
+          console.error("Error fetching states:", error);
+          setStateLoading(false);
+        }
+      };
+
+      fetchStates();
+    } else {
+      setStates([]);
+    }
+  }, [data.country]);
+
   return (
     <>
       <Box w="100%" mb={3}>
-        <InputField
-          required
-          type="text"
-          name="first_name"
-          icon={FaRegUser}
-          placeholder="John"
-          label="Student First Name"
+        <Select
           onChange={onChange}
-          value={data.first_name}
-        />
+          mb="1px"
+          name="salutation"
+          placeholder="Select a Gender"
+        >
+          {gender.map((item, idx) => (
+            <option key={idx} value={item.value}>
+              {item.label}
+            </option>
+          ))}
+        </Select>
+      </Box>
+      <Box w="100%" mb={3}>
+        <Select
+          name="country"
+          onChange={onChange}
+          placeholder="Select a country"
+        >
+          {countries.map((country, idx) => (
+            <option key={idx} value={country.alpha2Code}>
+              {country.name}
+            </option>
+          ))}
+        </Select>
+      </Box>
+      <Box w="100%" mb={3}>
+        <Select name="state" onChange={onChange} placeholder="Select a state">
+          {states.map((state, idx) => (
+            <option key={idx} value={state.name}>
+              {state.name}
+            </option>
+          ))}
+        </Select>
       </Box>
       <Box w="100%" mb={3}>
         <InputField
           required
-          type="text"
-          name="last_name"
+          type="number"
+          name="student_phoneNum"
           icon={FaRegUser}
-          label="Student Last Name"
-          placeholder="Milton"
+          placeholder="+234 9037289192"
+          label="Student Phone Number"
           onChange={onChange}
-          value={data.last_name}
+          value={data.student_phoneNum}
         />
       </Box>
-      <Box w="100%" mb={3}>
-        <InputField
-          required
-          type="email"
-          name="student_email"
-          label="Student Email"
-          onChange={onChange}
-          value={data.student_email}
-          icon={IoMailOutline}
-          placeholder="guardian@email.com"
-        />
-      </Box>
-
       <CButton
         my={3}
         text="Next"
         width="full"
-        onClick={() => onClick("pagefour")}
+        onClick={() => onClick("pagefive")}
       />
     </>
   );

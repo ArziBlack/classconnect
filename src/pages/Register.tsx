@@ -22,6 +22,9 @@ import GuardianA from "../components/Signup/GuardianA.tsx";
 import GuardianB from "../components/Signup/GuardianB.tsx";
 import GuardianD from "../components/Signup/GuardianD.tsx";
 import GuardianC from "../components/Signup/GuardianC.tsx";
+import GuardianE from "../components/Signup/GuardianE.tsx";
+import GuardianF from "../components/Signup/GuardianF.tsx";
+import GuardianG from "../components/Signup/GuardianG.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -100,6 +103,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       case "5":
         setPage("pagefive");
         break;
+      case "6":
+        setPage("pagesix");
+        break;
+      case "7":
+        setPage("pagefinal");
+        break;
       default:
         setPage("pageone");
     }
@@ -153,12 +162,25 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   const onChangeGuardian = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    const newValue = type === "date" ? new Date(value) : value;
+
     setGuardianData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: newValue,
     }));
   };
-  log(formData);
+
+  const handleClassTimeOptionsChange = (selectedOptions: string[]) => {
+    setGuardianData((prevState) => ({
+      ...prevState,
+      classTime_options: selectedOptions,
+    }));
+  };
+
+  function submit() {}
+  // log(formData);
+  log(guardianData);
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
@@ -301,9 +323,24 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                               />
                             ),
                             pagefive: (
-                              <PageFinal
+                              <GuardianE
+                                onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                                handleClassTimeOptionsChange={handleClassTimeOptionsChange}
+                              />
+                            ),
+                            pagesix: (
+                              <GuardianF
+                                onClick={nextPage}
+                                onChange={onChangeGuardian}
+                                data={guardianData}
+                              />
+                            ),
+                            pagefinal: (
+                              <GuardianG
+                                onChange={onChangeGuardian}
+                                submit={submit}
                               />
                             ),
                           }[page]
