@@ -1,5 +1,3 @@
-Sure! Here is the updated README with the brief explanations for the script commands:
-
 # Online Educational Website
 
 Welcome to the Online Educational Website! This project is a modern and responsive educational platform built using React.js, with various features such as courses, pricing, tutor profiles, user authentication, and more. Below is an overview of the project structure, dependencies, and instructions to get started.
