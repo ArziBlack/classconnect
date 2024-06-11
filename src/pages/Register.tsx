@@ -157,9 +157,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   const onChangeGuardian = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    const newValue = type === "date" ? new Date(value) : value;
+
     setGuardianData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: newValue,
     }));
   };
 

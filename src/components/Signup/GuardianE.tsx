@@ -1,13 +1,17 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
-import { FaRegUser } from "react-icons/fa6";
+import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
 import MultipleSelectDropdown from "../Dropdown";
 import { useState } from "react";
 
-const GuardianE = ({ data, onChange, onClick, handleClassTimeOptionsChange }: IGuardianProps) => {
+const GuardianE = ({
+  data,
+  onChange,
+  onClick,
+  handleClassTimeOptionsChange,
+}: IGuardianProps) => {
   // DOB, course, paymentPlan, class_type
   const maxSelections = 4;
   const times: string[] = [
@@ -18,28 +22,35 @@ const GuardianE = ({ data, onChange, onClick, handleClassTimeOptionsChange }: IG
     "Saturday 10:00am - 12:00noon WAT",
     "Sunday 10:00am - 12:00noon WAT",
     "Sunday 5:00pm - 7:00pm WAT",
-    "Sunday 8:00pm - 10:00pm WAT"
-];
+    "Sunday 8:00pm - 10:00pm WAT",
+  ];
 
-const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return (
     <>
       <Box w="100%" mb={3}>
-        <MultipleSelectDropdown options={times} maxSelections={maxSelections} onChange={handleClassTimeOptionsChange} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
-      </Box>
-      <Box w="100%" mb={3}>
-        <InputField
-          required
-          type="text"
-          name="last_name"
-          icon={FaRegUser}
-          label="Student Last Name"
-          placeholder="Milton"
-          onChange={onChange}
-          value={data.last_name}
+        <MultipleSelectDropdown
+          options={times}
+          maxSelections={maxSelections}
+          onChange={handleClassTimeOptionsChange}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
         />
       </Box>
+      <FormControl mt={4}>
+        <FormLabel>Date of Birth</FormLabel>
+        <Input
+          type="date"
+          name="dateOfBirth"
+          value={
+            data.dateOfBirth
+              ? new Date(data.dateOfBirth).toISOString().split("T")[0]
+              : ""
+          }
+          onChange={onChange}
+        />
+      </FormControl>
       <Box w="100%" mb={3}>
         <InputField
           required
@@ -59,7 +70,7 @@ const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
         onClick={() => onClick("pagesix")}
       />
     </>
-  )
-}
+  );
+};
 
-export default GuardianE
+export default GuardianE;
