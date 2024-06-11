@@ -162,7 +162,15 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       [e.target.name]: e.target.value,
     }));
   };
-  log(formData);
+
+  const handleClassTimeOptionsChange = (selectedOptions: string[]) => {
+    setGuardianData((prevState) => ({
+      ...prevState,
+      classTime_options: selectedOptions,
+    }));
+  };
+  // log(formData);
+  log(guardianData);
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
@@ -309,6 +317,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                                handleClassTimeOptionsChange={handleClassTimeOptionsChange}
                               />
                             ),
                             pagefinal: (
