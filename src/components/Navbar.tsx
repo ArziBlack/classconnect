@@ -71,7 +71,7 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <HStack>
-          <Image src={LOGO} marginRight="1.4" />
+          <Image src={LOGO} marginRight="1.4" width={8} />
           <Text paddingLeft="1.4" fontWeight={500}>
             HEP
           </Text>

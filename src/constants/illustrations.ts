@@ -1,5 +1,5 @@
 import auth from "../assets/illustrations/auth.svg";
-import video from "../assets/illustrations/video.png";
+import video from "../assets/illustrations/video.jpg";
 import pricing from "../assets/illustrations/pricing.svg";
 import pattern from "../assets/illustrations/Pattern_1.png";
 import hero_right from "../assets/illustrations/hero_right.png";
