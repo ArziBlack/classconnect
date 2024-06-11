@@ -12,6 +12,7 @@ Welcome to the Online Educational Website! This project is a modern and responsi
 - [Pages](#pages)
 - [Contributing](#contributing)
 - [License](#license)
+- [Contributors](#contributors)
 
 ## Features
 - **Courses**: Browse and enroll in various educational courses.
@@ -137,3 +138,11 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributors
+- **@ArziBlack**
+- **ArziBlack**
+- **@King-Lord**
+- **King-Lord MONEYBAG**
+- **@PherbCampton**
+- **PherbCampton Samuel Tuinperi**
