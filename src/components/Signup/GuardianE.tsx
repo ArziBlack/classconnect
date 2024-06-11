@@ -10,6 +10,7 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
+  
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",

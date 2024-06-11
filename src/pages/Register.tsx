@@ -23,6 +23,8 @@ import GuardianB from "../components/Signup/GuardianB.tsx";
 import GuardianD from "../components/Signup/GuardianD.tsx";
 import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
+import GuardianF from "../components/Signup/GuardianF.tsx";
+import GuardianG from "../components/Signup/GuardianG.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -104,6 +106,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       case "6":
         setPage("pagesix");
         break;
+      case "7":
+        setPage("pageseven");
+        break;
       default:
         setPage("pageone");
     }
@@ -172,6 +177,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
+
+  function submit() {}
   // log(formData);
   log(guardianData);
 
@@ -323,10 +330,17 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 handleClassTimeOptionsChange={handleClassTimeOptionsChange}
                               />
                             ),
-                            pagefinal: (
-                              <PageFinal
+                            pagesix: (
+                              <GuardianF
+                                onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                              />
+                            ),
+                            pagefinal: (
+                              <GuardianG
+                                onChange={onChangeGuardian}
+                                submit={submit}
                               />
                             ),
                           }[page]
