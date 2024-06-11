@@ -1,7 +1,5 @@
 import CButton from "../Button";
-import InputField from "../Input";
-import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { IoMailOutline } from "react-icons/io5";
+import { Box, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import MultipleSelectDropdown from "../Dropdown";
 import { useState } from "react";
@@ -12,7 +10,6 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
-  // DOB, course, paymentPlan, class_type
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -25,11 +22,21 @@ const GuardianE = ({
     "Sunday 8:00pm - 10:00pm WAT",
   ];
 
+  const courses: Array<string> = [
+    "Python for Beginners",
+    "Python for Intermediate",
+    "Python for Advanced",
+    "JavaScript for Beginners",
+    "JavaScript for Intermediate",
+    "JavaScript for Advanced",
+  ];
+
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return (
     <>
       <Box w="100%" mb={3}>
+        <FormLabel>Class Time Options</FormLabel>
         <MultipleSelectDropdown
           options={times}
           maxSelections={maxSelections}
@@ -52,16 +59,19 @@ const GuardianE = ({
         />
       </FormControl>
       <Box w="100%" mb={3}>
-        <InputField
-          required
-          type="email"
-          name="student_email"
-          label="Student Email"
+      <FormLabel mt="2px">Course</FormLabel>
+        <Select
           onChange={onChange}
-          value={data.student_email}
-          icon={IoMailOutline}
-          placeholder="guardian@email.com"
-        />
+          mb="1px"
+          name="course"
+          placeholder="Select a Course"
+        >
+          {courses.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
+          ))}
+        </Select>
       </Box>
       <CButton
         my={3}
