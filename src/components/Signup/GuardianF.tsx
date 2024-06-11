@@ -39,7 +39,7 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
         my={3}
         text="Next"
         width="full"
-        onClick={() => onClick("pageseven")}
+        onClick={() => onClick("pagefinal")}
       />
     </>
   );

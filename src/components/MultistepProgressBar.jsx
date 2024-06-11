@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 import { ProgressBar } from "react-step-progress-bar";
 import "../styles/Progressbar.css";
-// import { IMultistepProgressBarProps } from "../typings/signup";
 
 const MultistepProgressBar = ({
   page,
@@ -11,19 +9,22 @@ const MultistepProgressBar = ({
 
   switch (page) {
     case "pageone":
-      stepPercentage = 17;
+      stepPercentage = 14;
       break;
     case "pagetwo":
-      stepPercentage = 34;
+      stepPercentage = 28;
       break;
     case "pagethree":
-      stepPercentage = 51;
+      stepPercentage = 43;
       break;
     case "pagefour":
-      stepPercentage = 68;
+      stepPercentage = 57;
       break;
     case "pagefive":
-      stepPercentage = 85;
+      stepPercentage = 71;
+      break;
+    case "pagesix":
+      stepPercentage = 86;
       break;
     case "pagefinal":
       stepPercentage = 100;

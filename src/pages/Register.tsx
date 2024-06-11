@@ -107,7 +107,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         setPage("pagesix");
         break;
       case "7":
-        setPage("pageseven");
+        setPage("pagefinal");
         break;
       default:
         setPage("pageone");
