@@ -5,7 +5,7 @@ import {
   ModalOverlay,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { AUTH } from "../constants/illustrations.ts";
+import { SIGNUP } from "../constants/illustrations.ts";
 
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
@@ -200,7 +200,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
             <Box
               h="100%"
               maxH="610px"
-              p={{ base: "20px", md: "" }}
+              p={{ base: "20px", md: "60px" }}
               overflow="hidden"
               fontFamily="Metropolis"
             >
@@ -225,7 +225,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                     Welcome to <br /> HEP Online <br /> Learning Platform
                   </Text>
 
-                  <Image p={0} m={0} src={AUTH} maxW="240px" />
+                  <Image p={0} m={0} src={SIGNUP} maxW="240px" />
                 </Flex>
                 <Box
                   width={{ base: "0", md: "1px" }}
@@ -327,7 +327,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
-                                handleClassTimeOptionsChange={handleClassTimeOptionsChange}
+                                handleClassTimeOptionsChange={
+                                  handleClassTimeOptionsChange
+                                }
                               />
                             ),
                             pagesix: (
