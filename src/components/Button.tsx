@@ -27,16 +27,16 @@ interface CButtonProps extends ButtonProps {
 const CButton: React.FC<CButtonProps> = ({
   text,
   icon: Icon,
-  h = "40px",
+  h = "20px",
   px = "20px",
-  py = "25px",
+  py = "20px",
   border = "none",
-  color = "white",
   outlined = false,
   isLoading = false,
   w = "fit-content",
   bg = "brand.action",
   iconPosition = "left",
+  color = "rgba(0, 0, 0, 0.87)",
   ...props
 }) => {
   const buttonBg = useColorModeValue(
@@ -44,12 +44,7 @@ const CButton: React.FC<CButtonProps> = ({
     outlined ? "gray.800" : bg
   );
 
-  const textColor = useColorModeValue(
-    outlined ? "#9C4DF4" : color,
-    outlined ? "#9C4DF4" : color
-  );
-
-  const borderColor = outlined ? "#9C4DF4" : "transparent";
+  const borderColor = outlined ? "brand.action" : "transparent";
 
   return (
     <Button
@@ -58,18 +53,17 @@ const CButton: React.FC<CButtonProps> = ({
       bg={buttonBg}
       outline="none"
       border={border}
-      fontWeight="400"
+      fontWeight="500"
       p={`${py} ${px}`}
-      color={textColor}
-      borderRadius="10px"
+      color={color}
+      borderRadius="30px"
       borderWidth={"1px"}
       borderStyle={"solid"}
       borderColor={borderColor}
       _hover={{
         borderWidth: "1px",
         bg: outlined ? bg : "white",
-        color: outlined ? color : "#9C4DF4",
-        borderColor: outlined ? "transparent" : "#9C4DF4",
+        // borderColor: outlined ? "transparent" : "brand.action",
       }}
       {...props}
     >

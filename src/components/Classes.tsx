@@ -29,7 +29,7 @@ const Classes = () => {
         480 vertical scan lines or 576 vertical lines is considered
         high-definition.
       </Text>
-      <Button text="Visit Courses" color="white" fontWeight="600" />
+      <Button text="Visit Courses" color="white" />
       <Box
         pos="relative"
         display="flex"
@@ -39,13 +39,7 @@ const Classes = () => {
         height={{ base: "full", md: "800px" }}
         width="full"
       >
-        <Image
-          src={VIDEO}
-          pos="relative"
-          zIndex="2"
-          height="100%"
-          width={"100%"}
-        />
+        <Image src={VIDEO} pos="relative" zIndex="2" width={"700px"} />
         <Image
           src={PATTERN}
           pos="absolute"

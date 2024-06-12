@@ -25,9 +25,9 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/tutor", label: "Tutor" },
-    { to: "/about", label: "About" },
     { to: "/courses", label: "Courses" },
     { to: "/pricing", label: "Pricing" },
+    { to: "/about", label: "About" },
   ];
 
   return (
@@ -38,6 +38,7 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
           to={link.to}
           key={link.to}
           opacity={0.7}
+          color={"#ffff"}
           onClick={onClick}
           as={ReactRouterLink}
           borderBottom="2px solid transparent"
@@ -60,19 +61,27 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <VStack height="100%" pos="sticky" top={0} zIndex="1000" maxWidth="1280px">
+    <VStack
+      height="100%"
+      pos="sticky"
+      top={0}
+      zIndex="1000"
+      bg={"brand.dark"}
+      color={"#ffff"}
+      borderBottom={"1px solid #003d4d"}
+    >
       <HStack
         py="2"
         width="full"
         gap={10}
         height="80px"
-        bg="brand.page"
+        maxWidth="1280px"
         alignItems="center"
         justifyContent="space-between"
       >
         <HStack>
           <Image src={LOGO} marginRight="1.4" width={8} />
-          <Text paddingLeft="1.4" fontWeight={500}>
+          <Text paddingLeft="1.4" fontWeight={500} opacity={0.7}>
             HEP
           </Text>
         </HStack>
