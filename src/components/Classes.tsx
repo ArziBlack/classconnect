@@ -39,7 +39,13 @@ const Classes = () => {
         height={{ base: "full", md: "800px" }}
         width="full"
       >
-        <Image src={VIDEO} pos="relative" zIndex="2" height="full" />
+        <Image
+          src={VIDEO}
+          pos="relative"
+          zIndex="2"
+          height="100%"
+          width={"100%"}
+        />
         <Image
           src={PATTERN}
           pos="absolute"

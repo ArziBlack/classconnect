@@ -4,9 +4,29 @@ export interface IMultistepProgressBarProps {
 }
 
 export interface RegisterModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-  }
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface ISalutation {
+  value: string;
+  label: string;
+}
+
+export interface IGender {
+  value: string;
+  label: string;
+}
+
+export interface ICountry {
+  name: string;
+  alpha2Code: string;
+}
+
+export interface IState {
+  name: string;
+  countryCode: string;
+}
 
 export interface IGuardian {
   first_name: string | null;
