@@ -190,6 +190,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
+  const handleClassTimeOptionsChangeStudent = (selectedOptions: string[]) => {
+    setGuardianData((prevState) => ({
+      ...prevState,
+      classTime_options: selectedOptions,
+    }));
+  };
 
   function submit() {}
   log(formData);
@@ -403,7 +409,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                   data={formData}
                                   onChange={onChange}
                                   handleClassTimeOptionsChange={
-                                    handleClassTimeOptionsChange
+                                    handleClassTimeOptionsChangeStudent
                                   }
                                   onClick={nextPage}
                                 />
@@ -415,7 +421,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                   onClick={nextPage}
                                 />
                               ),
-                              pageseven: (
+                              pagefinal: (
                                 <StudentFinal
                                   data={formData}
                                   onChange={onChange}

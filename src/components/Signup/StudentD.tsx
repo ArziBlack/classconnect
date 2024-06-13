@@ -17,7 +17,9 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
       .then((response) => response.json())
       .then((data) => {
         setCountries(data.countries);
+        console.log(data.countries);
         setSelectedCountry(data.userSelectValue);
+        console.log(data.userSelectValue);
       });
   }, []);
 
@@ -31,8 +33,10 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
           <Select
             name="country"
             onChange={onChange}
+            placeholder="Select a country"
           >
-            <option>{selectedCountry}</option>
+            {/* <option>{selectedCountry}</option> */}
+            <option>{selectedCountry?.userCountryCode}</option>
             {countries && countries?.map((country, idx) => (
               <option key={idx} value={country.value}>
                 {country.label}
