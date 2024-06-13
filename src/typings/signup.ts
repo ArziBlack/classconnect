@@ -19,8 +19,15 @@ export interface IGender {
 }
 
 export interface ICountry {
-  name: string;
-  alpha2Code: string;
+  // name?: string;
+  // alpha2Code?: string;
+  userCountryCode: string;
+  countries: ICountryData[] | null;
+  }
+  
+interface ICountryData {
+  value: string;
+  label: string;
 }
 
 export interface IState {

@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -8,12 +8,12 @@ import {
   Checkbox
 } from "@chakra-ui/react";
 import Select1 from "react-select";
-import { useDispatch } from "react-redux";
-import { SignupProps } from "../../typings/home";
+// import { useDispatch } from "react-redux";
+// import { SignupProps } from "../../typings/home";
 import CButton from "../Button";
 
-const PageFinal = (props: SignupProps) => {
-  const dispatch = useDispatch();
+const StudentFinal = () => {
+  // const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<object>({});
   useEffect(() => {
@@ -28,7 +28,7 @@ const PageFinal = (props: SignupProps) => {
   }, []);
 
   const [check, setCheck] = useState(true);
-  function handleCheckBox(e: SyntheticEvent) {
+  function handleCheckBox() {
     setCheck(!check);
     if (check) {
       console.log("I was checked");
@@ -96,4 +96,4 @@ const PageFinal = (props: SignupProps) => {
   );
 };
 
-export default PageFinal;
+export default StudentFinal;

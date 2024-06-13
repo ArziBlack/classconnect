@@ -16,7 +16,7 @@ interface PageAProps {
   data: IGuardian | IStudent;
 }
 
-const PageA: React.FC<PageAProps> = ({ onClick }) => {
+const StudentD: React.FC<PageAProps> = ({ onClick }) => {
   const [countries, setCountries] = useState<SelectOption[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<SelectOption | null>(null);
   const [selectedState, setSelectedState] = useState<SelectOption>({
@@ -93,4 +93,4 @@ const PageA: React.FC<PageAProps> = ({ onClick }) => {
   );
 };
 
-export default PageA;
+export default StudentD;

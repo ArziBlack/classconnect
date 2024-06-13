@@ -5,7 +5,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
 import { SignupProps } from '../../typings/home'
 
-const PageOne = ({ data, onChange, onClick }: SignupProps) => {
+const StudentA = ({ data, onChange, onClick }: SignupProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
@@ -55,4 +55,4 @@ const PageOne = ({ data, onChange, onClick }: SignupProps) => {
   );
 };
 
-export default PageOne;
+export default StudentA;

@@ -10,12 +10,12 @@ import { AUTH } from "../constants/illustrations.ts";
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
-import PageFinal from "../components/Signup/PageFinal";
-import PageOne from "../components/Signup/PageOne";
-import PageTwo from "../components/Signup/PageTwo";
+import PageFinal from "../components/Signup/StudentFinal.tsx";
+import PageOne from "../components/Signup/StudentA.tsx";
+import PageTwo from "../components/Signup/StudentB.tsx";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
-import PageA from "../components/Signup/PageA.tsx";
+import PageA from "../components/Signup/StudentD.tsx";
 import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
@@ -25,6 +25,7 @@ import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
+import { useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -153,11 +154,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     agreement_status: false,
     student_phoneNum: null,
   });
+  const { url } = useAppSelector((store) => store.image);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
+      profileImage: url,
     }));
   };
 
@@ -327,7 +330,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
-                                handleClassTimeOptionsChange={handleClassTimeOptionsChange}
+                                handleClassTimeOptionsChange={
+                                  handleClassTimeOptionsChange
+                                }
                               />
                             ),
                             pagesix: (

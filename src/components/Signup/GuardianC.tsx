@@ -18,7 +18,7 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
-        <Select onChange={onChange} mb="1px">
+        <Select onChange={onChange} mb="1px" name="salutation">
           <option>Select Salutation</option>
           {salutation.map((item, idx) => (
             <option key={idx} value={item.value}>

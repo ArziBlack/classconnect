@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PageTwo = ({ password, password2, onChange, onClick }: any) => {
+const StudentB = ({ password, password2, onChange, onClick }: any) => {
   return (
     <>
       <Box w="100%" mb={3}>
@@ -52,4 +52,4 @@ const PageTwo = ({ password, password2, onChange, onClick }: any) => {
   );
 };
 
-export default PageTwo;
+export default StudentB;

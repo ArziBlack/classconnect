@@ -8,7 +8,7 @@ import InputField from "../Input";
 import { FaRegUser } from "react-icons/fa6";
 
 const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
-  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [countries, setCountries] = useState<ICountry | null>(null);
   const [states, setStates] = useState<IState[]>([]);
   const [, setLoading] = useState<boolean>(true);
   const [, setStateLoading] = useState<boolean>(false);
@@ -21,11 +21,13 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get<ICountry[]>(
-          "https://restcountries.com/v2/all"
+        const response = await axios.get<ICountry>(
+          "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
         );
         setCountries(response.data);
         setLoading(false);
+        console.log(response.data);
+        
       } catch (error) {
         console.error("Error fetching countries:", error);
         setLoading(false);
@@ -63,7 +65,7 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
         <Select
           onChange={onChange}
           mb="1px"
-          name="salutation"
+          name="gender"
           placeholder="Select a Gender"
         >
           {gender.map((item, idx) => (
@@ -79,9 +81,9 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
           onChange={onChange}
           placeholder="Select a country"
         >
-          {countries.map((country, idx) => (
-            <option key={idx} value={country.alpha2Code}>
-              {country.name}
+          {countries.countries?.map((country, idx) => (
+            <option key={idx} value={country.value}>
+              {country.label}
             </option>
           ))}
         </Select>
