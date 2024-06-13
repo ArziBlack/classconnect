@@ -191,7 +191,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     }));
   };
   const handleClassTimeOptionsChangeStudent = (selectedOptions: string[]) => {
-    setGuardianData((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       classTime_options: selectedOptions,
     }));
