@@ -10,12 +10,8 @@ import { AUTH } from "../constants/illustrations.ts";
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
-import PageFinal from "../components/Signup/StudentFinal.tsx";
-import PageOne from "../components/Signup/StudentA.tsx";
-import PageTwo from "../components/Signup/StudentB.tsx";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
-import PageA from "../components/Signup/StudentD.tsx";
 import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
@@ -26,6 +22,13 @@ import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
 import { useAppSelector } from "../hooks/reactReduxHooks.ts";
+import StudentA from "../components/Signup/StudentA.tsx";
+import StudentB from "../components/Signup/StudentB.tsx";
+import StudentC from "../components/Signup/StudentC.tsx";
+import StudentD from "../components/Signup/StudentD.tsx";
+import StudentE from "../components/Signup/StudentE.tsx";
+import StudentFinal from "../components/Signup/StudentFinal.tsx";
+import StudentF from "../components/Signup/StudentF.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -81,6 +84,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         break;
       case "4":
         setPage("pagefour");
+        break;
+      case "5":
+        setPage("pagefive");
+        break;
+      case "6":
+        setPage("pagesix");
         break;
       default:
         setPage("pageone");
@@ -171,6 +180,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setGuardianData((prevState) => ({
       ...prevState,
       [name]: newValue,
+      profileImage: url,
     }));
   };
 
@@ -182,7 +192,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   function submit() {}
-  // log(formData);
+  log(formData);
   log(guardianData);
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
@@ -361,30 +371,54 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                           {
                             {
                               pageone: (
-                                <PageOne
+                                <StudentA
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagetwo: (
-                                <PageA
+                                <StudentB
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagethree: (
-                                <PageTwo
+                                <StudentC
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagefour: (
-                                <PageFinal
-                                  onChange={onChange}
+                                <StudentD
                                   data={formData}
+                                  onChange={onChange}
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pagefive: (
+                                <StudentE
+                                  data={formData}
+                                  onChange={onChange}
+                                  handleClassTimeOptionsChange={
+                                    handleClassTimeOptionsChange
+                                  }
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pagesix: (
+                                <StudentF
+                                  data={formData}
+                                  onChange={onChange}
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pageseven: (
+                                <StudentFinal
+                                  data={formData}
+                                  onChange={onChange}
                                 />
                               ),
                             }[page]

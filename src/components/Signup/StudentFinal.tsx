@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  FormControl,
-  FormLabel,
-  Select,
   Text,
-  Checkbox
+  Checkbox,
 } from "@chakra-ui/react";
-import Select1 from "react-select";
 // import { useDispatch } from "react-redux";
-// import { SignupProps } from "../../typings/home";
 import CButton from "../Button";
+import { IStudentProps } from "../../typings/home";
+import { ImageUpload } from "../ImageUpload";
 
-const StudentFinal = () => {
+const StudentFinal = ({ data, onClick, submit: Submit }: IStudentProps) => {
   // const dispatch = useDispatch();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<object>({});
@@ -38,40 +35,8 @@ const StudentFinal = () => {
   }
   return (
     <>
-      <Box w="100%" mb={6}>
-        <FormControl>
-          <FormLabel fontWeight="bold" fontSize="15px">
-            Country
-          </FormLabel>
-          <Select1
-            options={countries}
-            value={selectedCountry}
-            onChange={(selectedOption: object) =>
-              setSelectedCountry(selectedOption)
-            }
-          ></Select1>
-        </FormControl>
-      </Box>
-      <Box w="100%" mb={6}>
-        <FormLabel fontWeight="bold" fontSize="15px">
-          What is your current role?
-        </FormLabel>
-        <Select fontSize="15" placeholder="Select option">
-          <option value="founder">Founder</option>
-          <option value="engineer">Software Engineer</option>
-          <option value="Finance Officer">Finance Officer</option>
-        </Select>
-      </Box>
-      <Box w="100%" mb={6}>
-        <FormLabel fontWeight="bold" fontSize="15px">
-          How did you discover Tensfer?
-        </FormLabel>
-        <Select borderRadius="lg" fontSize="15" placeholder="Select option">
-          <option value="social media">Social media</option>
-          <option value="blog">Blog or publication</option>
-          <option value="search engine">Search engine</option>
-          <option value="others">Others</option>
-        </Select>
+      <Box w="100%" mb={3}>
+        <ImageUpload />
       </Box>
       <Box display="flex" mb={6} gap={2}>
         <Checkbox defaultChecked onChange={handleCheckBox}></Checkbox>
@@ -87,9 +52,10 @@ const StudentFinal = () => {
         </Text>
       </Box>
       <CButton
-        type="submit"
-        text="Register"
+        my={3}
+        text="Submit"
         width="full"
+        onClick={Submit}
         isDisabled={check ? false : true}
       />
     </>

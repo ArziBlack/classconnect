@@ -1,14 +1,31 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
-import { SignupProps } from '../../typings/home'
+import { IStudentProps } from '../../typings/home';
+import { ISalutation } from "../../typings/signup";
 
-const StudentA = ({ data, onChange, onClick }: SignupProps) => {
+const StudentA = ({ data, onChange, onClick }: IStudentProps) => {
+
+  const salutation: ISalutation[] = [
+    { value: "Mr", label: "Mr" },
+    { value: "Mrs", label: "Mrs" },
+    { value: "Ms", label: "Ms" },
+    { value: "Dr", label: "Dr" },
+  ];
+
   return (
     <>
       <Box w="100%" mb={3}>
+      <Select onChange={onChange} mb="1px" name="salutation">
+          <option>Select Salutation</option>
+          {salutation.map((item, idx) => (
+            <option key={idx} value={item.value}>
+              {item.label}
+            </option>
+          ))}
+        </Select>
         <InputField
           required
           type="text"
@@ -36,7 +53,7 @@ const StudentA = ({ data, onChange, onClick }: SignupProps) => {
         <InputField
           required
           type="email"
-          name="stutent_email"
+          name="student_email"
           label="Email"
           onChange={onChange}
           value={data.student_email}
@@ -44,7 +61,6 @@ const StudentA = ({ data, onChange, onClick }: SignupProps) => {
           placeholder="johndoe@email.com"
         />
       </Box>
-
       <CButton
         my={3}
         text="Next"
