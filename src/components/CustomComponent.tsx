@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
+import ApplyInstructor from "./ApplyInstructor";
 import {
   Box,
   Img,
@@ -144,6 +145,7 @@ YoutubeEmbed.propTypes = {
 
 const CustomComponent = () => (
   <div>
+    <ApplyInstructor />
     <YoutubeEmbed
       initialEmbedId="fBUfJFcxjiM"
       videoList={["fBUfJFcxjiM", "3fumBcKC6RE", "eX2qFMC8cFo", "yzC4hFK5P3g"]}
