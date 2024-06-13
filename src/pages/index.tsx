@@ -46,7 +46,7 @@ const Layout = () => {
   };
 
   return (
-    <Box maxW={`1280px`} px={{ base: "4", md: "16" }}>
+    <Box>
       <Navbar />
       <Box as="main">
         <Outlet />

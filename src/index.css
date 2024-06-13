@@ -63,3 +63,7 @@
 .no-scrollbar::-webkit-scrollbar-thumb {
   display: none;
 }
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}

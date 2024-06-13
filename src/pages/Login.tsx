@@ -15,13 +15,13 @@ import {
 import CButton from "../components/Button";
 import { useToast } from "@chakra-ui/react";
 import InputField from "../components/Input.tsx";
-import { AUTH } from "../constants/illustrations.ts";
+import { LOGIN } from "../constants/illustrations.ts";
 import { login } from "../services/auth/authSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, IRootState } from "../app/store.ts";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { useState, ChangeEvent, SyntheticEvent } from "react";
 import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
-import { Link as ReactRouterLink, useLocation } from "react-router-dom";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -133,7 +133,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                     Welcome to <br /> HEP Online <br /> Learning Platform
                   </Text>
 
-                  <Image p={0} m={0} src={AUTH} maxW="240px" />
+                  <Image p={0} m={0} src={LOGIN} maxW="240px" />
                 </Flex>
                 <Box
                   width={{ base: "0", md: "1px" }}

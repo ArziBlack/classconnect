@@ -1,4 +1,3 @@
-import "./App.css";
 import { VStack } from "@chakra-ui/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppContent from "./AppContent";
