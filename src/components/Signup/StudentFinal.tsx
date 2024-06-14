@@ -7,12 +7,12 @@ import {
 import CButton from "../Button";
 import { IStudentProps } from "../../typings/home";
 import { ImageUpload } from "../ImageUpload";
-import { useAppSelector } from "../../hooks/reactReduxHooks";
+// import { useAppSelector } from "../../hooks/reactReduxHooks";
 
-const StudentFinal = ({ data, submit: Submit, onChange, setFormData, isGuardian }: IStudentProps) => {
-  const { url } = useAppSelector((store) => store.image);
+const StudentFinal = ({ submit: Submit, onChange, setFormData, isGuardian }: IStudentProps) => {
+  // const {  } = useAppSelector((store) => store.image);
   const [check, setCheck] = useState(true);
-  function handleCheckBox(e: ChangeEvent<HTMLInputElement>) {
+  function handleCheckBox() {
     setCheck(!check);
     if (check) {
       console.log("I was checked");
@@ -25,8 +25,8 @@ const StudentFinal = ({ data, submit: Submit, onChange, setFormData, isGuardian 
       <Box w="100%" mb={3}>
         <ImageUpload setFormData={setFormData} isGuardian={isGuardian} />
       </Box>
-      <Box display="flex" mb={6} gap={2}>
-        <Checkbox defaultChecked onChange={onChange}></Checkbox>
+      <Box display="flex" mb={6} gap={2} onClick={handleCheckBox}>
+        <Checkbox defaultChecked onChange={onChange} name="agreement_status"></Checkbox>
         <Text fontSize="14px">
           By creating an account, you agree to our{" "}
           <Text

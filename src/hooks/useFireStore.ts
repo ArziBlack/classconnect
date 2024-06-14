@@ -35,7 +35,7 @@ function useFireStore() {
       }
 
       setImage(file);
-      setFirebaseError(''); // Clear any previous errors
+      setFirebaseError('');
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -70,12 +70,10 @@ function useFireStore() {
         }
       },
       (error: StorageError) => {
-        // Handle unsuccessful uploads
         console.error('Upload failed', error);
         setFirebaseError(error);
       },
       () => {
-        // Handle successful uploads on complete
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           dispatch(setImageUrl(downloadURL));
