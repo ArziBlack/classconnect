@@ -22,7 +22,7 @@ import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
-import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
+import { useAppSelector } from "../hooks/reactReduxHooks.ts";
 import StudentA from "../components/Signup/StudentA.tsx";
 import StudentB from "../components/Signup/StudentB.tsx";
 import StudentC from "../components/Signup/StudentC.tsx";
@@ -30,7 +30,6 @@ import StudentD from "../components/Signup/StudentD.tsx";
 import StudentE from "../components/Signup/StudentE.tsx";
 import StudentFinal from "../components/Signup/StudentFinal.tsx";
 import StudentF from "../components/Signup/StudentF.tsx";
-// import { useDispatch } from "react-redux";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -148,7 +147,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     salutation: null,
     password: "",
     profileImage: null,
-    agreement_status: false,
+    agreement_status: true,
     student_phoneNum: null,
   });
 
@@ -170,10 +169,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     parent_email: null,
     password: "",
     profileImage: null,
-    agreement_status: false,
+    agreement_status: true,
     student_phoneNum: null,
   });
   const { url } = useAppSelector((store) => store.image);
+  const { user } = useAppSelector((store)=> store.auth);
+  console.log(user);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;

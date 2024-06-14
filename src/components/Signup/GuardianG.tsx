@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Box, Checkbox, Text, useToast } from "@chakra-ui/react";
+import { Box, Checkbox, Spinner, Text, useToast } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import CButton from "../Button";
 import { ImageUpload } from "../ImageUpload";
-import { useAppDispatch } from "../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
 import { login } from "../../services/auth/authSlice";
 import { IGuardian } from "../../typings/signup";
 
 const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianProps) => {
   const toast = useToast();
+  const { isLoading } = useAppSelector((state)=> state.auth);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const dispatch = useAppDispatch();
 
@@ -101,13 +102,13 @@ const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianPro
           </Text>
         </Text>
       </Box>
-      <CButton
+      {!isLoading ? <CButton
         my={3}
         text="Submit"
         width="full"
         onClick={handleSubmit}
         isDisabled={!isChecked}
-      />
+      /> : <Spinner/>}
     </>
   );
 };
