@@ -75,14 +75,14 @@ export const ImageUpload: FC<IImageUpload> = ({ setFormData, setGuardianData, is
           mb={3}
         />
       </FormControl>
-      {preview && (
+      {url ? null : preview && (
         <Box mb={3}>
           <Image
             src={preview}
             alt="Selected Image"
             objectFit="cover"
             borderRadius="md"
-            maxH="140px"
+            maxH="100px"
           />
         </Box>
       )}

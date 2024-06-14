@@ -4,6 +4,7 @@ import {
   ModalContent,
   ModalOverlay,
   useBreakpointValue,
+  useToast,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
 
@@ -21,7 +22,7 @@ import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
-import { useAppSelector } from "../hooks/reactReduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 import StudentA from "../components/Signup/StudentA.tsx";
 import StudentB from "../components/Signup/StudentB.tsx";
 import StudentC from "../components/Signup/StudentC.tsx";
@@ -29,6 +30,7 @@ import StudentD from "../components/Signup/StudentD.tsx";
 import StudentE from "../components/Signup/StudentE.tsx";
 import StudentFinal from "../components/Signup/StudentFinal.tsx";
 import StudentF from "../components/Signup/StudentF.tsx";
+// import { useDispatch } from "react-redux";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -62,6 +64,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
+  const toast = useToast();
 
   function toggleSignUpType() {
     setSignTypeModal(!signTypeModal);
@@ -69,6 +72,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   function nextPage(page: string) {
     setPage(page);
+    if (formData.password !== null || guardianData.password !== null) {
+      if (formData.password !== formData.confirm_password) {
+        toast({ title: "Password", description: "Passwords do not match" });
+      }
+    } else {
+      null;
+    }
   }
 
   const nextPageIndex = (pageIndex: string) => {
@@ -196,8 +206,10 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
-
-  function submit() {}
+  // const dispatch = useAppDispatch();
+  function submit() {
+    // dispatch();
+  }
   log(formData);
   log(guardianData);
 

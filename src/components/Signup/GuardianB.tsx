@@ -63,6 +63,7 @@ const PasswordStrengthBar = ({ password }) => {
 };
 
 const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
+  const { password, confirm_password } = data;
   return (
     <>
       <Box w="100%" mb={3}>
@@ -102,6 +103,7 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
             my={3}
             text="Next"
             width="full"
+            disabled={password !== confirm_password}
             onClick={() => onClick("pagethree")}
           />
         </Box>
