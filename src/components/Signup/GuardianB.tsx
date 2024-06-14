@@ -1,6 +1,7 @@
+import React from "react";
+import { useToast, Box } from "@chakra-ui/react";
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
 import { IGuardianProps } from "../../typings/home";
@@ -63,7 +64,22 @@ const PasswordStrengthBar = ({ password }) => {
 };
 
 const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
+  const toast = useToast();
   const { password, confirm_password } = data;
+
+  const handlePasswordChange = (e) => {
+    onChange(e);
+    if (e.target.name === "confirm_password" && password !== e.target.value) {
+      toast({
+        title: "Passwords do not match",
+        description: "Please make sure the passwords match.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <>
       <Box w="100%" mb={3}>
@@ -74,11 +90,11 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           type="password"
           onChange={onChange}
           showPasswordToggle
-          value={data.password}
+          value={password}
           icon={IoLockClosedOutline}
           placeholder="************"
         />
-        <PasswordStrengthBar password={data.password} />
+        <PasswordStrengthBar password={password} />
       </Box>
       <Box w="100%" mb={6}>
         <InputField
@@ -86,9 +102,9 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           name="confirm_password"
           label="Confirm Password"
           type="password"
-          onChange={onChange}
+          onChange={handlePasswordChange}
           showPasswordToggle
-          value={data.confirm_password}
+          value={confirm_password}
           icon={IoLockClosedOutline}
           placeholder="************"
         />
