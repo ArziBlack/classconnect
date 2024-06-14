@@ -9,8 +9,10 @@ import {
   Progress,
 } from "@chakra-ui/react";
 import useFireStore from "../hooks/useFireStore";
+import { FC, useEffect } from "react";
+import { IImageUpload } from "../typings/files";
 
-export const ImageUpload = () => {
+export const ImageUpload: FC<IImageUpload> = ({ setFormData, setGuardianData, isGuardian }) => {
   const toast = useToast();
   const {
     handleImageChange,
@@ -22,7 +24,22 @@ export const ImageUpload = () => {
     uploadImage,
   } = useFireStore();
 
-  const handleUpload = () => {
+  useEffect(() => {
+    if (url) {
+      console.log(url);
+      !isGuardian ? setFormData((prevState) => ({ ...prevState, profileImage: url })) :
+      setGuardianData((prevState) => ({ ...prevState, profileImage: url }));
+      toast({
+        title: "Image uploaded",
+        description: "Your image has been successfully uploaded.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  }, [url, setFormData, setGuardianData, isGuardian, toast]);
+
+  const handleUpload = async () => {
     if (!image) {
       toast({
         title: "No image selected",
@@ -37,25 +54,14 @@ export const ImageUpload = () => {
     if (firebaseError) {
       toast({
         title: "Error uploading Image",
-        description: "Please select an image to re-upload.",
+        description: firebaseError?.message,
         status: "error",
         duration: 3000,
         isClosable: true,
       });
     }
 
-    // Handle the image upload logic here
-    // For now, we'll just show a toast message
-    uploadImage();
-    if (url) {
-      toast({
-        title: "Image uploaded",
-        description: "Your image has been successfully uploaded.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    await uploadImage();
   };
 
   return (

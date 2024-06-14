@@ -1,31 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Text,
   Checkbox,
 } from "@chakra-ui/react";
-// import { useDispatch } from "react-redux";
 import CButton from "../Button";
 import { IStudentProps } from "../../typings/home";
 import { ImageUpload } from "../ImageUpload";
+import { useAppSelector } from "../../hooks/reactReduxHooks";
 
-const StudentFinal = ({ data, onClick, submit: Submit }: IStudentProps) => {
-  // const dispatch = useDispatch();
-  const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState<object>({});
-  useEffect(() => {
-    fetch(
-      "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCountries(data.countries);
-        setSelectedCountry(data.userSelectValue);
-      });
-  }, []);
-
+const StudentFinal = ({ data, submit: Submit, onChange, setFormData, isGuardian }: IStudentProps) => {
+  const { url } = useAppSelector((store) => store.image);
   const [check, setCheck] = useState(true);
-  function handleCheckBox() {
+  function handleCheckBox(e: ChangeEvent<HTMLInputElement>) {
     setCheck(!check);
     if (check) {
       console.log("I was checked");
@@ -36,10 +23,10 @@ const StudentFinal = ({ data, onClick, submit: Submit }: IStudentProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
-        <ImageUpload />
+        <ImageUpload setFormData={setFormData} isGuardian={isGuardian} />
       </Box>
       <Box display="flex" mb={6} gap={2}>
-        <Checkbox defaultChecked onChange={handleCheckBox}></Checkbox>
+        <Checkbox defaultChecked onChange={onChange}></Checkbox>
         <Text fontSize="14px">
           By creating an account, you agree to our{" "}
           <Text

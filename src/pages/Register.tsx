@@ -166,10 +166,10 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const { url } = useAppSelector((store) => store.image);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
-      profileImage: url,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -361,7 +361,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                             pagefinal: (
                               <GuardianG
                                 onChange={onChangeGuardian}
+                                setGuardianData={setGuardianData}
                                 submit={submit}
+                                isGuardian={signUpAsGuardian}
                               />
                             ),
                           }[page]
@@ -425,6 +427,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 <StudentFinal
                                   data={formData}
                                   onChange={onChange}
+                                  setFormData={setFormData}
+                                  isGuardian={signUpAsGuardian}
                                 />
                               ),
                             }[page]

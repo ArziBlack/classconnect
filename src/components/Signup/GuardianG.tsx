@@ -4,7 +4,7 @@ import { IGuardianProps } from "../../typings/home";
 import CButton from "../Button";
 import { ImageUpload } from "../ImageUpload";
 
-const GuardianG = ({ submit: Submit }: IGuardianProps) => {
+const GuardianG = ({ submit: Submit, setGuardianData, isGuardian }: IGuardianProps) => {
   const [check, setCheck] = useState<boolean>(false);
   function handleCheckBox() {
     setCheck(!check);
@@ -14,7 +14,7 @@ const GuardianG = ({ submit: Submit }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
-        <ImageUpload />
+        <ImageUpload setGuardianData={setGuardianData} isGuardian={isGuardian} />
       </Box>
       <Box display="flex" mb={6} gap={2}>
         <Checkbox defaultChecked onChange={handleCheckBox}></Checkbox>
