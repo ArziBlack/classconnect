@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import MentorProfile from "./components/MentorProfile";
 import Tutor from "./pages/Tutor";
 import PrivacyP from "./pages/PrivacyP";
+import FireBaseUpload from "./pages/FireBaseUpload";
 
 function AppContent() {
   const location = useLocation();
@@ -52,6 +53,7 @@ function AppContent() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="tutor" element={<Tutor />} />
         <Route path="about" element={<MentorProfile />} />
+        <Route path="upload" element={<FireBaseUpload />} />
         <Route path="courses" element={<Courses />}>
           <Route index element={<AllCourses />} />
           <Route path="kindergarten" element={<Kindergarten />} />

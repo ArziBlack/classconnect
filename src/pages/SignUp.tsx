@@ -1,14 +1,14 @@
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
-import PageFinal from "../components/Signup/PageFinal";
-import PageOne from "../components/Signup/PageOne";
-import PageTwo from "../components/Signup/PageTwo";
+import PageFinal from "../components/Signup/StudentFinal";
+import PageOne from "../components/Signup/StudentA";
+import PageTwo from "../components/Signup/StudentB";
 import MultistepProgressBar from "../components/MultistepProgressBar";
 import { SIGN_UP } from "../constants/image";
 import { LOGO } from "../constants/icon";
 import { ChangeEvent, useState } from "react";
-import PageA from "../components/Signup/PageA";
+import PageA from "../components/Signup/StudentD";
 import { IStudent } from "../typings/signup";
 
 const SignUp = () => {

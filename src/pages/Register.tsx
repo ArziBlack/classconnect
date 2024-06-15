@@ -4,18 +4,15 @@ import {
   ModalContent,
   ModalOverlay,
   useBreakpointValue,
+  useToast,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
 
 import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
-import PageFinal from "../components/Signup/PageFinal";
-import PageOne from "../components/Signup/PageOne";
-import PageTwo from "../components/Signup/PageTwo";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
-import PageA from "../components/Signup/PageA.tsx";
 import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
@@ -25,6 +22,14 @@ import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
+import { useAppSelector } from "../hooks/reactReduxHooks.ts";
+import StudentA from "../components/Signup/StudentA.tsx";
+import StudentB from "../components/Signup/StudentB.tsx";
+import StudentC from "../components/Signup/StudentC.tsx";
+import StudentD from "../components/Signup/StudentD.tsx";
+import StudentE from "../components/Signup/StudentE.tsx";
+import StudentFinal from "../components/Signup/StudentFinal.tsx";
+import StudentF from "../components/Signup/StudentF.tsx";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
@@ -58,6 +63,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
+  const toast = useToast();
 
   function toggleSignUpType() {
     setSignTypeModal(!signTypeModal);
@@ -65,6 +71,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   function nextPage(page: string) {
     setPage(page);
+    if (formData.password !== null || guardianData.password !== null) {
+      if (formData.password !== formData.confirm_password) {
+        toast({ title: "Password", description: "Passwords do not match" });
+      }
+    } else {
+      null;
+    }
   }
 
   const nextPageIndex = (pageIndex: string) => {
@@ -80,6 +93,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         break;
       case "4":
         setPage("pagefour");
+        break;
+      case "5":
+        setPage("pagefive");
+        break;
+      case "6":
+        setPage("pagesix");
         break;
       default:
         setPage("pageone");
@@ -128,7 +147,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     salutation: null,
     password: "",
     profileImage: null,
-    agreement_status: false,
+    agreement_status: true,
     student_phoneNum: null,
   });
 
@@ -150,14 +169,18 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     parent_email: null,
     password: "",
     profileImage: null,
-    agreement_status: false,
+    agreement_status: true,
     student_phoneNum: null,
   });
+  const { url } = useAppSelector((store) => store.image);
+  const { user } = useAppSelector((store)=> store.auth);
+  console.log(user);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -168,6 +191,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setGuardianData((prevState) => ({
       ...prevState,
       [name]: newValue,
+      profileImage: url,
     }));
   };
 
@@ -177,9 +201,17 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
-
-  function submit() {}
-  // log(formData);
+  const handleClassTimeOptionsChangeStudent = (selectedOptions: string[]) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      classTime_options: selectedOptions,
+    }));
+  };
+  // const dispatch = useAppDispatch();
+  function submit() {
+    // dispatch();
+  }
+  log(formData);
   log(guardianData);
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
@@ -342,7 +374,9 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                             pagefinal: (
                               <GuardianG
                                 onChange={onChangeGuardian}
+                                setGuardianData={setGuardianData}
                                 submit={submit}
+                                isGuardian={signUpAsGuardian}
                               />
                             ),
                           }[page]
@@ -358,30 +392,56 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                           {
                             {
                               pageone: (
-                                <PageOne
+                                <StudentA
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagetwo: (
-                                <PageA
+                                <StudentB
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagethree: (
-                                <PageTwo
+                                <StudentC
                                   onClick={nextPage}
                                   onChange={onChange}
                                   data={formData}
                                 />
                               ),
                               pagefour: (
-                                <PageFinal
-                                  onChange={onChange}
+                                <StudentD
                                   data={formData}
+                                  onChange={onChange}
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pagefive: (
+                                <StudentE
+                                  data={formData}
+                                  onChange={onChange}
+                                  handleClassTimeOptionsChange={
+                                    handleClassTimeOptionsChangeStudent
+                                  }
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pagesix: (
+                                <StudentF
+                                  data={formData}
+                                  onChange={onChange}
+                                  onClick={nextPage}
+                                />
+                              ),
+                              pagefinal: (
+                                <StudentFinal
+                                  data={formData}
+                                  onChange={onChange}
+                                  setFormData={setFormData}
+                                  isGuardian={signUpAsGuardian}
                                 />
                               ),
                             }[page]

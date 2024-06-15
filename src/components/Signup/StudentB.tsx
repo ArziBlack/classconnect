@@ -1,9 +1,9 @@
+import { IStudentProps } from "../../typings/home";
 import CButton from "../Button";
 import InputField from "../Input";
 import { Box } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
-import { IGuardianProps } from "../../typings/home";
 
 const PasswordStrengthBar = ({ password }) => {
   const testResult = zxcvbn(password);
@@ -62,8 +62,7 @@ const PasswordStrengthBar = ({ password }) => {
   );
 };
 
-const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
-  const { password, confirm_password } = data;
+const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
@@ -83,7 +82,7 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
       <Box w="100%" mb={6}>
         <InputField
           id="Password2"
-          name="confirm_password"
+          name="password2"
           label="Confirm Password"
           type="password"
           onChange={onChange}
@@ -100,10 +99,9 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           width="100%"
         >
           <CButton
-            my={3}
+            my={4}
             text="Next"
             width="full"
-            disabled={password !== confirm_password}
             onClick={() => onClick("pagethree")}
           />
         </Box>
@@ -112,4 +110,4 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
   );
 };
 
-export default GuardianB;
+export default StudentB;

@@ -1,6 +1,14 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import { Box, Heading, Flex, IconButton, AspectRatio } from "@chakra-ui/react";
+import ApplyInstructor from "./ApplyInstructor";
+import {
+  Box,
+  Img,
+  Heading,
+  Flex,
+  IconButton,
+  AspectRatio,
+} from "@chakra-ui/react";
 import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
 
 const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
@@ -125,6 +133,7 @@ YoutubeEmbed.propTypes = {
 
 const CustomComponent = () => (
   <div>
+    <ApplyInstructor />
     <YoutubeEmbed
       initialEmbedId="fBUfJFcxjiM"
       videoList={["fBUfJFcxjiM", "3fumBcKC6RE", "eX2qFMC8cFo", "yzC4hFK5P3g"]}
