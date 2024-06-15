@@ -18,9 +18,9 @@ const NewsletterSection: React.FC = () => {
       bg={"brand.dark"}
       color={"brand.page"}
       textAlign="center"
-      borderRadius="lg"
       position="relative"
       overflow="hidden"
+      borderBottom={"1px solid #003d4d"}
     >
       {/* Circular Images */}
       <Image
@@ -83,10 +83,10 @@ const NewsletterSection: React.FC = () => {
         mx={{ base: "auto", md: "auto" }}
       >
         <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold">
-          Subscribe For Get Update Every New Courses
+          Subscribe To Get Update <br /> Of Our New Courses
         </Text>
         <Text color={"brand.page"} fontSize={{ base: "sm", md: "md" }} my={4}>
-          20k+ students daily learn with Hep. Subscribe for new courses.
+          20k+ students daily learn with HEP. Subscribe for new courses.
         </Text>
       </Box>
       <Flex justify="center" mt={6}>
@@ -96,13 +96,15 @@ const NewsletterSection: React.FC = () => {
             type="email"
             variant="filled"
             bg={"brand.grey"}
-            color="white"
+            color="black"
             _placeholder={{ color: "brand.offwhite" }}
             borderRightRadius="0"
+            _focusVisible={{ outline: "brand.action" }}
             flex="1"
           />
           <Button
             colorScheme={"brand.action"}
+            color={"rgba(0, 0, 0, 0.87)"}
             bg={"brand.action"}
             borderLeftRadius="0"
             px={{ base: 4, md: 8 }}

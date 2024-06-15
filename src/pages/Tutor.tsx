@@ -11,14 +11,14 @@ const Tutor = () => {
   ];
 
   return (
-    <Box>
-      <SecondaryHero
+    <Box bg={"brand.dark"}>
+      {/* <SecondaryHero
         links={links}
         imageUrl={PRICING}
         title="Our Pre-ready Pricing Packages"
       />
-      {/* <ApplyInstructor /> */}
-      <CustomComponent />
+      <ApplyInstructor />
+      <CustomComponent /> */}
     </Box>
   );
 };

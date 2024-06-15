@@ -1,15 +1,7 @@
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Img,
-  Heading,
-  Flex,
-  IconButton,
-  AspectRatio,
-} from "@chakra-ui/react";
+import { Box, Heading, Flex, IconButton, AspectRatio } from "@chakra-ui/react";
 import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
-import Pattern from "../assets/images/Pattern.png"; // Adjust the path according to your project structure
 
 const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
@@ -52,23 +44,12 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
 
   return (
     <Box
-      maxW="1024px"
       mx="auto"
       px={{ base: 4, md: 8 }}
       mt={{ base: 4, md: 8 }}
       mb={{ base: 4, md: 8 }}
       position="relative"
     >
-      <Box
-        zIndex={0}
-        position="absolute"
-        right={{ base: -4, md: -12 }}
-        top={{ base: "4", md: "4" }}
-        width={{ base: "100px", md: "150px" }}
-      >
-        <Img src={Pattern} alt="Pattern background" />
-      </Box>
-
       <Heading as="h2" size="lg" fontWeight="bold" textAlign="center" mb={4}>
         How to apply to join as instructor
       </Heading>

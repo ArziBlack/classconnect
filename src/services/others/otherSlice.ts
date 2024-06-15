@@ -5,9 +5,9 @@ import axios from "axios";
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
-interface IFees {
+export interface IFees {
   statusCode: number;
-  tution_fees: {
+  tuition_fees: {
     class_of_1: {
       monthly_payment: string;
       quarterly_payment: string;
@@ -77,11 +77,11 @@ export const getTnC_Policy = createAsyncThunk(
   }
 );
 
-export const getTutionFees = createAsyncThunk(
+export const getTuitionFees = createAsyncThunk(
   "other/fees",
   async (_, { rejectWithValue }) => {
     try {
-      return await otherService.getTutionFees();
+      return await otherService.getTuitionFees();
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
@@ -115,17 +115,17 @@ const otherSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(getTutionFees.pending, (state) => {
+      .addCase(getTuitionFees.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
-        getTutionFees.fulfilled,
+        getTuitionFees.fulfilled,
         (state, action: PayloadAction<IFees>) => {
           state.isLoading = false;
           state.fees = action.payload;
         }
       )
-      .addCase(getTutionFees.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(getTuitionFees.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
       })

@@ -1,27 +1,29 @@
-import { VStack, Heading, HStack } from "@chakra-ui/layout";
-import { Text, Box, Image } from "@chakra-ui/react";
-import { PATTERN, VIDEO } from "../constants/illustrations";
-import { AUDIO, LIVE, PLAY } from "../constants/icon";
 import Button from "./Button";
+import { Text } from "@chakra-ui/react";
+import { VStack, Heading } from "@chakra-ui/layout";
 
 const Classes = () => {
   return (
-    <VStack paddingY="40px" h="full">
+    <VStack paddingY="40px" h="full" mt={20}>
       <Heading
         as={`h2`}
-        size={`xl`}
-        w={{ base: "90%", md: "450px" }}
-        textAlign={`center`}
         color="brand.dark"
+        textAlign={`center`}
+        size={{ base: "xl", md: "2xl" }}
+        w={{ base: "90%", md: "450px" }}
         marginBottom={{ base: "4", md: "0" }}
       >
         High quality video, audio & live classes
       </Heading>
+
       <Text
-        w={{ base: "90%", md: "650px" }}
+        mt={10}
+        fontWeight={500}
+        fontSize={"20px"}
+        color={"brand.text"}
         textAlign={`center`}
-        color="brand.offwhite"
         paddingBottom={`10px`}
+        w={{ base: "90%", md: "650px" }}
       >
         High-definition video is video of higher resolution and quality than
         standard-definition. While there is no standardized meaning for
@@ -29,86 +31,7 @@ const Classes = () => {
         480 vertical scan lines or 576 vertical lines is considered
         high-definition.
       </Text>
-      <Button text="Visit Courses" color="white" />
-      <Box
-        pos="relative"
-        display="flex"
-        flexDir="column"
-        alignItems={`center`}
-        justifyContent={`center`}
-        height={{ base: "full", md: "800px" }}
-        width="full"
-      >
-        <Image src={VIDEO} pos="relative" zIndex="2" width={"700px"} />
-        <Image
-          src={PATTERN}
-          pos="absolute"
-          h="230px"
-          w="230px"
-          top={`1px`}
-          right="10%"
-          zIndex={`1`}
-          display={{ base: "none", md: "block" }}
-        />
-        <HStack
-          justifyContent={`space-between`}
-          w={{ base: "90%", md: "60%" }}
-          pos={{ base: "relative", md: "absolute" }}
-          bottom={{ base: "20px", md: "75px" }}
-          flexDir={{ base: "column", md: "row" }}
-          gap={{ base: "10px", md: "10%" }}
-          //   gridColumn={`3 repeat`}
-        >
-          <HStack
-            padding="2"
-            bg="white"
-            borderRadius="5px"
-            paddingX="3"
-            width={{ base: "full", md: "" }}
-            justifyContent={`space-between`}
-          >
-            <Image
-              src={AUDIO}
-              padding="5px"
-              borderRadius={`5px`}
-              bg="brand.lightred"
-            />
-            <Text fontWeight="600">Audio Classes</Text>
-          </HStack>
-          <HStack
-            padding="2"
-            bg="white"
-            borderRadius="5px"
-            paddingX="3"
-            width={{ base: "full", md: "" }}
-            justifyContent={`space-between`}
-          >
-            <Image
-              src={LIVE}
-              padding="5px"
-              borderRadius={`5px`}
-              bg="brand.lightred"
-            />
-            <Text fontWeight="600">Live Classes</Text>
-          </HStack>
-          <HStack
-            padding="2"
-            bg="white"
-            borderRadius="5px"
-            paddingX="3"
-            width={{ base: "full", md: "" }}
-            justifyContent={`space-between`}
-          >
-            <Image
-              src={PLAY}
-              padding="5px"
-              borderRadius={`5px`}
-              bg="brand.lightred"
-            />
-            <Text fontWeight="600">Recorded Classes</Text>
-          </HStack>
-        </HStack>
-      </Box>
+      <Button text="Visit Courses" />
     </VStack>
   );
 };

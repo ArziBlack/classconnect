@@ -176,7 +176,7 @@ const MentorProfile: React.FC = () => {
 
   return (
     <ChakraProvider>
-      <Box p={4} maxW="1024px" mx="auto">
+      <Box p={4} mx="auto">
         <HeadNav />
         <Img
           src={bg}

@@ -16,10 +16,11 @@ import {
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
 import {
-  Link as ReactRouterLink,
-  useLocation,
   NavLink,
+  useLocation,
+  Link as ReactRouterLink,
 } from "react-router-dom";
+import { useState } from "react";
 
 type NavbarLinksProp = {
   onClick?: () => void;
@@ -41,6 +42,7 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
           to={link.to}
           key={link.to}
           onClick={onClick}
+          className={"group"}
           style={({ isActive, isTransitioning }) => {
             return {
               padding: "0 10px",
@@ -56,20 +58,20 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
           {({ isActive }) => (
             <>
               {link.label}
-              {isActive && (
-                <span
-                  style={{
-                    left: "50%",
-                    width: "6px",
-                    height: "6px",
-                    bottom: "-5px",
-                    borderRadius: "50%",
-                    position: "absolute",
-                    backgroundColor: "#00ff84",
-                    transform: "translateX(-50%)",
-                  }}
-                ></span>
-              )}
+              <span
+                style={{
+                  left: "50%",
+                  width: "6px",
+                  height: "6px",
+                  bottom: "-5px",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  opacity: isActive ? 1 : 0.3,
+                  transform: "translateX(-50%)",
+                  transition: "opacity 0.3s ease-in-out",
+                }}
+                className={` ${isActive ? "bg-primary-action" : "group-hover:bg-white"}`}
+              />
             </>
           )}
         </NavLink>
@@ -80,20 +82,22 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
 
   return (
     <VStack
-      height="100%"
-      pos="sticky"
       top={0}
+      pos="sticky"
+      height="100%"
       zIndex="1000"
       bg={"brand.dark"}
       color={"#ffff"}
-      borderBottom={"1px solid #003d4d"}
+      // borderBottom={"1px solid #003d4d"}
     >
       <HStack
         py="2"
+        px={"16px"}
         width="full"
         gap={10}
         height="80px"
@@ -102,10 +106,7 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <HStack>
-          <Image src={LOGO} marginRight="1.4" width={8} />
-          <Text paddingLeft="1.4" fontWeight={500} opacity={0.7}>
-            HEP
-          </Text>
+          <Image src={LOGO} marginRight="1.4" width={"60px"} />
         </HStack>
 
         <IconButton
@@ -131,14 +132,14 @@ const Navbar = () => {
           ml="auto"
           pb={"2px"}
           opacity={0.7}
-          borderBottom="2px solid transparent"
           display={{ base: "none", md: "block" }}
           transition="border-bottom 0.3s ease-in-out"
           _hover={{
             opacity: "1",
             textDecor: "none",
-            borderBottom: "2px solid",
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <HStack>
             <ChakraLink
@@ -152,7 +153,7 @@ const Navbar = () => {
             >
               Login
             </ChakraLink>
-            <FaUser />
+            <FaUser color={isHovered ? "#00ff84" : ""} />
           </HStack>
         </HStack>
       </HStack>

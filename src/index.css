@@ -67,3 +67,23 @@
 .swiper-pagination-bullet-active {
   background-color: white;
 }
+
+.fade-in-image {
+  opacity: 0;
+  animation: fadeInLeftToRight 40s ease-in-out infinite;
+}
+
+@keyframes fadeInLeftToRight {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  50% {
+    opacity: 0.5;
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(0 0 0 0);
+  }
+}
