@@ -58,7 +58,15 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
       mb={{ base: 4, md: 8 }}
       position="relative"
     >
-      <Heading as="h2" size="lg" fontWeight="bold" textAlign="center" mb={4}>
+      <Heading
+        color={"brand.text"}
+        fontFamily={"Metropolis"}
+        as="h2"
+        size="lg"
+        fontWeight="600"
+        textAlign="center"
+        mb={4}
+      >
         How to apply to join as instructor
       </Heading>
       <Box
@@ -99,7 +107,7 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
               color="white"
               onClick={handlePrevious}
               sx={{ "&:hover": { bg: "transparent" } }}
-              isDisabled={currentVideoIndex === 0} // Disable if at the first video
+              isDisabled={currentVideoIndex === 0}
             />
             <IconButton
               aria-label={isPlaying ? "Pause" : "Play"}
@@ -117,7 +125,7 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
               color="white"
               onClick={handleNext}
               sx={{ "&:hover": { bg: "transparent" } }}
-              isDisabled={currentVideoIndex === videoList.length - 1} // Disable if at the last video
+              isDisabled={currentVideoIndex === videoList.length - 1}
             />
           </Flex>
         </Box>

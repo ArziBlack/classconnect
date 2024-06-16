@@ -2,47 +2,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import otherService from "./otherService.ts";
 import axios from "axios";
+import { IFees, IHomeResponse, OtherState } from "../../typings/home.ts";
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
-
-export interface IFees {
-  statusCode: number;
-  tuition_fees: {
-    class_of_1: {
-      monthly_payment: string;
-      quarterly_payment: string;
-      half_yearly_payment: string;
-      yearly_payment: string;
-    };
-    class_of_5: {
-      monthly_payment: string;
-      quarterly_payment: string;
-      half_yearly_payment: string;
-      yearly_payment: string;
-    };
-    class_of_10: {
-      monthly_payment: string;
-      quarterly_payment: string;
-      half_yearly_payment: string;
-      yearly_payment: string;
-    };
-  };
-}
-
-interface IWelcomeMsg {
-  statusCode: number;
-  message: string;
-}
-
-interface OtherState {
-  home: IWelcomeMsg | null;
-  fees: IFees | null;
-  tnc: string;
-  error: string | null;
-  message: string;
-  isLoading: boolean;
-  isSuccess: boolean;
-}
 
 const initialState: OtherState = {
   home: null,
@@ -54,11 +16,11 @@ const initialState: OtherState = {
   isSuccess: false,
 };
 
-export const getHomePage = createAsyncThunk(
+export const getHomeResponse = createAsyncThunk(
   "other/welcome",
   async (_, { rejectWithValue }) => {
     try {
-      return await otherService.getHomePage();
+      return await otherService.getHomeResponse();
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
@@ -101,20 +63,23 @@ const otherSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getHomePage.pending, (state) => {
+      .addCase(getHomeResponse.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
-        getHomePage.fulfilled,
-        (state, action: PayloadAction<IWelcomeMsg>) => {
+        getHomeResponse.fulfilled,
+        (state, action: PayloadAction<IHomeResponse>) => {
           state.isLoading = false;
           state.home = action.payload;
         }
       )
-      .addCase(getHomePage.rejected, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.error = action.payload.message;
-      })
+      .addCase(
+        getHomeResponse.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload.message;
+        }
+      )
       .addCase(getTuitionFees.pending, (state) => {
         state.isLoading = true;
       })

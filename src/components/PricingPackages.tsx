@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import CButton from "./Button";
 import { PRICE_TAG } from "../constants/icon";
-import { IFees } from "../services/others/otherSlice";
+import { IFees } from "../typings/home";
 
 interface IPricing {
   fees: IFees;
@@ -55,7 +55,7 @@ const PricingPackages: React.FC<IPricing> = ({ isLoading, fees }) => {
       </Flex>
 
       {isLoading ? (
-        <Tabs variant="soft-rounded" colorScheme="green">
+        <Tabs variant="soft-rounded">
           <TabList>
             <Tab>
               <Skeleton height="40px" width="80px" />

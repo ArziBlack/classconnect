@@ -26,7 +26,8 @@ const ResetPassword = () => {
 
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
-  function sendReset() {
+  function sendReset(e) {
+    e.preventDefault();
     dispatch(reset(email as unknown as void));
   }
   return (

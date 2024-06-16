@@ -19,7 +19,7 @@ const Privacy: React.FC = () => {
       <div className="min-w-80">
         <SecondaryHero
           title={"Terms of Condition & Privacy policy"}
-          description="Privacy policy"
+          description="Our Terms and Conditions outline the rules and guidelines for using our services. They cover important aspects such as user responsibilities, privacy policies, and service limitations. By using our services, you agree to abide by these terms. Please read them carefully before proceeding."
         />
       </div>
       <div className=" m-8 ">

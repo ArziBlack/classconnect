@@ -26,8 +26,8 @@ const LessonCard: React.FC<ICardProps> = ({ image, title, description }) => {
     >
       <Image src={image} />
 
-      <VStack mt="4">
-        <Text fontWeight="bold" fontSize="xl" color={"white"}>
+      <VStack my="4">
+        <Text fontWeight="bold" fontSize="lg" color={"white"}>
           {title}
         </Text>
         <Text

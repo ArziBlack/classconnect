@@ -3,7 +3,7 @@ import axios from "axios";
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
 // get welcome data for homepage or server health
-const getHomePage = async () => {
+const getHomeResponse = async () => {
   const response = await axios.get(API_BASE_URL);
   return response.data;
 };
@@ -21,7 +21,7 @@ const getTnC_Policy = async () => {
 };
 
 const otherService = {
-  getHomePage,
+  getHomeResponse,
   getTuitionFees,
   getTnC_Policy,
 };
