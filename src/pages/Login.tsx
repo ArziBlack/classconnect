@@ -66,8 +66,8 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
       });
     isSuccess &&
       toast({
-        title: "Account created.",
-        description: "We've created your account for you.",
+        title: "Logged in.",
+        description: "We've been successfully logged in.",
         status: "success",
         duration: 9000,
         isClosable: true,
@@ -233,7 +233,17 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                           color: "brand.action",
                         }}
                       >
-                        Forgot Password?
+                        <ChakraLink
+                          as={ReactRouterLink}
+                          display={"inline-block"}
+                          cursor="pointer"
+                          to={"/reset"}
+                          _hover={{
+                            color: "brand.action",
+                          }}
+                        >
+                          Forgot Password?
+                        </ChakraLink>
                       </Text>
                     </Box>
                     <HStack>

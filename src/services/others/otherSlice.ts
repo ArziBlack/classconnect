@@ -69,7 +69,7 @@ export const getTnC_Policy = createAsyncThunk(
   "other/policy",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/getAllTuitionFees`);
+      const response = await axios.get(`${API_BASE_URL}/agreement`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

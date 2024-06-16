@@ -3,8 +3,11 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  Radio,
+  RadioGroup,
   useBreakpointValue,
   useToast,
+  useRadioGroup,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
 
@@ -34,25 +37,32 @@ import StudentF from "../components/Signup/StudentF.tsx";
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
+
+  const { value, setValue } = useRadioGroup();
+
+  const handleChange = (value) => {
+    value === "student"
+      ? setSignUpAsGuardian(false)
+      : setSignUpAsGuardian(true);
+    setValue(value);
+  };
+
   const SignUpType = () => {
     return (
-      <div className="w-full flex flex-col items-center justify-center p-4">
-        <h2 className="text-2xl font-bold mb-4">Signup as a:</h2>
-        <div className="flex space-x-4 mb-6">
-          <button
-            className={`px-4 py-2 text-lg ${signUpAsGuardian === false ? "bg-purple-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setSignUpAsGuardian(false)}
-          >
+      <div className="w-full flex flex-col items-center justify-center p-4 mt-10">
+        <h2 className="text-xl font-[600] mb-4 ">Signing up as a?</h2>
+        <RadioGroup
+          colorScheme="green"
+          onChange={handleChange}
+          value={value as string}
+          marginBottom={10}
+        >
+          <Radio value="student" marginRight={4}>
             Student
-          </button>
-          <button
-            className={`px-4 py-2 text-lg ${signUpAsGuardian === true ? "bg-purple-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setSignUpAsGuardian(true)}
-          >
-            Guardian
-          </button>
-        </div>
-        <CButton text="Next" onClick={toggleSignUpType} />
+          </Radio>
+          <Radio value="guardian">Guardian</Radio>
+        </RadioGroup>
+        <CButton text="Continue" onClick={toggleSignUpType} />
       </div>
     );
   };
@@ -142,13 +152,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     course: null,
     dateOfBirth: null,
     classTime_options: null,
-    payment_plan: null,
-    class_type: null,
+    payment_plan: "quarterly",
+    class_type: "class_of_1",
     salutation: null,
     password: "",
     profileImage: null,
-    agreement_status: true,
-    student_phoneNum: null,
+    agreement_status: "agreed",
+    student_phoneNum: "8384535333",
   });
 
   const [guardianData, setGuardianData] = useState<IGuardian>({
@@ -173,7 +183,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     student_phoneNum: null,
   });
   const { url } = useAppSelector((store) => store.image);
-  const { user } = useAppSelector((store)=> store.auth);
+  const { user } = useAppSelector((store) => store.auth);
   console.log(user);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -207,10 +217,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
-  // const dispatch = useAppDispatch();
-  function submit() {
-    // dispatch();
-  }
+  function submit() {}
   log(formData);
   log(guardianData);
 
@@ -297,22 +304,11 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Box mb="2px">
-                    <Heading
-                      as="h5"
-                      fontSize="27px"
-                      fontWeight="700"
-                      color="black"
-                    >
+                  <Box mb="auto">
+                    <Heading as="h5" fontSize="27px" fontWeight="700">
                       Create your account
                     </Heading>
-                    <Text
-                      fontSize="15px"
-                      fontWeight="400"
-                      color="black"
-                      mt={4}
-                      mb={6}
-                    >
+                    <Text fontSize="15px" fontWeight="400" mt={4} mb={6}>
                       Join thousands of students advancing their careers on HEP
                       Coding.
                     </Text>
@@ -450,7 +446,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       )
                     )}
                   </Box>
-                  <Text as="a" textAlign="center" fontSize="16px">
+                  <Text as="a" textAlign="center" fontSize="14px">
                     Already have an account?{" "}
                     <b className=" text-[#002C8A]">
                       <Link href="/">Sign in</Link>

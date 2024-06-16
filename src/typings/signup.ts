@@ -23,8 +23,8 @@ export interface ICountry {
   // alpha2Code?: string;
   userCountryCode: string;
   countries: ICountryData[] | null;
-  }
-  
+}
+
 interface ICountryData {
   value: string;
   label: string;
@@ -53,9 +53,9 @@ export interface IGuardian {
   parent_email: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: string | null;
-  agreement_status: boolean;
-  student_phoneNum: number | null;
+  profileImage: File | null;
+  agreement_status: boolean | string;
+  student_phoneNum: number | string | null;
 }
 
 export interface IStudent {
@@ -73,7 +73,7 @@ export interface IStudent {
   salutation: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: string | null;
-  agreement_status: boolean;
-  student_phoneNum: number;
+  profileImage: File | null;
+  agreement_status: boolean | string;
+  student_phoneNum: number | string;
 }

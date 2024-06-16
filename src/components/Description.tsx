@@ -8,10 +8,13 @@ interface IDescriptionProps {
 const Description: React.FC<IDescriptionProps> = ({ children }) => {
   return (
     <Text
-      w={{ base: "90%", md: "650px" }}
+      mt={10}
+      fontWeight={500}
+      fontSize={"20px"}
+      color={"brand.text"}
       textAlign={`center`}
-      color="brand.offwhite"
       paddingBottom={`10px`}
+      w={{ base: "90%", md: "650px" }}
     >
       {children}
     </Text>

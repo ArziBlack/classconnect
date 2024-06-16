@@ -1,44 +1,45 @@
 import {
-  VStack,
   Box,
-  Link as ChakraLink,
-  SimpleGrid,
+  VStack,
   Heading,
+  SimpleGrid,
+  Link as ChakraLink,
 } from "@chakra-ui/layout";
 import SecondaryHero from "./SecondaryHero";
-import { Outlet, Link as ReactRouterLink } from "react-router-dom";
 import { courseLinks } from "../utils/course";
-import { COURSES } from "../constants/illustrations";
+import { Link as ReactRouterLink } from "react-router-dom";
+import LessonCard from "./LessonCard";
+import { data } from "../utils/data";
 
 const Courses = () => {
   return (
-    <VStack paddingTop={`50px`}>
+    <section>
       <SecondaryHero
-        title="Eduvi Courses For All Standards"
-        imageUrl={COURSES}
-        links={[
-          { label: "Home", href: "/" },
-          { label: "courses", href: "/courses" },
-        ]}
+        title="HEP Courses Are For All Standards"
+        description="Focus your creative journey with Skillshare Learning Paths. Deepen your skillset with a set of curated classes that build on one another, reinforcing lessons. Available in a range of experience levels from beginner to advanced."
       />
-      <VStack w="100%" display={`flex`}>
-        <Box py="40px">
-          <SimpleGrid columns={{ base: 4, sm: 5, md: 6, lg: 7 }} spacing={`10`}>
+      <VStack>
+        <Box
+          py="40px"
+          alignItems={`center`}
+          justifyContent={`center`}
+          display={`flex`}
+          flexDir={`column`}
+        >
+          <SimpleGrid columns={{ base: 1, md: 1 }} spacing={`10`}>
             {courseLinks.map((item, index) => (
               <Box
+                px="8px"
                 key={index}
                 py={`10px`}
                 bg="#fff"
-                px="8px"
-                borderRadius={`5px`}
                 display={`flex`}
-                alignItems={`center`}
-                justifyContent={`center`}
+                borderRadius={`5px`}
               >
                 <ChakraLink
-                  as={ReactRouterLink}
                   to={item.link}
                   fontWeight={`600`}
+                  as={ReactRouterLink}
                 >
                   {item.route}
                 </ChakraLink>
@@ -50,10 +51,20 @@ const Courses = () => {
           </Heading>
         </Box>
         <Box>
-          <Outlet />
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing="12">
+            {data.map((item, index) => (
+              <LessonCard
+                key={index}
+                image={item.image}
+                title={item.title}
+                description={item.description}
+                bgColor={item.bgColor}
+              />
+            ))}
+          </SimpleGrid>
         </Box>
       </VStack>
-    </VStack>
+    </section>
   );
 };
 

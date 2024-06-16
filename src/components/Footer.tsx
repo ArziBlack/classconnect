@@ -90,7 +90,7 @@ function Footer() {
           <Text>Press</Text>
           <Text>Inventors</Text>
           <Text>Terms</Text>
-          <ChakraLink as={ReactRouterLink} to="/privacyP">
+          <ChakraLink as={ReactRouterLink} to="/privacy">
             <Text>Privacy</Text>
           </ChakraLink>
           <Text>Help</Text>

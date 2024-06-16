@@ -93,7 +93,6 @@ const Navbar = () => {
       zIndex="1000"
       bg={"brand.dark"}
       color={"#ffff"}
-      // borderBottom={"1px solid #003d4d"}
     >
       <HStack
         py="2"
@@ -112,7 +111,7 @@ const Navbar = () => {
         <IconButton
           icon={<FaBars />}
           onClick={onOpen}
-          bg={"transaprent"}
+          bg={"transparent"}
           aria-label="Open Menu"
           display={{ base: "flex", md: "none" }}
         />

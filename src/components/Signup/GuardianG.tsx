@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { Box, Checkbox, Spinner, Text, useToast } from "@chakra-ui/react";
+import { Box, Checkbox, Text, useToast } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import CButton from "../Button";
 import { ImageUpload } from "../ImageUpload";
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
-import { login } from "../../services/auth/authSlice";
+import { register } from "../../services/auth/authSlice";
 import { IGuardian } from "../../typings/signup";
 
-const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianProps) => {
+const GuardianG = ({
+  setGuardianData,
+  isGuardian,
+  onChange,
+  data,
+}: IGuardianProps) => {
   const toast = useToast();
-  const { isLoading } = useAppSelector((state)=> state.auth);
+  const { isLoading, isError, message, isSuccess } = useAppSelector(
+    (state) => state.auth
+  );
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const dispatch = useAppDispatch();
 
@@ -66,9 +73,26 @@ const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianPro
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateGuardianData(data)) {
-      dispatch(login(data));
+      await dispatch(register(data));
+      isSuccess &&
+        toast({
+          title: "Account created successfully",
+          description: "Please check your child's email for more details",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+
+      isError &&
+        toast({
+          title: "Error Signing You Up",
+          description: message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
     } else {
       toast({
         title: "Error Signing You Up",
@@ -83,7 +107,10 @@ const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianPro
   return (
     <>
       <Box w="100%" mb={3}>
-        <ImageUpload setGuardianData={setGuardianData} isGuardian={isGuardian} />
+        <ImageUpload
+          setGuardianData={setGuardianData}
+          isGuardian={isGuardian}
+        />
       </Box>
       <Box display="flex" mb={6} gap={2} onClick={handleCheckBoxToggle}>
         <Checkbox
@@ -102,13 +129,14 @@ const GuardianG = ({ setGuardianData, isGuardian, onChange, data }: IGuardianPro
           </Text>
         </Text>
       </Box>
-      {!isLoading ? <CButton
+      <CButton
         my={3}
         text="Submit"
         width="full"
+        isLoading={isLoading}
         onClick={handleSubmit}
         isDisabled={!isChecked}
-      /> : <Spinner/>}
+      />
     </>
   );
 };

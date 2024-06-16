@@ -12,6 +12,9 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { reset } from "../services/auth/authSlice";
+import { useAppDispatch } from "../hooks/reactReduxHooks";
+import { useState } from "react";
 
 const ResetPassword = () => {
   const bgColor = useColorModeValue("gray.50", "gray.900");
@@ -21,9 +24,14 @@ const ResetPassword = () => {
   const placeholderColor = useColorModeValue("gray.400", "gray.400");
   const primaryColor = useColorModeValue("blue.500", "primary.600");
 
+  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState("");
+  function sendReset() {
+    dispatch(reset(email as unknown as void));
+  }
   return (
     <Box
-      bg={bgColor}
+      // bg={bgColor}
       minH="100vh"
       display="flex"
       alignItems="center"
@@ -60,17 +68,17 @@ const ResetPassword = () => {
           borderColor={borderColor}
           borderWidth={1}
           maxW="md"
-        //   sm={{ p: 8 }}
+          //   sm={{ p: 8 }}
         >
           <Heading
             as="h2"
-            size="xl"
+            size="lg"
             mb={1}
             fontWeight="bold"
             textAlign="center"
             color={textColor}
           >
-            Change Password
+            Reset Password
           </Heading>
           <VStack
             as="form"
@@ -101,9 +109,10 @@ const ResetPassword = () => {
                 _placeholder={{ color: placeholderColor }}
                 focusBorderColor={primaryColor}
                 required
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
-            <FormControl>
+            {/* <FormControl>
               <FormLabel
                 htmlFor="password"
                 mb={2}
@@ -125,8 +134,8 @@ const ResetPassword = () => {
                 focusBorderColor={primaryColor}
                 required
               />
-            </FormControl>
-            <FormControl>
+            </FormControl> */}
+            {/* <FormControl>
               <FormLabel
                 htmlFor="confirm-password"
                 mb={2}
@@ -148,7 +157,7 @@ const ResetPassword = () => {
                 focusBorderColor={primaryColor}
                 required
               />
-            </FormControl>
+            </FormControl> */}
             <FormControl display="flex" alignItems="start">
               <Checkbox
                 id="newsletter"
@@ -160,8 +169,10 @@ const ResetPassword = () => {
                 ringColor={primaryColor}
                 // dark={{ ringOffsetColor: "gray.800" }}
               />
-              <Text fontSize="sm" color="gray.500" 
-            //   dark={{ color: "gray.300" }}
+              <Text
+                fontSize="sm"
+                color="gray.500"
+                //   dark={{ color: "gray.300" }}
               >
                 I accept the{" "}
                 <Link
@@ -180,17 +191,18 @@ const ResetPassword = () => {
               colorScheme="blue"
               bg={primaryColor}
               _hover={{ bg: "blue.700" }}
-            //   focusRingColor={primaryColor}
+              //   focusRingColor={primaryColor}
               fontSize="sm"
               fontWeight="medium"
               rounded="lg"
               py={2.5}
               textAlign="center"
-            //   dark={{
-            //     bg: primaryColor,
-            //     _hover: { bg: "primary.700" },
-            //     focusRingColor: "primary.800",
-            //   }}
+              onClick={sendReset}
+              //   dark={{
+              //     bg: primaryColor,
+              //     _hover: { bg: "primary.700" },
+              //     focusRingColor: "primary.800",
+              //   }}
             >
               Reset password
             </Button>

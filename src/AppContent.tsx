@@ -16,7 +16,7 @@ import VerifyAccount from "./pages/VerifyEmail";
 import NotFound from "./pages/NotFound";
 import MentorProfile from "./components/MentorProfile";
 import Tutor from "./pages/Tutor";
-import PrivacyP from "./pages/PrivacyP";
+import Privacy from "./pages/Privacy";
 import FireBaseUpload from "./pages/FireBaseUpload";
 
 function AppContent() {
@@ -63,7 +63,7 @@ function AppContent() {
           <Route path="science" element={<Science />} />
           <Route path="engineering" element={<Engineering />} />
         </Route>
-        <Route path="privacyP" element={<PrivacyP />} />
+        <Route path="privacy" element={<Privacy />} />
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />

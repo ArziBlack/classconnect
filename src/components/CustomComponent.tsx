@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ApplyInstructor from "./ApplyInstructor";
 import {
   Box,
-  Img,
+  // Img,
   Heading,
   Flex,
   IconButton,
@@ -61,13 +61,13 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
       <Heading as="h2" size="lg" fontWeight="bold" textAlign="center" mb={4}>
         How to apply to join as instructor
       </Heading>
-
       <Box
-        bg="white"
-        borderRadius="22px"
-        boxShadow="lg"
-        position="relative"
         zIndex={2}
+        boxShadow="lg"
+        maxW={"800px"}
+        borderRadius="22px"
+        position="relative"
+        margin={"0 auto"}
       >
         <Box borderRadius="22px" overflow="hidden">
           <AspectRatio ratio={16 / 9}>

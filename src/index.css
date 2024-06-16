@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  margin: 0 auto;
-}
-
 @font-face {
   font-family: Metropolis;
   src: url(assets/fonts/Metropolis/Metropolis-Thin.otf);
