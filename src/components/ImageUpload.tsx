@@ -25,6 +25,9 @@ export const ImageUpload: FC<IImageUpload> = ({
     firebaseError,
     uploadProgress,
     image,
+    message,
+    fileSizeLimit,
+    fileSize,
     uploadImage,
   } = useFireStore();
 
@@ -32,10 +35,10 @@ export const ImageUpload: FC<IImageUpload> = ({
     if (url) {
       console.log(url);
       !isGuardian
-        ? setFormData((prevState) => ({ ...prevState, profileImage: image }))
+        ? setFormData((prevState) => ({ ...prevState, profileImage: url }))
         : setGuardianData((prevState) => ({
             ...prevState,
-            profileImage: image,
+            profileImage: url,
           }));
       toast({
         title: "Image uploaded",
@@ -64,6 +67,16 @@ export const ImageUpload: FC<IImageUpload> = ({
       toast({
         title: "Error uploading Image",
         description: firebaseError?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    if (fileSize > fileSizeLimit) {
+      toast({
+        title: "File exceeds limit",
+        description: message,
         status: "error",
         duration: 3000,
         isClosable: true,

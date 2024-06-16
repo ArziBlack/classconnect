@@ -53,7 +53,7 @@ export interface IGuardian {
   parent_email: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: File | null;
+  profileImage: string | null;
   agreement_status: boolean | string;
   student_phoneNum: number | string | null;
 }
@@ -73,7 +73,7 @@ export interface IStudent {
   salutation: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: File | null;
+  profileImage: string | null;
   agreement_status: boolean | string;
   student_phoneNum: number | string;
 }
