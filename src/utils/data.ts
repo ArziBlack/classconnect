@@ -1,4 +1,4 @@
-import { ONE, FIVE, _A } from "../constants/icon";
+import { ONE, FIVE, TEN } from "../constants/icon";
 
 export const data = [
   {
@@ -16,7 +16,7 @@ export const data = [
     bgColor: "gray",
   },
   {
-    image: _A,
+    image: TEN,
     title: "Class of Ten",
     description:
       "Standard 3 of the Aged Care Quality Standards applies to all services delivering personal...",

@@ -18,7 +18,7 @@ const Lessons = () => {
         Qualified Classes for Students
       </Heading>
       <Description>
-        A course is a structured period of time where learning is intended to
+        A class is a structured period of time where learning is intended to
         occur. It involves one or more students being taught by a teacher or
         instructor.
       </Description>

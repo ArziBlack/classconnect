@@ -28,8 +28,8 @@ const Courses = () => {
   return (
     <section>
       <SecondaryHero
-        title="HEP Courses Are For All Standards"
-        description="Focus your creative journey with Skillshare Learning Paths. Deepen your skillset with a set of curated classes that build on one another, reinforcing lessons. Available in a range of experience levels from beginner to advanced."
+        title="HEP Courses Are For Everyone"
+        description="At Hepcoding Academy, we offer a diverse range of courses designed to equip you with the skills needed to excel in the tech industry. Whether you’re a beginner eager to learn the basics or an experienced professional looking to advance your knowledge, our courses cater to all skill levels."
       />
       <VStack>
         <Box

@@ -24,10 +24,15 @@ const LessonCard: React.FC<ICardProps> = ({ image, title, description }) => {
       my="20px"
       justifyContent={`space-between`}
     >
-      <Image src={image} />
+      <Image src={image} width={"50px"} />
 
       <VStack my="4">
-        <Text fontWeight="bold" fontSize="lg" color={"white"}>
+        <Text
+          fontWeight="bold"
+          fontSize="lg"
+          color={"white"}
+          textTransform={"uppercase"}
+        >
           {title}
         </Text>
         <Text

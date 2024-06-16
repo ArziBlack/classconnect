@@ -6,7 +6,7 @@ import {
   Radio,
   RadioGroup,
   useBreakpointValue,
-  useToast,
+  // useToast,
   useRadioGroup,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
@@ -73,7 +73,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
-  const toast = useToast();
+  // const toast = useToast();
 
   function toggleSignUpType() {
     setSignTypeModal(!signTypeModal);
@@ -81,13 +81,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   function nextPage(page: string) {
     setPage(page);
-    if (formData.password !== null || guardianData.password !== null) {
-      if (formData.password !== formData.confirm_password) {
-        toast({ title: "Password", description: "Passwords do not match" });
-      }
-    } else {
-      null;
-    }
+    // if (formData.password !== null || guardianData.password !== null) {
+    //   if (formData.password !== formData.confirm_password) {
+    //     toast({ title: "Password", description: "Passwords do not match" });
+    //   }
+    // } else {
+    //   null;
+    // }
   }
 
   const nextPageIndex = (pageIndex: string) => {
@@ -242,11 +242,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
               p={{ base: "20px", md: "60px" }}
               overflow="hidden"
               fontFamily="Metropolis"
+              className="no-scrollbar"
             >
               <Flex
                 flexDir={{ base: "column", md: "row" }}
                 justifyItems="space-between"
                 gap={14}
+                className="no-scrollbar"
               >
                 <Flex
                   width={{ base: "100%", md: "40%" }}
@@ -297,12 +299,12 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                 </Box>
                 <Flex
                   flex="1"
-                  width={{ base: "100%", md: "40%" }}
                   maxW="340px"
                   ml="auto"
                   flexDir="column"
                   alignItems="center"
                   justifyContent="center"
+                  width={{ base: "100%", md: "40%" }}
                 >
                   <Box mb="auto">
                     <Heading as="h5" fontSize="27px" fontWeight="700">
