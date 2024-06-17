@@ -7,8 +7,6 @@ import { register } from "../../services/auth/authSlice";
 import { Box, Checkbox, Text, useToast, Flex } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
 
-// import { ImageUpload } from "../ImageUpload";
-
 const GuardianG = ({
   setGuardianData,
   // isGuardian,
@@ -127,12 +125,6 @@ const GuardianG = ({
 
   return (
     <>
-      {/* <Box w="100%" mb={3}>
-        <ImageUpload
-          setGuardianData={setGuardianData}
-          isGuardian={isGuardian}
-        />
-      </Box> */}
       <div className="flex flex-col items-center mb-8">
         <div
           onClick={openFile}
