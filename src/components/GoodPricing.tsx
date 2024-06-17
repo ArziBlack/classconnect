@@ -1,8 +1,10 @@
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 import { GOOD_PRICING } from "../constants/illustrations";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 const GoodPricing = () => {
+  const navigate = useNavigate();
   return (
     <Flex
       w={`full`}
@@ -37,17 +39,19 @@ const GoodPricing = () => {
             Affordable Pricing for Everyone
           </Heading>
           <Text fontSize="medium" color="white" paddingY="10px" mt={5}>
-            Discover the perfect plan for your needs with our flexible pricing
-            options. Whether you're a beginner or a professional, we have a plan
-            that fits your budget.
+            Discover the perfect plan for your learning style with our flexible
+            pricing options. Whether you prefer one-on-one sessions, small group
+            interactions, or dynamic group classes, we have a plan that fits
+            your budget.
           </Text>
           <Text fontSize="medium" color="white" paddingY="10px" mb={4}>
-            Unlock premium features and exclusive content at prices designed to
-            make top-quality learning accessible to everyone. Start your journey
-            today and find the right plan for you!
+            Unlock personalized instruction, collaborative learning, or a
+            vibrant classroom experience at prices designed to make top-quality
+            education accessible to everyone. Start your journey today and
+            choose the right plan for you!
           </Text>
 
-          <Button text="View Pricing" />
+          <Button text="View Pricing" onClick={() => navigate("/pricing")} />
         </Box>
       </Box>
       <Box

@@ -1,8 +1,10 @@
 import Button from "./Button";
 import { Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { VStack, Heading } from "@chakra-ui/layout";
 
 const Classes = () => {
+  const navigate = useNavigate();
   return (
     <VStack paddingY="40px" h="full" mt={20}>
       <Heading
@@ -31,7 +33,7 @@ const Classes = () => {
         480 vertical scan lines or 576 vertical lines is considered
         high-definition.
       </Text>
-      <Button text="Visit Courses" />
+      <Button text="Visit Courses" onClick={() => navigate("/courses")} />
     </VStack>
   );
 };

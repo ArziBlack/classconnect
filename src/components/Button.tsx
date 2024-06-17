@@ -44,7 +44,7 @@ const CButton: React.FC<CButtonProps> = ({
     outlined ? "gray.800" : bg
   );
 
-  const borderColor = outlined ? "brand.action" : "transparent";
+  const borderColor = outlined ? "brand.dark" : "transparent";
 
   return (
     <Button
@@ -63,7 +63,7 @@ const CButton: React.FC<CButtonProps> = ({
       _hover={{
         borderWidth: "1px",
         bg: outlined ? bg : "white",
-        // borderColor: outlined ? "transparent" : "brand.action",
+        borderColor: outlined ? "transparent" : "brand.dark",
       }}
       {...props}
     >

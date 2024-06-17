@@ -38,7 +38,7 @@ const Career = () => {
             paddingY={{ base: "5", md: "0" }}
             paddingRight={{ base: "0", md: "20px" }}
           >
-            Want to share your knowledge? Join us as a Mentor
+            Want to share your knowledge? Join us as a Tutor
           </Heading>
           <Text
             mb="2"
@@ -47,11 +47,11 @@ const Career = () => {
             fontSize="medium"
             color="brand.text"
           >
-            High-definition video is video of higher resolution and quality than
-            standard-definition. While there is no standardized meaning for
-            high-definition, generally any video.
+            Join Hepcoding Academy as a tutor and inspire the next generation of
+            tech professionals. We seek passionate experts with strong
+            communication skills to provide high-quality education.
           </Text>
-          <Button text="Join as mentor" onClick={() => navigate("/tutor")} />
+          <Button text="Join as Tutor" onClick={() => navigate("/tutor")} />
         </Box>
       </Box>
       <Box

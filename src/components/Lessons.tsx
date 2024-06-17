@@ -3,8 +3,10 @@ import LessonCard from "./LessonCard";
 import Description from "./Description";
 import { Heading } from "@chakra-ui/react";
 import { VStack, Box, SimpleGrid } from "@chakra-ui/layout";
+import { useNavigate } from "react-router-dom";
 
 const Lessons = () => {
+  const navigate = useNavigate();
   return (
     <VStack paddingY="40px">
       <Heading
@@ -28,10 +30,12 @@ const Lessons = () => {
           {data.map((item, index) => (
             <LessonCard
               key={index}
+              CTA="Learn more"
               image={item.image}
               title={item.title}
-              description={item.description}
               bgColor={item.bgColor}
+              description={item.description}
+              onClick={() => navigate("/pricing")}
             />
           ))}
         </SimpleGrid>

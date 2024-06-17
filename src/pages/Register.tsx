@@ -50,7 +50,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const SignUpType = () => {
     return (
       <div className="w-full flex flex-col items-center justify-center p-4 mt-10">
-        <h2 className="text-xl font-[600] mb-4 ">Signing up as a?</h2>
+        <h2 className="text-xl font-[600] mb-4 ">What best describes you?</h2>
         <RadioGroup
           colorScheme="green"
           onChange={handleChange}

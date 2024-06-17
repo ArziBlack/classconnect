@@ -3,13 +3,21 @@ import Button from "./Button";
 import React from "react";
 
 interface ICardProps {
-  image: string;
+  CTA: string;
   title: string;
-  description: string;
+  image: string;
   bgColor: string;
+  description: string;
+  onClick?: () => void;
 }
 
-const LessonCard: React.FC<ICardProps> = ({ image, title, description }) => {
+const LessonCard: React.FC<ICardProps> = ({
+  CTA,
+  image,
+  title,
+  description,
+  onClick = () => console.log("Button Clicked"),
+}) => {
   return (
     <VStack
       bg="brand.dark"
@@ -45,7 +53,7 @@ const LessonCard: React.FC<ICardProps> = ({ image, title, description }) => {
           {description}
         </Text>
       </VStack>
-      <Button text="Class Details" />
+      <Button text={CTA} onClick={onClick} />
     </VStack>
   );
 };

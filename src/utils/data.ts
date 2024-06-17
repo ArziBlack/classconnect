@@ -5,21 +5,21 @@ export const data = [
     image: ONE,
     title: "Class of One",
     description:
-      "Standard 1 is a foundation Standard that reflects 7 important concepts...",
+      "Personalized one-on-one learning sessions tailored to your individual needs and pace. Ideal for those who seek focused, customized instruction.",
     bgColor: "orange",
   },
   {
     image: FIVE,
     title: "Class of Five",
     description:
-      "Standard 2 builds on the foundations of Standard 1 and includes requirements...",
+      "Engage in collaborative learning with a small group of five students. Perfect for those who enjoy interactive sessions and peer discussions.",
     bgColor: "gray",
   },
   {
     image: TEN,
     title: "Class of Ten",
     description:
-      "Standard 3 of the Aged Care Quality Standards applies to all services delivering personal...",
+      "Participate in dynamic group classes with up to ten students. Designed for those who thrive in a vibrant, diverse learning environment.",
     bgColor: "teal",
   },
 ];

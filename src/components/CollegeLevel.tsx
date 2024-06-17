@@ -1,8 +1,11 @@
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 import { VIDEO } from "../constants/illustrations";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 const CollegeLevel = () => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       w={`full`}
@@ -46,7 +49,7 @@ const CollegeLevel = () => {
             technologies and skills.
           </Text>
 
-          <Button text="Register Now" />
+          <Button text="Register Now" onClick={() => navigate("/register")} />
         </Box>
       </Box>
       <Box

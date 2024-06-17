@@ -77,6 +77,7 @@ const Courses = () => {
                   image={ONE}
                   title={item?.title}
                   bgColor={"brand.dark"}
+                  CTA="View curriculum"
                   description={truncateDescription(item?.description)}
                 />
               </Skeleton>
