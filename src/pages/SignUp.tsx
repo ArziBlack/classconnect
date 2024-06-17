@@ -47,7 +47,6 @@ const SignUp = () => {
     classTime_options: null,
     payment_plan: null,
     class_type: null,
-    salutation: null,
     password: "",
     profileImage: null,
     agreement_status: false,
