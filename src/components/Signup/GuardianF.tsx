@@ -1,5 +1,5 @@
 import CButton from "../Button";
-import { Box, Select, Flex } from "@chakra-ui/react";
+import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 
 const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
@@ -17,6 +17,9 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Payment plan
+        </FormLabel>
         <Select
           name="payment_plan"
           onChange={onChange}
@@ -31,6 +34,9 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
         </Select>
       </Box>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Class type
+        </FormLabel>
         <Select
           name="class_type"
           onChange={onChange}

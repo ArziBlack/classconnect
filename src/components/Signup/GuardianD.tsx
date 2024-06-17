@@ -32,6 +32,9 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px">
+          Gender
+        </FormLabel>
         <Select
           onChange={onChange}
           mb="1px"
@@ -67,6 +70,9 @@ const GuardianD = ({ data, onChange, onClick }: IGuardianProps) => {
         </FormControl>
       </Box>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px">
+          State
+        </FormLabel>
         <Select name="state" onChange={onChange} placeholder="Select a state">
           {states.map((item, idx) => (
             <option value={item.value} key={idx}>
