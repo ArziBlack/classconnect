@@ -1,13 +1,12 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box, Select } from "@chakra-ui/react";
+import { Box, Select, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
 import { ISalutation } from "../../typings/signup";
 
 const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
-  
   const salutation: ISalutation[] = [
     { value: "Mr", label: "Mr" },
     { value: "Mrs", label: "Mrs" },
@@ -62,12 +61,20 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
         />
       </Box>
 
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagefour")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagetwo")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagefour")}
+        />
+      </Flex>
     </>
   );
 };

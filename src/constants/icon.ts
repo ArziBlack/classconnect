@@ -22,6 +22,7 @@ import lightbulb from "../assets/icons/lightbulb.png";
 import audio from "../assets/icons/audio.png";
 import live from "../assets/icons/live.png";
 import play from "../assets/icons/play.png";
+import avatar from "../assets/icons/default_avatar.png";
 
 export const Icons: object = {
   one,
@@ -70,3 +71,4 @@ export const LOGO = logo;
 export const AUDIO = audio;
 export const LIVE = live;
 export const PLAY = play;
+export const AVATAR = avatar;

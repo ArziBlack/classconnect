@@ -1,33 +1,31 @@
-import { useState } from "react";
-import { Box, Text, Checkbox, useToast } from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import { Box, Text, Checkbox, Flex } from "@chakra-ui/react";
 import CButton from "../Button";
 import { IStudentProps } from "../../typings/home";
-import { ImageUpload } from "../ImageUpload";
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
-import { IStudent } from "../../typings/signup";
-import { register } from "../../services/auth/authSlice";
+import { IStudent, studentInit } from "../../typings/signup";
+import { useNavigate } from "react-router-dom";
+
+import { IResponse, register, reset } from "../../services/auth/authSlice";
+import { AVATAR } from "../../constants/icon";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const StudentFinal = ({
   onChange,
   setFormData,
-  isGuardian,
   data,
+  onClick,
 }: IStudentProps) => {
-  const toast = useToast();
+  const navigate = useNavigate();
   const [check, setCheck] = useState(true);
-  const { isLoading, isError, isSuccess, message } = useAppSelector(
-    (state) => state.auth
-  );
+  const [imgUrl, setImgUrl] = useState(AVATAR);
+  const showToast = useCustomToast();
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 
   function handleCheckBox() {
     setCheck(!check);
-    if (check) {
-      console.log("I was checked");
-    } else {
-      console.log("You just unchecked me");
-    }
   }
 
   const validateGuardianData = (data: IStudent): boolean => {
@@ -43,7 +41,6 @@ const StudentFinal = ({
       classTime_options: "Class Time Options",
       payment_plan: "Payment Plan",
       class_type: "Class Type",
-      salutation: "Salutation",
       password: "Password",
       profileImage: "Profile Image",
       student_phoneNum: "Student Phone Number",
@@ -51,25 +48,13 @@ const StudentFinal = ({
 
     for (const key in fieldNames) {
       if (data[key as keyof IStudent] === null) {
-        toast({
-          title: "Error",
-          description: `${fieldNames[key]} cannot be null.`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+        showToast(`${fieldNames[key]} cannot be null.`, "error");
         return false;
       }
     }
 
     if (!data.agreement_status) {
-      toast({
-        title: "Error",
-        description: "Agreement status must be true.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
+      showToast("Agreement status must be true.", "error");
       return false;
     }
 
@@ -78,39 +63,70 @@ const StudentFinal = ({
 
   const handleSubmit = async () => {
     if (validateGuardianData(data)) {
-      await dispatch(register(data));
-      isSuccess &&
-        toast({
-          title: "Account created successfully",
-          description: "Please check your email for more details",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
+      const resultAction = await dispatch(register(data));
 
-      isError &&
-        toast({
-          title: "Error Signing You Up",
-          description: message,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
+      if (register.fulfilled.match(resultAction)) {
+        showToast(
+          resultAction.payload.message ||
+            "Please check your email for more details",
+          "success"
+        );
+        navigate("/");
+        dispatch(reset());
+        setFormData(studentInit);
+      } else if (register.rejected.match(resultAction)) {
+        showToast(
+          (resultAction.payload as IResponse).message || "Registration failed",
+          "error"
+        );
+      }
     } else {
-      toast({
-        title: "Error Signing You Up",
-        description: "No Field can be left blank!",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      showToast("No Field can be left blank!", "error");
     }
   };
+
+  const imgRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImgUrl(URL.createObjectURL(file));
+      setFormData((prevState) => ({
+        ...prevState,
+        profileImage: file,
+      }));
+    }
+  };
+
+  const openFile = () => {
+    imgRef?.current?.click();
+  };
+
   return (
     <>
-      <Box w="100%" mb={3}>
-        <ImageUpload setFormData={setFormData} isGuardian={isGuardian} />
-      </Box>
+      <div className="flex flex-col items-center mb-8">
+        <div
+          onClick={openFile}
+          className="relative rounded-full overflow-hidden cursor-pointer opacity-65 hover:opacity-80"
+        >
+          <div className="text-xs bottom-0 h-[25%] w-full absolute bg-[#979292] opacity-60 text-center text-[#000000] font-bold pt-1">
+            Image
+          </div>
+          <img
+            alt="profile image"
+            className="rounded-full w-[100px] h-[100px] object-cover"
+            src={imgUrl}
+          />
+          <input
+            type="file"
+            ref={imgRef}
+            max={1000}
+            className="hidden"
+            onChange={handleFileChange}
+            accept="image/png, image/jpg, image/jpeg"
+          />
+        </div>
+      </div>
       <Box display="flex" mb={6} gap={2} onClick={handleCheckBox}>
         <Checkbox
           defaultChecked
@@ -128,14 +144,22 @@ const StudentFinal = ({
           </Text>
         </Text>
       </Box>
-      <CButton
-        my={3}
-        text="Submit"
-        width="full"
-        isLoading={isLoading}
-        onClick={handleSubmit}
-        isDisabled={check ? false : true}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagesix")}
+        />
+        <CButton
+          my={3}
+          text="Submit"
+          width="full"
+          isLoading={isLoading}
+          onClick={handleSubmit}
+          isDisabled={check ? false : true}
+        />
+      </Flex>
     </>
   );
 };

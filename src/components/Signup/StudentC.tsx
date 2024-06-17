@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { IStudentProps } from "../../typings/home";
 import InputField from "../Input";
 import CButton from "../Button";
@@ -44,12 +44,20 @@ const StudentC = ({ data, onChange, onClick }: IStudentProps) => {
           placeholder="+234 123 456 789"
         />
       </Box>
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagefour")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagetwo")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagefour")}
+        />
+      </Flex>
     </>
   );
 };

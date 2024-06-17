@@ -1,6 +1,6 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
 import { IGuardianProps } from "../../typings/home";
@@ -92,21 +92,20 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           icon={IoLockClosedOutline}
           placeholder="************"
         />
-        <Box
-          pt="20px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-        >
+        <Flex gap={5}>
           <CButton
             my={3}
+            w={"full"}
+            text="Back"
+            onClick={() => onClick("pageone")}
+          />
+          <CButton
+            my={3}
+            w={"full"}
             text="Next"
-            width="full"
-            disabled={data.password !== data.confirm_password}
             onClick={() => onClick("pagethree")}
           />
-        </Box>
+        </Flex>
       </Box>
     </>
   );

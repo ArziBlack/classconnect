@@ -1,5 +1,12 @@
 import CButton from "../Button";
-import { Box, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Flex,
+} from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import MultipleSelectDropdown from "../Dropdown";
 import { useState } from "react";
@@ -10,7 +17,6 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
-  
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -60,7 +66,7 @@ const GuardianE = ({
         />
       </FormControl>
       <Box w="100%" mb={3}>
-      <FormLabel mt="2px">Course</FormLabel>
+        <FormLabel mt="2px">Course</FormLabel>
         <Select
           onChange={onChange}
           mb="1px"
@@ -74,12 +80,20 @@ const GuardianE = ({
           ))}
         </Select>
       </Box>
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagesix")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagefour")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagesix")}
+        />
+      </Flex>
     </>
   );
 };

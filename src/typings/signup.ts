@@ -53,7 +53,7 @@ export interface IGuardian {
   parent_email: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: string | null;
+  profileImage: File;
   agreement_status: boolean | string;
   student_phoneNum: number | string | null;
 }
@@ -70,10 +70,49 @@ export interface IStudent {
   classTime_options: Array<string> | string[] | null;
   payment_plan: string | null;
   class_type: string | null;
-  salutation: string | null;
   password: string;
   confirm_password?: string;
-  profileImage: string | null;
+  profileImage: File;
   agreement_status: boolean | string;
   student_phoneNum: number | string;
 }
+
+export const studentInit = {
+  first_name: null,
+  last_name: null,
+  student_email: null,
+  sex: null,
+  country: null,
+  state: null,
+  course: null,
+  dateOfBirth: null,
+  classTime_options: null,
+  payment_plan: null,
+  class_type: null,
+  password: "",
+  profileImage: null,
+  agreement_status: "agreed",
+  student_phoneNum: null,
+};
+
+export const guardianInit = {
+  first_name: null,
+  last_name: null,
+  student_email: null,
+  sex: null,
+  country: null,
+  state: null,
+  course: null,
+  dateOfBirth: null,
+  classTime_options: null,
+  payment_plan: null,
+  class_type: null,
+  salutation: null,
+  parent_name: null,
+  parent_phoneNum: null,
+  parent_email: null,
+  password: "",
+  profileImage: null,
+  agreement_status: true,
+  student_phoneNum: null,
+};

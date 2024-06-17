@@ -9,6 +9,7 @@ export interface IStudentProps {
   submit?: () => void;
   setFormData?: Dispatch<SetStateAction<IStudent>>;
   isGuardian?: boolean;
+  typeModal?: () => void;
 }
 
 export interface IGuardianProps {
@@ -17,8 +18,9 @@ export interface IGuardianProps {
   data?: IGuardian;
   handleClassTimeOptionsChange?: (selectedOptions: string[]) => void;
   submit?: () => void;
-  setGuardianData?: Dispatch<SetStateAction<IStudent>>;
+  setGuardianData?: Dispatch<SetStateAction<IGuardian>>;
   isGuardian?: boolean;
+  typeModal?: () => void;
 }
 
 export interface IFees {

@@ -1,14 +1,12 @@
 import CButton from "../Button";
-import { Box, FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { Box, Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { states } from "../../typings/states";
 import { IStudentProps } from "../../typings/home";
 
 const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(
-    null
-  );
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -37,11 +35,12 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
           >
             {/* <option>{selectedCountry}</option> */}
             <option>{selectedCountry?.userCountryCode}</option>
-            {countries && countries?.map((country, idx) => (
-              <option key={idx} value={country.value}>
-                {country.label}
-              </option>
-            ))}
+            {countries &&
+              countries?.map((country, idx) => (
+                <option key={idx} value={country.value}>
+                  {country.label}
+                </option>
+              ))}
           </Select>
         </FormControl>
       </Box>
@@ -50,7 +49,7 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
           <FormLabel fontWeight="bold" fontSize="15px">
             State
           </FormLabel>
-          <Select name="state" onChange={onChange}>
+          <Select name="state" onChange={onChange} placeholder="Select a state">
             {states.map((item, idx) => (
               <option value={item.value} key={idx}>
                 {item.label}
@@ -59,12 +58,20 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
           </Select>
         </FormControl>
       </Box>
-      <CButton
-        my={4}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagefive")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagethree")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagefive")}
+        />
+      </Flex>
     </>
   );
 };

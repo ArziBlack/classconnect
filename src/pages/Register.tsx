@@ -16,7 +16,13 @@ import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
-import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
+import {
+  guardianInit,
+  IGuardian,
+  IStudent,
+  RegisterModalProps,
+  studentInit,
+} from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
 import GuardianB from "../components/Signup/GuardianB.tsx";
@@ -142,49 +148,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         setPage("pageone");
     }
   };
-  const [formData, setFormData] = useState<IStudent>({
-    first_name: null,
-    last_name: null,
-    student_email: null,
-    sex: null,
-    country: null,
-    state: null,
-    course: null,
-    dateOfBirth: null,
-    classTime_options: null,
-    payment_plan: "quarterly",
-    class_type: "class_of_1",
-    salutation: null,
-    password: "",
-    profileImage: null,
-    agreement_status: "agreed",
-    student_phoneNum: "8384535333",
-  });
 
-  const [guardianData, setGuardianData] = useState<IGuardian>({
-    first_name: null,
-    last_name: null,
-    student_email: null,
-    sex: null,
-    country: null,
-    state: null,
-    course: null,
-    dateOfBirth: null,
-    classTime_options: null,
-    payment_plan: null,
-    class_type: null,
-    salutation: null,
-    parent_name: null,
-    parent_phoneNum: null,
-    parent_email: null,
-    password: "",
-    profileImage: null,
-    agreement_status: true,
-    student_phoneNum: null,
-  });
-  const { url } = useAppSelector((store) => store.image);
-  const { user } = useAppSelector((store) => store.auth);
-  console.log(user);
+  const [formData, setFormData] = useState<IStudent>(studentInit);
+
+  const [guardianData, setGuardianData] = useState<IGuardian>(guardianInit);
+  // const { url } = useAppSelector((store) => store.image);
+  const { data } = useAppSelector((store) => store.auth);
+  console.log(data);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
@@ -201,7 +171,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setGuardianData((prevState) => ({
       ...prevState,
       [name]: newValue,
-      profileImage: url,
+      // profileImage: url,
     }));
   };
 
@@ -329,6 +299,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                                typeModal={toggleSignUpType}
                               />
                             ),
                             pagetwo: (
@@ -371,6 +342,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                             ),
                             pagefinal: (
                               <GuardianG
+                                onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 setGuardianData={setGuardianData}
                                 submit={submit}
@@ -393,6 +365,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 <StudentA
                                   onClick={nextPage}
                                   onChange={onChange}
+                                  typeModal={toggleSignUpType}
                                   data={formData}
                                 />
                               ),
@@ -438,6 +411,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 <StudentFinal
                                   data={formData}
                                   onChange={onChange}
+                                  onClick={nextPage}
                                   setFormData={setFormData}
                                   isGuardian={signUpAsGuardian}
                                 />

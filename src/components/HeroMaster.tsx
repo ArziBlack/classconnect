@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Pagination, A11y, Autoplay } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -85,7 +85,9 @@ const Hero2 = () => {
             text="Get started"
             icon={GoArrowUpRight}
             iconPosition="right"
-            onClick={() => navigate("/register")}
+            onClick={() => {
+              navigate("/register");
+            }}
           />
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">

@@ -1,7 +1,7 @@
 import { IStudentProps } from "../../typings/home";
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
 
@@ -57,7 +57,9 @@ const PasswordStrengthBar = ({ password }) => {
       >
         <div style={changePasswordColor()} />
       </div>
-      <p>{createPassLabel()}</p>
+      <p className="text-[12px]">
+        Your password is {""} {createPassLabel()}
+      </p>
     </div>
   );
 };
@@ -91,20 +93,20 @@ const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
           icon={IoLockClosedOutline}
           placeholder="************"
         />
-        <Box
-          pt="20px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-        >
+        <Flex gap={5}>
           <CButton
-            my={4}
+            my={3}
+            w={"full"}
+            text="Back"
+            onClick={() => onClick("pageone")}
+          />
+          <CButton
+            my={3}
+            w={"full"}
             text="Next"
-            width="full"
             onClick={() => onClick("pagethree")}
           />
-        </Box>
+        </Flex>
       </Box>
     </>
   );

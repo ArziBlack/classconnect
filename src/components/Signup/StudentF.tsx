@@ -1,23 +1,22 @@
 import CButton from "../Button";
-import { Box, Select } from "@chakra-ui/react";
+import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 import { IStudentProps } from "../../typings/home";
 import { FC } from "react";
 
 const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
-    const payment_plan: Array<string> = [
-        "monthly_payment",
-        "quarterly_payment",
-        "half_yearly_payment",
-        "yearly_payment",
-      ]
-      const class_type: Array<string> = [
-        "class of One",
-        "class of Five",
-        "class of Ten"
-      ]
+  const payment_plan: Array<string> = [
+    "monthly",
+    "quarterly",
+    "half_yearly",
+    "yearly",
+  ];
+  const class_type: Array<string> = ["class_of_1", "class_of_5", "class_of_10"];
   return (
     <>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Payment Plan
+        </FormLabel>
         <Select
           name="payment_plan"
           onChange={onChange}
@@ -32,6 +31,9 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
         </Select>
       </Box>
       <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Class Type
+        </FormLabel>
         <Select
           name="class_type"
           onChange={onChange}
@@ -45,12 +47,20 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
           ))}
         </Select>
       </Box>
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagefinal")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagefive")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagefinal")}
+        />
+      </Flex>
     </>
   );
 };

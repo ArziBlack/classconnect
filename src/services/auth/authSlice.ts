@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import authService from "./authService.ts";
+import authService from "./authService";
+
+export interface IResponse {
+  statusCode: number;
+  status?: string;
+  message: string;
+}
 
 interface AuthState {
-  user: object | null;
+  data: IResponse | null;
+  response: string;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
@@ -14,7 +21,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: [] || null,
+  data: null,
+  response: "",
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -32,9 +40,9 @@ export const register = createAsyncThunk(
     } catch (err) {
       const error = err as AxiosError;
       const message =
-        (error?.response && error.response.data) ||
-        error?.message ||
-        error?.toString();
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -66,9 +74,9 @@ const authSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
+      state.response = "";
     },
   },
-
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
@@ -77,16 +85,17 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.data = action.payload;
+        state.response = action.payload.message;
+        state.message = action.payload.message;
         state.token = action.payload.token;
       })
       .addCase(register.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload.message;
-        state.user = null;
+        state.message = action.payload || "Registration failed";
+        state.data = null;
       })
-
       .addCase(login.pending, (state) => {
         state.Loaded = false;
         state.isLoading = true;
@@ -95,16 +104,17 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.Loaded = true;
+        state.data = action.payload;
+        state.response = action.payload.message;
         state.message = action.payload.message;
-        state.user = action.payload;
         state.token = action.payload.token;
       })
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
         state.Loaded = false;
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload.message;
-        state.user = null;
+        state.message = action.payload || "Login failed";
+        state.data = null;
       });
   },
 });

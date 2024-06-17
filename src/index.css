@@ -83,3 +83,6 @@
     clip-path: inset(0 0 0 0);
   }
 }
+.chakra-toast__inner {
+  min-width: 0 !important;
+}

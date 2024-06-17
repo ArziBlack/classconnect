@@ -35,7 +35,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div>
-      <Text fontWeight={700} mb={2}>
+      <Text fontWeight="bold" fontSize="15px" mb={2}>
         {label}
       </Text>
       <InputGroup>
