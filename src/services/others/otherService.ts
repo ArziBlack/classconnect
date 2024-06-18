@@ -21,6 +21,8 @@ const getTnC_Policy = async () => {
     return response.data;
 }
 
+
+
 const otherService = {
     getHomePage,
     getTutionFees,
