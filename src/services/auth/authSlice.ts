@@ -130,10 +130,12 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.Loaded = false;
         state.isLoading = true;
+        state.isStudentLogged = false;
       })
       .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.isStudentLogged = true;
         state.Loaded = true;
         state.data = action.payload;
         state.response = action.payload.message;
@@ -144,6 +146,7 @@ const authSlice = createSlice({
         state.Loaded = false;
         state.isLoading = false;
         state.isError = true;
+        state.isStudentLogged = false;
         state.message = action.payload || "Login failed";
         state.data = null;
       })
