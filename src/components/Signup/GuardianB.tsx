@@ -1,7 +1,6 @@
-import React from "react";
-import { useToast, Box } from "@chakra-ui/react";
 import CButton from "../Button";
 import InputField from "../Input";
+import { Box, Flex } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
 import { IGuardianProps } from "../../typings/home";
@@ -64,22 +63,7 @@ const PasswordStrengthBar = ({ password }) => {
 };
 
 const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
-  const toast = useToast();
-  const { password, confirm_password } = data;
-
-  const handlePasswordChange = (e) => {
-    onChange(e);
-    if (e.target.name === "confirm_password" && password !== e.target.value) {
-      toast({
-        title: "Passwords do not match",
-        description: "Please make sure the passwords match.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
-
+  // const { password, confirm_password } = data;
   return (
     <>
       <Box w="100%" mb={3}>
@@ -90,11 +74,11 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           type="password"
           onChange={onChange}
           showPasswordToggle
-          value={password}
+          value={data.password}
           icon={IoLockClosedOutline}
           placeholder="************"
         />
-        <PasswordStrengthBar password={password} />
+        <PasswordStrengthBar password={data.password} />
       </Box>
       <Box w="100%" mb={6}>
         <InputField
@@ -102,27 +86,26 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
           name="confirm_password"
           label="Confirm Password"
           type="password"
-          onChange={handlePasswordChange}
+          onChange={onChange}
           showPasswordToggle
-          value={confirm_password}
+          value={data.confirm_password}
           icon={IoLockClosedOutline}
           placeholder="************"
         />
-        <Box
-          pt="20px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-        >
+        <Flex gap={5}>
           <CButton
             my={3}
+            w={"full"}
+            text="Back"
+            onClick={() => onClick("pageone")}
+          />
+          <CButton
+            my={3}
+            w={"full"}
             text="Next"
-            width="full"
-            disabled={password !== confirm_password}
             onClick={() => onClick("pagethree")}
           />
-        </Box>
+        </Flex>
       </Box>
     </>
   );

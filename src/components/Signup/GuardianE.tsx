@@ -1,5 +1,12 @@
 import CButton from "../Button";
-import { Box, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Flex,
+} from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import MultipleSelectDropdown from "../Dropdown";
 import { useState } from "react";
@@ -10,7 +17,6 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
-  
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -24,12 +30,9 @@ const GuardianE = ({
   ];
 
   const courses: Array<string> = [
-    "Python for Beginners",
-    "Python for Intermediate",
-    "Python for Advanced",
-    "JavaScript for Beginners",
-    "JavaScript for Intermediate",
-    "JavaScript for Advanced",
+    "FRONTEND DEVELOPMENT",
+    "BACKEND DEVELOPMENT",
+    "CLOUD ENGINEERING",
   ];
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -37,7 +40,9 @@ const GuardianE = ({
   return (
     <>
       <Box w="100%" mb={3}>
-        <FormLabel>Class Time Options</FormLabel>
+        <FormLabel fontWeight="bold" fontSize="15px">
+          Class Time Options
+        </FormLabel>
         <MultipleSelectDropdown
           options={times}
           maxSelections={maxSelections}
@@ -47,7 +52,9 @@ const GuardianE = ({
         />
       </Box>
       <FormControl mt={4}>
-        <FormLabel>Date of Birth</FormLabel>
+        <FormLabel fontWeight="bold" fontSize="15px">
+          Date of Birth
+        </FormLabel>
         <Input
           type="date"
           name="dateOfBirth"
@@ -60,7 +67,9 @@ const GuardianE = ({
         />
       </FormControl>
       <Box w="100%" mb={3}>
-      <FormLabel mt="2px">Course</FormLabel>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Course
+        </FormLabel>
         <Select
           onChange={onChange}
           mb="1px"
@@ -74,12 +83,20 @@ const GuardianE = ({
           ))}
         </Select>
       </Box>
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagesix")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagefour")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagesix")}
+        />
+      </Flex>
     </>
   );
 };

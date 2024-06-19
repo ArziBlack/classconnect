@@ -1,59 +1,91 @@
-import {
-  VStack,
-  Box,
-  Link as ChakraLink,
-  SimpleGrid,
-  Heading,
-} from "@chakra-ui/layout";
+import { Box, VStack, SimpleGrid, Heading, Text } from "@chakra-ui/layout";
 import SecondaryHero from "./SecondaryHero";
-import { Outlet, Link as ReactRouterLink } from "react-router-dom";
-import { courseLinks } from "../utils/course";
-import { COURSES } from "../constants/illustrations";
+import LessonCard from "./LessonCard";
+import { getHomeResponse } from "../services/others/otherSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import { useAppSelector } from "../hooks/reactReduxHooks";
+import { ONE } from "../constants/icon";
+import { Skeleton } from "@chakra-ui/react";
 
 const Courses = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getHomeResponse());
+  }, []);
+
+  const { home, isLoading } = useAppSelector((store) => store.other);
+
+  const truncateDescription = (description) => {
+    const maxLength = 110;
+    if (description.length > maxLength) {
+      return description.substring(0, maxLength) + "...";
+    }
+    return description;
+  };
   return (
-    <VStack paddingTop={`50px`}>
+    <section>
       <SecondaryHero
-        title="Eduvi Courses For All Standards"
-        imageUrl={COURSES}
-        links={[
-          { label: "Home", href: "/" },
-          { label: "courses", href: "/courses" },
-        ]}
+        title="HEP Courses Are For Everyone"
+        description="At Hepcoding Academy, we offer a diverse range of courses designed to equip you with the skills needed to excel in the tech industry. Whether you’re a beginner eager to learn the basics or an experienced professional looking to advance your knowledge, our courses cater to all skill levels."
       />
-      <VStack w="100%" display={`flex`}>
-        <Box py="40px">
-          <SimpleGrid columns={{ base: 4, sm: 5, md: 6, lg: 7 }} spacing={`10`}>
-            {courseLinks.map((item, index) => (
-              <Box
-                key={index}
-                py={`10px`}
-                bg="#fff"
-                px="8px"
-                borderRadius={`5px`}
-                display={`flex`}
-                alignItems={`center`}
-                justifyContent={`center`}
-              >
-                <ChakraLink
-                  as={ReactRouterLink}
-                  to={item.link}
-                  fontWeight={`600`}
-                >
-                  {item.route}
-                </ChakraLink>
-              </Box>
+      <VStack>
+        <Box
+          py="40px"
+          alignItems={`center`}
+          justifyContent={`center`}
+          display={`flex`}
+          flexDir={`column`}
+        >
+          <Heading
+            as={`h2`}
+            color="brand.dark"
+            textAlign={`center`}
+            size={{ base: "xl", md: "2xl" }}
+            w={{ base: "90%", md: "450px" }}
+            marginBottom={{ base: "4", md: "0" }}
+          >
+            Browse Through Our Elite Courses
+          </Heading>
+
+          <Text
+            mt={10}
+            fontWeight={500}
+            fontSize={"20px"}
+            color={"brand.text"}
+            textAlign={`center`}
+            paddingBottom={`10px`}
+            w={{ base: "90%", md: "650px" }}
+          >
+            Welcome to our tech course! We take you from beginner to advanced
+            levels with a curriculum designed to be comprehensive yet
+            accessible. Our course is perfect for those just starting out,
+            providing clear and easy-to-follow lessons. As you progress, you'll
+            delve into more advanced topics, ensuring a thorough understanding
+            of the subject. Join us and transform your skills and knowledge in
+            the tech world.
+          </Text>
+        </Box>
+        <Box mb={10}>
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing="12">
+            {home?.courses?.map((item, index) => (
+              <Skeleton isLoaded={!isLoading}>
+                <LessonCard
+                  key={index}
+                  image={ONE}
+                  title={item?.title}
+                  bgColor={"brand.dark"}
+                  CTA="View curriculum"
+                  description={truncateDescription(item?.description)}
+                />
+              </Skeleton>
             ))}
           </SimpleGrid>
-          <Heading as={`h3`} fontSize={`26px`} pt="35px">
-            Standard Classes
-          </Heading>
-        </Box>
-        <Box>
-          <Outlet />
         </Box>
       </VStack>
-    </VStack>
+    </section>
   );
 };
 

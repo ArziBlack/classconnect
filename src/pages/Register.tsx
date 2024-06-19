@@ -3,8 +3,11 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  Radio,
+  RadioGroup,
   useBreakpointValue,
-  useToast,
+  // useToast,
+  useRadioGroup,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
 
@@ -13,7 +16,13 @@ import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
 import { ChangeEvent, useState } from "react";
-import { IGuardian, IStudent, RegisterModalProps } from "../typings/signup.ts";
+import {
+  guardianInit,
+  IGuardian,
+  IStudent,
+  RegisterModalProps,
+  studentInit,
+} from "../typings/signup.ts";
 import CButton from "../components/Button.tsx";
 import GuardianA from "../components/Signup/GuardianA.tsx";
 import GuardianB from "../components/Signup/GuardianB.tsx";
@@ -34,25 +43,32 @@ import StudentF from "../components/Signup/StudentF.tsx";
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
+
+  const { value, setValue } = useRadioGroup();
+
+  const handleChange = (value) => {
+    value === "student"
+      ? setSignUpAsGuardian(false)
+      : setSignUpAsGuardian(true);
+    setValue(value);
+  };
+
   const SignUpType = () => {
     return (
-      <div className="w-full flex flex-col items-center justify-center p-4">
-        <h2 className="text-2xl font-bold mb-4">Signup as a:</h2>
-        <div className="flex space-x-4 mb-6">
-          <button
-            className={`px-4 py-2 text-lg ${signUpAsGuardian === false ? "bg-purple-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setSignUpAsGuardian(false)}
-          >
+      <div className="w-full flex flex-col items-center justify-center p-4 mt-10">
+        <h2 className="text-xl font-[600] mb-4 ">What best describes you?</h2>
+        <RadioGroup
+          colorScheme="green"
+          onChange={handleChange}
+          value={value as string}
+          marginBottom={10}
+        >
+          <Radio value="student" marginRight={4}>
             Student
-          </button>
-          <button
-            className={`px-4 py-2 text-lg ${signUpAsGuardian === true ? "bg-purple-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setSignUpAsGuardian(true)}
-          >
-            Guardian
-          </button>
-        </div>
-        <CButton text="Next" onClick={toggleSignUpType} />
+          </Radio>
+          <Radio value="guardian">Guardian</Radio>
+        </RadioGroup>
+        <CButton text="Continue" onClick={toggleSignUpType} />
       </div>
     );
   };
@@ -63,7 +79,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   const { log } = console;
   const [page, setPage] = useState<string>("pageone");
-  const toast = useToast();
+  // const toast = useToast();
 
   function toggleSignUpType() {
     setSignTypeModal(!signTypeModal);
@@ -71,13 +87,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   function nextPage(page: string) {
     setPage(page);
-    if (formData.password !== null || guardianData.password !== null) {
-      if (formData.password !== formData.confirm_password) {
-        toast({ title: "Password", description: "Passwords do not match" });
-      }
-    } else {
-      null;
-    }
+    // if (formData.password !== null || guardianData.password !== null) {
+    //   if (formData.password !== formData.confirm_password) {
+    //     toast({ title: "Password", description: "Passwords do not match" });
+    //   }
+    // } else {
+    //   null;
+    // }
   }
 
   const nextPageIndex = (pageIndex: string) => {
@@ -132,49 +148,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         setPage("pageone");
     }
   };
-  const [formData, setFormData] = useState<IStudent>({
-    first_name: null,
-    last_name: null,
-    student_email: null,
-    sex: null,
-    country: null,
-    state: null,
-    course: null,
-    dateOfBirth: null,
-    classTime_options: null,
-    payment_plan: null,
-    class_type: null,
-    salutation: null,
-    password: "",
-    profileImage: null,
-    agreement_status: true,
-    student_phoneNum: null,
-  });
 
-  const [guardianData, setGuardianData] = useState<IGuardian>({
-    first_name: null,
-    last_name: null,
-    student_email: null,
-    sex: null,
-    country: null,
-    state: null,
-    course: null,
-    dateOfBirth: null,
-    classTime_options: null,
-    payment_plan: null,
-    class_type: null,
-    salutation: null,
-    parent_name: null,
-    parent_phoneNum: null,
-    parent_email: null,
-    password: "",
-    profileImage: null,
-    agreement_status: true,
-    student_phoneNum: null,
-  });
-  const { url } = useAppSelector((store) => store.image);
-  const { user } = useAppSelector((store)=> store.auth);
-  console.log(user);
+  const [formData, setFormData] = useState<IStudent>(studentInit);
+
+  const [guardianData, setGuardianData] = useState<IGuardian>(guardianInit);
+  // const { url } = useAppSelector((store) => store.image);
+  const { data } = useAppSelector((store) => store.auth);
+  console.log(data);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
@@ -191,7 +171,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setGuardianData((prevState) => ({
       ...prevState,
       [name]: newValue,
-      profileImage: url,
+      // profileImage: url,
     }));
   };
 
@@ -207,10 +187,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       classTime_options: selectedOptions,
     }));
   };
-  // const dispatch = useAppDispatch();
-  function submit() {
-    // dispatch();
-  }
+  function submit() {}
   log(formData);
   log(guardianData);
 
@@ -235,11 +212,13 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
               p={{ base: "20px", md: "60px" }}
               overflow="hidden"
               fontFamily="Metropolis"
+              className="no-scrollbar"
             >
               <Flex
                 flexDir={{ base: "column", md: "row" }}
                 justifyItems="space-between"
                 gap={14}
+                className="no-scrollbar"
               >
                 <Flex
                   width={{ base: "100%", md: "40%" }}
@@ -290,29 +269,18 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                 </Box>
                 <Flex
                   flex="1"
-                  width={{ base: "100%", md: "40%" }}
                   maxW="340px"
                   ml="auto"
                   flexDir="column"
                   alignItems="center"
                   justifyContent="center"
+                  width={{ base: "100%", md: "40%" }}
                 >
-                  <Box mb="2px">
-                    <Heading
-                      as="h5"
-                      fontSize="27px"
-                      fontWeight="700"
-                      color="black"
-                    >
+                  <Box mb="auto">
+                    <Heading as="h5" fontSize="27px" fontWeight="700">
                       Create your account
                     </Heading>
-                    <Text
-                      fontSize="15px"
-                      fontWeight="400"
-                      color="black"
-                      mt={4}
-                      mb={6}
-                    >
+                    <Text fontSize="15px" fontWeight="400" mt={4} mb={6}>
                       Join thousands of students advancing their careers on HEP
                       Coding.
                     </Text>
@@ -331,6 +299,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                                typeModal={toggleSignUpType}
                               />
                             ),
                             pagetwo: (
@@ -373,6 +342,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                             ),
                             pagefinal: (
                               <GuardianG
+                                onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 setGuardianData={setGuardianData}
                                 submit={submit}
@@ -395,6 +365,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 <StudentA
                                   onClick={nextPage}
                                   onChange={onChange}
+                                  typeModal={toggleSignUpType}
                                   data={formData}
                                 />
                               ),
@@ -440,6 +411,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 <StudentFinal
                                   data={formData}
                                   onChange={onChange}
+                                  onClick={nextPage}
                                   setFormData={setFormData}
                                   isGuardian={signUpAsGuardian}
                                 />
@@ -450,7 +422,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       )
                     )}
                   </Box>
-                  <Text as="a" textAlign="center" fontSize="16px">
+                  <Text as="a" textAlign="center" fontSize="14px">
                     Already have an account?{" "}
                     <b className=" text-[#002C8A]">
                       <Link href="/">Sign in</Link>

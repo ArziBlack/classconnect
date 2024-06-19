@@ -1,8 +1,8 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/react";
 import Button from "./Button";
-import { CAREER } from "../constants/illustrations";
+import { Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { TUTOR } from "../constants/illustrations";
+import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 
 const Career = () => {
   const navigate = useNavigate();
@@ -13,45 +13,49 @@ const Career = () => {
       paddingTop={{ base: "20", md: "58" }}
       flexDir={{ base: "column-reverse", md: "row-reverse" }}
       alignItems="center"
-      h={{ base: "auto", md: "550px" }} // Adjusted height for responsiveness
+      h={{ base: "auto", md: "550px" }}
       borderRadius="20px"
       marginY="40px"
     >
       <Box
-        flex={{ base: "none", md: 1 }} // Adjusted flex basis
+        flex={{ base: "none", md: 1 }}
         display="flex"
-        flexDir={{ base: "column", md: "row" }} // Adjusted flex direction
+        flexDir={{ base: "column", md: "row" }}
         alignItems={{ base: "center", md: "flex-start" }}
         justifyContent="space-between"
         paddingY={{ base: "10", md: "20" }}
         textAlign={{ base: "center", md: "left" }}
-        p={{ base: 4, md: 20 }} // Adjusted padding
+        p={{ base: 4, md: 20 }}
       >
         <Box flex="1">
           <Heading
             as="h2"
+            mb="2"
             fontWeight={500}
             color={`brand.dark`}
             fontFamily={"Metropolis"}
             size={{ base: "x", md: "2xl" }}
-            paddingRight={{ base: "0", md: "20px" }}
             paddingY={{ base: "5", md: "0" }}
+            paddingRight={{ base: "0", md: "20px" }}
           >
-            Want to share your knowledge? Join us as a Mentor
+            Want to share your knowledge? Join us as a Tutor
           </Heading>
-          <Text fontSize="medium" color="brand.offwhite" paddingY="10px">
-            High-definition video is video of higher resolution and quality than
-            standard-definition. While there is no standardized meaning for
-            high-definition, generally any video.
+          <Text
+            mb="2"
+            paddingY="10px"
+            fontWeight={500}
+            fontSize="medium"
+            color="brand.text"
+          >
+            Join Hepcoding Academy as a tutor and inspire the next generation of
+            tech professionals. We seek passionate experts with strong
+            communication skills to provide high-quality education.
           </Text>
-          <Button
-            text="Career Information"
-            onClick={() => navigate("/tutor")}
-          />
+          <Button text="Join as Tutor" onClick={() => navigate("/tutor")} />
         </Box>
       </Box>
       <Box
-        flex={{ base: "none", md: 1 }} // Adjusted flex basis
+        flex={{ base: "none", md: 1 }}
         display="flex"
         justifyContent="flex-end"
         alignItems="flex-end"
@@ -61,10 +65,10 @@ const Career = () => {
         p="15px"
       >
         <Image
-          src={CAREER}
+          src={TUTOR}
+          objectFit="contain"
           h={{ base: "300px", md: "500px" }}
           w={{ base: "300px", md: "500px" }}
-          objectFit="contain"
         />
       </Box>
     </Flex>

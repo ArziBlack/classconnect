@@ -1,11 +1,11 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
 
-const GuardianA = ({ data, onChange, onClick }: IGuardianProps) => {
+const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
@@ -37,7 +37,7 @@ const GuardianA = ({ data, onChange, onClick }: IGuardianProps) => {
           required
           type="email"
           name="parent_email"
-          label="Guardian_Email"
+          label="Guardian Email"
           onChange={onChange}
           value={data.student_email}
           icon={IoMailOutline}
@@ -45,12 +45,15 @@ const GuardianA = ({ data, onChange, onClick }: IGuardianProps) => {
         />
       </Box>
 
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagetwo")}
-      />
+      <Flex gap={5}>
+        <CButton my={3} w={"full"} text="Back" onClick={typeModal} />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagetwo")}
+        />
+      </Flex>
     </>
   );
 };

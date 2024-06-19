@@ -1,11 +1,10 @@
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import { VIDEO } from "../constants/illustrations";
+import { GOOD_PRICING } from "../constants/illustrations";
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
-const CollegeLevel = () => {
+const GoodPricing = () => {
   const navigate = useNavigate();
-
   return (
     <Flex
       w={`full`}
@@ -18,6 +17,7 @@ const CollegeLevel = () => {
     >
       <Box
         w={"50%"}
+        order={2}
         display="flex"
         flex={{ base: "none", md: 1 }}
         justifyContent={`space-between`}
@@ -36,20 +36,22 @@ const CollegeLevel = () => {
             paddingY={{ base: "5", md: "0" }}
             paddingRight={{ base: "0", md: "20px" }}
           >
-            Make the most of every moment.
+            Affordable Pricing for Everyone
           </Heading>
-          <Text fontSize={`medium`} color={`white`} paddingY={`10px`} mt={5}>
-            Unlock your potential with our reimagined learning platform,
-            designed to empower your personal and professional growth in the
-            tech industry
+          <Text fontSize="medium" color="white" paddingY="10px" mt={5}>
+            Discover the perfect plan for your learning style with our flexible
+            pricing options. Whether you prefer one-on-one sessions, small group
+            interactions, or dynamic group classes, we have a plan that fits
+            your budget.
           </Text>
-          <Text fontSize={`medium`} color={`white`} paddingY={`10px`} mb={4}>
-            Discover a world of opportunities and stay ahead with our
-            comprehensive courses, tailored to help you master the latest
-            technologies and skills.
+          <Text fontSize="medium" color="white" paddingY="10px" mb={4}>
+            Unlock personalized instruction, collaborative learning, or a
+            vibrant classroom experience at prices designed to make top-quality
+            education accessible to everyone. Start your journey today and
+            choose the right plan for you!
           </Text>
 
-          <Button text="Register Now" onClick={() => navigate("/register")} />
+          <Button text="View Pricing" onClick={() => navigate("/pricing")} />
         </Box>
       </Box>
       <Box
@@ -62,7 +64,7 @@ const CollegeLevel = () => {
         <Image
           h="full"
           w="500px"
-          src={VIDEO}
+          src={GOOD_PRICING}
           objectFit={{ base: "cover", md: "contain" }}
         />
       </Box>
@@ -70,4 +72,4 @@ const CollegeLevel = () => {
   );
 };
 
-export default CollegeLevel;
+export default GoodPricing;

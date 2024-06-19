@@ -46,7 +46,7 @@ const Layout = () => {
   };
 
   return (
-    <Box>
+    <Box display={`flex`} flexDir={`column`} w={`full`}>
       <Navbar />
       <Box as="main">
         <Outlet />

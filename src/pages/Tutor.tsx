@@ -1,25 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import { PRICING } from "../constants/illustrations.ts";
 import SecondaryHero from "../components/SecondaryHero.tsx";
-// import ApplyInstructor from "../components/ApplyInstructor.jsx";
 import CustomComponent from "../components/CustomComponent.jsx";
 
 const Tutor = () => {
-  const links = [
-    { label: "Home", href: "/" },
-    { label: "Tutor", href: "/tutor" },
-  ];
-
   return (
-    <Box>
+    <>
       <SecondaryHero
-        links={links}
-        imageUrl={PRICING}
-        title="Our Pre-ready Pricing Packages"
+        title="Share your knowledge as an instructor"
+        description="Our platform provides a supportive environment where you can expect professional development opportunities, access to a vast pool of eager students, and the ability to make a meaningful impact on learners worldwide. Join us and inspire the next generation of scholars!"
       />
-      {/* <ApplyInstructor /> */}
       <CustomComponent />
-    </Box>
+    </>
   );
 };
 

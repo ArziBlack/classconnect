@@ -10,7 +10,10 @@ import { theme } from "./theme.ts";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider
+        theme={theme}
+        toastOptions={{ defaultOptions: { position: "bottom" } }}
+      >
         <App />
       </ChakraProvider>
     </Provider>

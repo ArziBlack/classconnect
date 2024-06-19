@@ -1,5 +1,5 @@
 import CButton from "../Button";
-import { Box, Select } from "@chakra-ui/react";
+import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 
 const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
@@ -8,16 +8,24 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
     "quarterly_payment",
     "half_yearly_payment",
     "yearly_payment",
-  ]
+  ];
   const class_type: Array<string> = [
     "class of One",
     "class of Five",
-    "class of Ten"
-  ]
+    "class of Ten",
+  ];
   return (
     <>
       <Box w="100%" mb={3}>
-        <Select name="payment_plan" onChange={onChange} mb="1px" placeholder="Select a Payment plan">
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Payment plan
+        </FormLabel>
+        <Select
+          name="payment_plan"
+          onChange={onChange}
+          mb="1px"
+          placeholder="Select a Payment plan"
+        >
           {payment_plan.map((item, idx) => (
             <option key={idx} value={item}>
               {item}
@@ -26,7 +34,15 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
         </Select>
       </Box>
       <Box w="100%" mb={3}>
-      <Select name="class_type" onChange={onChange} mb="1px" placeholder="Select a Class Type">
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Class type
+        </FormLabel>
+        <Select
+          name="class_type"
+          onChange={onChange}
+          mb="1px"
+          placeholder="Select a Class Type"
+        >
           {class_type.map((item, idx) => (
             <option key={idx} value={item}>
               {item}
@@ -35,12 +51,20 @@ const GuardianF = ({ onChange, onClick }: IGuardianProps) => {
         </Select>
       </Box>
 
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagefinal")}
-      />
+      <Flex gap={5}>
+        <CButton
+          my={3}
+          w={"full"}
+          text="Back"
+          onClick={() => onClick("pagefive")}
+        />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagefinal")}
+        />
+      </Flex>
     </>
   );
 };

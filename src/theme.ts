@@ -15,6 +15,7 @@ export const theme = extendTheme({
       lightaction: "#F8F2FF",
       lightgreen: "#E5FFF3",
       offwhite: "#5D5A6F",
+      text: "rgba(0, 0, 0, 0.87)",
     },
   },
 });

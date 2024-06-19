@@ -1,80 +1,60 @@
 import {
-  ChakraProvider,
   Box,
   Grid,
   Flex,
   Text,
-  Spacer,
-  Button,
   Tab,
-  TabList,
-  Image,
   Tabs,
-  TabPanels,
-  TabPanel,
   Icon,
-  HStack,
-  Link,
-  Img,
+  Spacer,
+  TabList,
+  TabPanel,
+  TabPanels,
+  ChakraProvider,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import {
   FaStar,
-  FaFacebook,
   FaTwitter,
-  FaInstagram,
+  FaFacebook,
   FaLinkedin,
+  FaInstagram,
 } from "react-icons/fa";
-
-import bg from "../assets/images/bg.png";
-import kristainwatson from "../assets/images/kristainwatson.png";
-
-const HeadNav: React.FC = () => (
-  <HStack spacing={2}>
-    <Link>Home</Link>
-    <Text>|</Text>
-    <Link>Mentor</Link>
-    <Text>|</Text>
-    <Link color={"blue"}>Kristin Watson</Link>
-  </HStack>
-);
-
-const UserProfile: React.FC = () => (
-  <Box mb={8}>
-    <Flex align="center" p={4} mt={5} direction={{ base: "column", md: "row" }}>
-      <Image
-        h={170}
-        mt={{ base: 0, md: -40 }}
-        alt="Kristin Watson"
-        src={kristainwatson}
-      />
-      <Box ml={{ base: 0, md: 4 }} mt={{ base: 4, md: 0 }}>
-        <Text fontSize="2xl" fontWeight="bold">
-          Kristin Watson
-        </Text>
-        <Text color="gray.500">Founder & Mentor</Text>
-      </Box>
-      <Spacer />
-      <Box mt={{ base: 4, md: 0 }}>
-        <Button colorScheme="purple">Contact Now</Button>
-      </Box>
-    </Flex>
-  </Box>
-);
 
 const UserInfo: React.FC = () => {
   return (
     <Box w="100%" p={4} m={2}>
-      <Tabs variant="soft-rounded" colorScheme="purple">
+      <Tabs variant="soft-rounded">
         <TabList>
-          <Tab>About</Tab>
-          <Tab>Courses</Tab>
-          <Tab>Reviews</Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bg: "#002333",
+            }}
+          >
+            About
+          </Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bg: "#002333",
+            }}
+          >
+            Vision
+          </Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bg: "#002333",
+            }}
+          >
+            Mission
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Text fontSize="xl" fontWeight="bold">
-              About Kristin
+              About us
             </Text>
             <Text mt={2}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -111,7 +91,7 @@ const UserInfo: React.FC = () => {
 const Sidebar: React.FC = () => {
   return (
     <Box
-      bg="white"
+      bg="brand.dark"
       w={{ base: "100%", md: 300 }}
       mt={{ base: 4, md: 50 }}
       p={4}
@@ -168,7 +148,7 @@ const Sidebar: React.FC = () => {
   );
 };
 
-const MentorProfile: React.FC = () => {
+const About: React.FC = () => {
   const gridTemplateColumns = useBreakpointValue({
     base: "1fr",
     md: "3fr 1fr",
@@ -176,19 +156,9 @@ const MentorProfile: React.FC = () => {
 
   return (
     <ChakraProvider>
-      <Box p={4} maxW="1024px" mx="auto">
-        <HeadNav />
-        <Img
-          src={bg}
-          alt="Background"
-          w="100%"
-          h={{ base: "120px", md: "173px" }}
-          objectFit="cover"
-          borderRadius={"15px"}
-        />
+      <Box p={4} mx="auto">
         <Grid templateColumns={gridTemplateColumns} gap={6} mt={4}>
           <Box>
-            <UserProfile />
             <UserInfo />
           </Box>
           <Sidebar />
@@ -198,4 +168,4 @@ const MentorProfile: React.FC = () => {
   );
 };
 
-export default MentorProfile;
+export default About;

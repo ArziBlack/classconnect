@@ -1,31 +1,15 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Box, Select } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
-import { IStudentProps } from '../../typings/home';
-import { ISalutation } from "../../typings/signup";
+import { IStudentProps } from "../../typings/home";
+// import { ISalutation } from "../../typings/signup";
 
-const StudentA = ({ data, onChange, onClick }: IStudentProps) => {
-
-  const salutation: ISalutation[] = [
-    { value: "Mr", label: "Mr" },
-    { value: "Mrs", label: "Mrs" },
-    { value: "Ms", label: "Ms" },
-    { value: "Dr", label: "Dr" },
-  ];
-
+const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
   return (
     <>
       <Box w="100%" mb={3}>
-      <Select onChange={onChange} mb="1px" name="salutation">
-          <option>Select Salutation</option>
-          {salutation.map((item, idx) => (
-            <option key={idx} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </Select>
         <InputField
           required
           type="text"
@@ -61,12 +45,15 @@ const StudentA = ({ data, onChange, onClick }: IStudentProps) => {
           placeholder="johndoe@email.com"
         />
       </Box>
-      <CButton
-        my={3}
-        text="Next"
-        width="full"
-        onClick={() => onClick("pagetwo")}
-      />
+      <Flex gap={5}>
+        <CButton my={3} w={"full"} text="Back" onClick={typeModal} />
+        <CButton
+          my={3}
+          w={"full"}
+          text="Next"
+          onClick={() => onClick("pagetwo")}
+        />
+      </Flex>
     </>
   );
 };

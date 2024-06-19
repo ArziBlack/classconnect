@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import ApplyInstructor from "./ApplyInstructor";
 import {
   Box,
-  Img,
+  // Img,
   Heading,
   Flex,
   IconButton,
   AspectRatio,
 } from "@chakra-ui/react";
 import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
-import Pattern from "../assets/images/Pattern.png"; // Adjust the path according to your project structure
 
 const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
@@ -53,33 +52,30 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
 
   return (
     <Box
-      maxW="1024px"
       mx="auto"
       px={{ base: 4, md: 8 }}
       mt={{ base: 4, md: 8 }}
       mb={{ base: 4, md: 8 }}
       position="relative"
     >
-      <Box
-        zIndex={0}
-        position="absolute"
-        right={{ base: -4, md: -12 }}
-        top={{ base: "4", md: "4" }}
-        width={{ base: "100px", md: "150px" }}
+      <Heading
+        color={"brand.text"}
+        fontFamily={"Metropolis"}
+        as="h2"
+        size="lg"
+        fontWeight="600"
+        textAlign="center"
+        mb={4}
       >
-        <Img src={Pattern} alt="Pattern background" />
-      </Box>
-
-      <Heading as="h2" size="lg" fontWeight="bold" textAlign="center" mb={4}>
         How to apply to join as instructor
       </Heading>
-
       <Box
-        bg="white"
-        borderRadius="22px"
-        boxShadow="lg"
-        position="relative"
         zIndex={2}
+        boxShadow="lg"
+        maxW={"800px"}
+        borderRadius="22px"
+        position="relative"
+        margin={"0 auto"}
       >
         <Box borderRadius="22px" overflow="hidden">
           <AspectRatio ratio={16 / 9}>
@@ -111,7 +107,7 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
               color="white"
               onClick={handlePrevious}
               sx={{ "&:hover": { bg: "transparent" } }}
-              isDisabled={currentVideoIndex === 0} // Disable if at the first video
+              isDisabled={currentVideoIndex === 0}
             />
             <IconButton
               aria-label={isPlaying ? "Pause" : "Play"}
@@ -129,7 +125,7 @@ const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
               color="white"
               onClick={handleNext}
               sx={{ "&:hover": { bg: "transparent" } }}
-              isDisabled={currentVideoIndex === videoList.length - 1} // Disable if at the last video
+              isDisabled={currentVideoIndex === videoList.length - 1}
             />
           </Flex>
         </Box>

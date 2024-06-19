@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Flex,
@@ -17,8 +16,8 @@ import {
   useTab,
 } from "@chakra-ui/react";
 import { PiCircleFill } from "react-icons/pi";
-import applyInstructor from "../assets/icons/applyInstructor.png";
 import Button from "./Button";
+import { APPLY_TUTOR } from "../constants/illustrations";
 
 const ApplyInstructor = () => {
   const CustomTab = ({ children }) => {
@@ -27,8 +26,11 @@ const ApplyInstructor = () => {
     return (
       <Tab
         {...tabProps}
+        opacity={0.7}
         _selected={{
-          color: "brand.orange",
+          color: "brand.dark",
+          indicator: "brand.dark",
+          opacity: 1,
         }}
       >
         {children}
@@ -37,14 +39,21 @@ const ApplyInstructor = () => {
   };
 
   return (
-    <Box mx="auto" mt={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
+    <Box mx="auto" mt={{ base: 4, md: 8 }} mb={{ base: 4, md: 28 }}>
       <Flex direction={{ base: "column", md: "row" }} borderRadius="md">
-        <Box flexShrink={0} px={5} pt={5} bg="pink.100" borderRadius="md">
-          <Image borderRadius="md" src={applyInstructor} alt="Instructor" />
+        <Box px={5} pt={5} w={"500px"} mx={"auto"}>
+          <Image borderRadius="md" src={APPLY_TUTOR} alt="Instructor" />
         </Box>
-        <Box ml={{ md: 6 }} mt={{ base: 4, md: 10 }}>
-          <Heading as="h2" size="lg" mb={4}>
-            Apply As Instructor
+        <Box ml={{ md: 6 }} mt={{ base: 4, md: 10 }} px={5}>
+          <Heading
+            as="h2"
+            size="lg"
+            mb={4}
+            fontWeight={600}
+            color={"brand.text"}
+            fontFamily={"Metropolis"}
+          >
+            Apply as an Instructor
           </Heading>
           <Text fontSize="md" color="gray.700" mb={4} maxW={"600px"}>
             Teaching is a vital and admirable career. As such, it comes with
@@ -64,33 +73,50 @@ const ApplyInstructor = () => {
             <TabIndicator
               mt="-1.5px"
               height="2px"
-              bg="brand.orange"
+              bg="brand.action"
               borderRadius="1px"
               w={"10px"}
             />
-            <TabPanels>
+            <TabPanels color={"brand.text"} fontWeight={400}>
               <TabPanel>
                 <List spacing={3}>
                   <ListItem>
-                    <ListIcon as={PiCircleFill} color="red.500" />
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
                     An undergraduate degree
                   </ListItem>
                   <ListItem>
-                    <ListIcon as={PiCircleFill} color="red.500" />
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
                     Participate in supervised teaching
                   </ListItem>
                   <ListItem>
-                    <ListIcon as={PiCircleFill} color="red.500" />
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
                     State teaching license
                   </ListItem>
                   <ListItem>
-                    <ListIcon as={PiCircleFill} color="red.500" />
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
                     Pursue graduate studies
                   </ListItem>
                 </List>
               </TabPanel>
               <TabPanel>
-                <Text>Instructor rules content goes here.</Text>
+                <List spacing={3}>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Respect and courtesy
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Punctuality
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Constructive feedback
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Up-to-date content
+                  </ListItem>
+                </List>
               </TabPanel>
             </TabPanels>
           </Tabs>
