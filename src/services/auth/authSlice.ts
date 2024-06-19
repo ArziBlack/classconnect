@@ -94,6 +94,19 @@ const authSlice = createSlice({
       state.message = "";
       state.response = "";
     },
+    logout(state) {
+      state.data = null;
+      state.response = "";
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = false;
+      state.Loaded = false;
+      state.isStudentLogged = false;
+      state.message = "";
+      state.token = "";
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -125,7 +138,7 @@ const authSlice = createSlice({
         state.data = action.payload;
         state.response = action.payload.message;
         state.message = action.payload.message;
-        state.token = action.payload.token;
+        state.token = action.payload.jwtToken;
       })
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
         state.Loaded = false;
@@ -163,5 +176,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, logout } = authSlice.actions;
 export default authSlice.reducer;
