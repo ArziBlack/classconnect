@@ -58,7 +58,7 @@ const ResetPassword = () => {
   }, [isError, isSuccess, message, toast]);
   return (
     <Box
-      // bg={bgColor}
+      bg={bgColor}
       minH="100vh"
       display="flex"
       alignItems="center"
