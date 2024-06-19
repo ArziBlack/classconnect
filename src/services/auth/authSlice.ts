@@ -33,7 +33,7 @@ const initialState: AuthState = {
   token: "",
 };
 
-// Register User
+// Student Sign-up
 export const register = createAsyncThunk(
   "auth/signup",
   async (user: object, thunkAPI) => {
@@ -50,7 +50,7 @@ export const register = createAsyncThunk(
   }
 );
 
-// User Login
+// Student Login
 export const login = createAsyncThunk(
   "auth/signin",
   async (user: object, thunkAPI) => {
@@ -67,6 +67,7 @@ export const login = createAsyncThunk(
   }
 );
 
+// Send Reset Email for Password Reset
 export const resetPassword = createAsyncThunk("auth/reset", async (email: object, thunkAPI)=> {
   try {
     return await authService.resetPassword(email);

@@ -24,6 +24,9 @@ const login = async (formData: object) => {
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
+  if (response.headers["set-cookie"]) {
+    console.log('hi baby ', response.headers["set-cookie"]);
+  }
   return response.data;
 };
 

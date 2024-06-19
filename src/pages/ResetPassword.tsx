@@ -10,12 +10,14 @@ import {
   Link,
   Text,
   useColorModeValue,
-  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { resetPassword } from "../services/auth/authSlice";
-import { useAppDispatch } from "../hooks/reactReduxHooks";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
+import { useEffect, useState } from "react";
+import useCustomToast from "../hooks/useCustomToast";
+import { useNavigate } from "react-router-dom";
+import { LOGO } from "../constants/icon";
 
 const ResetPassword = () => {
   const bgColor = useColorModeValue("gray.50", "gray.900");
@@ -26,22 +28,34 @@ const ResetPassword = () => {
   const primaryColor = useColorModeValue("blue.500", "primary.600");
 
   const dispatch = useAppDispatch();
-  const toast = useToast();
+  const toast = useCustomToast();
   const [email, setEmail] = useState<{ email: string }>({ email: "" });
-  function sendReset(e) {
+  const { message, isError, isSuccess } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+  async function sendReset(e) {
     e.preventDefault();
     if (email?.email === "") {
-      toast({
-        title: "Reset Error",
-        description: "Email field can't be left blank!!!",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-        position: "top",
-      });
+      toast("Email field can't be Blank!!!", "error");
     }
-    dispatch(resetPassword(email));
+    const result = await dispatch(resetPassword(email));
+    if (result.meta.requestStatus === "fulfilled") {
+      toast("Password reset link sent successfully!", "success");
+      setTimeout(()=> {
+        navigate("/reset-check")
+      }, 4000);
+    }
+    if (result.meta.requestStatus === "rejected") {
+      toast("Error sending password reset link!", "error");
+    }
   }
+  useEffect(() => {
+    if (isError) {
+      toast(message, "error");
+    }
+    if (isSuccess) {
+      toast(message, "success");
+    }
+  }, [isError, isSuccess, message, toast]);
   return (
     <Box
       // bg={bgColor}
@@ -63,14 +77,13 @@ const ResetPassword = () => {
           color={textColor}
         >
           <Box
-            // as="img"
-            // src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-            // alt="logo"
+            as="img"
+            src={LOGO}
+            alt="logo"
             w={8}
             h={8}
-            // mr={2}
+            mr={2}
           />
-          HEP
         </Link>
         <Box
           w="full"
