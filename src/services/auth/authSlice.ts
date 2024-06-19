@@ -76,7 +76,12 @@ export const resetPassword = createAsyncThunk("auth/reset", async (email: object
     const message = (error.response && error.response.data) || error.message || error.toString();
     return thunkAPI.rejectWithValue(message);
   }
-})
+});
+
+export const getToken = createAsyncThunk("auth/token", async()=> {
+  const token = localStorage.getItem("token");
+  return token;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -142,6 +147,18 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload || "An Error Occurred!!"
+      })
+      .addCase(getToken.pending, (state)=> {
+        state.isLoading = true;
+      })
+      .addCase(getToken.fulfilled, (state, action)=> {
+        state.isLoading = false;
+        state.token = action.payload;
+        state.message = "";
+      })
+      .addCase(getToken.rejected, (state)=> {
+        state.isLoading = false;
+        state.message = "Error Loading Token";
       })
   },
 });
