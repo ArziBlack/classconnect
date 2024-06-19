@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
-const token = '';
+const token = "";
 
 // Register Guardian or Student
 const register = async (userData: object) => {
@@ -23,15 +23,17 @@ const login = async (formData: object) => {
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
+  
   let jwtToken = null;
-  if (response.headers["set-cookie"]) {
-    console.log('hi baby ', response.headers["set-cookie"]);
-    const setCookieHeader = response.headers["set-cookie"];
-    jwtToken = setCookieHeader.find(cookie => cookie.trim().startsWith('jwt=')).split('=')[1];
-    localStorage.setItem("token", JSON.stringify(jwtToken));
-    console.log(jwtToken);
+  const setCookieHeader = response.headers['set-cookie'];
+  if (setCookieHeader) {
+    console.log("Set-Cookie header: ", setCookieHeader);
+    jwtToken = setCookieHeader.find((cookie) => cookie.trim().startsWith('jwt=')).split('=')[1];
+    localStorage.setItem("token", jwtToken);
+    console.log("JWT Token: ", jwtToken);
   }
-  return response.data;
+
+  return { ...response.data, jwtToken };
 };
 
 // Verify Student or Guardian
@@ -54,7 +56,7 @@ const authService = {
   login,
   verify,
   resetPassword,
-  token
+  token,
 };
 
 export default authService;
