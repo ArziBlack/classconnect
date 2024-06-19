@@ -93,7 +93,7 @@ const useCustomToast = () => {
     }
 
     toast({
-      duration: 55000,
+      duration: 5000,
       isClosable: true,
       position: "top",
       render: () => (

@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Tutor from "./pages/Tutor";
 import Privacy from "./pages/Privacy";
 import FireBaseUpload from "./pages/FireBaseUpload";
+import CheckReset from "./pages/CheckReset";
 
 function AppContent() {
   const location = useLocation();
@@ -53,6 +54,7 @@ function AppContent() {
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
+      <Route path="reset-check" element={<CheckReset />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

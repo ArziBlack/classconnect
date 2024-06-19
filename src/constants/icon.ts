@@ -10,7 +10,6 @@ import nine from "../assets/icons/9.png";
 import ten from "../assets/icons/10.png";
 import A from "../assets/icons/A.png";
 import blocks from "../assets/icons/blocks.png";
-import book from "../assets/icons/book.png";
 import hero_bg from "../assets/icons/BG_right.png";
 import logo from "../assets/icons/Logo.png";
 import html5 from "../assets/icons/html5.png";
@@ -23,30 +22,6 @@ import audio from "../assets/icons/audio.png";
 import live from "../assets/icons/live.png";
 import play from "../assets/icons/play.png";
 import avatar from "../assets/icons/default_avatar.png";
-
-export const Icons: object = {
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eight,
-  nine,
-  A,
-  blocks,
-  book,
-  hero_bg,
-  logo,
-  html5,
-  php,
-  present,
-  price_tag,
-  java,
-  ten,
-  lightbulb,
-};
 
 export const ONE = one;
 export const TWO = two;
