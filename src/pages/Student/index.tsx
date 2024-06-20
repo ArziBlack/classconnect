@@ -1,19 +1,33 @@
 import { FC } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  ASSESSMENT,
+  COURSES,
+  HOME,
+  LOGOUT,
+  PROFILE,
+  SETTINGS,
+  TUTORS,
+} from "../../constants/icon";
 
 type NavProps = {
-  number: string;
-  text: string;
   to: string;
+  text: string;
+  icon: string;
 };
 
-const Nav: FC<NavProps> = ({ number, text, to }) => {
+const Nav: FC<NavProps> = ({ text, to, icon }) => {
   return (
     <NavLink
       to={to}
       style={({ isActive }) => ({
         textDecoration: "none",
+        padding: "10px 1.25rem",
+        color: "rgba(0, 0, 0, 0.87)",
+        opacity: isActive ? "1" : "0.7",
+        background: isActive ? "#D1FBE9" : "transparent",
+        borderRadius: "15px",
       })}
       end
     >
@@ -30,13 +44,13 @@ const Nav: FC<NavProps> = ({ number, text, to }) => {
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
-            color={isActive ? "#4C9063" : "white"}
-            bgColor={isActive ? "#CFFFDF" : "transparent"}
-            border={isActive ? "none" : "1px solid white"}
+            color={isActive ? "brand.text" : "white"}
+            bgColor={"white"}
+            border={isActive ? "none" : "1px solid brand.text"}
           >
-            <Text fontSize={"16px"}>{number}</Text>
+            <Image src={icon} />
           </Flex>
-          <Text fontSize={"16px"} color={"white"}>
+          <Text fontSize={"16px"} fontWeight={isActive ? "500" : "400"}>
             {text}
           </Text>
         </Flex>
@@ -50,20 +64,27 @@ const SideBarNav: FC = () => {
     <Flex
       w={"full"}
       h={"100vh"}
+      flexDir={"column"}
+      padding="10px 1.25rem"
       pt={"3rem"}
-      gap={"1rem"}
-      bgColor={"brand.dark"}
-      flexDirection={"column"}
-      borderRight={"1px"}
-      borderRightColor={"brand.grey"}
-      px={{ md: "1.25rem", xl: "2rem" }}
+      justifyContent={"space-between"}
     >
-      <Nav number="1" text="Home" to="/student" />
-      <Nav number="2" text="Tutors" to="tutors" />
-      <Nav number="3" text="My Courses" to="my-courses" />
-      <Nav number="4" text="Profile" to="profile" />
-      <Nav number="5" text="Assessment" to="assessment" />
-      <Nav number="6" text="Settings" to="settings" />
+      <Flex
+        w={"full"}
+        //   gap={"1rem"}
+        // bgColor={"brand.dark"}
+        flexDirection={"column"}
+      >
+        <Nav text="Home" to="/student" icon={HOME} />
+        <Nav text="Tutors" to="tutors" icon={TUTORS} />
+        <Nav text="My Courses" to="my-courses" icon={COURSES} />
+        <Nav text="Profile" to="profile" icon={PROFILE} />
+        <Nav text="Assessment" to="assessment" icon={ASSESSMENT} />
+        <Nav text="Settings" to="settings" icon={SETTINGS} />
+      </Flex>
+      <Flex>
+        <Nav text="Log out" to="/" icon={LOGOUT} />
+      </Flex>
     </Flex>
   );
 };
@@ -134,7 +155,7 @@ const StudentLayout: FC = () => {
     <Flex
       w={"full"}
       h={"full"}
-      bgColor={"white"}
+      bgColor={"#F5F5F5"}
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
