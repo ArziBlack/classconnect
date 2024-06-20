@@ -1,110 +1,69 @@
 import { FC } from "react";
-import { Home } from "./views/Home";
-import { useSnapshot } from "valtio";
-import { Tutors } from "./views/Tutors";
-import { Profile } from "./views/Profile";
-import { Settings } from "./views/Settings";
-import Courses from "../../components/Courses";
-import { Assessment } from "./views/Assessments";
-import { StudentView, StudentStore } from "../../utils/views";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 
 type NavProps = {
   number: string;
   text: string;
-  isActive?: boolean;
-  onClick: () => void;
+  to: string;
 };
-const Nav: FC<NavProps> = ({ number, text, isActive, onClick }) => {
+
+const Nav: FC<NavProps> = ({ number, text, to }) => {
   return (
-    <Flex
-      gap={"1rem"}
-      onClick={onClick}
-      cursor={"pointer"}
-      alignItems={"center"}
-      fontFamily={"Metropolis"}
+    <NavLink
+      to={to}
+      style={({ isActive }) => ({
+        textDecoration: "none",
+      })}
+      end
     >
-      <Flex
-        w={"45px"}
-        h={"45px"}
-        borderRadius={"50px"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        color={isActive ? "#4C9063" : "#000000"}
-        bgColor={isActive ? "#CFFFDF" : "transparent"}
-        border={isActive ? "none" : "1px solid #000000"}
-      >
-        <Text fontSize={"20px"}>{number}</Text>
-      </Flex>
-      <Text fontFamily={"font4"} fontSize={"20px"}>
-        {text}
-      </Text>
-    </Flex>
+      {({ isActive }) => (
+        <Flex
+          gap={"1rem"}
+          cursor={"pointer"}
+          alignItems={"center"}
+          fontFamily={"Metropolis"}
+        >
+          <Flex
+            w={"35px"}
+            h={"35px"}
+            borderRadius={"50px"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            color={isActive ? "#4C9063" : "white"}
+            bgColor={isActive ? "#CFFFDF" : "transparent"}
+            border={isActive ? "none" : "1px solid white"}
+          >
+            <Text fontSize={"16px"}>{number}</Text>
+          </Flex>
+          <Text fontSize={"16px"} color={"white"}>
+            {text}
+          </Text>
+        </Flex>
+      )}
+    </NavLink>
   );
 };
 
-const SideBarNav = () => {
-  const { studentView } = useSnapshot(StudentStore);
-
+const SideBarNav: FC = () => {
   return (
     <Flex
       w={"full"}
-      h={"36rem"}
-      bgColor={"#F9F9F9"}
-      borderRadius={"32px"}
-      flexDirection={"column"}
-      px={{ md: "1.25rem", xl: "2rem" }}
+      h={"100vh"}
       pt={"3rem"}
       gap={"1rem"}
+      bgColor={"brand.dark"}
+      flexDirection={"column"}
+      borderRight={"1px"}
+      borderRightColor={"brand.grey"}
+      px={{ md: "1.25rem", xl: "2rem" }}
     >
-      <Nav
-        number="1"
-        text="Home"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Home;
-        }}
-        isActive={studentView === StudentView.Home}
-      />
-      <Nav
-        number="2"
-        text="Tutors"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Tutors;
-        }}
-        isActive={studentView === StudentView.Tutors}
-      />
-      <Nav
-        number="3"
-        text="My Courses"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Courses;
-        }}
-        isActive={studentView === StudentView.Courses}
-      />
-      <Nav
-        number="4"
-        text="Profile"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Profile;
-        }}
-        isActive={studentView === StudentView.Profile}
-      />
-      <Nav
-        number="5"
-        text="Assessment"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Assessment;
-        }}
-        isActive={studentView === StudentView.Assessment}
-      />
-      <Nav
-        number="6"
-        text="Settings"
-        onClick={() => {
-          StudentStore.studentView = StudentView.Settings;
-        }}
-        isActive={studentView === StudentView.Settings}
-      />
+      <Nav number="1" text="Home" to="/student" />
+      <Nav number="2" text="Tutors" to="tutors" />
+      <Nav number="3" text="My Courses" to="my-courses" />
+      <Nav number="4" text="Profile" to="profile" />
+      <Nav number="5" text="Assessment" to="assessment" />
+      <Nav number="6" text="Settings" to="settings" />
     </Flex>
   );
 };
@@ -112,10 +71,9 @@ const SideBarNav = () => {
 type MainViewProps = {
   mainText: string;
   subText?: string;
-  extraComp?: JSX.Element;
 };
+
 const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
-  const { studentView } = useSnapshot(StudentStore);
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   return (
@@ -123,14 +81,15 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
       <Flex
         top={0}
         right={4}
-        position={"absolute"}
-        display={isSmallerThan900 ? "none" : "flex"}
         gap={"1.5rem"}
+        pt={4}
         alignItems={"center"}
+        display={isSmallerThan900 ? "none" : "flex"}
       ></Flex>
       <Text
-        fontFamily={"font4"}
-        fontSize={"48px"}
+        fontSize={"38px"}
+        fontWeight={500}
+        color={"brand.text"}
         lineHeight={"60.48px"}
         display={isSmallerThan900 ? "none" : "block"}
       >
@@ -139,7 +98,6 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
       {subText && (
         <Text
           mt={"1rem"}
-          fontFamily={"font4"}
           fontWeight={400}
           fontSize={"1rem"}
           display={isSmallerThan900 ? "none" : "block"}
@@ -148,38 +106,47 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
         </Text>
       )}
       <Box display={{ base: "none", md: "block" }} h={"1rem"} w={"full"}></Box>
-      {studentView === StudentView.Home && <Home />}
-      {studentView === StudentView.Tutors && <Tutors />}
-      {studentView === StudentView.Profile && <Profile />}
-      {studentView === StudentView.Courses && <Courses />}
-      {studentView === StudentView.Assessment && <Assessment />}
-      {studentView === StudentView.Settings && <Settings />}
+      <Outlet />
     </Flex>
   );
 };
 
-const ViewLayout = () => {
-  const { studentView } = useSnapshot(StudentStore);
+function formatPath(path) {
+  if (!path) return "";
+  const segments = path.split("/").filter(Boolean);
+  const lastSegment = segments[segments.length - 1];
+  if (lastSegment === "student") {
+    return "Home";
+  }
+  const formattedSegment = lastSegment
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+  return formattedSegment;
+}
+
+const StudentLayout: FC = () => {
+  const location = useLocation();
+  const formattedPath = formatPath(location.pathname);
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   return (
     <Flex
       w={"full"}
       h={"full"}
-      py={{ base: "5rem", md: "3rem" }}
-      px={{ md: "3rem" }}
-      gap={{ base: "2rem", xl: "4rem" }}
+      bgColor={"white"}
+      gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
-        w={{ base: "full", md: "35%" }}
+        w={{ base: "full", md: "25%" }}
         maxW={{ base: "full", md: "410px" }}
         display={isSmallerThan900 ? "none" : "block"}
       >
         <SideBarNav />
       </Box>
-      <MainView mainText={studentView} />
+      <MainView mainText={formattedPath} />
     </Flex>
   );
 };
 
-export default ViewLayout;
+export default StudentLayout;

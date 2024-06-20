@@ -1,17 +1,25 @@
-import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Layout from "./pages/index";
-import Courses from "./components/Courses";
-import ResetPassword from "./pages/ResetPassword";
+import { Routes, Route, useLocation } from "react-router-dom";
+
 import Home from "./pages/Home";
-import Pricing from "./pages/Pricing";
-import VerifyAccount from "./pages/VerifyEmail";
-import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Tutor from "./pages/Tutor";
+import Layout from "./pages/index";
+import Pricing from "./pages/Pricing";
 import Privacy from "./pages/Privacy";
-import FireBaseUpload from "./pages/FireBaseUpload";
+import NotFound from "./pages/NotFound";
+import Courses from "./components/Courses";
 import CheckReset from "./pages/CheckReset";
+import StudentLayout from "./pages/Student";
+import VerifyAccount from "./pages/VerifyEmail";
+import ResetPassword from "./pages/ResetPassword";
+import FireBaseUpload from "./pages/FireBaseUpload";
+import { Tutors } from "./pages/Student/views/Tutors";
+import { Profile } from "./pages/Student/views/Profile";
+import { Settings } from "./pages/Student/views/Settings";
+import { MyCourses } from "./pages/Student/views/MyCourses";
+import { Assessment } from "./pages/Student/views/Assessments";
+import { Home as StudentHome } from "./pages/Student/views/Home";
 
 function AppContent() {
   const location = useLocation();
@@ -42,15 +50,22 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="signin" element={getCurrentComponent(previousPath)} />
+        <Route path="signn" element={getCurrentComponent(previousPath)} />
         <Route path="register" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="tutor" element={<Tutor />} />
         <Route path="about" element={<About />} />
         <Route path="upload" element={<FireBaseUpload />} />
         <Route path="courses" element={<Courses />} />
-
         <Route path="privacy" element={<Privacy />} />
+      </Route>
+      <Route path="/student" element={<StudentLayout />}>
+        <Route index element={<StudentHome />} />
+        <Route path="tutors" element={<Tutors />} />
+        <Route path="my-courses" element={<MyCourses />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="assessment" element={<Assessment />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
