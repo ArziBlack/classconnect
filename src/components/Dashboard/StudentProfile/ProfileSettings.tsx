@@ -6,7 +6,7 @@ const ProfileSettings = () => {
   const [activeTab, setActiveTab] = useState("Personal Details");
 
   return (
-    <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-4xl mx-auto">
+    <div className="bg-white p-8 rounded-xl shadow-xl w-full mr-[30px] mx-auto">
       <h2 className="text-2xl font-semibold mb-6">Profile Setting</h2>
 
       {/* Tabs */}

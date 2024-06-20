@@ -9,7 +9,7 @@ import PROFILEFOTO from "../../../assets/icons/ProfileFoto.png";
 
 const ProfileCard = () => {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center w-85">
+    <div className="bg-white p-6  rounded-xl shadow-md flex flex-col items-center w-85">
       <img
         src={PROFILEFOTO}
         alt="Profile"

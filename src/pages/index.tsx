@@ -6,6 +6,7 @@ import SignInModal from "./Login";
 import Footer from "../components/Footer";
 import RegisterModal from "./Register";
 import NewsletterSection from "../components/NewsletterSection";
+import AdmissionBanner from "../components/AdmissionBanner";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ const Layout = () => {
 
   return (
     <Box display={`flex`} flexDir={`column`} w={`full`}>
+      <AdmissionBanner />
       <Navbar />
       <Box as="main">
         <Outlet />
