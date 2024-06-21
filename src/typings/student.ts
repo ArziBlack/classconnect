@@ -34,7 +34,7 @@ export interface IMyTutorsResponse {
 export interface IAssessmentResponse {
     statusCode: number;
     message: string;
-    data: IAssessment[];
+    data?: IAssessment[];
 }
 
 export interface ITutorApiResponse {
@@ -46,6 +46,11 @@ export interface ITutorApiResponse {
 export interface IStudentTrxAPIResponse {
     statusCode: number;
     transactionURL: string;
+}
+
+export interface ITuitionFee {
+    status: number;
+    message: string;
 }
 
 export interface IRecommendationResponse {

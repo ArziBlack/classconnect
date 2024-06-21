@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IRootState } from "../../app/store";
-import { IAssessmentResponse, IMyTutorsResponse, IRecommendationResponse, IStudentTrxAPIResponse, ITutorApiResponse } from "../../typings/student";
+import { IAcceptnRejectResponse, IAssessmentResponse, IMyTutorsResponse, IRecommendationResponse, IStudentTrxAPIResponse, ITuitionFee, ITutorApiResponse } from "../../typings/student";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
 
@@ -26,9 +26,8 @@ export const getApprovedTutors = createAsyncThunk<ITutorApiResponse, void, { rej
   }
 );
 
-// Please i will fix the Typings later
 // Get Student Tuition Fee
-export const getMyTuitionFee = createAsyncThunk<IStudentTrxAPIResponse, void, { rejectValue: string }>(
+export const getMyTuitionFee = createAsyncThunk<ITuitionFee, void, { rejectValue: string }>(
   "student/getMyTuitionFee",
   async (_, thunkAPI) => {
     try {
@@ -49,7 +48,6 @@ export const getMyTuitionFee = createAsyncThunk<IStudentTrxAPIResponse, void, { 
   }
 );
 
-// please i will fix the Typings later.
 // Initiate a Transaction (GET) request
 export const initiateTrx = createAsyncThunk<IStudentTrxAPIResponse, void, { rejectValue: string }>(
   "student/initiateTrx",
@@ -64,6 +62,7 @@ export const initiateTrx = createAsyncThunk<IStudentTrxAPIResponse, void, { reje
   }
 );
 
+// unknown response from Postman
 // Get Transaction State (Successful | null | errror)
 export const getTrxState = createAsyncThunk<IStudentTrxAPIResponse, void, { rejectValue: string }>(
   "student/getTrxState",
@@ -136,7 +135,7 @@ export const getPersonalAssessment = createAsyncThunk<IAssessmentResponse, void,
 );
 
 // Accept Tutor Recommendation
-export const acceptRecommendation = createAsyncThunk<IRecommendationResponse, { tutorId: string, studentId: string }, { rejectValue: string }>(
+export const acceptRecommendation = createAsyncThunk<IAcceptnRejectResponse, { tutorId: string, studentId: string }, { rejectValue: string }>(
   "student/acceptRecommendation",
   async ({ tutorId, studentId }, thunkAPI) => {
     try {
@@ -160,7 +159,7 @@ export const acceptRecommendation = createAsyncThunk<IRecommendationResponse, { 
 );
 
 // Reject Tutor Recommendation
-export const rejectRecommendation = createAsyncThunk<IRecommendationResponse, { tutorId: string, studentId: string }, { rejectValue: string }>(
+export const rejectRecommendation = createAsyncThunk<IAcceptnRejectResponse, { tutorId: string, studentId: string }, { rejectValue: string }>(
   "student/rejectRecommendation",
   async ({ tutorId, studentId }, thunkAPI) => {
     try {
@@ -215,7 +214,7 @@ export const LogoutStudent = createAsyncThunk<void, void, { rejectValue: string 
       return thunkAPI.rejectWithValue(error);
     }
   }
-);
+); 
 
 const studentService = {
   getApprovedTutors,
