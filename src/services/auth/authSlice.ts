@@ -11,14 +11,14 @@ export interface IResponse {
 
 interface AuthState {
   data: IResponse | null;
-  response: string;
+  response: string | null;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
   Loaded: boolean;
   isStudentLogged: boolean;
   message: string;
-  token: string;
+  token: string | null;
 }
 
 const initialState: AuthState = {

@@ -68,9 +68,10 @@ const SideBarNav: FC = () => {
       padding="10px 1.25rem"
       pt={"3rem"}
       justifyContent={"space-between"}
-    >
+      >
       <Flex
         w={"full"}
+        // pos={`fixed`}
         //   gap={"1rem"}
         // bgColor={"brand.dark"}
         flexDirection={"column"}

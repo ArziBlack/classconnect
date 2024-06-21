@@ -50,7 +50,7 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="signn" element={getCurrentComponent(previousPath)} />
+        <Route path="signin" element={getCurrentComponent(previousPath)} />
         <Route path="register" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="tutor" element={<Tutor />} />
