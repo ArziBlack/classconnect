@@ -58,3 +58,8 @@ export interface IRecommendationResponse {
     status: string;
     message: string;
 }
+
+export interface IAcceptnRejectResponse {
+    statusCode: number;
+    message: string;
+}
