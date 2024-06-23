@@ -14,10 +14,12 @@ import {
   rejectRecommendation,
 } from "./studentThunks";
 import {
+  IAcceptnRejectResponse,
   IAssessmentResponse,
   IMyTutorsResponse,
   IRecommendationResponse,
   IStudentTrxAPIResponse,
+  ITuitionFee,
   ITutorApiResponse,
 } from "../../typings/student";
 
@@ -98,7 +100,7 @@ const studentSlice = createSlice({
       })
       .addCase(
         getMyTuitionFee.fulfilled,
-        (state, action: PayloadAction<IStudentTrxAPIResponse>) => {
+        (state, action: PayloadAction<ITuitionFee>) => {
           state.isLoading = false;
           state.trxResponse = action.payload;
           state.isSuccess = true;
@@ -221,7 +223,7 @@ const studentSlice = createSlice({
       })
       .addCase(
         acceptRecommendation.fulfilled,
-        (state, action: PayloadAction<IRecommendationResponse>) => {
+        (state, action: PayloadAction<IAcceptnRejectResponse>) => {
           state.isLoading = false;
           state.recommendResponse = action.payload;
           state.isSuccess = true;
@@ -243,7 +245,7 @@ const studentSlice = createSlice({
       })
       .addCase(
         rejectRecommendation.fulfilled,
-        (state, action: PayloadAction<IRecommendationResponse>) => {
+        (state, action: PayloadAction<IAcceptnRejectResponse>) => {
           state.isLoading = false;
           state.recommendResponse = action.payload;
           state.isSuccess = true;
