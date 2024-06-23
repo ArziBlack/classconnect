@@ -17,7 +17,7 @@ import FireBaseUpload from "./pages/FireBaseUpload";
 import DashBoard from "./components/Dashboard/studentDashboard/DashBoard";
 import { Tutors } from "./pages/Student/views/Tutors";
 import { Profile } from "./pages/Student/views/Profile";
-import { Settings } from "./pages/Student/views/Settings";
+import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
@@ -51,7 +51,7 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="signn" element={getCurrentComponent(previousPath)} />
+        <Route path="signin" element={getCurrentComponent(previousPath)} />
         <Route path="register" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="tutor" element={<Tutor />} />
@@ -68,7 +68,7 @@ function AppContent() {
         <Route path="my-courses" element={<MyCourses />} />
         <Route path="profile" element={<Profile />} />
         <Route path="assessment" element={<Assessment />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="billing" element={<Billing />} />
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />

@@ -3,7 +3,7 @@ import ProfileSettings from "../../../components/Dashboard/StudentProfile/Profil
 
 export const Profile = () => {
   return (
-    <div className="flex space-x-8  bg-gray-100 min-h-screen">
+    <div className="flex space-x-8 bg-gray-100 max-h-[600px] pb-8 pr-8">
       <ProfileCard />
       <ProfileSettings />
     </div>

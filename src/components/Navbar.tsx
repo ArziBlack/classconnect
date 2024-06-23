@@ -35,13 +35,17 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
     { to: "/about", label: "About" },
   ];
 
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    if (onClick) onClick();
+  };
   return (
     <>
       {links.map((link) => (
         <NavLink
           to={link.to}
           key={link.to}
-          onClick={onClick}
+          onClick={() => handleLinkClick()}
           className={"group"}
           style={({ isActive, isTransitioning }) => {
             return {

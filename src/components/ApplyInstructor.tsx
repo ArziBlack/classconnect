@@ -44,7 +44,7 @@ const ApplyInstructor = () => {
         <Box px={5} pt={5} w={"500px"} mx={"auto"}>
           <Image borderRadius="md" src={APPLY_TUTOR} alt="Instructor" />
         </Box>
-        <Box ml={{ md: 6 }} mt={{ base: 4, md: 10 }} px={5}>
+        <Box ml={{ md: 6 }} mt={{ base: 4, md: 10 }} px={5} w={"50%"}>
           <Heading
             as="h2"
             size="lg"
@@ -53,7 +53,7 @@ const ApplyInstructor = () => {
             color={"brand.text"}
             fontFamily={"Metropolis"}
           >
-            Apply as an Instructor
+            Apply as a Tutor
           </Heading>
           <Text fontSize="md" color="gray.700" mb={4} maxW={"600px"}>
             Teaching is a vital and admirable career. As such, it comes with
@@ -64,10 +64,10 @@ const ApplyInstructor = () => {
           <Tabs position="relative" variant="unstyled">
             <TabList fontWeight={"600"}>
               <CustomTab>
-                <Text fontWeight={"600"}>Instructor Requirements</Text>
+                <Text fontWeight={"600"}>Tutor Responsibilities</Text>
               </CustomTab>
               <CustomTab>
-                <Text fontWeight={"600"}>Instructor Rules</Text>
+                <Text fontWeight={"600"}>Tutor Qualifications</Text>
               </CustomTab>
             </TabList>
             <TabIndicator
@@ -77,24 +77,53 @@ const ApplyInstructor = () => {
               borderRadius="1px"
               w={"10px"}
             />
-            <TabPanels color={"brand.text"} fontWeight={400}>
+            <TabPanels
+              color={"brand.text"}
+              fontWeight={400}
+              fontSize={14}
+              maxW={"550px"}
+            >
               <TabPanel>
                 <List spacing={3}>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    An undergraduate degree
+                    Conducting instructional sessions on software development
+                    topics as it applies to your domain.
                   </ListItem>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Participate in supervised teaching
+                    Ability to contribute to and work effectively with the
+                    school curriculum.
                   </ListItem>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    State teaching license
+                    Sending a session notice for every upcoming session at least
+                    a day before the session.
                   </ListItem>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Pursue graduate studies
+                    Constructive feedback on every session and on every student
+                    performance in a session.
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Providing guidance and support to students in their learning
+                    journey.
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Assessing and evaluating student progress.
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={PiCircleFill} color="brand.dark" />
+                    Flexibility to work at any two (2) of the following class
+                    time options every week. Note: The process is that every
+                    student will have the liberty to choose any four (4) most
+                    convenient time among the class time options. Then, you will
+                    choose the two (2) class time options among the differently
+                    chosen four (4) class time options that is most common to
+                    every student which will then be sent as the official class
+                    times for all students connected to you.
                   </ListItem>
                 </List>
               </TabPanel>
@@ -102,19 +131,17 @@ const ApplyInstructor = () => {
                 <List spacing={3}>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Respect and courtesy
+                    Strong expertise in relevant and modern Technologies and
+                    Programming Languages, etc.
                   </ListItem>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Punctuality
+                    Previous experience in teaching or tutoring in a classroom
+                    or virtual learning setting.
                   </ListItem>
                   <ListItem>
                     <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Constructive feedback
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={PiCircleFill} color="brand.dark" />
-                    Up-to-date content
+                    Excellent communication and interpersonal skills.
                   </ListItem>
                 </List>
               </TabPanel>

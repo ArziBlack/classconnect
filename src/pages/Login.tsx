@@ -9,6 +9,7 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  ModalCloseButton,
   Link as ChakraLink,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -104,6 +105,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
       <Modal isOpen={isOpen} onClose={closeModal} size={modalSize}>
         <ModalOverlay />
         <ModalContent>
+          <ModalCloseButton />
           <ModalBody>
             <Box
               h="100%"

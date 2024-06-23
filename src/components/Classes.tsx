@@ -5,6 +5,10 @@ import { VStack, Heading } from "@chakra-ui/layout";
 
 const Classes = () => {
   const navigate = useNavigate();
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/courses");
+  };
   return (
     <VStack paddingY="40px" h="full" mt={20}>
       <Heading
@@ -33,7 +37,7 @@ const Classes = () => {
         480 vertical scan lines or 576 vertical lines is considered
         high-definition.
       </Text>
-      <Button text="Visit Courses" onClick={() => navigate("/courses")} />
+      <Button text="Visit Courses" onClick={() => handleLinkClick()} />
     </VStack>
   );
 };

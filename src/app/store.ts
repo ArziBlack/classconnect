@@ -1,14 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from '../services/auth/authSlice';
-import otherReducer from '../services/others/otherSlice';
-import imageReducer from '../services/others/imageSlice';
+// Reducer Imports
+import authReducer from "../services/auth/authSlice";
+import otherReducer from "../services/others/otherSlice";
+import imageReducer from "../services/others/imageSlice";
+import studentReducer from "../services/student/studentSlice";
 
 export const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        other: otherReducer,
-        image: imageReducer
-    },
+  reducer: {
+    auth: authReducer,
+    other: otherReducer,
+    image: imageReducer,
+    student: studentReducer,
+  },
 });
 
 export type IRootState = ReturnType<typeof store.getState>;

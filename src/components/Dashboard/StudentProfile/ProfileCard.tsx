@@ -6,10 +6,11 @@ import PROFILEICON from "../../../assets/icons/ProfileIcon.png";
 import INVITEICON from "../../../assets/icons/InviteIcon.png";
 import DELETEICON from "../../../assets/icons/DeleteIcon.png";
 import PROFILEFOTO from "../../../assets/icons/ProfileFoto.png";
+import { ViewCard } from "../../../pages/Student/components/ViewCard";
 
 const ProfileCard = () => {
   return (
-    <div className="bg-white p-6  rounded-xl shadow-md flex flex-col items-center w-85">
+    <ViewCard className="flex-1">
       <img
         src={PROFILEFOTO}
         alt="Profile"
@@ -54,7 +55,7 @@ const ProfileCard = () => {
           <span className="text-sm">Delete account</span>
         </button>
       </div>
-    </div>
+    </ViewCard>
   );
 };
 

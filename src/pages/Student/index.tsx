@@ -24,9 +24,9 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
       style={({ isActive }) => ({
         textDecoration: "none",
         padding: "10px 1.25rem",
-        color: "rgba(0, 0, 0, 0.87)",
+        color: "#fffff",
         opacity: isActive ? "1" : "0.7",
-        background: isActive ? "#D1FBE9" : "transparent",
+        background: isActive ? "#254F62" : "transparent",
         borderRadius: "15px",
       })}
       end
@@ -44,13 +44,18 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
-            color={isActive ? "brand.text" : "white"}
+            // color={isActive ? "#ffffff" : "white"}
+            color={"white"}
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
           >
             <Image src={icon} />
           </Flex>
-          <Text fontSize={"16px"} fontWeight={isActive ? "500" : "400"}>
+          <Text
+            fontSize={"16px"}
+            fontWeight={isActive ? "500" : "400"}
+            color={isActive ? "#ffffff" : "white"}
+          >
             {text}
           </Text>
         </Flex>
@@ -67,6 +72,9 @@ const SideBarNav: FC = () => {
       flexDir={"column"}
       padding="10px 1.25rem"
       pt={"3rem"}
+      position={"sticky"}
+      top={0}
+      backgroundColor={"#023248"}
       justifyContent={"space-between"}
     >
       <Flex
@@ -80,7 +88,7 @@ const SideBarNav: FC = () => {
         <Nav text="My Courses" to="my-courses" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={PROFILE} />
         <Nav text="Assessment" to="assessment" icon={ASSESSMENT} />
-        <Nav text="Settings" to="settings" icon={SETTINGS} />
+        <Nav text="Billing" to="billing" icon={SETTINGS} />
       </Flex>
       <Flex>
         <Nav text="Log out" to="/" icon={LOGOUT} />
@@ -110,7 +118,7 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
       <Text
         fontSize={"38px"}
         fontWeight={500}
-        color={"brand.text"}
+        color={"white"}
         lineHeight={"60.48px"}
         display={isSmallerThan900 ? "none" : "block"}
       >
@@ -155,7 +163,7 @@ const StudentLayout: FC = () => {
     <Flex
       w={"full"}
       h={"full"}
-      bgColor={"#F5F5F5"}
+      bgColor={"#002333"}
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
