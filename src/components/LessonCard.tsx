@@ -31,6 +31,7 @@ const LessonCard: React.FC<ICardProps> = ({
       py="50px"
       my="20px"
       justifyContent={`space-between`}
+      borderRadius={20}
     >
       <Image src={image} width={"50px"} />
 

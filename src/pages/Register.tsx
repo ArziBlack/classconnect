@@ -3,6 +3,7 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
+  ModalCloseButton,
   Radio,
   RadioGroup,
   useBreakpointValue,
@@ -205,6 +206,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       >
         <ModalOverlay />
         <ModalContent>
+          <ModalCloseButton />
+
           <ModalBody>
             <Box
               h="100%"

@@ -16,7 +16,7 @@ import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
 import { Tutors } from "./pages/Student/views/Tutors";
 import { Profile } from "./pages/Student/views/Profile";
-import { Settings } from "./pages/Student/views/Settings";
+import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
@@ -65,7 +65,7 @@ function AppContent() {
         <Route path="my-courses" element={<MyCourses />} />
         <Route path="profile" element={<Profile />} />
         <Route path="assessment" element={<Assessment />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="billing" element={<Billing />} />
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Input, Select } from "@chakra-ui/react";
 import PROFILEFOTO from "../../../assets/icons/ProfileFoto.png"; // Ensure this path is correct
+import { ViewCard } from "../../../pages/Student/components/ViewCard";
 
 const ProfileSettings = () => {
   const [activeTab, setActiveTab] = useState("Personal Details");
 
   return (
-    <div className="bg-white p-8 rounded-xl shadow-xl w-full mr-[30px] mx-auto">
+    <ViewCard className="flex-[2]">
       <h2 className="text-2xl font-semibold mb-6">Profile Setting</h2>
 
       {/* Tabs */}
@@ -79,18 +80,18 @@ const ProfileSettings = () => {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-gray-700">Country</label>
-                <Select placeholder="Select Country">
-                  {/* Add country options here */}
-                </Select>
+                {/* <label className="block text-gray-700">Country</label> */}
+                {/* <Select placeholder="Select Country"> */}
+                {/* Add country options here */}
+                {/* </Select> */}
               </div>
               <div>
-                <label className="block text-gray-700">State/Province</label>
-                <Input placeholder="Enter State/Province" />
+                {/* <label className="block text-gray-700">State/Province</label> */}
+                {/* <Input placeholder="Enter State/Province" /> */}
               </div>
               <div>
-                <label className="block text-gray-700">Zip Code</label>
-                <Input placeholder="Enter Zip code" />
+                {/* <label className="block text-gray-700">Zip Code</label> */}
+                {/* <Input placeholder="Enter Zip code" /> */}
               </div>
             </div>
           </div>
@@ -122,7 +123,7 @@ const ProfileSettings = () => {
           <p>Payment settings content goes here.</p>
         </div>
       )}
-    </div>
+    </ViewCard>
   );
 };
 

@@ -6,6 +6,10 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 
 const Career = () => {
   const navigate = useNavigate();
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/tutor");
+  };
   return (
     <Flex
       w="full"
@@ -51,7 +55,7 @@ const Career = () => {
             tech professionals. We seek passionate experts with strong
             communication skills to provide high-quality education.
           </Text>
-          <Button text="Join as Tutor" onClick={() => navigate("/tutor")} />
+          <Button text="Join as Tutor" onClick={() => handleLinkClick()} />
         </Box>
       </Box>
       <Box

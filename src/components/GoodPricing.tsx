@@ -5,6 +5,10 @@ import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 const GoodPricing = () => {
   const navigate = useNavigate();
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/pricing");
+  };
   return (
     <Flex
       w={`full`}
@@ -51,7 +55,7 @@ const GoodPricing = () => {
             choose the right plan for you!
           </Text>
 
-          <Button text="View Pricing" onClick={() => navigate("/pricing")} />
+          <Button text="View Pricing" onClick={() => handleLinkClick()} />
         </Box>
       </Box>
       <Box

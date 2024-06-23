@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const Lessons = () => {
   const navigate = useNavigate();
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/pricing");
+  };
   return (
     <VStack paddingY="40px">
       <Heading
@@ -35,7 +39,7 @@ const Lessons = () => {
               title={item.title}
               bgColor={item.bgColor}
               description={item.description}
-              onClick={() => navigate("/pricing")}
+              onClick={() => handleLinkClick()}
             />
           ))}
         </SimpleGrid>
