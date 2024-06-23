@@ -11,6 +11,7 @@ import {
   ASSESSMENT,
   COURSES,
   HOME,
+  LOGO,
   LOGOUT,
   PROFILE,
   SETTINGS,
@@ -30,7 +31,7 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
       to={to}
       style={({ isActive }) => ({
         textDecoration: "none",
-        padding: "10px 1.25rem",
+        padding: "8px 0.5rem",
         color: "#fffff",
         opacity: isActive ? "1" : "0.8",
         background: isActive ? "#254F62" : "transparent",
@@ -46,8 +47,8 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
           fontFamily={"Metropolis"}
         >
           <Flex
-            w={"35px"}
-            h={"35px"}
+            w={"30px"}
+            h={"30px"}
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
@@ -56,10 +57,10 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
           >
-            <Image src={icon} />
+            <Image width={"20px"} src={icon} />
           </Flex>
           <Text
-            fontSize={"16px"}
+            fontSize={"14px"}
             fontWeight={isActive ? "400" : "400"}
             color={isActive ? "#ffffff" : "white"}
           >
@@ -77,8 +78,8 @@ const SideBarNav: FC = () => {
       w={"full"}
       h={"100vh"}
       flexDir={"column"}
-      padding="10px 1.25rem"
-      pt={"3rem"}
+      padding="10px 1rem"
+      pt={"1.5rem"}
       position={"sticky"}
       top={0}
       backgroundColor={"#023248"}
@@ -90,6 +91,7 @@ const SideBarNav: FC = () => {
         // bgColor={"brand.dark"}
         flexDirection={"column"}
       >
+        <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/student" icon={HOME} />
         <Nav text="Tutors" to="tutors" icon={TUTORS} />
         <Nav text="My Courses" to="my-courses" icon={COURSES} />
@@ -118,8 +120,8 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
         mt={4}
         w={"full"}
         alignItems={"center"}
-        pb={"20px"}
         pr={"20px"}
+        color={"white"}
         justifyContent={"space-between"}
       >
         <Flex
@@ -155,7 +157,7 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>
       </Flex>
-      {mainText !== "Home" && (
+      {/* {mainText !== "Home" && (
         <Text
           fontSize={"25px"}
           fontWeight={500}
@@ -168,8 +170,8 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
 
           {mainText}
         </Text>
-      )}
-      {subText && (
+      )} */}
+      {/* {subText && (
         <Text
           mt={"0.2rem"}
           fontWeight={300}
@@ -180,7 +182,7 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
         >
           {subText}
         </Text>
-      )}
+      )} */}
       <Box display={{ base: "none", md: "block" }} h={"1rem"} w={"full"}></Box>
       <Outlet />
     </Flex>
@@ -232,7 +234,7 @@ const StudentLayout: FC = () => {
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
-        minW={{ base: "full", md: "280px" }}
+        minW={{ base: "full", md: "220px" }}
         display={isSmallerThan900 ? "none" : "block"}
       >
         <SideBarNav />
