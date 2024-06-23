@@ -13,7 +13,7 @@ import { type IconType } from "react-icons";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   type?: string;
   error?: string;
   icon?: IconType;

@@ -1,6 +1,12 @@
 import { FC } from "react";
+import { IoIosSearch } from "react-icons/io";
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Image, Input, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdOutlineKeyboardArrowLeft,
+} from "react-icons/md";
 import {
   ASSESSMENT,
   COURSES,
@@ -10,6 +16,7 @@ import {
   SETTINGS,
   TUTORS,
 } from "../../constants/icon";
+import { TEMPLATE } from "../../constants/image";
 
 type NavProps = {
   to: string;
@@ -25,7 +32,7 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
         textDecoration: "none",
         padding: "10px 1.25rem",
         color: "#fffff",
-        opacity: isActive ? "1" : "0.7",
+        opacity: isActive ? "1" : "0.8",
         background: isActive ? "#254F62" : "transparent",
         borderRadius: "15px",
       })}
@@ -53,7 +60,7 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
           </Flex>
           <Text
             fontSize={"16px"}
-            fontWeight={isActive ? "500" : "400"}
+            fontWeight={isActive ? "400" : "400"}
             color={isActive ? "#ffffff" : "white"}
           >
             {text}
@@ -108,27 +115,67 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
   return (
     <Flex w={"full"} h={"100%"} position={"relative"} flexDirection={"column"}>
       <Flex
-        top={0}
-        right={4}
-        gap={"1.5rem"}
-        pt={4}
+        mt={4}
+        w={"full"}
         alignItems={"center"}
-        display={isSmallerThan900 ? "none" : "flex"}
-      ></Flex>
-      <Text
-        fontSize={"38px"}
-        fontWeight={500}
-        color={"white"}
-        lineHeight={"60.48px"}
-        display={isSmallerThan900 ? "none" : "block"}
+        pb={"20px"}
+        pr={"20px"}
+        justifyContent={"space-between"}
       >
-        {mainText}
-      </Text>
+        <Flex
+          right={4}
+          h={"45px"}
+          color={"white"}
+          width={"400px"}
+          paddingLeft={"10px"}
+          borderRadius={"8px"}
+          alignItems={"center"}
+          background={"transparent"}
+          border={"1px solid #5E7079"}
+          display={isSmallerThan900 ? "none" : "flex"}
+        >
+          <IoIosSearch fontSize={"30px"} color="#CED1DD" />
+          <Input
+            type="text"
+            width={"100%"}
+            height={"100%"}
+            border={"none"}
+            paddingLeft={"5px"}
+            placeholder="Search"
+            _focusVisible={"none"}
+            background="transparent"
+          />
+        </Flex>
+        <Flex alignItems={"center"} gap={"20px"}>
+          <IoMdNotificationsOutline fontSize={"25px"} color="white" />
+          <Image w={"40px"} h={"40px"} src={TEMPLATE} borderRadius={"50%"} />
+          <Text fontSize={"12px"} color="#ffffff">
+            Favour Oge
+          </Text>
+          <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
+        </Flex>
+      </Flex>
+      {mainText !== "Home" && (
+        <Text
+          fontSize={"25px"}
+          fontWeight={500}
+          color={"white"}
+          lineHeight={"60.48px"}
+          alignItems={"center"}
+          display={isSmallerThan900 ? "none" : "inline-flex"}
+        >
+          <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
+
+          {mainText}
+        </Text>
+      )}
       {subText && (
         <Text
-          mt={"1rem"}
-          fontWeight={400}
-          fontSize={"1rem"}
+          mt={"0.2rem"}
+          fontWeight={300}
+          color={"white"}
+          maxW={"600px"}
+          fontSize={"14px"}
           display={isSmallerThan900 ? "none" : "block"}
         >
           {subText}
@@ -157,7 +204,25 @@ function formatPath(path) {
 const StudentLayout: FC = () => {
   const location = useLocation();
   const formattedPath = formatPath(location.pathname);
+  const segments = location.pathname
+    .split("/")
+    .filter((segment) => segment.length > 0);
+
+  const lastSegment = segments[segments.length - 1];
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+
+  const subtexts = {
+    tutors:
+      "Find and interact with your course tutors. Access their contact information, office hours, and schedule one-on-one sessions to enhance your learning experience.",
+    "my-courses":
+      "View and manage your enrolled courses. Track your progress, access course materials, and stay updated with upcoming lessons and assignments.",
+    profile:
+      "Update and manage your personal details, academic information, and preferences. Ensure your profile is always up-to-date to receive relevant notifications and updates.",
+    billing:
+      "View and handle your billing information. Check your payment history, manage subscriptions, and ensure your account is in good standing.",
+    assessment:
+      "Access your assessments, view grades, and track your academic progress. Get detailed feedback on your performance to identify areas for improvement.",
+  };
 
   return (
     <Flex
@@ -167,13 +232,12 @@ const StudentLayout: FC = () => {
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
-        w={{ base: "full", md: "25%" }}
-        maxW={{ base: "full", md: "410px" }}
+        minW={{ base: "full", md: "280px" }}
         display={isSmallerThan900 ? "none" : "block"}
       >
         <SideBarNav />
       </Box>
-      <MainView mainText={formattedPath} />
+      <MainView mainText={formattedPath} subText={subtexts[lastSegment]} />
     </Flex>
   );
 };
