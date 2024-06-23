@@ -11,14 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
 
-const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
+export const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
     videoList.indexOf(initialEmbedId)
   );
   const [isPlaying, setIsPlaying] = useState(true);
   const iframeRef = useRef(null);
 
-  const handlePlayPause = () => {
+const handlePlayPause = () => {
     if (iframeRef.current) {
       const iframe = iframeRef.current;
       if (isPlaying) {
