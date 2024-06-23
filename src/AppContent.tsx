@@ -16,7 +16,7 @@ import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
 import DashBoard from "./components/Dashboard/studentDashboard/DashBoard";
 import { Tutors } from "./pages/Student/views/Tutors";
-import { Profile } from "./pages/Student/views/Profile";
+import Profile from "./pages/Student/views/Profile";
 import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
