@@ -1,0 +1,571 @@
+.settings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.settings .settings-control {
+  display: flex;
+  width: 10%;
+  align-items: center;
+  justify-content: space-between;
+}
+.settings .settings-control span {
+  font-size: 22px;
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 500;
+}
+.settings .settings-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 15px;
+}
+.settings .settings-container .settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  /* gap: 50px; */
+  border-bottom: 2px solid #bdbdbd;
+  margin-bottom: 17px;
+}
+.settings .settings-container .settings-header .setting-link {
+  height: 100%;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 400;
+  color: white;
+  opacity: 0.7;
+  border-bottom: 2px solid transparent;
+
+  margin-bottom: -2px;
+}
+.settings .settings-container .settings-header .setting-link.active {
+  border-bottom: 2px solid #00ff84;
+  font-weight: 700;
+  opacity: 1;
+}
+.settings .settings-container .settings-details-body {
+  width: 100%;
+  font-family: "Lato";
+}
+.settings .settings-container .settings-details-body .setting-detail-text {
+  margin-bottom: 20px;
+}
+.settings .settings-container .settings-details-body .setting-detail-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Lato";
+  margin-bottom: 5px;
+}
+.settings .settings-container .settings-details-body .setting-detail-text span {
+  opacity: 0.5;
+  font-size: 16px;
+  font-family: "Lato";
+  font-weight: 500;
+}
+
+.settings .settings-container .settings-details-body .settings_password-error {
+  color: rgb(228, 49, 49);
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container {
+  width: 100%;
+  margin-bottom: 150px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container
+  .setting-profile-image-background {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container
+  .setting-profile-image-background
+  img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container
+  .setting-profile-image-background
+  .profile-image {
+  position: absolute;
+  left: 40%;
+  background: #fff;
+  height: 190px;
+  width: 190px;
+  bottom: -70px;
+  border-radius: 50%;
+  padding: 5px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container
+  .setting-profile-image-background
+  .profile-image
+  img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-detail-profile-image-container
+  .setting-profile-image-background
+  .profile-image
+  .snap {
+  height: 50px;
+  width: 50px;
+  bottom: -5px;
+  left: 35%;
+  position: absolute;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-details-input-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15%;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-details-input-form
+  div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-details-input-form
+  div
+  input {
+  width: 100%;
+  height: 60px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding-left: 10px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-details-input-form
+  div
+  span {
+  font-family: "Lato";
+  font-size: 17px;
+  opacity: 0.6;
+  margin-bottom: 7px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form {
+  width: 60%;
+  display: flex;
+  gap: 8%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form
+  .address-item {
+  flex: 3;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form
+  .address-item
+  span {
+  opacity: 0.6;
+  margin-bottom: 5px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form
+  .address-input {
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form
+  .address-input
+  input {
+  width: 100%;
+  height: 50px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-address-input-form
+  button {
+  flex: 1;
+  border-radius: 15px;
+  height: 45px;
+  border: none;
+  background: rgba(255, 213, 63, 0.2);
+  font-family: "Lato";
+  font-weight: 700;
+  font-size: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 5%;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  span {
+  opacity: 0.5;
+  font-family: "Lato";
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-opening-time {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-opening-time
+  .opening-time {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  align-items: center;
+  padding-right: 15px;
+  background: white;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-opening-time
+  .opening-time
+  input {
+  width: 100%;
+  border: none;
+  background: white;
+  outline: none;
+  padding: 15px 10px;
+  border-radius: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-opening-time
+  .opening-time
+  img {
+  height: 20px;
+  width: 20px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-closing-time {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-closing-time
+  .closing-time {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  align-items: center;
+  padding-right: 15px;
+  background: white;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-closing-time
+  .closing-time
+  input {
+  width: 100%;
+  border: none;
+  background: white;
+  outline: none;
+  padding: 15px 15px;
+  border-radius: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .setting-timing-input-form
+  .timing-closing-time
+  .closing-time
+  img {
+  height: 20px;
+  width: 20px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-bank-details-input-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8%;
+  margin-top: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-bank-details-input-form
+  div
+  select {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding-right: 5px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-bank-details-input-form
+  div
+  input {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-bank-details-input-form
+  div
+  span {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height */
+  color: #000000;
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+.settings .settings-container .settings-details-body .notification {
+  font-weight: 600;
+  font-size: 18px;
+}
+.settings .settings-container .settings-details-body .not-it {
+  opacity: 0.5;
+}
+.settings .settings-container .settings-details-body .resturant-notification {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin-top: 25px;
+  height: 160px;
+  justify-content: space-between;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .resturant-notification
+  .notification-item {
+  display: flex;
+  width: 190px;
+  justify-content: space-between;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .resturant-notification
+  .notification-item
+  label {
+  flex: 1;
+  font-weight: 400;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .resturant-notification
+  .notification-item
+  input {
+  margin-right: 20px;
+  height: 20px;
+  width: 20px;
+}
+.settings .settings-container .settings-details-body .account-notification {
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  justify-content: space-between;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .account-notification
+  .notification-item {
+  display: flex;
+  width: 190px;
+  justify-content: space-between;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .account-notification
+  .notification-item
+  label {
+  flex: 1;
+  font-weight: 400;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .account-notification
+  .notification-item
+  input {
+  margin-right: 20px;
+  height: 20px;
+  width: 20px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-password-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8%;
+  margin-top: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-password-container
+  div {
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-password-container
+  div
+  span {
+  opacity: 0.5;
+  margin-bottom: 7px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-password-container
+  div
+  input {
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.settings .settings-container .settings-details-body .settings-delivery-charge {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-delivery-charge
+  span {
+  opacity: 0.5;
+  font-family: "Lato";
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+.settings
+  .settings-container
+  .settings-details-body
+  .settings-delivery-charge
+  input {
+  width: 50%;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.settings .setting-save-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+.settings .setting-save-button button {
+  padding: 12px 50px;
+  height: 65px;
+  border-radius: 15px;
+  font-family: "Lato";
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  letter-spacing: 0.1em;
+  margin-top: 40px;
+  background: #ffc501;
+  transition: all 0.3s ease-in-out;
+}
+.settings .setting-save-button button:hover {
+  transform: rotate(0.13deg) scale(1.1);
+}

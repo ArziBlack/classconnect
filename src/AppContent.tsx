@@ -21,6 +21,8 @@ import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
+import { Browse } from "./pages/Student/components/Courses/Browse";
+import { Started } from "./pages/Student/components/Courses/Started";
 
 function AppContent() {
   const location = useLocation();
@@ -65,7 +67,10 @@ function AppContent() {
       <Route path="/student" element={<StudentLayout />}>
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />} />
-        <Route path="my-courses" element={<MyCourses />} />
+        <Route path="my-courses" element={<MyCourses />}>
+          <Route index element={<Browse />} />
+          <Route path="started" element={<Started />} />
+        </Route>
         <Route path="profile" element={<Profile />} />
         <Route path="assessment" element={<Assessment />} />
         <Route path="billing" element={<Billing />} />
