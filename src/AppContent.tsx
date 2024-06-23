@@ -14,6 +14,7 @@ import StudentLayout from "./pages/Student";
 import VerifyAccount from "./pages/VerifyEmail";
 import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
+import DashBoard from "./components/Dashboard/studentDashboard/DashBoard";
 import { Tutors } from "./pages/Student/views/Tutors";
 import { Profile } from "./pages/Student/views/Profile";
 import { Settings } from "./pages/Student/views/Settings";
@@ -59,6 +60,8 @@ function AppContent() {
         <Route path="courses" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
+      <Route path="/DashBoard" element={<DashBoard />} />
+
       <Route path="/student" element={<StudentLayout />}>
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />} />
