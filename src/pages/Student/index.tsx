@@ -107,12 +107,17 @@ const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   return (
-    <Flex w={"full"} h={"100vh"} position={"relative"} flexDirection={"column"}>
+    <Flex
+      w={"full"}
+      h={"100vh"}
+      position={"relative"}
+      pr={"20px"}
+      flexDirection={"column"}
+    >
       <Flex
         mt={4}
         w={"full"}
         alignItems={"center"}
-        pr={"20px"}
         color={"white"}
         justifyContent={"space-between"}
       >
