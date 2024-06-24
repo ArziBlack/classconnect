@@ -20,7 +20,7 @@ const homeCourses = [
 
 const highlightedDates = [
   new Date(2024, 5, 20),
-  new Date(2024, 5, 25),
+  new Date(2024, 5, 24),
   new Date(2024, 5, 1),
 ];
 
@@ -32,12 +32,12 @@ const modifiers = {
 };
 
 const modifiersStyles = {
+  active: {
+    backgroundColor: "yellow",
+    color: "black",
+  },
   highlighted: {
     backgroundColor: "#00ff84",
-    color: "#fff",
-  },
-  active: {
-    backgroundColor: "red",
     color: "#fff",
   },
 };
@@ -105,7 +105,7 @@ export const Home = () => {
           ))}
         </div>
       </div>
-      <div className="w-1/3 flex justify-center items-center h-[500px] p-1 bg-[#143543] rounded mr-2">
+      <div className="w-1/3 flex justify-center items-center h-[500px] bg-[#143543] rounded mr-2">
         <DayPicker
           fromYear={2010}
           toYear={2024}
