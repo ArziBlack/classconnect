@@ -1,3 +1,5 @@
+import { Flex } from "@chakra-ui/react";
+
 export const Started = () => {
-  return <div>Started</div>;
+  return <Flex color="white">Started</Flex>;
 };

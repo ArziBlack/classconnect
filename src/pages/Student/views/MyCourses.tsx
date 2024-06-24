@@ -10,7 +10,7 @@ const links = [
 
 export const MyCourses = () => {
   return (
-    <div>
+    <>
       <ViewHeader
         title="Courses"
         subtext=" View and manage your enrolled courses. Track your progress, access
@@ -18,6 +18,6 @@ export const MyCourses = () => {
         assignments."
       />
       <BreadCrumb links={links} />
-    </div>
+    </>
   );
 };

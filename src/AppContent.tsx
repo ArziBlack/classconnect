@@ -14,7 +14,6 @@ import StudentLayout from "./pages/Student";
 import VerifyAccount from "./pages/VerifyEmail";
 import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
-import DashBoard from "./components/Dashboard/studentDashboard/DashBoard";
 import { Tutors } from "./pages/Student/views/Tutors";
 import Profile from "./pages/Student/views/Profile";
 import { Billing } from "./pages/Student/views/Billing";
@@ -23,6 +22,12 @@ import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
 import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
+import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
+import { Notification } from "./pages/Student/components/Profile/Notification";
+import { TuitionFee } from "./pages/Student/components/Profile/TuitionFee";
+import { Courses as ProfileCourses } from "./pages/Student/components/Profile/Courses";
+import { Invite } from "./pages/Student/components/Profile/Invite";
+import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
 
 function AppContent() {
   const location = useLocation();
@@ -62,8 +67,6 @@ function AppContent() {
         <Route path="courses" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
-      <Route path="/DashBoard" element={<DashBoard />} />
-
       <Route path="/student" element={<StudentLayout />}>
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />} />
@@ -73,7 +76,15 @@ function AppContent() {
           <Route path="ongoing" element={<Started />} />
           <Route path="completed" element={<Started />} />
         </Route>
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<Profile />}>
+          <Route index element={<ProfileDetails />} />
+          <Route path="notification" element={<Notification />} />
+          <Route path="tuition-fee" element={<TuitionFee />} />
+          <Route path="courses" element={<ProfileCourses />} />
+          <Route path="invite" element={<Invite />} />
+          <Route path="become-a-tutor" element={<BecomeTutor />} />
+        </Route>
+
         <Route path="assessment" element={<Assessment />} />
         <Route path="billing" element={<Billing />} />
       </Route>

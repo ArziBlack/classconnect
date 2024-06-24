@@ -107,7 +107,7 @@ const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   return (
-    <Flex w={"full"} h={"100%"} position={"relative"} flexDirection={"column"}>
+    <Flex w={"full"} h={"100vh"} position={"relative"} flexDirection={"column"}>
       <Flex
         mt={4}
         w={"full"}
@@ -149,8 +149,9 @@ const MainView: FC = () => {
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>
       </Flex>
-      <Box display={{ base: "none", md: "block" }} h={"1rem"} w={"full"}></Box>
-      <Outlet />
+      <Box w={"full"} overflowY={"auto"} mt={4}>
+        <Outlet />
+      </Box>
     </Flex>
   );
 };
