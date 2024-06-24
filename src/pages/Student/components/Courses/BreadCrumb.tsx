@@ -12,7 +12,12 @@ export const BreadCrumb: React.FC<BreadCrumbProps> = ({ links }) => {
       <div className="settings-container">
         <div className="settings-header">
           {links.map((link, index) => (
-            <NavLink key={index} to={link.to} className="setting-link" end>
+            <NavLink
+              key={index}
+              to={link.to}
+              className="setting-link text-[14px]"
+              end
+            >
               {link.label}
             </NavLink>
           ))}

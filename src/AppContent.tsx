@@ -64,9 +64,11 @@ function AppContent() {
       <Route path="/student" element={<StudentLayout />}>
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />} />
-        <Route path="my-courses" element={<MyCourses />}>
+        <Route path="courses" element={<MyCourses />}>
           <Route index element={<Browse />} />
           <Route path="started" element={<Started />} />
+          <Route path="ongoing" element={<Started />} />
+          <Route path="completed" element={<Started />} />
         </Route>
         <Route path="profile" element={<Profile />} />
         <Route path="assessment" element={<Assessment />} />

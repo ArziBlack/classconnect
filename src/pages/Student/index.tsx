@@ -1,12 +1,9 @@
 import { FC } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { NavLink, Outlet } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Box, Flex, Image, Input, Text, useMediaQuery } from "@chakra-ui/react";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowLeft,
-} from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   ASSESSMENT,
   COURSES,
@@ -94,7 +91,7 @@ const SideBarNav: FC = () => {
         <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/student" icon={HOME} />
         <Nav text="Tutors" to="tutors" icon={TUTORS} />
-        <Nav text="My Courses" to="my-courses" icon={COURSES} />
+        <Nav text="Courses" to="courses" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={PROFILE} />
         <Nav text="Assessment" to="assessment" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
@@ -106,12 +103,7 @@ const SideBarNav: FC = () => {
   );
 };
 
-type MainViewProps = {
-  mainText: string;
-  subText?: string;
-};
-
-const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
+const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   return (
@@ -157,63 +149,17 @@ const MainView: FC<MainViewProps> = ({ mainText, subText }) => {
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>
       </Flex>
-      {/* {mainText !== "Home" && (
-        <Text
-          fontSize={"25px"}
-          fontWeight={500}
-          color={"white"}
-          lineHeight={"60.48px"}
-          alignItems={"center"}
-          display={isSmallerThan900 ? "none" : "inline-flex"}
-        >
-          <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
-
-          {mainText}
-        </Text>
-      )} */}
-      {/* {subText && (
-        <Text
-          mt={"0.2rem"}
-          fontWeight={300}
-          color={"white"}
-          maxW={"600px"}
-          fontSize={"14px"}
-          display={isSmallerThan900 ? "none" : "block"}
-        >
-          {subText}
-        </Text>
-      )} */}
       <Box display={{ base: "none", md: "block" }} h={"1rem"} w={"full"}></Box>
       <Outlet />
     </Flex>
   );
 };
 
-function formatPath(path) {
-  if (!path) return "";
-  const segments = path.split("/").filter(Boolean);
-  const lastSegment = segments[segments.length - 1];
-  if (lastSegment === "student") {
-    return "Home";
-  }
-  const formattedSegment = lastSegment
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-  return formattedSegment;
-}
-
 const StudentLayout: FC = () => {
-  const location = useLocation();
-  const formattedPath = formatPath(location.pathname);
-  const segments = location.pathname
-    .split("/")
-    .filter((segment) => segment.length > 0);
-
-  const lastSegment = segments[segments.length - 1];
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
-  const subtexts = {
+  // eslint-disable-next-line
+  const subtext = {
     tutors:
       "Find and interact with your course tutors. Access their contact information, office hours, and schedule one-on-one sessions to enhance your learning experience.",
     "my-courses":
@@ -239,7 +185,7 @@ const StudentLayout: FC = () => {
       >
         <SideBarNav />
       </Box>
-      <MainView mainText={formattedPath} subText={subtexts[lastSegment]} />
+      <MainView />
     </Flex>
   );
 };
