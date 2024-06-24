@@ -37,6 +37,7 @@ import ProfileIcon from "../assets/icons/ProfileIcon.png";
 import InviteIcon from "../assets/icons/InviteIcon.png";
 import DeleteIcon from "../assets/icons/DeleteIcon.png";
 import ProfileFoto from "../assets/icons/ProfileFoto.png";
+import Camera from "../assets/icons/Camera.svg";
 
 export const _A = A;
 export const ONE = one;
@@ -77,3 +78,4 @@ export const PROFILEICON = ProfileIcon;
 export const INVITEICON = InviteIcon;
 export const DELETEICON = DeleteIcon;
 export const PROFILEFOTO = ProfileFoto;
+export const CAMERA = Camera;

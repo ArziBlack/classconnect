@@ -1,5 +1,25 @@
 import { useEffect, useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import moment from "moment";
 import VideoEmbed from "../components/VideoComp";
+
+// Setup the localizer by providing the moment (or globalize) Object to the correct localizer.
+const localizer = momentLocalizer(moment);
+
+// Dummy events data
+const events = [
+  {
+    title: "Meeting",
+    start: new Date(2024, 5, 15, 10, 0), // Year, Month (0-based), Day, Hour, Minute
+    end: new Date(2024, 5, 15, 12, 0),
+  },
+  {
+    title: "Lunch",
+    start: new Date(2024, 5, 20, 12, 0),
+    end: new Date(2024, 5, 20, 13, 0),
+  },
+];
 
 const homeCourses = [
   {
@@ -33,7 +53,7 @@ export const Home = () => {
 
   const videoId = "yYXImqDuy-I?si=yEOannHhgq2uXG0j";
   return (
-    <div className="w-full flex gap-6 text-white">
+    <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center items-center">
         <div>
           <h2 className="font-[700] text-3xl pb-3">Hi Favor</h2>
@@ -45,7 +65,7 @@ export const Home = () => {
         <div
           id="video-container"
           style={{ width: "100%", maxWidth: "100%" }}
-          className="pt-7"
+          className="pt-7 bg-black"
         >
           <VideoEmbed
             videoId={videoId}
@@ -53,11 +73,11 @@ export const Home = () => {
             iframeHeight={iframeHeight}
           />
         </div>
-        <div className="flex flex-col w-full mt-7 border border-gray-500 pt-4 pb-1 px-2 rounded">
+        <div className="flex flex-col w-full mt-7 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
           <div className="flex w-full py-1">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4">Status</h2>
-            <h2 className="w-1/4 text-right">All Courses</h2>
+            <h2 className="w-1/4 text-right text-lime-500">All Courses</h2>
           </div>
           {homeCourses.map((item, id) => (
             <div
@@ -72,14 +92,22 @@ export const Home = () => {
                 </div>
               </div>
               <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
-              <button className="w-1/4 justify-end py-2 px-1 border border-gray-500 rounded">
+              <button className="w-1/4 justify-end py-2 px-1 border border-lime-500 rounded text-lime-500">
                 View Courses
               </button>
             </div>
           ))}
         </div>
       </div>
-      <div className="w-1/3 flex justify-center items-center"></div>
+      <div className="w-1/3 flex justify-center items-center h-[500px] p-1 bg-[#143543] rounded mr-2">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ margin: "auto", color: "white", width:"100%" }}
+        />
+      </div>
     </div>
   );
 };
