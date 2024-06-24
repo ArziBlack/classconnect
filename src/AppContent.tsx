@@ -28,6 +28,11 @@ import { TuitionFee } from "./pages/Student/components/Profile/TuitionFee";
 import { Courses as ProfileCourses } from "./pages/Student/components/Profile/Courses";
 import { Invite } from "./pages/Student/components/Profile/Invite";
 import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
+import { MyTutors } from "./pages/Student/components/Tutors/MyTutors";
+import { Approved } from "./pages/Student/components/Tutors/Approved";
+import { Recommended } from "./pages/Student/components/Tutors/Recommended";
+import { PersonalAssessments } from "./pages/Student/components/Assessments/PersonalAssessments";
+import { GeneralAssessments } from "./pages/Student/components/Assessments/GeneralAssessments";
 
 function AppContent() {
   const location = useLocation();
@@ -69,7 +74,12 @@ function AppContent() {
       </Route>
       <Route path="/student" element={<StudentLayout />}>
         <Route index element={<StudentHome />} />
-        <Route path="tutors" element={<Tutors />} />
+        <Route path="tutors" element={<Tutors />}>
+          <Route index element={<MyTutors />} />
+          <Route path="approved" element={<Approved />} />
+          <Route path="recommended" element={<Recommended />} />
+          <Route path="completed" element={<Started />} />
+        </Route>
         <Route path="courses" element={<MyCourses />}>
           <Route index element={<Browse />} />
           <Route path="started" element={<Started />} />
@@ -83,6 +93,10 @@ function AppContent() {
           <Route path="courses" element={<ProfileCourses />} />
           <Route path="invite" element={<Invite />} />
           <Route path="become-a-tutor" element={<BecomeTutor />} />
+        </Route>
+        <Route path="assessments" element={<Assessment />}>
+          <Route index element={<PersonalAssessments />} />
+          <Route path="general-assessments" element={<GeneralAssessments />} />
         </Route>
 
         <Route path="assessment" element={<Assessment />} />

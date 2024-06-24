@@ -1,25 +1,7 @@
 import { useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import moment from "moment";
 import VideoEmbed from "../components/VideoComp";
-
-// Setup the localizer by providing the moment (or globalize) Object to the correct localizer.
-const localizer = momentLocalizer(moment);
-
-// Dummy events data
-const events = [
-  {
-    title: "Meeting",
-    start: new Date(2024, 5, 15, 10, 0), // Year, Month (0-based), Day, Hour, Minute
-    end: new Date(2024, 5, 15, 12, 0),
-  },
-  {
-    title: "Lunch",
-    start: new Date(2024, 5, 20, 12, 0),
-    end: new Date(2024, 5, 20, 13, 0),
-  },
-];
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 const homeCourses = [
   {
@@ -35,6 +17,30 @@ const homeCourses = [
     status: "completed",
   },
 ];
+
+const highlightedDates = [
+  new Date(2024, 5, 20),
+  new Date(2024, 5, 25),
+  new Date(2024, 5, 1),
+];
+
+const active = new Date();
+
+const modifiers = {
+  highlighted: highlightedDates,
+  active: active,
+};
+
+const modifiersStyles = {
+  highlighted: {
+    backgroundColor: "#00ff84",
+    color: "#fff",
+  },
+  active: {
+    backgroundColor: "red",
+    color: "#fff",
+  },
+};
 
 export const Home = () => {
   const [containerWidth, setContainerWidth] = useState<number>(660);
@@ -100,12 +106,12 @@ export const Home = () => {
         </div>
       </div>
       <div className="w-1/3 flex justify-center items-center h-[500px] p-1 bg-[#143543] rounded mr-2">
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ margin: "auto", color: "white", width:"100%" }}
+        <DayPicker
+          fromYear={2010}
+          toYear={2024}
+          showOutsideDays
+          modifiers={modifiers}
+          modifiersStyles={modifiersStyles}
         />
       </div>
     </div>

@@ -93,7 +93,7 @@ const SideBarNav: FC = () => {
         <Nav text="Tutors" to="tutors" icon={TUTORS} />
         <Nav text="Courses" to="courses" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={PROFILE} />
-        <Nav text="Assessment" to="assessment" icon={ASSESSMENT} />
+        <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
       </Flex>
       <Flex>
