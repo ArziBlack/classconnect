@@ -8,28 +8,28 @@ export const Browse = () => {
       <CourseCard
         title="Frontend Development"
         description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        duration="Beginner"
+        difficulty="Beginner"
         lessons="5 Lessons"
         imageUrl={TEMPLATE}
       />
       <CourseCard
         title="Backend Development"
         description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        duration="Beginner"
+        difficulty="Advance"
         lessons="5 Lessons"
         imageUrl={TEMPLATE}
       />
       <CourseCard
         title="Cloud Engineering"
         description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        duration="Beginner"
+        difficulty="Intermediate"
         lessons="5 Lessons"
         imageUrl={TEMPLATE}
       />
       <CourseCard
         title="Cloud Engineering"
         description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        duration="Beginner"
+        difficulty="Beginner"
         lessons="5 Lessons"
         imageUrl={TEMPLATE}
       />

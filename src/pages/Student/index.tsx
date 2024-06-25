@@ -154,7 +154,7 @@ const MainView: FC = () => {
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>
       </Flex>
-      <Box w={"full"} overflowY={"auto"} mt={4}>
+      <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
         <Outlet />
       </Box>
     </Flex>
@@ -166,16 +166,8 @@ const StudentLayout: FC = () => {
 
   // eslint-disable-next-line
   const subtext = {
-    tutors:
-      "Find and interact with your course tutors. Access their contact information, office hours, and schedule one-on-one sessions to enhance your learning experience.",
-    "my-courses":
-      "View and manage your enrolled courses. Track your progress, access course materials, and stay updated with upcoming lessons and assignments.",
-    profile:
-      "Update and manage your personal details, academic information, and preferences. Ensure your profile is always up-to-date to receive relevant notifications and updates.",
     billing:
       "View and handle your billing information. Check your payment history, manage subscriptions, and ensure your account is in good standing.",
-    assessment:
-      "Access your assessments, view grades, and track your academic progress. Get detailed feedback on your performance to identify areas for improvement.",
   };
 
   return (

@@ -6,7 +6,7 @@ import { SiLevelsdotfyi } from "react-icons/si";
 interface CardProps {
   title: string;
   description: string;
-  duration: string;
+  difficulty: "Beginner" | "Intermediate" | "Advance";
   lessons: string;
   imageUrl: string;
 }
@@ -14,10 +14,20 @@ interface CardProps {
 export const CourseCard: React.FC<CardProps> = ({
   title,
   description,
-  duration,
+  difficulty,
   lessons,
   imageUrl,
 }) => {
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "Intermediate":
+        return "yellow"; // Use Chakra UI color or hex color
+      case "Advance":
+        return "red"; // Use Chakra UI color or hex color
+      default:
+        return "brand.action"; // Default color for Beginner
+    }
+  };
   return (
     <Box
       width={"100%"}
@@ -33,20 +43,26 @@ export const CourseCard: React.FC<CardProps> = ({
       <Text fontSize="xl" fontWeight="bold" mb={2}>
         {title}
       </Text>
-      <Text opacity={0.7} mb={4} fontWeight={100}>
+      <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
         {description}
       </Text>
-      <Flex pt={4} w={"100%"} align={"center"} justifyContent={"space-between"}>
+      <Flex
+        pt={4}
+        w={"100%"}
+        align={"center"}
+        justifyContent={"space-between"}
+        fontFamily={"Work Sans"}
+      >
         <Flex align="center">
           <Flex
             alignItems="center"
             justifyContent={"center"}
             opacity={0.6}
             gap={1}
-            color={"brand.action"}
+            color={getDifficultyColor(difficulty)}
           >
             <SiLevelsdotfyi className="mb-[4px]" />
-            <Text>{duration}</Text>
+            <Text>{difficulty}</Text>
           </Flex>
           <Flex align="center" ml={4}>
             <Icon as={TimeIcon} mr={2} />
