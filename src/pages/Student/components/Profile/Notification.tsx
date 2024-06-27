@@ -41,7 +41,7 @@ const notifications = [
 const NotificationItem = ({ title, date, content, info }) => {
   return (
     <Box
-      className="gap-3 border-b border-gray-700 py-4 cursor-pointer text-sm"
+      className="gap-3 border-b border-gray-700 py-4 cursor-pointer text-sm hover:bg-[#B3F8DA]"
       w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
       p={{ base: "2", md: "4" }} // Responsive padding
     >
