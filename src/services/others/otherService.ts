@@ -20,10 +20,17 @@ const getTnC_Policy = async () => {
   return response.data;
 };
 
+// Endpoint to Get Signup URL based on if the admission is open or not.
+const getSignupPage = async ()=> {
+  const response = await axios.get(`${API_BASE_URL}/student/openSignupPage`);
+  return response.data;
+}
+
 const otherService = {
   getHomeResponse,
   getTuitionFees,
   getTnC_Policy,
+  getSignupPage
 };
 
 export default otherService;

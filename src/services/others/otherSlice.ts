@@ -2,7 +2,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import otherService from "./otherService.ts";
-import { IFees, IHomeResponse, OtherState } from "../../typings/home.ts";
+import { IFees, IHomeResponse, ISignupPage, OtherState } from "../../typings/home.ts";
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
@@ -10,6 +10,7 @@ const initialState: OtherState = {
   home: null,
   fees: null,
   tnc: "",
+  URL: null,
   error: null,
   message: "",
   isLoading: false,
@@ -49,6 +50,14 @@ export const getTuitionFees = createAsyncThunk(
     }
   }
 );
+
+export const getSignupPage = createAsyncThunk("other/url", async(_, thunkAPI)=> {
+  try {
+    return await otherService.getSignupPage();
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+})
 
 const otherSlice = createSlice({
   name: "other",
@@ -107,7 +116,18 @@ const otherSlice = createSlice({
       .addCase(getTnC_Policy.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
-      });
+      })
+      .addCase(getSignupPage.pending, (state)=> {
+        state.isLoading = true;
+      })
+      .addCase(getSignupPage.fulfilled, (state, action: PayloadAction<ISignupPage>)=> {
+        state.isLoading = false;
+        state.URL = action.payload.signupFormURL
+      })
+      .addCase(getSignupPage.rejected, (state, action: PayloadAction<any>)=> {
+        state.isLoading = false;
+        state.error = action.payload.message;
+      })
   },
 });
 

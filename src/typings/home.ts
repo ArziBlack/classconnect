@@ -47,10 +47,25 @@ export interface IFees {
   };
 }
 
+interface ISignupAdmission {
+  isOpen: string;
+  from: string;
+  to: string;
+}
+
+export interface ISignupPage {
+  statusCode: number;
+  message: string;
+  courseTitles: Array<string>;
+  signupFormURL: string;
+  admission: ISignupAdmission;
+}
+
 export interface OtherState {
   home: IHomeResponse | null;
   fees: IFees | null;
   tnc: string;
+  URL: string | null;
   error: string | null;
   message: string;
   isLoading: boolean;
