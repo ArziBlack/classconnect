@@ -1,4 +1,5 @@
-import { Box, Text, keyframes } from "@chakra-ui/react";
+import { Box, SkeletonText, Text, keyframes } from "@chakra-ui/react";
+import { useAppSelector } from "../hooks/reactReduxHooks";
 
 const slide = keyframes`
   0% { background-position: 0% 50%; }
@@ -7,6 +8,7 @@ const slide = keyframes`
 `;
 
 const AdmissionBanner = () => {
+  const { home } = useAppSelector((store) => store.other);
   return (
     <Box
       zIndex="2"
@@ -19,20 +21,27 @@ const AdmissionBanner = () => {
       bgGradient="linear(to-l, rgb(171, 102, 255), rgb(20, 241, 149))"
       cursor="pointer"
       fontWeight="700"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      // h='50px'
+      w="100%"
       bgSize="200% 200%"
       animation={`${slide} 15s linear infinite`}
       _hover={{
         color: "white",
       }}
     >
-      <Text
-        m="0 auto"
-        textAlign="center"
-        width="fit-content"
-        textTransform="uppercase"
-      >
-        Admission is now open - Enroll today →
-      </Text>
+      <SkeletonText w="100%" isLoaded={home !== null} noOfLines={2}>
+        <Text
+          m="0 auto"
+          textAlign="center"
+          width="fit-content"
+          textTransform="uppercase"
+        >
+          {home?.admissionMessage} →
+        </Text>
+      </SkeletonText>
     </Box>
   );
 };

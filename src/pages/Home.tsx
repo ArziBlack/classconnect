@@ -1,11 +1,19 @@
+import React from "react";
 import Classes from "../components/Classes";
 import Lessons from "../components/Lessons";
 import CollegeLevel from "../components/CollegeLevel";
 import Career from "../components/Career";
 import HeroMaster from "../components/HeroMaster";
 import GoodPricing from "../components/GoodPricing";
+import { getHomeResponse } from "../services/others/otherSlice";
+import { useAppDispatch } from "../hooks/reactReduxHooks";
 
 const Home = () => {
+  const dispatch = useAppDispatch();
+  React.useEffect(()=> {
+    dispatch(getHomeResponse());
+  },[])
+
   return (
     <>
       <HeroMaster />

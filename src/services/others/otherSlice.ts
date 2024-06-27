@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import otherService from "./otherService.ts";
 import axios from "axios";
+import otherService from "./otherService.ts";
 import { IFees, IHomeResponse, OtherState } from "../../typings/home.ts";
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
