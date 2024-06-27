@@ -15,6 +15,8 @@ const GuardianG = ({
   data,
 }: IGuardianProps) => {
   const toast = useToast();
+  const { URL: URI } = useAppSelector((store) => store.other);
+  console.log(URI);
   const { isLoading, isError, message, isSuccess } = useAppSelector(
     (state) => state.auth
   );
@@ -75,9 +77,10 @@ const GuardianG = ({
     return true;
   };
 
+  // check if the params were passed correctly
   const handleSubmit = async () => {
     if (validateGuardianData(data)) {
-      await dispatch(register(data));
+      await dispatch(register({URI, data}));
       isSuccess &&
         toast({
           title: "Account created successfully",

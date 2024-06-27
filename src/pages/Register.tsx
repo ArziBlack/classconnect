@@ -9,6 +9,7 @@ import {
   useBreakpointValue,
   // useToast,
   useRadioGroup,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { SIGNUP } from "../constants/illustrations.ts";
 
@@ -16,7 +17,7 @@ import "tachyons";
 import { Box, Text, Image, Link } from "@chakra-ui/react";
 import { Flex, Heading } from "@chakra-ui/layout";
 import MultistepProgressBar from "../components/MultistepProgressBar.jsx";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   guardianInit,
   IGuardian,
@@ -32,7 +33,6 @@ import GuardianC from "../components/Signup/GuardianC.tsx";
 import GuardianE from "../components/Signup/GuardianE.tsx";
 import GuardianF from "../components/Signup/GuardianF.tsx";
 import GuardianG from "../components/Signup/GuardianG.tsx";
-import { useAppSelector } from "../hooks/reactReduxHooks.ts";
 import StudentA from "../components/Signup/StudentA.tsx";
 import StudentB from "../components/Signup/StudentB.tsx";
 import StudentC from "../components/Signup/StudentC.tsx";
@@ -40,8 +40,12 @@ import StudentD from "../components/Signup/StudentD.tsx";
 import StudentE from "../components/Signup/StudentE.tsx";
 import StudentFinal from "../components/Signup/StudentFinal.tsx";
 import StudentF from "../components/Signup/StudentF.tsx";
+import { getSignupPage } from "../services/others/otherSlice.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
+  const dispatch = useAppDispatch();
+  const {isLoading, URL} = useAppSelector(store => store.other);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 
@@ -54,11 +58,15 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setValue(value);
   };
 
+  useEffect(()=> {
+    dispatch(getSignupPage());
+  },[]);
+
   const SignUpType = () => {
     return (
       <div className="w-full flex flex-col items-center justify-center p-4 mt-10">
         <h2 className="text-xl font-[600] mb-4 ">What best describes you?</h2>
-        <RadioGroup
+        {isLoading ? <CircularProgress isIndeterminate color="blue.500"/> :(<div><RadioGroup
           colorScheme="green"
           onChange={handleChange}
           value={value as string}
@@ -69,7 +77,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
           </Radio>
           <Radio value="guardian">Guardian</Radio>
         </RadioGroup>
-        <CButton text="Continue" onClick={toggleSignUpType} />
+        <CButton text="Continue" onClick={toggleSignUpType} /></div>)}
       </div>
     );
   };
@@ -156,6 +164,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   // const { url } = useAppSelector((store) => store.image);
   const { data } = useAppSelector((store) => store.auth);
   console.log(data);
+  console.log(URL);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;

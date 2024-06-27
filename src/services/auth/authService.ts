@@ -4,12 +4,12 @@ const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
 
 // Register Guardian or Student
-const register = async (userData: object) => {
+const register = async (URI: string , userData: object) => {
   const headers = {
     "Content-Type": "multipart/form-data",
   };
   const response = await axios.post(
-    `${API_BASE_URL}/student/signup`,
+    `${URI}`,
     userData,
     { headers: headers }
   );
