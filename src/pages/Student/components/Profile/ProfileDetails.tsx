@@ -14,6 +14,8 @@ import CButton from "../../../../components/Button";
 export const ProfileDetails = () => {
   const [firstName, setFirstName] = useState("Favor");
   const [lastName, setLastName] = useState("Cliton");
+  const [email, ] = useState("Cliton@gmail.com");
+  const [phone, setPhone] = useState<number>(+2349037289192);
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
 
@@ -39,7 +41,7 @@ export const ProfileDetails = () => {
   };
 
   return (
-    <Box className="p-6 text-white flex flex-col items-center w-full">
+    <Box className="text-white flex flex-col">
       <VStack spacing={6}>
         <Box className=" bg-gray-500 h-[250px] w-full relative">
           <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
@@ -71,30 +73,61 @@ export const ProfileDetails = () => {
             </Box>
           </Box>
         </Box>
-        <Box marginTop={"80px"}>
-          <HStack gap={5} alignItems="center">
-            <Box>
+        <Box marginTop={"80px"} w={`full`}>
+          <HStack gap={5} alignItems="center" w="full">
+            <Box display={`flex`} flexDir={`column`} w="full">
               <label className="block text-sm font-medium text-green-500 mb-2">
-                Full Name
+                First Name
               </label>
               <Input
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
-                width="450px"
+                width="full"
+                display={`flex`}
               />
             </Box>
-            <Box>
+            <Box display={`flex`} flexDir={`column`} w="full">
               <label className="block text-sm font-medium text-green-500 mb-2">
-                Profession
+                Last Name
               </label>
               <Input
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
-                width="450px"
+                width="full"
+                display={`flex`}
+              />
+            </Box>
+          </HStack>
+          <HStack marginTop={`10px`} gap={5}>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                Email
+              </label>
+              <Input
+                value={email}
+                // onChange={(e) => setLastName(e.target.value)}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
+                disabled
+              />
+            </Box>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                Phone
+              </label>
+              <Input
+                value={phone}
+                onChange={(e) => setPhone(Number(e.target.value))}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
               />
             </Box>
           </HStack>

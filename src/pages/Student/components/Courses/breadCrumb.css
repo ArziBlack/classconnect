@@ -20,6 +20,7 @@
   width: 100%;
   border-bottom: 2px solid #bdbdbd;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .breadCrumb-link {
