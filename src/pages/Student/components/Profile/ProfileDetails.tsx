@@ -12,8 +12,8 @@ import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
 
 export const ProfileDetails = () => {
-  const [fullName, setFullName] = useState("Favour Ogechi");
-  const [profession, setProfession] = useState("Student");
+  const [firstName, setFirstName] = useState("Favor");
+  const [lastName, setLastName] = useState("Cliton");
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
 
@@ -39,7 +39,7 @@ export const ProfileDetails = () => {
   };
 
   return (
-    <Box className="p-6 text-white flex flex-col items-center">
+    <Box className="p-6 text-white flex flex-col items-center w-full">
       <VStack spacing={6}>
         <Box className=" bg-gray-500 h-[250px] w-full relative">
           <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
@@ -78,8 +78,8 @@ export const ProfileDetails = () => {
                 Full Name
               </label>
               <Input
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
                 width="450px"
@@ -90,8 +90,8 @@ export const ProfileDetails = () => {
                 Profession
               </label>
               <Input
-                value={profession}
-                onChange={(e) => setProfession(e.target.value)}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
                 width="450px"
