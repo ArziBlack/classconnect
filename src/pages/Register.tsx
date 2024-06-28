@@ -45,7 +45,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const dispatch = useAppDispatch();
-  const {isLoading, URL} = useAppSelector(store => store.other);
+  const { isLoading, URL } = useAppSelector((store) => store.other);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 
@@ -58,26 +58,36 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     setValue(value);
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(getSignupPage());
-  },[]);
+  }, []);
 
   const SignUpType = () => {
     return (
       <div className="w-full flex flex-col items-center justify-center p-4 mt-10">
         <h2 className="text-xl font-[600] mb-4 ">What best describes you?</h2>
-        {isLoading ? <CircularProgress isIndeterminate color="blue.500"/> :(<div><RadioGroup
-          colorScheme="green"
-          onChange={handleChange}
-          value={value as string}
-          marginBottom={10}
-        >
-          <Radio value="student" marginRight={4}>
-            Student
-          </Radio>
-          <Radio value="guardian">Guardian</Radio>
-        </RadioGroup>
-        <CButton text="Continue" onClick={toggleSignUpType} /></div>)}
+        {isLoading ? (
+          <CircularProgress isIndeterminate color="blue.500" />
+        ) : (
+          <div className="flex flex-column justify-center items-center">
+            <RadioGroup
+              colorScheme="green"
+              onChange={handleChange}
+              value={value as string}
+              marginBottom={10}
+            >
+              <Radio value="student" marginRight={4}>
+                Student
+              </Radio>
+              <Radio value="guardian">Guardian</Radio>
+            </RadioGroup>
+            <CButton
+              justifySelf={"center"}
+              text="Continue"
+              onClick={toggleSignUpType}
+            />
+          </div>
+        )}
       </div>
     );
   };

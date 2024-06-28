@@ -25,7 +25,6 @@ import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
 import { Notification } from "./pages/Student/components/Profile/Notification";
 import { TuitionFee } from "./pages/Student/components/Profile/TuitionFee";
-import { Courses as ProfileCourses } from "./pages/Student/components/Profile/Courses";
 import { Invite } from "./pages/Student/components/Profile/Invite";
 import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
 import { MyTutors } from "./pages/Student/components/Tutors/MyTutors";
@@ -90,7 +89,6 @@ function AppContent() {
           <Route index element={<ProfileDetails />} />
           <Route path="notification" element={<Notification />} />
           <Route path="tuition-fee" element={<TuitionFee />} />
-          <Route path="courses" element={<ProfileCourses />} />
           <Route path="invite" element={<Invite />} />
           <Route path="become-a-tutor" element={<BecomeTutor />} />
         </Route>

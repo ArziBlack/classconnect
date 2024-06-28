@@ -24,9 +24,10 @@ function truncateString(str, maxLength) {
 const NotificationItem = ({ title, date, content, info }) => {
   return (
     <Box
-      className="gap-3 border-b border-gray-700 py-4 cursor-pointer text-sm hover:bg-[#B3F8DA]/25"
+      className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
       w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
       p={{ base: "2", md: "4" }} // Responsive padding
+      tabIndex={0}
     >
       <Text
         fontSize={{ base: "sm", md: "md" }}
@@ -97,8 +98,12 @@ const NotificationList = () => {
                   className="h-[25px] w-[25px] rounded-full"
                 />
                 <div className="flex flex-col text-xs pl-2">
-                  <h4 className="font-[600]">{notifications[selectedId]?.title}</h4>
-                  <span className="font-[200]">{notifications[selectedId]?.date}</span>
+                  <h4 className="font-[600]">
+                    {notifications[selectedId]?.title}
+                  </h4>
+                  <span className="font-[200]">
+                    {notifications[selectedId]?.date}
+                  </span>
                 </div>
               </div>
               <span className="py-2 text-xs font-[100] text-white/25">

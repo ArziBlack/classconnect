@@ -5,7 +5,6 @@ const links = [
   { to: "", label: "Details" },
   { to: "notification", label: "Notification" },
   { to: "tuition-fee", label: "Tuition Fee" },
-  { to: "courses", label: "Courses" },
   { to: "invite", label: "Invite" },
   { to: "become-a-tutor", label: "Become a Tutor" },
 ];
