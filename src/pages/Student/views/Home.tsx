@@ -55,14 +55,12 @@ const modifiersStyles = {
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error } = useAppSelector(state => state.student);
+  const { isLoading, isError, error, approvedTutors } = useAppSelector(state => state.student);
   useEffect(()=> {
     dispatch(getApprovedTutors());
-    const jwt:string = localStorage.getItem("token")?.toString();
-    !isLoading && console.log(jwt);
   },[]);
-  const { data, token } = useAppSelector(state => state.auth);
-  console.log(token);
+  const { data } = useAppSelector(state => state.auth);
+  console.log(approvedTutors);
   console.log(isLoading);
   console.log(isError);
   console.log(error);
