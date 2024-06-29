@@ -1,5 +1,6 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
+import { useEffect } from "react";
 
 const links = [
   { to: "", label: "My Tutors" },
@@ -8,6 +9,9 @@ const links = [
 ];
 
 export const Tutors = () => {
+  useEffect(()=> {
+    
+  },[])
   return (
     <>
       <ViewHeader

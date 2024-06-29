@@ -3,6 +3,7 @@ import VideoEmbed from "../components/VideoComp";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
+import { useAppSelector } from "../../../hooks/reactReduxHooks";
 
 const homeCourses = [
   {
@@ -52,6 +53,8 @@ const modifiersStyles = {
 
 
 export const Home = () => {
+  const { data } = useAppSelector(state => state.auth);
+  const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
   const iframeHeight = containerWidth * (215 / 560);
   
@@ -79,10 +82,9 @@ export const Home = () => {
     <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center items-center">
         <div>
-          <h2 className="font-[700] text-3xl pb-3">Hi Favor</h2>
+          <h2 className="font-[700] text-3xl pb-3">Hi {name}</h2>
           <p className=" font-[100]">
-            Welcome to our e-learning platform, where you can learn new things,
-            improve your skills, and reach your goals at your own speed.
+            {data?.greeting}
           </p>
         </div>
         <div

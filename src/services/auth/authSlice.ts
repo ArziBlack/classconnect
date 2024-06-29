@@ -7,6 +7,7 @@ export interface IResponse {
   statusCode: number;
   status?: string;
   message: string;
+  greeting?: string;
   error?: string;
 }
 
