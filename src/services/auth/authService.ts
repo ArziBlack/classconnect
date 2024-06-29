@@ -4,31 +4,40 @@ const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
 
 // Register Guardian or Student
-const register = async (URI: string , userData: object) => {
+const register = async (URI: string, userData: object) => {
   const headers = {
     "Content-Type": "multipart/form-data",
   };
-  const response = await axios.post(
-    `${URI}`,
-    userData,
-    { headers: headers }
-  );
+  const response = await axios.post(`${URI}`, userData, { headers: headers });
   return response.data;
 };
 
 // Login Guardian or Student Login
-const login = async (formData: object) => {
-  const response = await axios.post(`${API_BASE_URL}/student/login`, formData);
+const login = async (formData: { [key: string]: string }) => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+
+  // Convert formData to URL-encoded format
+  const urlEncodedData = new URLSearchParams(formData).toString();
+
+  const response = await axios.post(
+    `${API_BASE_URL}/student/login`,
+    urlEncodedData,
+    { headers }
+  );
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
-  
+
   let jwtToken = null;
-  const setCookieHeader = response.headers['set-cookie'];
+  const setCookieHeader = response.headers["set-cookie"];
   if (setCookieHeader) {
     console.log("Set-Cookie header: ", setCookieHeader);
-    jwtToken = setCookieHeader.find((cookie) => cookie.trim().startsWith('jwt=')).split('=')[1];
+    jwtToken = setCookieHeader
+      .find((cookie) => cookie.trim().startsWith("jwt="))
+      .split("=")[1];
     localStorage.setItem("token", jwtToken);
     console.log("JWT Token: ", jwtToken);
   }

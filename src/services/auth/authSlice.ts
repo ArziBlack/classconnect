@@ -7,6 +7,7 @@ export interface IResponse {
   statusCode: number;
   status?: string;
   message: string;
+  error?: string;
 }
 
 interface AuthState {
@@ -62,23 +63,31 @@ export const login = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
+      console.log(message);
+
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
 // Send Reset Email for Password Reset
-export const resetPassword = createAsyncThunk("auth/reset", async (email: object, thunkAPI)=> {
-  try {
-    return await authService.resetPassword(email);
-  } catch (err) {
-    const error = err as AxiosError;
-    const message = (error.response && error.response.data) || error.message || error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const resetPassword = createAsyncThunk(
+  "auth/reset",
+  async (email: object, thunkAPI) => {
+    try {
+      return await authService.resetPassword(email);
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
-export const getToken = createAsyncThunk("auth/token", async()=> {
+export const getToken = createAsyncThunk("auth/token", async () => {
   const token = localStorage.getItem("token");
   return token;
 });
@@ -104,9 +113,9 @@ const authSlice = createSlice({
       state.isStudentLogged = false;
       state.message = "";
       state.token = "";
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-    }
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -147,35 +156,35 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isStudentLogged = false;
-        state.message = action.payload || "Login failed";
+        state.message = action.payload.error;
         state.data = null;
       })
-      .addCase(resetPassword.pending, (state)=> {
+      .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(resetPassword.fulfilled, (state, action)=> {
+      .addCase(resetPassword.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.message = action.payload.message;
       })
-      .addCase(resetPassword.rejected, (state, action: PayloadAction<any>)=> {
+      .addCase(resetPassword.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload || "An Error Occurred!!"
+        state.message = action.payload || "An Error Occurred!!";
       })
-      .addCase(getToken.pending, (state)=> {
+      .addCase(getToken.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getToken.fulfilled, (state, action)=> {
+      .addCase(getToken.fulfilled, (state, action) => {
         state.isLoading = false;
         state.token = action.payload;
         state.message = "";
       })
-      .addCase(getToken.rejected, (state)=> {
+      .addCase(getToken.rejected, (state) => {
         state.isLoading = false;
         state.message = "Error Loading Token";
-      })
+      });
   },
 });
 

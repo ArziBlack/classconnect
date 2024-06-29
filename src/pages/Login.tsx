@@ -14,15 +14,15 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import CButton from "../components/Button";
-import { useToast } from "@chakra-ui/react";
 import InputField from "../components/Input.tsx";
 import { LOGIN } from "../constants/illustrations.ts";
-import { login } from "../services/auth/authSlice.ts";
+import { IResponse, login, reset } from "../services/auth/authSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, IRootState } from "../app/store.ts";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { useState, ChangeEvent, SyntheticEvent } from "react";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { useState, ChangeEvent } from "react";
 import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
+import useCustomToast from "../hooks/useCustomToast.tsx";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -34,52 +34,37 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
     onClose();
   };
 
-  const toast = useToast();
+  const navigate = useNavigate();
+  const showToast = useCustomToast();
   const dispatch = useDispatch<AppDispatch>();
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (store: IRootState) => store.auth
-  );
+  const { isLoading } = useSelector((store: IRootState) => store.auth);
   const [check, setCheck] = useState<boolean>(false);
   const [inputError] = useState<string>("");
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    if (userData.email === "" || userData.password === "") {
-      toast({
-        title: "Fields cannot be blank",
-        description: "An error occurred.",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
-      return;
-    }
-    dispatch(login(userData));
-    isError &&
-      toast({
-        title: "An Error occurred",
-        description: `${message}`,
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
-    isSuccess &&
-      toast({
-        title: "Logged in.",
-        description: "We've been successfully logged in.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
-  };
-
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
+  const handleSubmit = async () => {
+    if (userData.email === "" || userData.password === "") {
+      showToast("All fields must be filled", "error");
+      return;
+    }
+
+    const resultAction = await dispatch(login(userData));
+    if (login.fulfilled.match(resultAction)) {
+      showToast(resultAction.payload.message || "Login successful", "success");
+      navigate("/student");
+      dispatch(reset());
+    } else if (login.rejected.match(resultAction)) {
+      showToast(
+        (resultAction.payload as IResponse).message ||
+          (resultAction.payload as IResponse).error ||
+          "Login failed",
+        "error"
+      );
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserData({
