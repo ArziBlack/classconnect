@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import authService from "./authService";
+import authService, { ILoginParams, IRegister } from "./authService";
 
 export interface IResponse {
   statusCode: number;
@@ -37,9 +37,9 @@ const initialState: AuthState = {
 // Student Sign-up
 export const register = createAsyncThunk(
   "auth/signup",
-  async (user: object, thunkAPI) => {
+  async ({ URI, userData }: IRegister, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await authService.register({URI, userData});
     } catch (err) {
       const error = err as AxiosError;
       const message =
@@ -54,7 +54,7 @@ export const register = createAsyncThunk(
 // Student Login
 export const login = createAsyncThunk(
   "auth/signin",
-  async (user: object, thunkAPI) => {
+  async (user: ILoginParams, thunkAPI) => {
     try {
       return await authService.login(user);
     } catch (err) {

@@ -1,10 +1,18 @@
 import axios from "axios";
+import { IGuardian, IStudent } from "../../typings/signup";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
-
+export interface ILoginParams {
+  email: string;
+  password: string;
+}
+export interface IRegister {
+  URI: string;
+  userData: IStudent | IGuardian;
+}
 // Register Guardian or Student
-const register = async (URI: string, userData: object) => {
+const register = async ({ URI, userData }: IRegister) => {
   const headers = {
     "Content-Type": "multipart/form-data",
   };
@@ -13,17 +21,14 @@ const register = async (URI: string, userData: object) => {
 };
 
 // Login Guardian or Student Login
-const login = async (formData: { [key: string]: string }) => {
+const login = async (formData: ILoginParams) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   };
 
-  // Convert formData to URL-encoded format
-  const urlEncodedData = new URLSearchParams(formData).toString();
-
   const response = await axios.post(
     `${API_BASE_URL}/student/login`,
-    urlEncodedData,
+    formData,
     { headers }
   );
 
