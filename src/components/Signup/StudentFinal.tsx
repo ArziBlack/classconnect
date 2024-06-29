@@ -17,6 +17,7 @@ const StudentFinal = ({
   onClick,
 }: IStudentProps) => {
   const navigate = useNavigate();
+  const { URL: URI } = useAppSelector((store) => store.other);
   const [check, setCheck] = useState(true);
   const [imgUrl, setImgUrl] = useState(AVATAR);
   const showToast = useCustomToast();
@@ -63,7 +64,7 @@ const StudentFinal = ({
 
   const handleSubmit = async () => {
     if (validateGuardianData(data)) {
-      const resultAction = await dispatch(register(data));
+      const resultAction = await dispatch(register({URI, data}));
 
       if (register.fulfilled.match(resultAction)) {
         showToast(

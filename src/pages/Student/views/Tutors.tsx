@@ -1,6 +1,8 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import { useEffect } from "react";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "My Tutors" },
@@ -9,9 +11,11 @@ const links = [
 ];
 
 export const Tutors = () => {
+  const dispatch = useAppDispatch();
   useEffect(()=> {
-    
-  },[])
+    dispatch(getApprovedTutors());
+  },[]);
+
   return (
     <>
       <ViewHeader

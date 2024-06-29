@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import authService, { ILoginParams, IRegister } from "./authService";
+import authService, { ILoginParams } from "./authService";
+import { IRegister } from "../../typings/signup";
 
 export interface IResponse {
   statusCode: number;
@@ -10,6 +11,13 @@ export interface IResponse {
   greeting?: string;
   error?: string;
 }
+
+const data: IResponse = JSON.parse(localStorage.getItem("user").toString());
+const jwt:string = localStorage.getItem("token")?.toString();
+if (data) {
+  console.log(data)
+}
+if (jwt) console.log(jwt);
 
 interface AuthState {
   data: IResponse | null;
@@ -24,7 +32,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  data: null,
+  data: null || data,
   response: "",
   isLoading: false,
   isError: false,
@@ -38,9 +46,9 @@ const initialState: AuthState = {
 // Student Sign-up
 export const register = createAsyncThunk(
   "auth/signup",
-  async ({ URI, userData }: IRegister, thunkAPI) => {
+  async ({ URI, data }: IRegister, thunkAPI) => {
     try {
-      return await authService.register({URI, userData});
+      return await authService.register({URI, data});
     } catch (err) {
       const error = err as AxiosError;
       const message =

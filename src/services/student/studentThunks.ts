@@ -10,17 +10,31 @@ export const getApprovedTutors = createAsyncThunk<ITutorApiResponse, void, { rej
   'student/fetchApprovedTutors',
   async (_, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as IRootState;
+      // const headers = {
+      //   "Cookie": `jwt=${jwtToken}`,
+      //   "User-Agent": "PostmanRuntime/7.39.0",
+      //   "Accept": "*/*",
+      //   "Accept-Encoding": "gzip, deflate, br",
+      //   "Connection": "keep-alive"
+      // };
+      const state = await thunkAPI.getState() as IRootState;
       const token = state.auth.token;
-      const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=0`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      const jwt: string = localStorage.getItem("token");
+      const jwtToken = localStorage.getItem("token");
+      if (!jwtToken) {
+        throw new Error("No JWT token found. Please log in.");
+      }
+      console.log(token);
+      console.log(jwt);
+      console.log(jwtToken);
+      const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`, { headers: { "Cookie": `jwt=${jwtToken}` } });
+
 
       return response.data;
     } catch (err) {
+      console.log(err);
       const error = err.response ? err.response.data : err.message;
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -114,7 +128,9 @@ export const getGeneralAssessment = createAsyncThunk<IAssessmentResponse, void, 
       const response = await axios.get(`${API_BASE_URL}/getGeneralAssessment`);
       return response.data;
     } catch (err) {
+      console.log(err)
       const error = err.response ? err.response.data : err.message;
+      console.log(error)
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -214,7 +230,7 @@ export const LogoutStudent = createAsyncThunk<void, void, { rejectValue: string 
       return thunkAPI.rejectWithValue(error);
     }
   }
-); 
+);
 
 const studentService = {
   getApprovedTutors,

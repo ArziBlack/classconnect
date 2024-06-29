@@ -54,8 +54,10 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
     const resultAction = await dispatch(login(userData));
     if (login.fulfilled.match(resultAction)) {
       showToast(resultAction.payload.message || "Login successful", "success");
-      navigate("/student");
-      dispatch(reset());
+      setTimeout(()=> {
+        navigate("/student");
+        dispatch(reset());
+      },3000);
     } else if (login.rejected.match(resultAction)) {
       showToast(
         (resultAction.payload as IResponse).message ||

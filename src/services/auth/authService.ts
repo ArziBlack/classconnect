@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IGuardian, IStudent } from "../../typings/signup";
+import {  IRegister } from "../../typings/signup";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
@@ -7,16 +7,13 @@ export interface ILoginParams {
   email: string;
   password: string;
 }
-export interface IRegister {
-  URI: string;
-  userData: IStudent | IGuardian;
-}
+
 // Register Guardian or Student
-const register = async ({ URI, userData }: IRegister) => {
+const register = async ({ URI, data }: IRegister) => {
   const headers = {
     "Content-Type": "multipart/form-data",
   };
-  const response = await axios.post(`${URI}`, userData, { headers: headers });
+  const response = await axios.post(`${URI}`, data, { headers: headers });
   return response.data;
 };
 
@@ -33,18 +30,22 @@ const login = async (formData: ILoginParams) => {
   );
 
   if (response.data) {
+    console.log(response);
+    console.log(response.headers["Set-Cookie"]);
+    console.log(response.data);
     localStorage.setItem("user", JSON.stringify(response.data));
   }
 
   let jwtToken = null;
-  const setCookieHeader = response.headers["set-cookie"];
+  const setCookieHeader = response.headers["Set-Cookie"];
   if (setCookieHeader) {
     console.log("Set-Cookie header: ", setCookieHeader);
-    jwtToken = setCookieHeader
-      .find((cookie) => cookie.trim().startsWith("jwt="))
-      .split("=")[1];
-    localStorage.setItem("token", jwtToken);
-    console.log("JWT Token: ", jwtToken);
+    const jwtCookie = setCookieHeader.find(cookie => cookie.trim().startsWith("jwt="));
+    if (jwtCookie) {
+      jwtToken = jwtCookie.split(";")[0].split("=")[1];
+      localStorage.setItem("token", jwtToken);
+      console.log("JWT Token: ", jwtToken);
+    }
   }
 
   return { ...response.data, jwtToken };

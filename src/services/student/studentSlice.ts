@@ -33,7 +33,7 @@ interface IState {
   tuitionFeeResponse: null;
   isLoading: boolean;
   error: string | null;
-  isSuccess: boolean;
+  isSuccess: boolean | null;
   isError: boolean;
 }
 
@@ -47,7 +47,7 @@ const initialState = {
   tuitionFeeResponse: null,
   isLoading: null,
   error: null,
-  isSuccess: null,
+  isSuccess: false || null,
   isError: null,
 } satisfies IState;
 
@@ -70,7 +70,6 @@ const studentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Get Approved Tutors
       .addCase(getApprovedTutors.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -92,7 +91,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Get My Tuition Fee
       .addCase(getMyTuitionFee.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -114,7 +112,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Initiate a Transaction
       .addCase(initiateTrx.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -133,7 +130,6 @@ const studentSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      // Get Transaction State
       .addCase(getTrxState.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -152,7 +148,6 @@ const studentSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      // Choose a Tutor
       .addCase(chooseTutor.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -171,7 +166,6 @@ const studentSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      // Get General Assessment
       .addCase(getGeneralAssessment.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -193,7 +187,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Get Personal Assessment
       .addCase(getPersonalAssessment.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -215,7 +208,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Accept Tutor Recommendation
       .addCase(acceptRecommendation.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -237,7 +229,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Reject Tutor Recommendation
       .addCase(rejectRecommendation.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -259,7 +250,6 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
-      // Get My Tutors
       .addCase(getMyTutors.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -278,7 +268,6 @@ const studentSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      // Logout Student
       .addCase(LogoutStudent.pending, (state) => {
         state.isLoading = true;
         state.isError = false;

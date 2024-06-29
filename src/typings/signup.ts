@@ -18,6 +18,11 @@ export interface IGender {
   label: string;
 }
 
+export interface IRegister {
+  URI: string;
+  data: IStudent | IGuardian;
+}
+
 export interface ICountry {
   // name?: string;
   // alpha2Code?: string;
