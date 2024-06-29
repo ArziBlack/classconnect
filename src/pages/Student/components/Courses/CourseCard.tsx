@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Flex, Text, Image, Icon } from "@chakra-ui/react";
 import { TimeIcon } from "@chakra-ui/icons";
 import { SiLevelsdotfyi } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   title: string;
@@ -28,6 +29,9 @@ export const CourseCard: React.FC<CardProps> = ({
         return "brand.action"; // Default color for Beginner
     }
   };
+
+  const navigate = useNavigate();
+
   return (
     <Box
       width={"100%"}
@@ -38,6 +42,8 @@ export const CourseCard: React.FC<CardProps> = ({
       borderRadius="md"
       bg="#254f62"
       color="white"
+      cursor={"pointer"}
+      onClick={() => navigate("/student/detailed")}
       border={"1px solid #5E7079"}
     >
       <Text fontSize="xl" fontWeight="bold" mb={2}>

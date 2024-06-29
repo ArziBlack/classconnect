@@ -23,16 +23,14 @@ const login = async (formData: ILoginParams) => {
     "Content-Type": "application/x-www-form-urlencoded",
   };
 
-  const response = await axios.post(
-    `${API_BASE_URL}/student/login`,
-    formData,
-    { headers }
-  );
+  const response = await axios.post(`${API_BASE_URL}/student/login`, formData, {
+    headers,
+    withCredentials: true,
+  });
 
   if (response.data) {
-    console.log(response);
-    console.log(response.headers["Set-Cookie"]);
-    console.log(response.data);
+    console.log(response, response.headers, response.headers["set-cookies"]);
+
     localStorage.setItem("user", JSON.stringify(response.data));
   }
 
