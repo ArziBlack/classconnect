@@ -18,18 +18,27 @@ export const getApprovedTutors = createAsyncThunk<ITutorApiResponse, void, { rej
       //   "Connection": "keep-alive"
       // };
       // const state = await thunkAPI.getState() as IRootState;
-      const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`);
+      const response = await fetch(`${API_BASE_URL}/approvedTutors?page=1`, {
+        method: 'GET',
+        credentials: 'include', // This option sends cookies with the request
+      });
 
+      if (!response.ok) {
+        const error = await response.json();
+        return thunkAPI.rejectWithValue(error);
+      }
 
-      return response.data;
+      const data = await response.json();
+      return data;
     } catch (err) {
       console.log(err);
-      const error = err.response ? err.response.data : err.message;
+      const error = err.message;
       console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
 
 // Get Student Tuition Fee
 export const getMyTuitionFee = createAsyncThunk<ITuitionFee, void, { rejectValue: string }>(

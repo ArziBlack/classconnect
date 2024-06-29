@@ -5,6 +5,7 @@ import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
+import { CircularProgress } from "@chakra-ui/react";
 
 const homeCourses = [
   {
@@ -128,7 +129,7 @@ export const Home = () => {
               </div>
               <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
               <button className="w-1/4 justify-end py-2 px-1 border border-lime-500 rounded text-lime-500">
-                View Courses
+                {isLoading ? <CircularProgress/> : "View Courses"}
               </button>
             </div>
           ))}
