@@ -108,15 +108,15 @@ function LinkGroup({ title, children, linkProps }) {
         {title}
       </Heading>
       <Box py="10px" gap={10}>
-        {children.map((linkText) => (
-          <Text
+        {children.map((linkText, idx) => (
+          <Box
             cursor={"pointer"}
             _hover={{ opacity: "1" }}
-            key={linkText}
+            key={idx}
             {...linkProps}
           >
             {linkText}
-          </Text>
+          </Box>
         ))}
       </Box>
     </Box>

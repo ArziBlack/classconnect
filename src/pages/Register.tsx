@@ -45,7 +45,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading, URL } = useAppSelector((store) => store.other);
+  const { isLoading } = useAppSelector((store) => store.other);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 
@@ -96,7 +96,6 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     onClose();
   };
 
-  const { log } = console;
   const [page, setPage] = useState<string>("pageone");
   // const toast = useToast();
 
@@ -171,11 +170,6 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [formData, setFormData] = useState<IStudent>(studentInit);
 
   const [guardianData, setGuardianData] = useState<IGuardian>(guardianInit);
-  // const { url } = useAppSelector((store) => store.image);
-  const { data } = useAppSelector((store) => store.auth);
-  console.log(data);
-  console.log(URL);
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
@@ -208,8 +202,6 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     }));
   };
   function submit() {}
-  log(formData);
-  log(guardianData);
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });

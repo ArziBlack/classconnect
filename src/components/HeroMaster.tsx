@@ -54,7 +54,7 @@ const Hero2 = () => {
         <path
           d="M1983 190.359C1898.6 123.677 1262.51 -58.6132 1265.98 27.8067C1270.3 135.832 1290.86 418.411 1145.87 358.398C1000.88 298.384 799.621 80.3332 803.949 190.359C808.277 300.384 1114.49 509.918 0 255.86"
           stroke="#00FF84"
-          stroke-width="10"
+          strokeWidth="10"
         ></path>
       </svg>
       <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -97,7 +97,6 @@ const Hero2 = () => {
             slidesPerView={1}
             pagination={{ clickable: true }}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             <SwiperSlide>
               <img src={EXCEL} alt="mockup" />
