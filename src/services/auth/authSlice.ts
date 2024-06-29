@@ -12,8 +12,8 @@ export interface IResponse {
   error?: string;
 }
 
-const data: IResponse = JSON.parse(localStorage.getItem("user").toString());
-const jwt:string = localStorage.getItem("token")?.toString();
+const data: IResponse = JSON.parse(localStorage.getItem("user"));
+const jwt:string = localStorage.getItem("token");
 if (data) {
   console.log(data)
 }

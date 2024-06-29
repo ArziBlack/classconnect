@@ -17,17 +17,8 @@ export const getApprovedTutors = createAsyncThunk<ITutorApiResponse, void, { rej
       //   "Accept-Encoding": "gzip, deflate, br",
       //   "Connection": "keep-alive"
       // };
-      const state = await thunkAPI.getState() as IRootState;
-      const token = state.auth.token;
-      const jwt: string = localStorage.getItem("token");
-      const jwtToken = localStorage.getItem("token");
-      if (!jwtToken) {
-        throw new Error("No JWT token found. Please log in.");
-      }
-      console.log(token);
-      console.log(jwt);
-      console.log(jwtToken);
-      const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`, { headers: { "Cookie": `jwt=${jwtToken}` } });
+      // const state = await thunkAPI.getState() as IRootState;
+      const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`);
 
 
       return response.data;

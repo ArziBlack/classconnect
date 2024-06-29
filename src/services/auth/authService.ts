@@ -25,7 +25,6 @@ const login = async (formData: ILoginParams) => {
 
   const response = await axios.post(`${API_BASE_URL}/student/login`, formData, {
     headers,
-    withCredentials: true,
   });
 
   if (response.data) {
