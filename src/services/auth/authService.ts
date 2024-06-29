@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  IRegister } from "../../typings/signup";
+import { IRegister } from "../../typings/signup";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
@@ -24,7 +24,8 @@ const login = async (formData: ILoginParams) => {
   };
 
   const response = await axios.post(`${API_BASE_URL}/student/login`, formData, {
-    headers, withCredentials: true
+    headers,
+    withCredentials: true,
   });
 
   if (response.data) {
@@ -37,7 +38,9 @@ const login = async (formData: ILoginParams) => {
   const setCookieHeader = response.headers["Set-Cookie"];
   if (setCookieHeader) {
     console.log("Set-Cookie header: ", setCookieHeader);
-    const jwtCookie = setCookieHeader.find(cookie => cookie.trim().startsWith("jwt="));
+    const jwtCookie = setCookieHeader.find((cookie) =>
+      cookie.trim().startsWith("jwt=")
+    );
     if (jwtCookie) {
       jwtToken = jwtCookie.split(";")[0].split("=")[1];
       localStorage.setItem("token", jwtToken);

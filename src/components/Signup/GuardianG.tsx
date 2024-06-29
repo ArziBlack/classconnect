@@ -77,10 +77,9 @@ const GuardianG = ({
     return true;
   };
 
-  // check if the params were passed correctly
   const handleSubmit = async () => {
     if (validateGuardianData(data)) {
-      await dispatch(register({URI, data}));
+      await dispatch(register({ URI, data }));
       isSuccess &&
         toast({
           title: "Account created successfully",
