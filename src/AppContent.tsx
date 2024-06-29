@@ -32,6 +32,9 @@ import { Approved } from "./pages/Student/components/Tutors/Approved";
 import { Recommended } from "./pages/Student/components/Tutors/Recommended";
 import { PersonalAssessments } from "./pages/Student/components/Assessments/PersonalAssessments";
 import { GeneralAssessments } from "./pages/Student/components/Assessments/GeneralAssessments";
+import { CourseDetails } from "./pages/Student/components/Courses/CourseDetails";
+import { Content } from "./pages/Student/components/Courses/Content";
+import { Details } from "./pages/Student/components/Courses/Details";
 
 function AppContent() {
   const location = useLocation();
@@ -85,6 +88,11 @@ function AppContent() {
           <Route path="ongoing" element={<Started />} />
           <Route path="completed" element={<Started />} />
         </Route>
+        <Route path="detailed" element={<CourseDetails />}>
+          <Route index element={<Content />} />
+          <Route path="details" element={<Details />} />
+        </Route>
+
         <Route path="profile" element={<Profile />}>
           <Route index element={<ProfileDetails />} />
           <Route path="notification" element={<Notification />} />
