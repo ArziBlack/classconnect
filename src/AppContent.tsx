@@ -37,6 +37,8 @@ import { Content } from "./pages/Student/components/Courses/Content";
 import { Details } from "./pages/Student/components/Courses/Details";
 import { OnGoing } from "./pages/Student/components/Courses/OnGoing";
 import { Completed } from "./pages/Student/components/Courses/Completed";
+import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
+import AboutMe from "./pages/Student/components/Tutors/AboutMe";
 
 function AppContent() {
   const location = useLocation();
@@ -90,6 +92,10 @@ function AppContent() {
           <Route path="ongoing" element={<OnGoing />} />
           <Route path="completed" element={<Completed />} />
         </Route>
+        <Route path="tutor-details" element={<TutorDetails />}>
+          <Route index element={<AboutMe />} />
+        </Route>
+
         <Route path="detailed" element={<CourseDetails />}>
           <Route index element={<Content />} />
           <Route path="details" element={<Details />} />

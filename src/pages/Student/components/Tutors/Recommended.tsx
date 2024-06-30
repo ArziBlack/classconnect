@@ -1,5 +1,5 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import { TutorCard } from "../Courses/TutorCard";
+import { TutorCard } from "./TutorCard";
 import { TEMPLATE } from "../../../../constants/image";
 
 // Sample data for tutors

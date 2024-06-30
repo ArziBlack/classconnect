@@ -20,17 +20,6 @@ export const TutorCard: React.FC<TutorCardProps> = ({
   gender,
   imageUrl,
 }) => {
-  const getCourseColor = (course: string) => {
-    switch (course) {
-      case "Intermediate":
-        return "yellow"; // Use Chakra UI color or hex color
-      case "Advance":
-        return "sky-blue"; // Use Chakra UI color or hex color
-      default:
-        return "brand.action"; // Default color for Beginner
-    }
-  };
-
   const getGenderIcon = (gender: string) => {
     return gender === "Female" ? (
       <CgGenderFemale fontSize={"18px"} className="m2-[4px]" />
@@ -52,7 +41,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
       bg="#254f62"
       color="white"
       cursor={"pointer"}
-      onClick={() => navigate("/student/detailed")}
+      onClick={() => navigate("/student/tutor-details")}
       border={"1px solid #5E7079"}
     >
       <Text fontSize="xl" fontWeight="bold" mb={2}>
@@ -74,7 +63,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
             justifyContent={"center"}
             opacity={0.6}
             gap={1}
-            color={getCourseColor(course)}
+            color="brand.action"
           >
             <LiaBookOpenSolid fontSize={"18px"} className="mb-[2px]" />
             <Text>{course}</Text>
