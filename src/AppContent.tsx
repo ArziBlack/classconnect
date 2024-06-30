@@ -35,6 +35,8 @@ import { GeneralAssessments } from "./pages/Student/components/Assessments/Gener
 import { CourseDetails } from "./pages/Student/components/Courses/CourseDetails";
 import { Content } from "./pages/Student/components/Courses/Content";
 import { Details } from "./pages/Student/components/Courses/Details";
+import { OnGoing } from "./pages/Student/components/Courses/OnGoing";
+import { Completed } from "./pages/Student/components/Courses/Completed";
 
 function AppContent() {
   const location = useLocation();
@@ -85,8 +87,8 @@ function AppContent() {
         <Route path="courses" element={<MyCourses />}>
           <Route index element={<Browse />} />
           <Route path="started" element={<Started />} />
-          <Route path="ongoing" element={<Started />} />
-          <Route path="completed" element={<Started />} />
+          <Route path="ongoing" element={<OnGoing />} />
+          <Route path="completed" element={<Completed />} />
         </Route>
         <Route path="detailed" element={<CourseDetails />}>
           <Route index element={<Content />} />

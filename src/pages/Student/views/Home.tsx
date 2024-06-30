@@ -9,13 +9,13 @@ import { CircularProgress } from "@chakra-ui/react";
 
 const homeCourses = [
   {
-    course: "Pornography",
+    course: "Frontend Development",
     image: "image",
     tutor: "Samuel",
     status: "completed",
   },
   {
-    course: "Videography",
+    course: "Cloud Engineering",
     image: "image",
     tutor: "Samuel",
     status: "completed",
@@ -53,14 +53,15 @@ const modifiersStyles = {
   },
 };
 
-
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error, approvedTutors } = useAppSelector(state => state.student);
-  useEffect(()=> {
+  const { isLoading, isError, error, approvedTutors } = useAppSelector(
+    (state) => state.student
+  );
+  useEffect(() => {
     dispatch(getApprovedTutors());
-  },[]);
-  const { data } = useAppSelector(state => state.auth);
+  }, []);
+  const { data } = useAppSelector((state) => state.auth);
   console.log(approvedTutors);
   console.log(isLoading);
   console.log(isError);
@@ -68,14 +69,14 @@ export const Home = () => {
   const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
   const iframeHeight = containerWidth * (215 / 560);
-  
-  const truncateOverflow =(sentence: string)=> {
+
+  const truncateOverflow = (sentence: string) => {
     if (sentence.length > 13) {
-      return sentence.substring(0, 13) + "..." 
+      return sentence.substring(0, 13) + "...";
     } else {
       return sentence;
     }
-  }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,9 +95,7 @@ export const Home = () => {
       <div className="w-2/3 flex flex-col justify-center items-center">
         <div>
           <h2 className="font-[700] text-3xl pb-3">Hi {name}</h2>
-          <p className=" font-[100]">
-            {data?.greeting}
-          </p>
+          <p className=" font-[100]">{data?.greeting}</p>
         </div>
         <div
           id="video-container"
@@ -129,7 +128,7 @@ export const Home = () => {
               </div>
               <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
               <button className="w-1/4 justify-end py-2 px-1 border border-lime-500 rounded text-lime-500">
-                {isLoading ? <CircularProgress/> : "View Courses"}
+                {isLoading ? <CircularProgress /> : "View Courses"}
               </button>
             </div>
           ))}
@@ -159,10 +158,12 @@ export const Home = () => {
                   <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
                     <h2 className="font-bold">{item.course}</h2>
-                    <h2 className="font-[100]">{truncateOverflow(item.time)}</h2>
+                    <h2 className="font-[100]">
+                      {truncateOverflow(item.time)}
+                    </h2>
                   </div>
                 </div>
-                <FaCaretRight/>
+                <FaCaretRight />
               </div>
             ))}
           </div>

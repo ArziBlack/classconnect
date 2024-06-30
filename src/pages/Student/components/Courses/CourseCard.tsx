@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Image, Icon } from "@chakra-ui/react";
+import { Box, Flex, Text, Icon } from "@chakra-ui/react";
 import { TimeIcon } from "@chakra-ui/icons";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ interface CardProps {
   description: string;
   difficulty: "Beginner" | "Intermediate" | "Advance";
   lessons: string;
-  imageUrl: string;
 }
 
 export const CourseCard: React.FC<CardProps> = ({
@@ -17,14 +16,13 @@ export const CourseCard: React.FC<CardProps> = ({
   description,
   difficulty,
   lessons,
-  imageUrl,
 }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Intermediate":
         return "yellow"; // Use Chakra UI color or hex color
       case "Advance":
-        return "red"; // Use Chakra UI color or hex color
+        return "sky-blue"; // Use Chakra UI color or hex color
       default:
         return "brand.action"; // Default color for Beginner
     }
@@ -75,7 +73,7 @@ export const CourseCard: React.FC<CardProps> = ({
             <Text>{lessons}</Text>
           </Flex>
         </Flex>
-        <Image borderRadius="full" boxSize="40px" src={imageUrl} alt="Avatar" />
+        {/* <Image borderRadius="full" boxSize="40px" src={imageUrl} alt="Avatar" /> */}
       </Flex>
     </Box>
   );
