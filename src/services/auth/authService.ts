@@ -29,26 +29,10 @@ const login = async (formData: ILoginParams) => {
   });
 
   if (response.data) {
-    console.log(response, response.headers, response.headers["set-cookies"]);
-
     localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem("token", JSON.stringify(response.data.token));
   }
-
-  let jwtToken = null;
-  const setCookieHeader = response.headers["Set-Cookie"];
-  if (setCookieHeader) {
-    console.log("Set-Cookie header: ", setCookieHeader);
-    const jwtCookie = setCookieHeader.find((cookie) =>
-      cookie.trim().startsWith("jwt=")
-    );
-    if (jwtCookie) {
-      jwtToken = jwtCookie.split(";")[0].split("=")[1];
-      localStorage.setItem("token", jwtToken);
-      console.log("JWT Token: ", jwtToken);
-    }
-  }
-
-  return { ...response.data, jwtToken };
+  return response.data;
 };
 
 // Verify Student or Guardian

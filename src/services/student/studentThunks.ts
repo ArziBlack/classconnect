@@ -13,33 +13,29 @@ import {
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
 
-// Get All Approved Tutors
 export const getApprovedTutors = createAsyncThunk<
   ITutorApiResponse,
   void,
   { rejectValue: string }
 >("student/fetchApprovedTutors", async (_, thunkAPI) => {
+  // const token:string = localStorage.getItem("token").toString();
   try {
-    const response = await fetch(`${API_BASE_URL}/approvedTutors?page=1`, {
-      method: "GET",
-      credentials: "include"
+    // const state = thunkAPI.getState() as IRootState;
+    // const token = JSON.parse(state.auth.token);
+    const token = JSON.parse(localStorage.getItem("token"));
+    const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    if (!response.ok) {
-      // If the response is not ok, reject the thunk with the error message
-      const error = await response.text();
-      return thunkAPI.rejectWithValue(error);
-    }
-
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (err) {
-    console.log(err);
-    const error = err.message || "An unknown error occurred";
+    console.error('Error fetching approved tutors:', err);
+    const error = err.response?.data?.message || "An unknown error occurred";
     return thunkAPI.rejectWithValue(error);
   }
 });
-
 
 // Get Student Tuition Fee
 export const getMyTuitionFee = createAsyncThunk<
@@ -49,7 +45,7 @@ export const getMyTuitionFee = createAsyncThunk<
 >("student/getMyTuitionFee", async (_, thunkAPI) => {
   try {
     const state = thunkAPI.getState() as IRootState;
-    const token = state.auth.token;
+    const token = JSON.parse(state.auth.token);
 
     const response = await axios.get(`${API_BASE_URL}/getMyTuitionFee`, {
       headers: {
