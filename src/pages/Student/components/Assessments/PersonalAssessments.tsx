@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Box, Flex, Text, Icon, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Box, Flex, Text, Icon, Image, Skeleton } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import moment from "moment";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
-import { assessment } from "../../../../mock/assessment";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { getPersonalAssessment } from "../../../../services/student/studentThunks";
 
 function truncateString(str, maxLength) {
   if (str.length > maxLength) {
@@ -55,6 +56,8 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
 };
 
 const AssessmentList = () => {
+  const { personnalAssessment, isLoading } = useAppSelector((state) => state.student);
+  const { data } = personnalAssessment;
   const [selectedId, setSelectedId] = useState(null);
 
   const handleNotificationClick = (index) => {
@@ -64,10 +67,12 @@ const AssessmentList = () => {
   return (
     <div className="w-full grid grid-cols-2">
       <div className="overflow-y-scroll h-[400px] no-scrollbar">
-        {assessment.map((assess, index) => (
-          <div onClick={() => handleNotificationClick(index)} key={index}>
-            <AssessmentItem type={assess.type} date={assess.Date} isSelected={index === selectedId} />
-          </div>
+        {personnalAssessment?.data?.map((assess, index) => (
+          <Skeleton borderRadius={20} isLoaded={isLoading}>
+            <div onClick={() => handleNotificationClick(index)} key={index}>
+              <AssessmentItem type={assess.type} date={assess.Date} isSelected={index === selectedId} />
+            </div>
+          </Skeleton>
         ))}
       </div>
       <Flex w="100%" h="400px">
@@ -87,7 +92,7 @@ const AssessmentList = () => {
                     {"Tutor"}
                   </h4>
                   <span className="font-[200]">
-                    {assessment[selectedId]?.Date}
+                    {data[selectedId]?.Date}
                   </span>
                 </div>
               </div>
@@ -95,7 +100,7 @@ const AssessmentList = () => {
                 <b>To:</b> Favourogechi2019@gmail.com
               </span>
               <p className="py-5 font-[300] text-justify text-sm leading-6">
-                {assessment[selectedId]?.Question}
+                {data[selectedId]?.Question}
               </p>
             </div>
           </div>
@@ -112,6 +117,10 @@ const AssessmentList = () => {
 };
 
 export const PersonalAssessments = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getPersonalAssessment())
+  }, [dispatch])
   return (
     <Box
       className="text-white flex items-center"
@@ -120,7 +129,7 @@ export const PersonalAssessments = () => {
       alignItems="center"
       w="100%"
       maxH="100vh"
-      overflow="hidden" 
+      overflow="hidden"
     >
       <AssessmentList />
     </Box>

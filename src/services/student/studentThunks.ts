@@ -4,6 +4,7 @@ import { IRootState } from "../../app/store";
 import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
+  ICoursesResponse,
   IMyTutorsResponse,
   IRecommendationResponse,
   IStudentTrxAPIResponse,
@@ -131,7 +132,13 @@ export const getGeneralAssessment = createAsyncThunk<
   { rejectValue: string }
 >("student/assessment", async (_, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/getGeneralAssessment`);
+    const state = thunkAPI.getState() as IRootState;
+    const token = JSON.parse(state.auth.token);
+    const response = await axios.get(`${API_BASE_URL}/getGeneralAssessment`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (err) {
     console.log(err);
@@ -148,7 +155,13 @@ export const getPersonalAssessment = createAsyncThunk<
   { rejectValue: string }
 >("student/personalAssessment", async (_, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/getPersonalAssessment`);
+    const state = thunkAPI.getState() as IRootState;
+    const token = JSON.parse(state.auth.token);
+    const response = await axios.get(`${API_BASE_URL}/getPersonalAssessment`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -214,9 +227,53 @@ export const getMyTutors = createAsyncThunk<
 >("student/getMyTutors", async (_, thunkAPI) => {
   try {
     const state = thunkAPI.getState() as IRootState;
-    const token = state.auth.token;
+    const token = JSON.parse(state.auth.token);
 
     const response = await axios.get(`${API_BASE_URL}/getMyTutors`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Get my Courses
+export const getMyCourses = createAsyncThunk<
+ICoursesResponse,
+  void,
+  { rejectValue: string }
+>("student/getMyCourses", async (_, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState() as IRootState;
+    const token = JSON.parse(state.auth.token);
+
+    const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Get my Courses
+export const getAllCourses = createAsyncThunk<
+ICoursesResponse,
+  void,
+  { rejectValue: string }
+>("student/getMyCourses", async (_, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState() as IRootState;
+    const token = JSON.parse(state.auth.token);
+
+    const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -253,6 +310,7 @@ const studentService = {
   acceptRecommendation,
   rejectRecommendation,
   getMyTutors,
+  getMyCourses,
   LogoutStudent,
 };
 

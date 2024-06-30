@@ -63,3 +63,14 @@ export interface IAcceptnRejectResponse {
     statusCode: number;
     message: string;
 }
+
+interface ICourseData {
+    title: string;
+    description: string;
+    curriculum: string;
+}
+
+export interface ICoursesResponse {
+    statusCode: number;
+    message: ICourseData[];
+}
