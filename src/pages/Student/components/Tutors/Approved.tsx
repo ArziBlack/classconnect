@@ -1,6 +1,7 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import { TutorCard } from "../Courses/TutorCard";
 import { TEMPLATE } from "../../../../constants/image";
+import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 // Sample data for tutors
 const tutors = [
@@ -147,6 +148,8 @@ const tutors = [
 ];
 
 export const Approved = () => {
+  const { approvedTutors } = useAppSelector(state => state.student);
+  console.log(approvedTutors);
   return (
     <Box className="text-white ">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">

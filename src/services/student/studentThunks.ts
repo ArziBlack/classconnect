@@ -20,18 +20,9 @@ export const getApprovedTutors = createAsyncThunk<
   { rejectValue: string }
 >("student/fetchApprovedTutors", async (_, thunkAPI) => {
   try {
-    // Fetch the state if needed
-    // const state = await thunkAPI.getState() as IRootState;
-
     const response = await fetch(`${API_BASE_URL}/approvedTutors?page=1`, {
       method: "GET",
-      credentials: "include", // Ensures cookies are included in the request
-      headers: {
-        "User-Agent": "PostmanRuntime/7.39.0",
-        Accept: "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        Connection: "keep-alive",
-      },
+      credentials: "include"
     });
 
     if (!response.ok) {
