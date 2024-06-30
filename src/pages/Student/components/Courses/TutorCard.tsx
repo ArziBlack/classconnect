@@ -1,26 +1,27 @@
 import React from "react";
-import { Box, Flex, Text, Image, Icon } from "@chakra-ui/react";
-import { TimeIcon } from "@chakra-ui/icons";
-import { SiLevelsdotfyi } from "react-icons/si";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { LiaBookOpenSolid } from "react-icons/lia";
+import { CgGenderMale } from "react-icons/cg";
+import { CgGenderFemale } from "react-icons/cg";
 
 interface TutorCardProps {
   name: string;
-  description: string;
-  difficulty: "Beginner" | "Intermediate" | "Advance";
-  lessons: string;
+  bio: string;
+  course: string;
+  gender: string;
   imageUrl: string;
 }
 
 export const TutorCard: React.FC<TutorCardProps> = ({
   name,
-  description,
-  difficulty,
-  lessons,
+  bio,
+  course,
+  gender,
   imageUrl,
 }) => {
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
+  const getCourseColor = (course: string) => {
+    switch (course) {
       case "Intermediate":
         return "yellow"; // Use Chakra UI color or hex color
       case "Advance":
@@ -28,6 +29,14 @@ export const TutorCard: React.FC<TutorCardProps> = ({
       default:
         return "brand.action"; // Default color for Beginner
     }
+  };
+
+  const getGenderIcon = (gender: string) => {
+    return gender === "Female" ? (
+      <CgGenderFemale fontSize={"18px"} className="m2-[4px]" />
+    ) : (
+      <CgGenderMale fontSize={"18px"} className="m2-[4px]" />
+    );
   };
 
   const navigate = useNavigate();
@@ -50,7 +59,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
         {name}
       </Text>
       <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
-        {description}
+        {bio}
       </Text>
       <Flex
         pt={4}
@@ -65,14 +74,14 @@ export const TutorCard: React.FC<TutorCardProps> = ({
             justifyContent={"center"}
             opacity={0.6}
             gap={1}
-            color={getDifficultyColor(difficulty)}
+            color={getCourseColor(course)}
           >
-            <SiLevelsdotfyi className="mb-[4px]" />
-            <Text>{difficulty}</Text>
+            <LiaBookOpenSolid fontSize={"18px"} className="mb-[2px]" />
+            <Text>{course}</Text>
           </Flex>
           <Flex align="center" ml={4}>
-            <Icon as={TimeIcon} mr={2} />
-            <Text>{lessons}</Text>
+            {getGenderIcon(gender)}
+            <Text>{gender}</Text>
           </Flex>
         </Flex>
         <Image borderRadius="full" boxSize="40px" src={imageUrl} alt="Avatar" />

@@ -1,6 +1,5 @@
 import { CourseCard } from "./CourseCard";
 import { SimpleGrid } from "@chakra-ui/react";
-import { TEMPLATE } from "../../../../constants/image";
 
 export const OnGoing = () => {
   return (
@@ -10,7 +9,6 @@ export const OnGoing = () => {
         description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
         difficulty="Intermediate"
         lessons="5 Lessons"
-        imageUrl={TEMPLATE}
       />
     </SimpleGrid>
   );
