@@ -18,12 +18,12 @@ function formatRawDate(rawDate) {
   return formattedDate;
 }
 
-export const AssessmentItem = ({ type, date }) => {
+export const AssessmentItem = ({ type, date, isSelected }) => {
   return (
     <Box
-      className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
-      w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
-      p={{ base: "2", md: "4" }} // Responsive padding
+      className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
+      w={{ base: "100%", md: "80%", lg: "100%" }}
+      p={{ base: "2", md: "4" }}
       tabIndex={0}
     >
       <Text
@@ -37,17 +37,9 @@ export const AssessmentItem = ({ type, date }) => {
         fontSize={{ base: "xs", md: "sm" }}
         fontWeight="500"
         color="#B3F8DA"
-        // _hover={{ color: "black" }}
       >
         {truncateString(type, 45)}
       </Text>
-      {/* <Text
-        fontSize={{ base: "xs", md: "sm" }}
-        fontWeight="200"
-        color="gray.300"
-      >
-        {truncateString(content, 35)}
-      </Text> */}
       <Flex alignItems="center" justifyContent="space-between" paddingTop="5px">
         <Text
           fontSize={{ base: "xs", md: "sm" }}
@@ -74,7 +66,7 @@ const AssessmentList = () => {
       <div className="overflow-y-scroll h-[400px] no-scrollbar">
         {assessment.map((assess, index) => (
           <div onClick={() => handleNotificationClick(index)} key={index}>
-            <AssessmentItem type={assess.type} date={assess.Date} />
+            <AssessmentItem type={assess.type} date={assess.Date} isSelected={index === selectedId} />
           </div>
         ))}
       </div>

@@ -18,10 +18,10 @@ function formatRawDate(rawDate) {
   return formattedDate;
 }
 
-export const AssessmentItem = ({ type, date }) => {
+export const AssessmentItem = ({ type, date, isSelected }) => {
   return (
     <Box
-      className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
+      className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
       w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
       p={{ base: "2", md: "4" }} // Responsive padding
       tabIndex={0}
@@ -66,7 +66,7 @@ const AssessmentList = () => {
       <div className="overflow-y-scroll h-[400px] no-scrollbar">
         {assessment.map((assess, index) => (
           <div onClick={() => handleNotificationClick(index)} key={index}>
-            <AssessmentItem type={assess.type} date={assess.Date} />
+            <AssessmentItem type={assess.type} date={assess.Date} isSelected={index === selectedId} />
           </div>
         ))}
       </div>
