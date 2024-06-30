@@ -21,7 +21,7 @@ function truncateString(str, maxLength) {
   }
 }
 
-const NotificationItem = ({ title, date, content, info }) => {
+export const NotificationItem = ({ title, date, content, info }) => {
   return (
     <Box
       className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
