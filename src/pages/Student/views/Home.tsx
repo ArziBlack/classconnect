@@ -5,7 +5,6 @@ import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
-import { CircularProgress } from "@chakra-ui/react";
 
 const homeCourses = [
   {
@@ -23,16 +22,15 @@ const homeCourses = [
 ];
 
 const schedule = [
-  { course: "Fishery", time: "2nd July 2024, Tuesday" },
-  { course: "Farming", time: "4nd July 2024, Wuesday" },
-  { course: "Smoking", time: "4nd July 2024, Suesday" },
-  // { course: "Smoking", time: "4nd July 2024, Suesday" },
+  { course: "Frontend Development", time: "2nd July 2024, Tuesday" },
+  { course: "Cloud Engineering", time: "4th July 2024, Wednesday" },
+  { course: "Backend Engineering", time: "6th July 2024, Tuesday" },
 ];
 
 const highlightedDates = [
-  new Date(2024, 5, 20),
-  new Date(2024, 5, 24),
-  new Date(2024, 5, 1),
+  new Date(2024, 6, 2),
+  new Date(2024, 6, 4),
+  new Date(2024, 6, 6),
 ];
 
 const active = new Date();
@@ -68,7 +66,7 @@ export const Home = () => {
   console.log(error);
   const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
-  const iframeHeight = containerWidth * (215 / 560);
+  const iframeHeight = containerWidth * (300 / 560);
 
   const truncateOverflow = (sentence: string) => {
     if (sentence.length > 13) {
@@ -89,30 +87,26 @@ export const Home = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const videoId = "yYXImqDuy-I?si=yEOannHhgq2uXG0j";
+  const videoId = "pBv7igaxfQE-I?si=yEOannHhgq2uXG0j";
   return (
     <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center items-center">
-        <div>
-          <h2 className="font-[700] text-3xl pb-3">Hi {name}</h2>
-          <p className=" font-[100]">{data?.greeting}</p>
+        <div className="mb-8">
+          <h2 className="font-[600] text-3xl pb-3">Hi {name}</h2>
+          <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <div
           id="video-container"
           style={{ width: "100%", maxWidth: "100%" }}
-          className="pt-7 bg-black"
+          className="p-[0] rounded-[20px] bg-black border border-gray-500"
         >
-          <VideoEmbed
-            videoId={videoId}
-            containerWidth={containerWidth}
-            iframeHeight={iframeHeight}
-          />
+          <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
         </div>
         <div className="flex flex-col w-full justify-between h-full mt-5 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
           <div className="flex w-full py-1">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4">Status</h2>
-            <h2 className="w-1/4 text-right text-lime-500">All Courses</h2>
+            <h2 className="w-1/4 text-right text-[#00ff84]">All Courses</h2>
           </div>
           {homeCourses.map((item, id) => (
             <div
@@ -127,14 +121,14 @@ export const Home = () => {
                 </div>
               </div>
               <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
-              <button className="w-1/4 justify-end py-2 px-1 border border-lime-500 rounded text-lime-500">
-                {isLoading ? <CircularProgress /> : "View Courses"}
+              <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
+                View Courses
               </button>
             </div>
           ))}
         </div>
       </div>
-      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-full border border-gray-500 p-2 rounded mr-2 font-light mb-5">
+      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-full border border-gray-500 p-2 rounded mr-2 mt-4 font-light mb-5 sticky top-8">
         <DayPicker
           fromYear={2010}
           toYear={2024}
@@ -145,8 +139,8 @@ export const Home = () => {
         <div className="w-full border-b border-gray-500 my-2 mb-6 mx-4"></div>
         <div className="flex flex-col w-full px-4">
           <div className="flex items-center justify-between w-full">
-            <h2 className="font-[600]">Upcoming Task</h2>
-            <span className="font-light text-lime-500">See All</span>
+            <h2 className="font-[700]">Upcoming classes</h2>
+            <span className="font-light text-[#00ff84]">See All</span>
           </div>
           <div className="">
             {schedule.map((item, id) => (

@@ -27,7 +27,7 @@ interface IState {
   approvedTutors: ITutorApiResponse | null;
   myTutors: IMyTutorsResponse | null;
   generalAssessment: IAssessmentResponse | null;
-  personnalAssessment: IAssessmentResponse | null;
+  personalAssessment: IAssessmentResponse | null;
   recommendResponse: IRecommendationResponse | null;
   trxResponse: IStudentTrxAPIResponse | null;
   tuitionFeeResponse: null;
@@ -41,7 +41,7 @@ const initialState = {
   approvedTutors: null,
   myTutors: null,
   generalAssessment: null,
-  personnalAssessment: null,
+  personalAssessment: null,
   recommendResponse: null,
   trxResponse: null,
   tuitionFeeResponse: null,
@@ -59,7 +59,7 @@ const studentSlice = createSlice({
       state.approvedTutors = null;
       state.myTutors = null;
       state.generalAssessment = null;
-      state.personnalAssessment = null;
+      state.personalAssessment = null;
       state.recommendResponse = null;
       state.trxResponse = null;
       state.isLoading = false;
@@ -196,7 +196,7 @@ const studentSlice = createSlice({
         getPersonalAssessment.fulfilled,
         (state, action: PayloadAction<IAssessmentResponse>) => {
           state.isLoading = false;
-          state.personnalAssessment = action.payload;
+          state.personalAssessment = action.payload;
           state.isSuccess = true;
         }
       )
@@ -278,7 +278,7 @@ const studentSlice = createSlice({
         state.approvedTutors = null;
         state.myTutors = null;
         state.generalAssessment = null;
-        state.personnalAssessment = null;
+        state.personalAssessment = null;
         state.recommendResponse = null;
         state.trxResponse = null;
         state.isSuccess = true;

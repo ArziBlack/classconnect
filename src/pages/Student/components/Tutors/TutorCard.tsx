@@ -66,14 +66,20 @@ export const TutorCard: React.FC<TutorCardProps> = ({
             color="brand.action"
           >
             <LiaBookOpenSolid fontSize={"18px"} className="mb-[2px]" />
-            <Text>{course}</Text>
+            <Text textTransform={"capitalize"}>{course?.toLowerCase()}</Text>
           </Flex>
           <Flex align="center" ml={4}>
             {getGenderIcon(gender)}
             <Text>{gender}</Text>
           </Flex>
         </Flex>
-        <Image borderRadius="full" boxSize="40px" src={imageUrl} alt="Avatar" />
+        <Image
+          objectFit={"cover"}
+          borderRadius="full"
+          boxSize="40px"
+          src={imageUrl}
+          alt="Avatar"
+        />
       </Flex>
     </Box>
   );

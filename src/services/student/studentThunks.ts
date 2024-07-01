@@ -32,7 +32,7 @@ export const getApprovedTutors = createAsyncThunk<
 
     return response.data;
   } catch (err) {
-    console.error('Error fetching approved tutors:', err);
+    console.error("Error fetching approved tutors:", err);
     const error = err.response?.data?.message || "An unknown error occurred";
     return thunkAPI.rejectWithValue(error);
   }
@@ -139,11 +139,13 @@ export const getGeneralAssessment = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(response.data);
+
     return response.data;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     const error = err.response ? err.response.data : err.message;
-    console.log(error);
+    // console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -243,7 +245,7 @@ export const getMyTutors = createAsyncThunk<
 
 // Get my Courses
 export const getMyCourses = createAsyncThunk<
-ICoursesResponse,
+  ICoursesResponse,
   void,
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
@@ -265,7 +267,7 @@ ICoursesResponse,
 
 // Get my Courses
 export const getAllCourses = createAsyncThunk<
-ICoursesResponse,
+  ICoursesResponse,
   void,
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
