@@ -133,7 +133,7 @@ export const getGeneralAssessment = createAsyncThunk<
 >("student/assessment", async (_, thunkAPI) => {
   try {
     const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
+    const token = state.auth.token;
     const response = await axios.get(`${API_BASE_URL}/getGeneralAssessment`, {
       headers: {
         Authorization: `Bearer ${token}`,
