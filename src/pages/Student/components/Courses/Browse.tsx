@@ -3,11 +3,13 @@ import { CourseCard } from "./CourseCard";
 import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 export const Browse = () => {
-  const { allCoursesResponse, isLoading } = useAppSelector((state) => state.student);
+  const { allCoursesResponse, isLoading } = useAppSelector(
+    (state) => state.student
+  );
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
       {allCoursesResponse?.message?.map((item, idx) => (
-        <Skeleton borderRadius={20} isLoaded={!isLoading} key={idx}>
+        <Skeleton borderRadius={"md"} isLoaded={!isLoading} key={idx}>
           <CourseCard
             title={item.title}
             description={item.description}
@@ -15,8 +17,7 @@ export const Browse = () => {
             lessons="5 Lessons"
           />
         </Skeleton>
-      ))
-      }
+      ))}
     </SimpleGrid>
   );
 };

@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { LiaBookOpenSolid } from "react-icons/lia";
-import { CgGenderMale } from "react-icons/cg";
-import { CgGenderFemale } from "react-icons/cg";
+import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
 
 interface TutorCardProps {
   name: string;
@@ -20,6 +19,8 @@ export const TutorCard: React.FC<TutorCardProps> = ({
   gender,
   imageUrl,
 }) => {
+  const navigate = useNavigate();
+
   const getGenderIcon = (gender: string) => {
     return gender === "Female" ? (
       <CgGenderFemale fontSize={"18px"} className="m2-[4px]" />
@@ -28,10 +29,9 @@ export const TutorCard: React.FC<TutorCardProps> = ({
     );
   };
 
-  const navigate = useNavigate();
-
   return (
     <Box
+      position="relative"
       width={"100%"}
       maxW="600px"
       p={4}
@@ -43,6 +43,8 @@ export const TutorCard: React.FC<TutorCardProps> = ({
       cursor={"pointer"}
       onClick={() => navigate("/student/tutor-details")}
       border={"1px solid #5E7079"}
+      overflow="hidden"
+      _hover={{ ".overlay": { transform: "translateY(0)" } }}
     >
       <Text fontSize="xl" fontWeight="bold" mb={2}>
         {name}
@@ -81,6 +83,25 @@ export const TutorCard: React.FC<TutorCardProps> = ({
           alt="Avatar"
         />
       </Flex>
+
+      <Box
+        className="overlay"
+        position="absolute"
+        bottom={0}
+        left={0}
+        width="100%"
+        height="50%"
+        bg="rgba(0, 0, 0, 0.8)"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        transition="transform 0.3s ease-in-out"
+        transform="translateY(100%)"
+      >
+        <Button colorScheme="teal" onClick={() => alert("Tutor chosen!")}>
+          Choose Tutor
+        </Button>
+      </Box>
     </Box>
   );
 };

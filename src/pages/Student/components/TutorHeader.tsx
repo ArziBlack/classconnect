@@ -1,7 +1,8 @@
-import React from "react";
-import { Text, Box, Flex, Image } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Text, Box, Flex, Image, Button } from "@chakra-ui/react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { TEMPLATE } from "../../../constants/image";
+import ChakraModal from "../../../components/ChakraModal";
 
 interface TutorHeaderProps {
   title: string;
@@ -9,6 +10,8 @@ interface TutorHeaderProps {
 }
 
 const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext }) => {
+  const [confirmation, setConfirmation] = useState(false);
+
   return (
     <Flex maxW={"700px"} justify={"space-between"}>
       <Box>
@@ -57,8 +60,39 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext }) => {
         >
           {subtext}
         </Text>
+        <Text
+          fontSize={"12px"}
+          fontWeight={500}
+          color={"black"}
+          borderRadius={"4px"}
+          p={"4px 8px"}
+          pt={"3px"}
+          mt={"15px"}
+          bg={"yellow"}
+          opacity={0.6}
+          cursor={"pointer"}
+          _hover={{ opacity: 1 }}
+          w={"fit-content"}
+          onClick={() => setConfirmation(true)}
+        >
+          CHOOSE TUTOR
+        </Text>
       </Box>
       <Image borderRadius="full" boxSize="160px" src={TEMPLATE} alt="Avatar" />
+      <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
+        <Flex
+          bg={"#023248"}
+          flexDirection={"column"}
+          borderRadius={"12px"}
+          padding={10}
+        >
+          <Text color={"white"}>Are you sure about choosing this tutor</Text>
+          <Flex gap={8} justify={"center"} mt={4}>
+            <Button>Yes </Button>
+            <Button>No </Button>
+          </Flex>
+        </Flex>
+      </ChakraModal>
     </Flex>
   );
 };

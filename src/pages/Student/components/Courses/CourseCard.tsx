@@ -20,11 +20,11 @@ export const CourseCard: React.FC<CardProps> = ({
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Intermediate":
-        return "yellow"; // Use Chakra UI color or hex color
+        return "yellow";
       case "Advance":
-        return "sky-blue"; // Use Chakra UI color or hex color
+        return "sky-blue";
       default:
-        return "brand.action"; // Default color for Beginner
+        return "brand.action";
     }
   };
 
@@ -44,8 +44,8 @@ export const CourseCard: React.FC<CardProps> = ({
       onClick={() => navigate("/student/detailed")}
       border={"1px solid #5E7079"}
     >
-      <Text fontSize="xl" fontWeight="bold" mb={2}>
-        {title}
+      <Text textTransform={"capitalize"} fontSize="xl" fontWeight="bold" mb={2}>
+        {title?.toLocaleLowerCase()}
       </Text>
       <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
         {description}

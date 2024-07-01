@@ -1,7 +1,15 @@
 import React from "react";
-import { Box, Flex, Text, Link, Icon, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  //  Link,
+  Icon,
+  // VStack
+} from "@chakra-ui/react";
+
 // import { useParams } from "react-router-dom";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+// import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 import { CgGenderMale } from "react-icons/cg";
 import { CgGenderFemale } from "react-icons/cg";
 import { TEMPLATE } from "../../../../constants/image";
@@ -50,12 +58,12 @@ const AboutMe: React.FC = () => {
   const tutor = tutors[0];
 
   const {
-    bio,
-    course,
+    // bio,
+    // course,
     gender,
-    developerExperience,
-    instructorExperience,
-    socialLinks,
+    // developerExperience,
+    // instructorExperience,
+    // socialLinks,
   } = tutor;
 
   const getGenderIcon = (gender: string) => {
@@ -69,25 +77,21 @@ const AboutMe: React.FC = () => {
   return (
     <Box maxW="700px" color="white">
       <Flex direction="column" mt={5}>
-        <Text fontSize="14px" fontWeight="300" opacity={0.8} mb={4}>
-          {bio}
+        <Text fontSize="lg" fontWeight="bold" mb={2}>
+          Nigeria
         </Text>
         <Flex mb={4}>
           {getGenderIcon(gender)}
           <Text ml={2} fontSize="14px">
-            {gender}
+            {gender} - 28yrs
           </Text>
         </Flex>
-        <Text fontSize="lg" fontWeight="bold" mb={2}>
-          Course / Specialization:{" "}
-          <span className="text-[14px] font-[300]">{course}</span>
-        </Text>
-        <VStack spacing={4} align="start" w="full">
+        {/* <VStack spacing={4} align="start" w="full">
           <Box>
             <Text fontSize="lg" fontWeight="bold" mb={2}>
               Experience as Developer:
             </Text>
-            <Text opacity={0.8} fontSize={"14px"}>
+            <Text opacity={0.8} fontSize={"14px"} textAlign={"justify"}>
               {developerExperience}
             </Text>
           </Box>
@@ -95,7 +99,7 @@ const AboutMe: React.FC = () => {
             <Text fontSize="lg" fontWeight="bold" mb={2}>
               Experience as Instructor:
             </Text>
-            <Text fontSize={"14px"} opacity={0.8}>
+            <Text fontSize={"14px"} opacity={0.8} textAlign={"justify"}>
               {instructorExperience}
             </Text>
           </Box>
@@ -115,7 +119,7 @@ const AboutMe: React.FC = () => {
               <Icon as={FaGithub} boxSize={6} />
             </Link>
           </Flex>
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );
