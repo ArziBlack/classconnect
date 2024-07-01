@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Flex, Text, Icon, Image } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
-import { notifications } from "../../../../mock/notifications";
 
 const formatDate = (date) => {
   const d = new Date(date);
-  const day = d.getDate(); // Get the day of the month
+  const day = d.getDate();
   const month = d.toLocaleString("default", { month: "long" });
-  const year = d.getFullYear(); // Get the year
+  const year = d.getFullYear();
   return `${day} ${month} ${year}`;
 };
 
@@ -21,12 +20,12 @@ function truncateString(str, maxLength) {
   }
 }
 
-export const NotificationItem = ({ title, date, content, info }) => {
+export const NotificationItem = ({ title, timestamp, message, content }) => {
   return (
     <Box
       className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
-      w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
-      p={{ base: "2", md: "4" }} // Responsive padding
+      w={{ base: "100%", md: "80%", lg: "100%" }}
+      p={{ base: "2", md: "4" }}
       tabIndex={0}
     >
       <Text
@@ -40,9 +39,8 @@ export const NotificationItem = ({ title, date, content, info }) => {
         fontSize={{ base: "xs", md: "sm" }}
         fontWeight="500"
         color="#B3F8DA"
-        // _hover={{ color: "black" }}
       >
-        {truncateString(info, 45)}
+        {truncateString(message, 45)}
       </Text>
       <Text
         fontSize={{ base: "xs", md: "sm" }}
@@ -57,7 +55,7 @@ export const NotificationItem = ({ title, date, content, info }) => {
           fontWeight="100"
           color="gray.400"
         >
-          {formatDate(date)}
+          {formatDate(timestamp)}
         </Text>
         <Icon as={FaClock} color="green.500" />
       </Flex>
@@ -72,10 +70,17 @@ const NotificationList = () => {
     setSelectedId(index === selectedId ? null : index);
   };
 
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+      const storedMessages = JSON.parse(localStorage.getItem('loggerMessages')) || [];
+      setMessages(storedMessages);
+  }, []);
+
   return (
     <div className="w-full grid grid-cols-2">
       <div className="overflow-y-scroll h-[400px] no-scrollbar">
-        {notifications.map((notification, index) => (
+        {messages.map((notification, index) => (
           <div onClick={() => handleNotificationClick(index)} key={index}>
             <NotificationItem {...notification} />
           </div>
@@ -99,10 +104,10 @@ const NotificationList = () => {
                 />
                 <div className="flex flex-col text-xs pl-2">
                   <h4 className="font-[600]">
-                    {notifications[selectedId]?.title}
+                    {messages[selectedId]?.title}
                   </h4>
                   <span className="font-[200]">
-                    {notifications[selectedId]?.date}
+                    {messages[selectedId]?.timestamp}
                   </span>
                 </div>
               </div>
@@ -110,7 +115,7 @@ const NotificationList = () => {
                 <b>To:</b> Favourogechi2019@gmail.com
               </span>
               <p className="py-5 font-[300] text-justify text-sm leading-6">
-                {notifications[selectedId]?.message}
+                {messages[selectedId]?.content}
               </p>
             </div>
           </div>

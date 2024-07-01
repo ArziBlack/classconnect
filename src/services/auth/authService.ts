@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IRegister } from "../../typings/signup";
+import { authLogger, resetLogger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
@@ -29,8 +30,8 @@ const login = async (formData: ILoginParams) => {
   });
 
   if (response.data) {
+    authLogger("Logged in", "User Signin", formData.email);
     localStorage.setItem("user", JSON.stringify(response.data));
-    console.log(response.data);
     localStorage.setItem("token", response.data.token);
   }
   
@@ -40,6 +41,9 @@ const login = async (formData: ILoginParams) => {
 // Verify Student or Guardian
 const verify = async () => {
   const response = await axios.post(`${API_BASE_URL}/student/verify`);
+  if (response.data) {
+    resetLogger("An Email verification", "Verification");
+  }
   return response.data;
 };
 
@@ -49,6 +53,9 @@ const resetPassword = async (email) => {
     `${API_BASE_URL}/student/resetPassword`,
     email
   );
+  if (response.data) {
+    resetLogger("Password Reset", "Password Reset");
+  }
   return response.data;
 };
 
