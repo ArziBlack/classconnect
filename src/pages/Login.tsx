@@ -53,6 +53,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
 
     const resultAction = await dispatch(login(userData));
     dispatch(reset());
+    // dispatch(logout());
     if (login.fulfilled.match(resultAction)) {
       showToast(resultAction.payload.message || "Login successful", "success");
       setTimeout(()=> {
@@ -252,7 +253,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                       isLoading={isLoading}
                       onClick={handleSubmit}
                     />
-                    <Text as="a" textAlign="center" fontSize="12px">
+                    <Text textAlign="center" fontSize="12px">
                       Don't have an account?{" "}
                       <ChakraLink
                         w="fit-content"

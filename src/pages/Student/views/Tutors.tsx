@@ -13,6 +13,7 @@ const links = [
 export const Tutors = () => {
   const dispatch = useAppDispatch();
   useEffect(()=> {
+    document.title = "HEP Tutors - Student";
     dispatch(getApprovedTutors());
   },[]);
 

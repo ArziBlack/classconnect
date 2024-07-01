@@ -11,6 +11,7 @@ import {
   ITuitionFee,
   ITutorApiResponse,
 } from "../../typings/student";
+import axiosInstance from "../../app/axios";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
 
@@ -19,16 +20,8 @@ export const getApprovedTutors = createAsyncThunk<
   void,
   { rejectValue: string }
 >("student/fetchApprovedTutors", async (_, thunkAPI) => {
-  // const token:string = localStorage.getItem("token").toString();
   try {
-    // const state = thunkAPI.getState() as IRootState;
-    // const token = JSON.parse(state.auth.token);
-    const token = JSON.parse(localStorage.getItem("token"));
-    const response = await axios.get(`${API_BASE_URL}/approvedTutors?page=1`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/approvedTutors?page=1`);
 
     return response.data;
   } catch (err) {
@@ -45,8 +38,7 @@ export const getMyTuitionFee = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyTuitionFee", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
+    const token = localStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getMyTuitionFee`, {
       headers: {
@@ -132,20 +124,12 @@ export const getGeneralAssessment = createAsyncThunk<
   { rejectValue: string }
 >("student/assessment", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = state.auth.token;
-    const response = await axios.get(`${API_BASE_URL}/getGeneralAssessment`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/getGeneralAssessment`);
     console.log(response.data);
 
     return response.data;
   } catch (err) {
-    // console.log(err);
     const error = err.response ? err.response.data : err.message;
-    // console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -250,8 +234,9 @@ export const getMyCourses = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
+    // const state = thunkAPI.getState() as IRootState;
+    // const token = JSON.parse(state.auth.token);
+    const token = localStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
       headers: {
@@ -272,8 +257,7 @@ export const getAllCourses = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
+    const token = localStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
       headers: {
@@ -282,6 +266,7 @@ export const getAllCourses = createAsyncThunk<
     });
     return response.data;
   } catch (err) {
+    console.error("Error fetching approved tutors:", err);
     const error = err.response ? err.response.data : err.message;
     return thunkAPI.rejectWithValue(error);
   }

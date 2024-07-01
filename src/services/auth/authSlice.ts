@@ -12,16 +12,19 @@ export interface IResponse {
   error?: string;
 }
 
-const data: IResponse = JSON.parse(localStorage.getItem("user"));
-const jwt:string = localStorage.getItem("token");
+const data: IResponse | null = JSON.parse(localStorage.getItem("user") || "null");
+const jwt: string | null = localStorage.getItem("token")?.trim();
+
 if (data) {
-  console.log(data)
+  console.log(data);
 }
-if (jwt) console.log(jwt);
+if (jwt) {
+  console.log(jwt);
+}
 
 interface AuthState {
   data: IResponse | null;
-  response: string | null;
+  response: string;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
@@ -40,7 +43,7 @@ const initialState: AuthState = {
   Loaded: false,
   isStudentLogged: false,
   message: "",
-  token: "",
+  token: "" || jwt,
 };
 
 // Student Sign-up

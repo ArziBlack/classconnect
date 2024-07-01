@@ -126,7 +126,7 @@ export const GeneralAssessments = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getGeneralAssessment());
-  }, [dispatch]);
+  }, [dispatch]); 
   return (
     <Box
       className="text-white flex items-center"

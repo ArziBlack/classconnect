@@ -1,33 +1,22 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton } from "@chakra-ui/react";
 import { CourseCard } from "./CourseCard";
+import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 export const Browse = () => {
+  const { allCoursesResponse, isLoading } = useAppSelector((state) => state.student);
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
-      <CourseCard
-        title="Frontend Development"
-        description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        difficulty="Beginner"
-        lessons="5 Lessons"
-      />
-      <CourseCard
-        title="Backend Development"
-        description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        difficulty="Advance"
-        lessons="5 Lessons"
-      />
-      <CourseCard
-        title="Cloud Engineering"
-        description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        difficulty="Intermediate"
-        lessons="5 Lessons"
-      />
-      <CourseCard
-        title="Cloud Engineering"
-        description="This career path will turn you into a hireable frontend developer, and teach you how to nail the job interview"
-        difficulty="Beginner"
-        lessons="5 Lessons"
-      />
+      {allCoursesResponse?.message?.map((item, idx) => (
+        <Skeleton borderRadius={20} isLoaded={!isLoading} key={idx}>
+          <CourseCard
+            title={item.title}
+            description={item.description}
+            difficulty="Beginner"
+            lessons="5 Lessons"
+          />
+        </Skeleton>
+      ))
+      }
     </SimpleGrid>
   );
 };

@@ -30,8 +30,10 @@ const login = async (formData: ILoginParams) => {
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
-    localStorage.setItem("token", JSON.stringify(response.data.token));
+    console.log(response.data);
+    localStorage.setItem("token", response.data.token);
   }
+  
   return response.data;
 };
 

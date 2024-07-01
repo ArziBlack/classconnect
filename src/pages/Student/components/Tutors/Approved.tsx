@@ -6,11 +6,11 @@ export const Approved = () => {
   const { approvedTutors, isLoading } = useAppSelector(
     (state) => state.student
   );
-  const { data } = approvedTutors;
+
   return (
     <Box className="text-white ">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-        {data?.map((tutor, index) => (
+        {approvedTutors?.data?.map((tutor, index) => (
           <Skeleton borderRadius={20} isLoaded={!isLoading}>
             <TutorCard
               key={index}

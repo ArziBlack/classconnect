@@ -1,5 +1,8 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { getAllCourses, getMyCourses } from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "Browse" },
@@ -9,6 +12,12 @@ const links = [
 ];
 
 export const MyCourses = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    document.title = "HEP My Courses - Student";
+    dispatch(getAllCourses());
+    dispatch(getMyCourses());
+  }, [])
   return (
     <>
       <ViewHeader

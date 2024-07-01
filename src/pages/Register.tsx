@@ -436,10 +436,10 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       )
                     )}
                   </Box>
-                  <Text as="a" textAlign="center" fontSize="14px">
+                  <Text textAlign="center" fontSize="14px">
                     Already have an account?{" "}
                     <b className=" text-[#002C8A]">
-                      <Link href="/">Sign in</Link>
+                      <Link href="/signin">Sign in</Link>
                     </b>
                   </Text>
                 </Flex>

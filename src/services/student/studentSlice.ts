@@ -4,8 +4,10 @@ import {
   LogoutStudent,
   acceptRecommendation,
   chooseTutor,
+  getAllCourses,
   getApprovedTutors,
   getGeneralAssessment,
+  getMyCourses,
   getMyTuitionFee,
   getMyTutors,
   getPersonalAssessment,
@@ -16,6 +18,7 @@ import {
 import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
+  ICoursesResponse,
   IMyTutorsResponse,
   IRecommendationResponse,
   IStudentTrxAPIResponse,
@@ -31,6 +34,8 @@ interface IState {
   recommendResponse: IRecommendationResponse | null;
   trxResponse: IStudentTrxAPIResponse | null;
   tuitionFeeResponse: null;
+  allCoursesResponse: ICoursesResponse;
+  myCoursesRes: ICoursesResponse;
   isLoading: boolean;
   error: string | null;
   isSuccess: boolean | null;
@@ -45,6 +50,8 @@ const initialState = {
   recommendResponse: null,
   trxResponse: null,
   tuitionFeeResponse: null,
+  allCoursesResponse: null,
+  myCoursesRes: null,
   isLoading: null,
   error: null,
   isSuccess: false || null,
@@ -264,6 +271,30 @@ const studentSlice = createSlice({
         }
       )
       .addCase(getMyTutors.rejected, (state, action: PayloadAction<string>) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(getAllCourses.pending, (state)=> {
+        state.isLoading = true;
+      })
+      .addCase(getAllCourses.fulfilled, (state, action: PayloadAction<ICoursesResponse>)=> {
+        state.isLoading = false;
+        state.allCoursesResponse = action.payload;
+      })
+      .addCase(getAllCourses.rejected, (state, action: PayloadAction<string>)=> {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(getMyCourses.pending, (state)=> {
+        state.isLoading = true;
+      })
+      .addCase(getMyCourses.fulfilled, (state, action: PayloadAction<ICoursesResponse>)=> {
+        state.isLoading = false;
+        state.myCoursesRes = action.payload;
+      })
+      .addCase(getMyCourses.rejected, (state, action: PayloadAction<string>)=> {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
