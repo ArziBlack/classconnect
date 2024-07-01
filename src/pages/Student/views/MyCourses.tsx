@@ -17,7 +17,7 @@ export const MyCourses = () => {
     document.title = "HEP My Courses - Student";
     dispatch(getAllCourses());
     dispatch(getMyCourses());
-  }, [])
+  }, []);
   return (
     <>
       <ViewHeader

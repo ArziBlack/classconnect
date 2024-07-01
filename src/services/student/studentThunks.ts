@@ -12,6 +12,7 @@ import {
   ITutorApiResponse,
 } from "../../typings/student";
 import axiosInstance from "../../app/axios";
+import { logger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
 
@@ -23,7 +24,10 @@ export const getApprovedTutors = createAsyncThunk<
   try {
     const response = await axiosInstance.get(`/approvedTutors?page=1`);
 
-    return response.data;
+    if (response.data) {
+      logger("Approved Tutors", response?.data?.data, "Tutors");
+    }
+    return response.data; 
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
     const error = err.response?.data?.message || "An unknown error occurred";
@@ -262,6 +266,9 @@ export const getAllCourses = createAsyncThunk<
         Authorization: `Bearer ${token}`,
       },
     });
+    if (response.data) {
+      logger("Get All Courses", response?.data?.message, "Courses");
+    }
     return response.data;
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
