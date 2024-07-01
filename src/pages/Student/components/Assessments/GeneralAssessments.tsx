@@ -3,7 +3,10 @@ import { Box, Flex, Text, Icon, Image, Skeleton } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import moment from "moment";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import { getGeneralAssessment } from "../../../../services/student/studentThunks";
 
 function truncateString(str, maxLength) {
@@ -15,7 +18,7 @@ function truncateString(str, maxLength) {
 }
 
 function formatRawDate(rawDate) {
-  const formattedDate = moment(rawDate).format('M/D/YYYY h:mma');
+  const formattedDate = moment(rawDate).format("M/D/YYYY h:mma");
   return formattedDate;
 }
 
@@ -56,8 +59,9 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
 };
 
 const AssessmentList = () => {
-  const { generalAssessment, isLoading } = useAppSelector((state) => state.student);
-  const { data } = generalAssessment;
+  const { generalAssessment, isLoading } = useAppSelector(
+    (state) => state.student
+  );
   const [selectedId, setSelectedId] = useState(null);
 
   const handleNotificationClick = (index) => {
@@ -70,7 +74,11 @@ const AssessmentList = () => {
         {generalAssessment?.data?.map((assess, index) => (
           <Skeleton borderRadius={20} isLoaded={isLoading}>
             <div onClick={() => handleNotificationClick(index)} key={index}>
-              <AssessmentItem type={assess.type} date={assess.Date} isSelected={index === selectedId} />
+              <AssessmentItem
+                type={assess.type}
+                date={assess.Date}
+                isSelected={index === selectedId}
+              />
             </div>
           </Skeleton>
         ))}
@@ -88,11 +96,9 @@ const AssessmentList = () => {
                   className="h-[25px] w-[25px] rounded-full"
                 />
                 <div className="flex flex-col text-xs pl-2">
-                  <h4 className="font-[600]">
-                    {"Tutor"}
-                  </h4>
+                  <h4 className="font-[600]">{"Tutor"}</h4>
                   <span className="font-[200]">
-                    {data[selectedId]?.Date}
+                    {generalAssessment?.data[selectedId]?.Date}
                   </span>
                 </div>
               </div>
@@ -100,7 +106,7 @@ const AssessmentList = () => {
                 <b>To:</b> Favourogechi2019@gmail.com
               </span>
               <p className="py-5 font-[300] text-justify text-sm leading-6">
-                {data[selectedId]?.Question}
+                {generalAssessment?.data[selectedId]?.Question}
               </p>
             </div>
           </div>
@@ -116,12 +122,11 @@ const AssessmentList = () => {
   );
 };
 
-
 export const GeneralAssessments = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getGeneralAssessment())
-  }, [dispatch])
+    dispatch(getGeneralAssessment());
+  }, [dispatch]);
   return (
     <Box
       className="text-white flex items-center"

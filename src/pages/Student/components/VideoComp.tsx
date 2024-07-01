@@ -1,25 +1,27 @@
-import React from 'react';
+import { Box } from "@chakra-ui/react";
+import React from "react";
 
 interface VideoEmbedProps {
-  videoId: string; // YouTube video ID
-  containerWidth: number;
+  videoId: string;
   iframeHeight: number;
 }
 
-const VideoEmbed: React.FC<VideoEmbedProps> = ({ videoId, containerWidth, iframeHeight  }) => {
-  
+const VideoEmbed: React.FC<VideoEmbedProps> = ({ videoId, iframeHeight }) => {
   return (
-    <div className='p-1 rounded-md'>
+    <Box className="rounded-[20px]">
       <iframe
         id="video-iframe"
         src={`https://www.youtube.com/embed/${videoId}`}
-        width={containerWidth}
+        width={"100%"}
         height={iframeHeight}
+        style={{
+          borderRadius: "20px",
+        }}
         frameBorder={0}
         allowFullScreen
         title="Embedded YouTube Video"
       />
-    </div>
+    </Box>
   );
 };
 
