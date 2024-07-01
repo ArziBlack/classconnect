@@ -234,8 +234,6 @@ export const getMyCourses = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
   try {
-    // const state = thunkAPI.getState() as IRootState;
-    // const token = JSON.parse(state.auth.token);
     const token = localStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
@@ -255,7 +253,7 @@ export const getAllCourses = createAsyncThunk<
   ICoursesResponse,
   void,
   { rejectValue: string }
->("student/getMyCourses", async (_, thunkAPI) => {
+>("student/getAllCourses", async (_, thunkAPI) => {
   try {
     const token = localStorage.getItem("token")?.trim()?.toString();
 

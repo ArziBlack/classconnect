@@ -135,12 +135,12 @@ export function Notification() {
   return (
     <Box
       className="text-white flex items-center"
-      flexDirection={{ base: "column", lg: "row" }} // Responsive layout
+      flexDirection={{ base: "column", lg: "row" }}
       justifyContent="center"
       alignItems="center"
       w="100%"
-      maxH="100vh" // Ensure it does not exceed the viewport height
-      overflow="hidden" // Hide overflow to prevent scrollbars
+      maxH="100vh"
+      overflow="hidden"
     >
       <NotificationList />
     </Box>
