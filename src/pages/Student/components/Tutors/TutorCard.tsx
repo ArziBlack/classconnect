@@ -10,7 +10,7 @@ interface TutorCardProps {
   course: string;
   gender: string;
   imageUrl: string;
-  link: number;
+  link: number | string;
 }
 
 export const TutorCard: React.FC<TutorCardProps> = ({

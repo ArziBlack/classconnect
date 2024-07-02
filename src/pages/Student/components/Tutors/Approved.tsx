@@ -1,6 +1,7 @@
 import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
 import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { IMyTutor } from "../../../../typings/student";
 
 export const Approved = () => {
   const { approvedTutors, isLoading } = useAppSelector(
@@ -10,7 +11,7 @@ export const Approved = () => {
   return (
     <Box className="text-white ">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-        {approvedTutors?.data?.map((tutor, index) => (
+        {approvedTutors?.data?.map((tutor:IMyTutor, index:number) => (
           <Skeleton borderRadius={20} isLoaded={!isLoading}>
             <TutorCard
               key={index}
@@ -19,7 +20,7 @@ export const Approved = () => {
               course={tutor?.specialization}
               gender={tutor?.sex}
               imageUrl={tutor?.profileImage}
-              link={index}
+              link={tutor?.name.split(" ")[0]}
             />
           </Skeleton>
         ))}

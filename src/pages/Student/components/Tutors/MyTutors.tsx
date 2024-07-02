@@ -27,7 +27,7 @@ export const MyTutors = () => {
                 course={tutor?.specialization}
                 gender={tutor?.sex}
                 imageUrl={tutor?.profileImage}
-                link={index}
+                link={tutor?.name.split(" ")[0]}
               />
             </Skeleton>
           ))}

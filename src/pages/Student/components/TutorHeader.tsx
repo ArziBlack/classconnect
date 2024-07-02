@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Text, Box, Flex, Image, Button, SkeletonText } from "@chakra-ui/react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { TEMPLATE } from "../../../constants/image";
 import ChakraModal from "../../../components/ChakraModal";
 import { useAppDispatch } from "../../../hooks/reactReduxHooks";
 import { acceptRecommendation } from "../../../services/student/studentThunks";
@@ -11,9 +10,10 @@ interface TutorHeaderProps {
   subtext: string;
   loading: boolean;
   spec: string;
+  pic: string;
 }
 
-const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec }) => {
+const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec, pic }) => {
   const dispatch = useAppDispatch();
   const [confirmation, setConfirmation] = useState(false);
   const handleChooseTutor = () => {
@@ -24,7 +24,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec
     <Flex maxW={"700px"} justify={"space-between"}>
       <Box>
         <Flex gap={6} align={"center"} h={"fit-content"}>
-          <SkeletonText isLoaded={loading}>
+          <SkeletonText isLoaded={!loading}>
             <Text
               fontSize={"22px"}
               fontWeight={500}
@@ -49,7 +49,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec
             TUTOR
           </Text>
         </Flex>
-        <SkeletonText isLoaded={loading}>
+        <SkeletonText isLoaded={!loading}>
           <Text
             fontSize={"14px"}
             fontWeight={500}
@@ -90,7 +90,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec
           CHOOSE TUTOR
         </Text>
       </Box>
-      <Image borderRadius="full" boxSize="160px" src={TEMPLATE} alt="Avatar" />
+      <Image borderRadius="full" boxSize="160px" src={pic} alt="Avatar" />
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
         <Flex
           bg={"#023248"}

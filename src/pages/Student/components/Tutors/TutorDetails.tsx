@@ -9,13 +9,13 @@ const links = [{ to: "", label: "About Me" }];
 
 export const TutorDetails = () => {
   const { tutorId } = useParams();
-  const { myTutors, isLoading } = useAppSelector((state) => state.student);
+  const { approvedTutors, isLoading } = useAppSelector((state) => state.student);
   const [tutor, setTutor] = useState<IMyTutor>(null);
   useEffect(()=> {
-    if (myTutors) {
-      setTutor(myTutors?.data?.find((_, idx:number) => idx === parseInt(tutorId)));
+    if (approvedTutors) {
+      setTutor(approvedTutors?.data?.find((item:IMyTutor) => tutorId === item.name.split(" ")[0]));
     }
-  },[myTutors, tutorId]);
+  },[approvedTutors, tutorId]);
   return (
     <div>
       <TutorHeader
@@ -23,6 +23,7 @@ export const TutorDetails = () => {
         subtext={tutor?.introduction}
         loading={isLoading}
         spec={tutor?.specialization}
+        pic={tutor?.profileImage}
       />
       <BreadCrumb links={links} />
     </div>
