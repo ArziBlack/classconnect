@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, Image, Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LiaBookOpenSolid } from "react-icons/lia";
 import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
 
@@ -10,6 +10,7 @@ interface TutorCardProps {
   course: string;
   gender: string;
   imageUrl: string;
+  link: string;
 }
 
 export const TutorCard: React.FC<TutorCardProps> = ({
@@ -18,6 +19,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
   course,
   gender,
   imageUrl,
+  link
 }) => {
   const navigate = useNavigate();
 
@@ -98,9 +100,11 @@ export const TutorCard: React.FC<TutorCardProps> = ({
         transition="transform 0.3s ease-in-out"
         transform="translateY(100%)"
       >
-        <Button colorScheme="teal" onClick={() => alert("Tutor chosen!")}>
-          Choose Tutor
-        </Button>
+        <Link to={`tutors/${link}`}>
+          <Button borderRadius={0} color="black" colorScheme="green" onClick={() => alert("Tutor Details!")}>
+            See Details
+          </Button>
+        </Link>
       </Box>
     </Box>
   );

@@ -83,6 +83,9 @@ function AppContent() {
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />}>
           <Route index element={<MyTutors />} />
+          <Route path="/:tutorId" element={<TutorDetails />}>
+            <Route index element={<AboutMe />} />
+          </Route>
           <Route path="approved" element={<Approved />} />
           <Route path="recommended" element={<Recommended />} />
           <Route path="completed" element={<Started />} />
@@ -92,9 +95,6 @@ function AppContent() {
           <Route path="started" element={<Started />} />
           <Route path="ongoing" element={<OnGoing />} />
           <Route path="completed" element={<Completed />} />
-        </Route>
-        <Route path="tutor-details" element={<TutorDetails />}>
-          <Route index element={<AboutMe />} />
         </Route>
 
         <Route path="detailed" element={<CourseDetails />}>

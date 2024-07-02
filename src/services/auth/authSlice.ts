@@ -99,6 +99,7 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+// Verify a Signed up Student or Guardian before login
 export const emailVerify = createAsyncThunk("auth/verify", async({studentId, uniqueString}: IVerify, thunkAPI)=> {
   try {
     return await authService.verify({studentId, uniqueString});

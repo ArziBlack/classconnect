@@ -9,16 +9,23 @@ import { ImMail4 } from "react-icons/im";
 import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import { emailVerify } from "../services/auth/authSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EmailV = () => {
     const dispatch = useAppDispatch();
     const { studentId, uniqueString } = useParams();
-    const { message, isSuccess } = useAppSelector(star => star.auth);
+    const navigate = useNavigate();
+    const { message, isSuccess, isError } = useAppSelector(star => star.auth);
     console.log(message, isSuccess);
     useEffect(() => {
         dispatch(emailVerify({ studentId, uniqueString }));
-    }, [dispatch, studentId, uniqueString]);
+        if (isSuccess) {
+            navigate("/student");
+        }
+        if (isError) {
+            console.log(message, isSuccess);
+        }
+    }, [dispatch, studentId, uniqueString, isSuccess, navigate, isError, message]);
     return (
         <>
             <Container maxW={"3xl"}>
@@ -32,7 +39,7 @@ const EmailV = () => {
                         <ImMail4 size={200} color='#002c8a' />
                     </Center>
                     <Text fontWeight="bold" fontSize="3xl" color={"gray.800"}>
-                        Check your email to verify your account!
+                        We are trying to verify your Account!
                     </Text>
                     <Center>
                         <Text w="90%" fontWeight="bold" fontSize="lg" color={"gray.600"}>
