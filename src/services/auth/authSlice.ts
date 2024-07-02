@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import authService, { ILoginParams } from "./authService";
-import { IRegister } from "../../typings/signup";
+import { IRegister, IVerify } from "../../typings/signup";
 
 export interface IResponse {
   statusCode: number;
@@ -98,6 +98,19 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+export const emailVerify = createAsyncThunk("auth/verify", async({studentId, uniqueString}: IVerify, thunkAPI)=> {
+  try {
+    return await authService.verify({studentId, uniqueString});
+  } catch (err) {
+    const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+  }
+})
 
 export const getToken = createAsyncThunk("auth/token", async () => {
   const token = localStorage.getItem("token");
@@ -196,7 +209,21 @@ const authSlice = createSlice({
       .addCase(getToken.rejected, (state) => {
         state.isLoading = false;
         state.message = "Error Loading Token";
-      });
+      })
+      .addCase(emailVerify.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(emailVerify.fulfilled, (state, action)=> {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(emailVerify.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "An Error Occurred!!";
+        });
   },
 });
 

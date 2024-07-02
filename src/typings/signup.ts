@@ -121,3 +121,8 @@ export const guardianInit = {
   agreement_status: true,
   student_phoneNum: null,
 };
+
+export interface IVerify {
+  studentId: string;
+  uniqueString: string;
+}

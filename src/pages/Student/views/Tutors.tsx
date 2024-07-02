@@ -15,7 +15,7 @@ export const Tutors = () => {
   useEffect(()=> {
     document.title = "HEP Tutors - Student";
     dispatch(getApprovedTutors());
-  },[]);
+  },[dispatch]);
 
   return (
     <>

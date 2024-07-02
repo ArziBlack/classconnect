@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRegister } from "../../typings/signup";
+import { IRegister, IVerify } from "../../typings/signup";
 import { authLogger, resetLogger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
@@ -39,8 +39,8 @@ const login = async (formData: ILoginParams) => {
 };
 
 // Verify Student or Guardian
-const verify = async () => {
-  const response = await axios.post(`${API_BASE_URL}/student/verify`);
+const verify = async ({studentId, uniqueString}:IVerify) => {
+  const response = await axios.post(`${API_BASE_URL}/student/verify/${studentId}/${uniqueString}`);
   if (response.data) {
     resetLogger("An Email verification", "Verification");
   }

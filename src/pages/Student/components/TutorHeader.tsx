@@ -3,14 +3,20 @@ import { Text, Box, Flex, Image, Button } from "@chakra-ui/react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { TEMPLATE } from "../../../constants/image";
 import ChakraModal from "../../../components/ChakraModal";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { acceptRecommendation } from "../../../services/student/studentThunks";
 
 interface TutorHeaderProps {
-  title: string;
+  title: string; 
   subtext: string;
 }
 
-const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext }) => {
+const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext }) => { 
+  const dispatch = useAppDispatch();
   const [confirmation, setConfirmation] = useState(false);
+  const handleChooseTutor = ()=> {
+    dispatch(acceptRecommendation({tutorId:"tutorId", studentId:"studentId"}))
+  }
 
   return (
     <Flex maxW={"700px"} justify={"space-between"}>

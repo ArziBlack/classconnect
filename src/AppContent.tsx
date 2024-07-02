@@ -39,6 +39,7 @@ import { OnGoing } from "./pages/Student/components/Courses/OnGoing";
 import { Completed } from "./pages/Student/components/Courses/Completed";
 import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
 import AboutMe from "./pages/Student/components/Tutors/AboutMe";
+import EmailV from "./pages/EmailV";
 
 function AppContent() {
   const location = useLocation();
@@ -118,10 +119,11 @@ function AppContent() {
       </Route>
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
+      <Route path="email-verify/:studentId/:uniqueString" element={<EmailV />} />
       <Route path="reset-check" element={<CheckReset />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }
 
-export default AppContent;
+export default AppContent; 
