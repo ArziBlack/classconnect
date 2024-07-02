@@ -19,6 +19,7 @@ export const Approved = () => {
               course={tutor?.specialization}
               gender={tutor?.sex}
               imageUrl={tutor?.profileImage}
+              link={index}
             />
           </Skeleton>
         ))}

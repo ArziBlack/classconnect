@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, Image, Button } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LiaBookOpenSolid } from "react-icons/lia";
 import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
 
@@ -10,7 +10,7 @@ interface TutorCardProps {
   course: string;
   gender: string;
   imageUrl: string;
-  link: string;
+  link: number;
 }
 
 export const TutorCard: React.FC<TutorCardProps> = ({
@@ -21,7 +21,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
   imageUrl,
   link
 }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const getGenderIcon = (gender: string) => {
     return gender === "Female" ? (
@@ -43,7 +43,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
       bg="#254f62"
       color="white"
       cursor={"pointer"}
-      onClick={() => navigate("/student/tutor-details")}
+      // onClick={() => navigate("/student/tutor-details")}
       border={"1px solid #5E7079"}
       overflow="hidden"
       _hover={{ ".overlay": { transform: "translateY(0)" } }}
@@ -100,7 +100,7 @@ export const TutorCard: React.FC<TutorCardProps> = ({
         transition="transform 0.3s ease-in-out"
         transform="translateY(100%)"
       >
-        <Link to={`tutors/${link}`}>
+        <Link to={`/student/tutors/${link}`}>
           <Button borderRadius={0} color="black" colorScheme="green" onClick={() => alert("Tutor Details!")}>
             See Details
           </Button>

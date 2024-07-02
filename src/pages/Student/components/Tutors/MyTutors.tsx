@@ -6,6 +6,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
+import { IMyTutor } from "../../../../typings/student";
 
 export const MyTutors = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ export const MyTutors = () => {
     <Box className="text-white" textAlign="center">
       {myTutors?.data?.length ? (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-          {myTutors.data.map((tutor, index) => (
+          {myTutors.data.map((tutor:IMyTutor, index:number) => (
             <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>
               <TutorCard
                 name={tutor?.name}

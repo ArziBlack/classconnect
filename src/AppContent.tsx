@@ -83,7 +83,7 @@ function AppContent() {
         <Route index element={<StudentHome />} />
         <Route path="tutors" element={<Tutors />}>
           <Route index element={<MyTutors />} />
-          <Route path="tutors/:tutorId" element={<TutorDetails />}>
+          <Route path=":tutorId" element={<TutorDetails />}>
             <Route index element={<AboutMe />} />
           </Route>
           <Route path="approved" element={<Approved />} />
