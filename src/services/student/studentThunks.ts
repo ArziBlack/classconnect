@@ -27,7 +27,7 @@ export const getApprovedTutors = createAsyncThunk<
     if (response.data) {
       logger("Approved Tutors", response?.data?.data, "Tutors");
     }
-    return response.data; 
+    return response.data;
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
     const error = err.response?.data?.message || "An unknown error occurred";
@@ -261,7 +261,7 @@ export const getAllCourses = createAsyncThunk<
   try {
     const token = localStorage.getItem("token")?.trim()?.toString();
 
-    const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
+    const response = await axios.get(`${API_BASE_URL}/getAllCourses`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
