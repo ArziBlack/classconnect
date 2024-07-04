@@ -17,7 +17,7 @@ export const ProfileDetails = () => {
   const [first_name, setFirstName] = useState(data?.first_name);
   const [last_name, setLastName] = useState(data?.last_name);
   const [email, ] = useState(data?.email);
-  const [phone, setPhone] = useState<number>(+2349037289192);
+  const [phone, setPhone] = useState<number>(parseInt(data?.phoneNum));
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
 
