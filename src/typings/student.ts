@@ -23,6 +23,8 @@ export interface IMyTutor {
     sex: string;
     country: string;
     profileImage: string;
+    chooseButtonUrl: string;
+    status: string;
 }
 
 export interface IMyTutorsResponse {

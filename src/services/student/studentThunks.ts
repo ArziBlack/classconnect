@@ -15,7 +15,9 @@ import axiosInstance from "../../app/axios";
 import { logger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
+// interface URL {
 
+// }
 export const getApprovedTutors = createAsyncThunk<
   ITutorApiResponse,
   void,
@@ -27,7 +29,7 @@ export const getApprovedTutors = createAsyncThunk<
     if (response.data) {
       logger("Approved Tutors", response?.data?.data, "Tutors");
     }
-    return response.data; 
+    return response.data;
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
     const error = err.response?.data?.message || "An unknown error occurred";
@@ -91,12 +93,11 @@ export const getTrxState = createAsyncThunk<
 // Choose a Tutor
 export const chooseTutor = createAsyncThunk<
   IRecommendationResponse,
-  { tutorId: string; studentId: string },
+  { url: string },
   { rejectValue: string }
 >(
   "student/chooseTutor",
-  async (
-    { tutorId, studentId }: { tutorId: string; studentId: string },
+  async ({ url },
     thunkAPI
   ) => {
     try {
@@ -104,7 +105,7 @@ export const chooseTutor = createAsyncThunk<
       const token = state.auth.token;
 
       const response = await axios.post(
-        `${API_BASE_URL}/chooseTutor/${tutorId}/${studentId}`,
+        `${url}`,
         {},
         {
           headers: {

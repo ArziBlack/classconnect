@@ -16,6 +16,7 @@ export const TutorDetails = () => {
       setTutor(approvedTutors?.data?.find((item:IMyTutor) => tutorId === item.name.split(" ")[0]));
     }
   },[approvedTutors, tutorId]);
+  console.log(tutor);
   return (
     <div>
       <TutorHeader
@@ -24,6 +25,7 @@ export const TutorDetails = () => {
         loading={isLoading}
         spec={tutor?.specialization}
         pic={tutor?.profileImage}
+        url={tutor?.chooseButtonUrl}
       />
       <BreadCrumb links={links} />
     </div>
