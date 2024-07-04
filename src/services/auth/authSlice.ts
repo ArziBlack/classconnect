@@ -7,6 +7,14 @@ import { IRegister, IVerify } from "../../typings/signup";
 export interface IResponse {
   statusCode: number;
   status?: string;
+  email:string;
+  first_name: string;
+  last_name:string;
+  note: string;
+  paymentPlan: string;
+  profileImage: string;
+  phoneNum: string;
+  classType: string;
   message: string;
   greeting?: string;
   error?: string;

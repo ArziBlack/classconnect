@@ -10,11 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
+import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 export const ProfileDetails = () => {
-  const [firstName, setFirstName] = useState("Favor");
-  const [lastName, setLastName] = useState("Cliton");
-  const [email, ] = useState("Cliton@gmail.com");
+  const { data } = useAppSelector(sam => sam.auth);
+  const [first_name, setFirstName] = useState(data?.first_name);
+  const [last_name, setLastName] = useState(data?.last_name);
+  const [email, ] = useState(data?.email);
   const [phone, setPhone] = useState<number>(+2349037289192);
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
@@ -47,7 +49,7 @@ export const ProfileDetails = () => {
           <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
             <Box className="relative">
               <Avatar
-                src={profileImage || "https://via.placeholder.com/150"}
+                src={data?.profileImage || "https://via.placeholder.com/150" || profileImage}
                 size="2xl"
                 h={"165px"}
                 w={"165px"}
@@ -80,7 +82,7 @@ export const ProfileDetails = () => {
                 First Name
               </label>
               <Input
-                value={firstName}
+                value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
@@ -93,7 +95,7 @@ export const ProfileDetails = () => {
                 Last Name
               </label>
               <Input
-                value={lastName}
+                value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
