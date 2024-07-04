@@ -40,6 +40,7 @@ import { Completed } from "./pages/Student/components/Courses/Completed";
 import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
 import AboutMe from "./pages/Student/components/Tutors/AboutMe";
 import EmailV from "./pages/EmailV";
+import PrivateRoute from "./utils/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();
@@ -79,44 +80,45 @@ function AppContent() {
         <Route path="courses" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
-      <Route path="/student" element={<StudentLayout />}>
-        <Route index element={<StudentHome />} />
-        <Route path="tutors" element={<Tutors />}>
-          <Route index element={<MyTutors />} />
-          <Route path="approved" element={<Approved />} />
-          <Route path="recommended" element={<Recommended />} />
-          <Route path="completed" element={<Started />} />
+      
+      <Route path="/student" element={<PrivateRoute />}>
+        <Route element={<StudentLayout />}>
+          <Route index element={<StudentHome />} />
+          <Route path="tutors" element={<Tutors />}>
+            <Route index element={<MyTutors />} />
+            <Route path="approved" element={<Approved />} />
+            <Route path="recommended" element={<Recommended />} />
+            <Route path="completed" element={<Started />} />
+          </Route>
+          <Route path="tutors/:tutorId" element={<TutorDetails />}>
+            <Route index element={<AboutMe />} />
+          </Route>
+          <Route path="courses" element={<MyCourses />}>
+            <Route index element={<Browse />} />
+            <Route path="started" element={<Started />} />
+            <Route path="ongoing" element={<OnGoing />} />
+            <Route path="completed" element={<Completed />} />
+          </Route>
+          <Route path="detailed" element={<CourseDetails />}>
+            <Route index element={<Content />} />
+            <Route path="details" element={<Details />} />
+          </Route>
+          <Route path="profile" element={<Profile />}>
+            <Route index element={<ProfileDetails />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="tuition-fee" element={<TuitionFee />} />
+            <Route path="invite" element={<Invite />} />
+            <Route path="become-a-tutor" element={<BecomeTutor />} />
+          </Route>
+          <Route path="assessments" element={<Assessment />}>
+            <Route index element={<PersonalAssessments />} />
+            <Route path="general-assessments" element={<GeneralAssessments />} />
+          </Route>
+          <Route path="assessment" element={<Assessment />} />
+          <Route path="billing" element={<Billing />} />
         </Route>
-        <Route path="tutors/:tutorId" element={<TutorDetails />}>
-          <Route index element={<AboutMe />} />
-        </Route>
-        <Route path="courses" element={<MyCourses />}>
-          <Route index element={<Browse />} />
-          <Route path="started" element={<Started />} />
-          <Route path="ongoing" element={<OnGoing />} />
-          <Route path="completed" element={<Completed />} />
-        </Route>
-
-        <Route path="detailed" element={<CourseDetails />}>
-          <Route index element={<Content />} />
-          <Route path="details" element={<Details />} />
-        </Route>
-
-        <Route path="profile" element={<Profile />}>
-          <Route index element={<ProfileDetails />} />
-          <Route path="notification" element={<Notification />} />
-          <Route path="tuition-fee" element={<TuitionFee />} />
-          <Route path="invite" element={<Invite />} />
-          <Route path="become-a-tutor" element={<BecomeTutor />} />
-        </Route>
-        <Route path="assessments" element={<Assessment />}>
-          <Route index element={<PersonalAssessments />} />
-          <Route path="general-assessments" element={<GeneralAssessments />} />
-        </Route>
-
-        <Route path="assessment" element={<Assessment />} />
-        <Route path="billing" element={<Billing />} />
       </Route>
+
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
       <Route path="email-verify/:studentId/:uniqueString" element={<EmailV />} />
@@ -126,4 +128,4 @@ function AppContent() {
   );
 }
 
-export default AppContent; 
+export default AppContent;

@@ -1,9 +1,14 @@
-import React from 'react'
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../hooks/reactReduxHooks';
 
-const ProtectedRoute = () => {
-  return (
-    <div>ProtectedRoute</div>
-  )
+export default function PrivateRoute() {
+    const location = useLocation();
+    const { data } = useAppSelector((store) => store.auth);
+    const isUserLoggedIn = localStorage.getItem('token') !== null || data;
+
+    return isUserLoggedIn ? (
+        <Outlet />
+    ) : (
+        <Navigate to="/signin" state={{ from: location }} replace />
+    );
 }
-
-export default ProtectedRoute
