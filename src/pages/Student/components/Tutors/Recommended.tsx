@@ -60,6 +60,7 @@ export const Recommended = () => {
             course={tutor.course}
             gender={tutor.gender}
             imageUrl={tutor.imageUrl}
+            link={""}
           />
         ))}
       </SimpleGrid>

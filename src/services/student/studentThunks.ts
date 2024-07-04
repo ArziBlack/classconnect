@@ -262,7 +262,7 @@ export const getAllCourses = createAsyncThunk<
   try {
     const token = localStorage.getItem("token")?.trim()?.toString();
 
-    const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
+    const response = await axios.get(`${API_BASE_URL}/getAllCourses`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
