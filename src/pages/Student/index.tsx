@@ -15,6 +15,8 @@ import {
   TUTORS,
 } from "../../constants/icon";
 import { TEMPLATE } from "../../constants/image";
+import { logout } from "../../services/auth/authSlice";
+import { useAppDispatch } from "../../hooks/reactReduxHooks";
 
 type NavProps = {
   to: string;
@@ -70,6 +72,13 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
 };
 
 const SideBarNav: FC = () => {
+  const dispatch = useAppDispatch();
+  const handleLogout = ()=> {
+    dispatch(logout());
+    setTimeout(()=> {
+      // navigate("/");
+    },1500);
+  }
   return (
     <Flex
       w={"full"}
@@ -96,7 +105,7 @@ const SideBarNav: FC = () => {
         <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
       </Flex>
-      <Flex>
+      <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
       </Flex>
     </Flex>

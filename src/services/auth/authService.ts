@@ -34,12 +34,12 @@ const login = async (formData: ILoginParams) => {
     localStorage.setItem("user", JSON.stringify(response.data));
     localStorage.setItem("token", response.data.token);
   }
-  
+
   return response.data;
 };
 
 // Verify Student or Guardian
-const verify = async ({studentId, uniqueString}:IVerify) => {
+const verify = async ({ studentId, uniqueString }: IVerify) => {
   const response = await axios.post(`${API_BASE_URL}/student/verify/${studentId}/${uniqueString}`);
   if (response.data) {
     resetLogger("An Email verification", "Verification");
@@ -58,6 +58,11 @@ const resetPassword = async (email) => {
   }
   return response.data;
 };
+
+export const logout = async () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("data");
+}
 
 const authService = {
   register,
