@@ -3,7 +3,7 @@ import CButton from "../../../components/Button";
 
 export const Billing = () => {
   return (
-    <div className="flex w-full items-center pr-5 gap-5">
+    <div className="flex w-full items-start pr-5 gap-5">
       <div className="w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
         <h2 className="py-2 text-white text-lg font-[600]">Billing Details</h2>
         <div className="flex flex-col text-white py-2 text-sm">
@@ -32,18 +32,30 @@ export const Billing = () => {
         </div>
         <CButton text="Pay Now" />
       </div>
-      <div className="w-1/3 bg-[#255E78]">
-        <div className="flex flex-col p-3">
-          <h2>Your Plan</h2>
-          <div className="flex items-center justify-between w-full">
-            <div>
-            <img alt="plan"/>
+      <div className="w-1/3">
+        <div className="flex flex-col p-3 bg-[#023248] rounded-md text-white">
+          <h2 className="font-[600] py-3">Your Plan</h2>
+          <div className="flex items-center justify-between w-full font-light text-sm py-3">
+            <div className="flex items-center">
+              <div className="h-[70px] w-[70px] bg-[#255E78]">
+                <img alt="plan" />
+              </div>
+              <span className="ml-1">Yearly Plan</span>
             </div>
-            <div></div>
+            <div className="flex">
+              <span>$100,000/</span>
+              <span>year</span>
+            </div>
           </div>
-          <div></div>
+          <div className="flex items-center justify-between py-4 border-t border-[#255E78] font-[600]">
+            <span>Total</span>
+            <span>N100,000</span>
+          </div>
         </div>
         <div className="flex flex-col p-3"></div>
+      </div>
+      <div className="bg-[#023248] rounded-md flex flex-col h-full p-5 my-4 justify-between">
+        <h2>Purchase History</h2>
       </div>
     </div>
   );
