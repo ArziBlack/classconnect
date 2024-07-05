@@ -1,5 +1,6 @@
 import React from "react";
 import CButton from "../../../components/Button";
+import { FaArrowDown } from "react-icons/fa";
 
 export const Billing = () => {
   return (
@@ -56,6 +57,20 @@ export const Billing = () => {
       </div>
       <div className="bg-[#023248] rounded-md flex flex-col h-full p-5 my-4 justify-between">
         <h2>Purchase History</h2>
+        <div className="flex flex-col">
+          <div className="bg-[#255E78] rounded-md">
+            <div>
+              <span>21st June, 2024 at 11:30 PM</span>
+              <div>
+                <div></div>
+                <span></span>
+              </div>
+            </div>
+            <div>
+              <FaArrowDown/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
