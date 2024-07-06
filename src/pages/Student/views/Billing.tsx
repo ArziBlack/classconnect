@@ -1,6 +1,6 @@
 import React from "react";
 import CButton from "../../../components/Button";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaBook } from "react-icons/fa";
 
 export const Billing = () => {
   return (
@@ -33,7 +33,7 @@ export const Billing = () => {
         </div>
         <CButton text="Pay Now" />
       </div>
-      <div className="w-1/3">
+      <div className="w-1/3 flex flex-col h-full">
         <div className="flex flex-col p-3 bg-[#023248] rounded-md text-white">
           <h2 className="font-[600] py-3">Your Plan</h2>
           <div className="flex items-center justify-between w-full font-light text-sm py-3">
@@ -54,20 +54,53 @@ export const Billing = () => {
           </div>
         </div>
         <div className="flex flex-col p-3"></div>
-      </div>
-      <div className="bg-[#023248] rounded-md flex flex-col h-full p-5 my-4 justify-between">
-        <h2>Purchase History</h2>
-        <div className="flex flex-col">
-          <div className="bg-[#255E78] rounded-md">
-            <div>
-              <span>21st June, 2024 at 11:30 PM</span>
-              <div>
-                <div></div>
-                <span></span>
+        <div className="bg-[#023248] rounded-md flex flex-col h-full py-5 px-3 my-4 justify-between text-white">
+          <h2 className="text-sm py-2">Purchase History</h2>
+          <div className="flex flex-col py-4">
+            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+              <div className="flex flex-col text-sm font-[100]">
+                <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                <div className="flex items-center py-1 font-[100] text-xs">
+                  <div className="flex items-center pr-2">
+                    <FaBook />
+                    <span className="pl-2">Yearly Plan</span>
+                  </div>
+                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+              </div>
+              <div className="p-2 rounded-md bg-[#2E799C]">
+                <FaArrowDown />
               </div>
             </div>
-            <div>
-              <FaArrowDown/>
+            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+              <div className="flex flex-col text-sm font-[100]">
+                <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                <div className="flex items-center py-1 font-[100] text-xs">
+                  <div className="flex items-center pr-2">
+                    <FaBook />
+                    <span className="pl-2">Yearly Plan</span>
+                  </div>
+                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+              </div>
+              <div className="p-2 rounded-md bg-[#2E799C]">
+                <FaArrowDown />
+              </div>
+            </div>
+            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+              <div className="flex flex-col text-sm font-[100]">
+                <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                <div className="flex items-center py-1 font-[100] text-xs">
+                  <div className="flex items-center pr-2">
+                    <FaBook />
+                    <span className="pl-2">Yearly Plan</span>
+                  </div>
+                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+              </div>
+              <div className="p-2 rounded-md bg-[#2E799C]">
+                <FaArrowDown />
+              </div>
             </div>
           </div>
         </div>

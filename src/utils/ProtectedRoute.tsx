@@ -6,7 +6,7 @@ export default function PrivateRoute() {
     const { data } = useAppSelector((store) => store.auth);
     const isUserLoggedIn = localStorage.getItem('token') !== null || data;
 
-    return !isUserLoggedIn ? (
+    return isUserLoggedIn ? (
         <Outlet />
     ) : (
         <Navigate to="/signin" state={{ from: location }} replace />
