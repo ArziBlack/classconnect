@@ -128,7 +128,7 @@ export const Billing = () => {
         >{isLoading ? <CircularProgress /> : (<>
           <Text color={"white"}>{trxResponse ? "You will be redirected to another page to make your payment" : "Please re-initiate payment: An error occured"}</Text>
           <Flex gap={8} justify={"center"} mt={4}>
-            {!trxResponse && <Button>Yes </Button>}
+            {trxResponse && <Button>Redirect Me</Button>}
             <Button onClick={() => { setConfirmation(false); !trxResponse && handlePayment() }}>{trxResponse ? "Ok" : "No"}</Button>
           </Flex></>)}
         </Flex>
