@@ -1,8 +1,19 @@
 import React from "react";
 import CButton from "../../../components/Button";
 import { FaArrowDown, FaBook } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { initiateTrx } from "../../../services/student/studentThunks";
+import ChakraModal from "../../../components/ChakraModal";
+import { Flex } from "@chakra-ui/layout";
+import { Button, CircularProgress, Text } from "@chakra-ui/react";
 
 export const Billing = () => {
+  const diapatch = useAppDispatch();
+  const { isLoading, trxResponse } = useAppSelector(app => app.student);
+  const [confirmation, setConfirmation] = React.useState<boolean>(false);
+  async function handlePayment() {
+    await diapatch(initiateTrx())
+  }
   return (
     <div className="flex w-full items-start pr-5 gap-5">
       <div className="w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
@@ -31,7 +42,7 @@ export const Billing = () => {
             <span>Paystack</span>
           </div>
         </div>
-        <CButton text="Pay Now" />
+        <CButton text="Pay Now" onClick={handlePayment} />
       </div>
       <div className="w-1/3 flex flex-col h-full">
         <div className="flex flex-col p-3 bg-[#023248] rounded-md text-white">
@@ -105,6 +116,20 @@ export const Billing = () => {
           </div>
         </div>
       </div>
+      <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
+        <Flex
+          bg={"#023248"}
+          flexDirection={"column"}
+          borderRadius={"12px"}
+          padding={10}
+        >{isLoading ? <CircularProgress /> : (<>
+          <Text color={"white"}>{trxResponse ? "You will be redirected to another page to make your payment" : "Please re-initiate payment: An error occured"}</Text>
+          <Flex gap={8} justify={"center"} mt={4}>
+            {!trxResponse && <Button>Yes </Button>}
+            <Button onClick={() => setConfirmation(false)}>{trxResponse ? "Ok" : "No"}</Button>
+          </Flex></>)}
+        </Flex>
+      </ChakraModal>
     </div>
   );
 };
