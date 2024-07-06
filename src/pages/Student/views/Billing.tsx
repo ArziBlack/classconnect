@@ -14,8 +14,11 @@ export const Billing = () => {
   async function handlePayment() {
     await diapatch(initiateTrx())
   }
+  React.useEffect(() => {
+    diapatch(initiateTrx())
+  }, [diapatch]);
   return (
-    <div className="flex w-full items-start pr-5 gap-5">
+    <div className="flex w-full items-start pr-5 gap-5 relative">
       <div className="w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
         <h2 className="py-2 text-white text-lg font-[600]">Billing Details</h2>
         <div className="flex flex-col text-white py-2 text-sm">
@@ -42,7 +45,7 @@ export const Billing = () => {
             <span>Paystack</span>
           </div>
         </div>
-        <CButton text="Pay Now" onClick={handlePayment} />
+        <CButton text="Pay Now" onClick={() => { setConfirmation(true); !trxResponse && handlePayment() }} />
       </div>
       <div className="w-1/3 flex flex-col h-full">
         <div className="flex flex-col p-3 bg-[#023248] rounded-md text-white">
@@ -126,7 +129,7 @@ export const Billing = () => {
           <Text color={"white"}>{trxResponse ? "You will be redirected to another page to make your payment" : "Please re-initiate payment: An error occured"}</Text>
           <Flex gap={8} justify={"center"} mt={4}>
             {!trxResponse && <Button>Yes </Button>}
-            <Button onClick={() => setConfirmation(false)}>{trxResponse ? "Ok" : "No"}</Button>
+            <Button onClick={() => { setConfirmation(false); !trxResponse && handlePayment() }}>{trxResponse ? "Ok" : "No"}</Button>
           </Flex></>)}
         </Flex>
       </ChakraModal>
