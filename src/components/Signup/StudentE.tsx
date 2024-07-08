@@ -1,14 +1,16 @@
-import CButton from "../Button";
+import { useState } from "react";
 import { Box, Flex, FormLabel, Select } from "@chakra-ui/react";
+import CButton from "../Button";
 import MultipleSelectDropdown from "../Dropdown";
 import { IStudentProps } from "../../typings/home";
-import { useState } from "react";
+import { useAppSelector } from "../../hooks/reactReduxHooks";
 
 const StudentE = ({
   onClick,
   onChange,
   handleClassTimeOptionsChange,
 }: IStudentProps) => {
+  const { home } = useAppSelector(dat => dat.other);
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -21,11 +23,11 @@ const StudentE = ({
     "Sunday 8:00pm - 10:00pm WAT",
   ];
 
-  const courses: Array<string> = [
-    "FRONTEND DEVELOPMENT",
-    "BACKEND DEVELOPMENT",
-    "CLOUD ENGINEERING",
-  ];
+  // const courses: Array<string> = [
+  //   "FRONTEND DEVELOPMENT",
+  //   "BACKEND DEVELOPMENT",
+  //   "CLOUD ENGINEERING",
+  // ];
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
@@ -54,9 +56,9 @@ const StudentE = ({
           placeholder="Select a Course"
           className="capitalize"
         >
-          {courses.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item.toLowerCase()}
+          {home?.courses?.map((item, idx) => (
+            <option key={idx} value={item.title}>
+              {item?.title?.toLowerCase()}
             </option>
           ))}
         </Select>

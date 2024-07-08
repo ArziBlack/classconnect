@@ -1,4 +1,4 @@
-import CButton from "../Button";
+import { useState } from "react";
 import {
   Box,
   FormControl,
@@ -7,9 +7,10 @@ import {
   Select,
   Flex,
 } from "@chakra-ui/react";
-import { IGuardianProps } from "../../typings/home";
+import CButton from "../Button";
 import MultipleSelectDropdown from "../Dropdown";
-import { useState } from "react";
+import { IGuardianProps } from "../../typings/home";
+import { useAppSelector } from "../../hooks/reactReduxHooks";
 
 const GuardianE = ({
   data,
@@ -17,6 +18,7 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
+  const { home } = useAppSelector(from => from.other);
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -27,12 +29,6 @@ const GuardianE = ({
     "Sunday 10:00am - 12:00noon WAT",
     "Sunday 5:00pm - 7:00pm WAT",
     "Sunday 8:00pm - 10:00pm WAT",
-  ];
-
-  const courses: Array<string> = [
-    "FRONTEND DEVELOPMENT",
-    "BACKEND DEVELOPMENT",
-    "CLOUD ENGINEERING",
   ];
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -75,10 +71,11 @@ const GuardianE = ({
           mb="1px"
           name="course"
           placeholder="Select a Course"
+          className="capitalize"
         >
-          {courses.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item}
+          {home?.courses?.map((item, idx) => (
+            <option key={idx} value={item?.title}>
+              {item?.title?.toLowerCase()}
             </option>
           ))}
         </Select>

@@ -80,7 +80,6 @@ const StudentD: React.FC<IStudentProps> = ({
               label="State"
               type="text"
               onChange={onChange}
-              showPasswordToggle
               value={data.state}
               placeholder="Enter state"
             />
