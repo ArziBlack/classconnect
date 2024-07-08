@@ -66,7 +66,7 @@ export interface IAcceptnRejectResponse {
     message: string;
 }
 
-interface ICourseData {
+export interface ICourseData {
     title: string;
     description: string;
     curriculum: string;

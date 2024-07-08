@@ -93,6 +93,10 @@ function AppContent() {
           <Route path="tutors/:tutorId" element={<TutorDetails />}>
             <Route index element={<AboutMe />} />
           </Route>
+          <Route path="courses/:courseId" element={<CourseDetails />}>
+            <Route index element={<Content />} />
+            <Route path="description" element={<Details />} />
+          </Route>
           <Route path="courses" element={<MyCourses />}>
             <Route index element={<Browse />} />
             <Route path="started" element={<Started />} />

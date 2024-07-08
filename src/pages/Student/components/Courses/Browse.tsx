@@ -15,6 +15,7 @@ export const Browse = () => {
             description={item.description}
             difficulty="Beginner"
             lessons="5 Lessons"
+            link={item?.title?.split(" ")[0]}
           />
         </Skeleton>
       ))}

@@ -16,7 +16,6 @@ export const TutorDetails = () => {
       setTutor(approvedTutors?.data?.find((item:IMyTutor) => tutorId === item.name.split(" ")[0]));
     }
   },[approvedTutors, tutorId]);
-  console.log(tutor);
   return (
     <div>
       <TutorHeader

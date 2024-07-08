@@ -1,20 +1,30 @@
-import { Flex, Box, Text, List, ListItem, ListIcon } from "@chakra-ui/react";
+import { Flex, Box, Text, List, ListItem, ListIcon, SkeletonText } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { useEffect, useState } from "react";
+import { ICourseData } from "../../../../typings/student";
+import { useParams } from "react-router-dom";
 
 export const Details = () => {
+  const { allCoursesResponse, isLoading } = useAppSelector(app => app.student);
+  const { courseId } = useParams();
+  const [course, setCourse] = useState<ICourseData>(null);
+  useEffect(() => {
+    if (allCoursesResponse) {
+      setCourse(allCoursesResponse?.message?.find((item: ICourseData) => courseId === item.title.split(" ")[0]));
+    }
+  }, [allCoursesResponse, courseId]);
   return (
     <Flex color="white" width={"700px"}>
       <Box color="white">
         <Text fontSize="xl" mb={4} fontWeight={700}>
           Description
         </Text>
-        <Text mb={4} fontSize={"14px"} opacity={0.8}>
-          The Front-End Engineering course is designed to provide you with the
-          essential skills and knowledge needed to build dynamic, responsive,
-          and visually appealing web applications. Whether you are a beginner or
-          looking to enhance your existing skills, this course covers everything
-          you need to become proficient in front-end development.
-        </Text>
+        <SkeletonText isLoaded={!isLoading}>
+          <Text mb={4} fontSize={"14px"} opacity={0.8}>
+            {course?.description}
+          </Text>
+        </SkeletonText>
         <Text fontSize="xl" mb={2} fontWeight={700}>
           Here's a detailed look of what you will get
         </Text>
