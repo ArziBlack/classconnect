@@ -17,6 +17,7 @@ import {
 import { TEMPLATE } from "../../constants/image";
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
+import { useAppSelector } from "../../hooks/reactReduxHooks";
 
 type NavProps = {
   to: string;
@@ -73,12 +74,12 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
 
 const SideBarNav: FC = () => {
   const dispatch = useAppDispatch();
-  const handleLogout = ()=> {
+  const handleLogout = () => {
     dispatch(logout());
-    setTimeout(()=> {
+    setTimeout(() => {
       // navigate("/");
-    },1500);
-  }
+    }, 1500);
+  };
   return (
     <Flex
       w={"full"}
@@ -114,6 +115,7 @@ const SideBarNav: FC = () => {
 
 const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+  const { data } = useAppSelector((state) => state.auth);
 
   return (
     <Flex
@@ -156,9 +158,14 @@ const MainView: FC = () => {
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
           <IoMdNotificationsOutline fontSize={"25px"} color="white" />
-          <Image w={"40px"} h={"40px"} src={TEMPLATE} borderRadius={"50%"} />
+          <Image
+            w={"40px"}
+            h={"40px"}
+            src={data.profileImage}
+            borderRadius={"50%"}
+          />
           <Text fontSize={"12px"} color="#ffffff">
-            Favour Oge
+            {data.first_name + " " + data.last_name}
           </Text>
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>

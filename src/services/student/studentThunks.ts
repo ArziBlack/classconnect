@@ -66,7 +66,7 @@ export const initiateTrx = createAsyncThunk<
   { rejectValue: string }
 >("student/initiateTrx", async (_, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/initiateTransaction`);
+    const response = await axiosInstance.get(`/initiateTransaction`);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -95,32 +95,27 @@ export const chooseTutor = createAsyncThunk<
   IRecommendationResponse,
   { url: string },
   { rejectValue: string }
->(
-  "student/chooseTutor",
-  async ({ url },
-    thunkAPI
-  ) => {
-    try {
-      const state = thunkAPI.getState() as IRootState;
-      const token = state.auth.token;
+>("student/chooseTutor", async ({ url }, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState() as IRootState;
+    const token = state.auth.token;
 
-      const response = await axios.post(
-        `${url}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await axios.post(
+      `${url}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-      return response.data;
-    } catch (err) {
-      const error = err.response ? err.response.data : err.message;
-      return thunkAPI.rejectWithValue(error);
-    }
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
 // get General Assessment
 export const getGeneralAssessment = createAsyncThunk<
