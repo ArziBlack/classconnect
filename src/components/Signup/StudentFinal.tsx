@@ -127,6 +127,7 @@ const StudentFinal = ({
             className="hidden"
             onChange={handleFileChange}
             accept="image/png, image/jpg, image/jpeg"
+            // value={imgUrl}
           />
         </div>
       </div>

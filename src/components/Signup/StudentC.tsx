@@ -40,6 +40,7 @@ const StudentC = ({ data, onChange, onClick }: IStudentProps) => {
             mb="1px"
             name="sex"
             placeholder="Select a Gender"
+            value={data.sex}
           >
             {gender.map((item, idx) => (
               <option key={idx} value={item.value}>

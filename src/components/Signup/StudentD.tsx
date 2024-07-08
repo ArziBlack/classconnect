@@ -42,6 +42,7 @@ const StudentD: React.FC<IStudentProps> = ({
               onChange(e);
             }}
             placeholder="Select a country"
+            value={data.country}
           >
             {/* <option>{selectedCountry}</option> */}
             <option>{selectedCountry?.userCountryCode}</option>
@@ -65,6 +66,7 @@ const StudentD: React.FC<IStudentProps> = ({
                 name="state"
                 onChange={onChange}
                 placeholder="Select a state"
+                value={data.state}
               >
                 {states.map((item, idx) => (
                   <option value={item.value} key={idx}>

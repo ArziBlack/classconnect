@@ -4,7 +4,7 @@ import { IStudentProps } from "../../typings/home";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
 import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 
-const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
+const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
   const { fees } = useAppSelector(from => from.other);
   const [paymentPlan, setPaymentPlan] = useState<{ key: string, value: string }[]>([]);
   const [selectedClass, setSelectedClass] = useState('');
@@ -34,10 +34,11 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
           mb="1px"
           placeholder="Select a Class Type"
           className="capitalize"
+          value={data?.class_type?.replace(/_/g, ' ')}
         >
           {classKeys?.map((item, idx) => (
             <option key={idx} value={item}>
-              {item.replace(/_/g, ' ')}
+              {item?.replace(/_/g, ' ')}
             </option>
           ))}
         </Select>
@@ -53,6 +54,7 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
           placeholder="Select a Payment plan"
           className="capitalize"
           disabled={!selectedClass}
+          value={selectedClass && data?.payment_plan?.replace(/_/g, ' ')}
         >
           {selectedClass &&
           paymentPlan.map((plan, idx) => (

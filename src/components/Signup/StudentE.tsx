@@ -6,6 +6,7 @@ import { IStudentProps } from "../../typings/home";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
 
 const StudentE = ({
+  data,
   onClick,
   onChange,
   handleClassTimeOptionsChange,
@@ -49,6 +50,7 @@ const StudentE = ({
           name="course"
           placeholder="Select a Course"
           className="capitalize"
+          value={data.course}
         >
           {home?.courses?.map((item, idx) => (
             <option key={idx} value={item.title}>
