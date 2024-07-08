@@ -5,13 +5,14 @@ import CollegeLevel from "../components/CollegeLevel";
 import Career from "../components/Career";
 import HeroMaster from "../components/HeroMaster";
 import GoodPricing from "../components/GoodPricing";
-import { getHomeResponse } from "../services/others/otherSlice";
+import { getHomeResponse, getTuitionFees } from "../services/others/otherSlice";
 import { useAppDispatch } from "../hooks/reactReduxHooks";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   React.useEffect(()=> {
     dispatch(getHomeResponse());
+    dispatch(getTuitionFees());
   },[])
 
   return (

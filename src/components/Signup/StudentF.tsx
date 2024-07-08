@@ -1,16 +1,34 @@
 import CButton from "../Button";
-import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
+import { FC, useState, ChangeEvent } from "react";
 import { IStudentProps } from "../../typings/home";
-import { FC } from "react";
+import { useAppSelector } from "../../hooks/reactReduxHooks";
+import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 
-const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
-  const payment_plan: Array<string> = [
-    "monthly",
-    "quarterly",
-    "half_yearly",
-    "yearly",
-  ];
-  const class_type: Array<string> = ["class_of_1", "class_of_5", "class_of_10"];
+const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
+  const { fees } = useAppSelector(from => from.other);
+  const [, setPaymentPlan] = useState([]);
+  const [selectedClass, setSelectedClass] = useState('');
+  console.log(fees?.tuition_fees)
+  console.log(fees?.tuition_fees[data.class_type])
+  const getClassKeys = (fees) => {
+    if (fees?.tuition_fees) {
+      return Object.keys(fees.tuition_fees);
+    }
+    return [];
+  };
+  // const payment_plan: Array<string> = [
+  //   "monthly",
+  //   "quarterly",
+  //   "half_yearly",
+  //   "yearly",
+  // ];
+  // const class_type: Array<string> = ["class_of_1", "class_of_5", "class_of_10"];
+  const classKeys = getClassKeys(fees);
+  const handleClassChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selected = event.target.value;
+    setSelectedClass(selected);
+    setPaymentPlan(Object.keys(fees?.tuition_fees[selected]));
+  };
   return (
     <>
       <Box w="100%" mb={3}>
@@ -19,11 +37,11 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
         </FormLabel>
         <Select
           name="class_type"
-          onChange={onChange}
+          onChange={(e) => { onChange(e), handleClassChange(e) }}
           mb="1px"
           placeholder="Select a Class Type"
         >
-          {class_type.map((item, idx) => (
+          {classKeys?.map((item, idx) => (
             <option key={idx} value={item}>
               {item}
             </option>
@@ -39,8 +57,9 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
           onChange={onChange}
           mb="1px"
           placeholder="Select a Payment plan"
+          disabled={!selectedClass}
         >
-          {payment_plan.map((item, idx) => (
+          {fees?.tuition_fees[data.class_type]?.map((item, idx) => (
             <option key={idx} value={item}>
               {item}
             </option>

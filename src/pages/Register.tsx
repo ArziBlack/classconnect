@@ -45,7 +45,8 @@ import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((store) => store.other);
+  const { isLoading, fees } = useAppSelector((store) => store.other);
+  console.log(fees);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 

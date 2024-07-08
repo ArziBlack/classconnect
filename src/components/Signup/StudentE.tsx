@@ -23,12 +23,6 @@ const StudentE = ({
     "Sunday 8:00pm - 10:00pm WAT",
   ];
 
-  // const courses: Array<string> = [
-  //   "FRONTEND DEVELOPMENT",
-  //   "BACKEND DEVELOPMENT",
-  //   "CLOUD ENGINEERING",
-  // ];
-
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   return (
