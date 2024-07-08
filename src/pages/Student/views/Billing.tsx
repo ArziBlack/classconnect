@@ -10,13 +10,22 @@ import { Button, CircularProgress, Text } from "@chakra-ui/react";
 export const Billing = () => {
   const diapatch = useAppDispatch();
   const { isLoading, trxResponse } = useAppSelector(app => app.student);
+  const { data } = useAppSelector(from => from.auth);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
   async function handlePayment() {
     await diapatch(initiateTrx())
   }
+  // async function checkPaymentStat(){
+  //   await diapatch(getTrxState())
+  // }
   React.useEffect(() => {
     diapatch(initiateTrx())
   }, [diapatch]);
+
+  const handleButtonClick = () => {
+    const url = trxResponse.transactionURL;
+    window.open(url, "_blank");
+  };
   return (
     <div className="flex w-full items-start pr-5 gap-5 relative">
       <div className="w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
@@ -24,19 +33,19 @@ export const Billing = () => {
         <div className="flex flex-col text-white py-2 text-sm">
           <div className="flex flex-col items-start py-1">
             <label className="py-1 font-light">First Name</label>
-            <input type="text" placeholder="First Name....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" />
+            <input type="text" placeholder="First Name....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" value={data.first_name} readOnly/>
           </div>
           <div className="flex flex-col items-start py-1">
             <label className="py-1 font-light">Last Name</label>
-            <input type="text" placeholder="Last Name....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" />
+            <input type="text" placeholder="Last Name....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" value={data.last_name} readOnly/>
           </div>
           <div className="flex flex-col items-start py-1">
             <label className="py-1 font-light">Phone Number</label>
-            <input type="number" placeholder="Phone....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" />
+            <input type="number" placeholder="Phone....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" value={data.phoneNum} readOnly />
           </div>
           <div className="flex flex-col items-start py-1">
             <label className="py-1 font-light">Email</label>
-            <input type="number" placeholder="Your Email....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" />
+            <input type="number" placeholder="Your Email....." className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md" value={data.email} readOnly/>
           </div>
         </div>
         <div className="bg-[#fff] w-full flex flex-col py-2 px-1 rounded-md font-light text-xs">
@@ -55,7 +64,7 @@ export const Billing = () => {
               <div className="h-[70px] w-[70px] bg-[#255E78]">
                 <img alt="plan" />
               </div>
-              <span className="ml-1">Yearly Plan</span>
+              <span className="ml-1">{data.paymentPlan.replace(/_/g, ' ')}</span>
             </div>
             <div className="flex">
               <span>$100,000/</span>
@@ -77,7 +86,7 @@ export const Billing = () => {
                 <div className="flex items-center py-1 font-[100] text-xs">
                   <div className="flex items-center pr-2">
                     <FaBook />
-                    <span className="pl-2">Yearly Plan</span>
+                    <span className="pl-2 capitalize">{data.paymentPlan.replace(/_/g, ' ')}</span>
                   </div>
                   <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                 </div>
@@ -92,7 +101,7 @@ export const Billing = () => {
                 <div className="flex items-center py-1 font-[100] text-xs">
                   <div className="flex items-center pr-2">
                     <FaBook />
-                    <span className="pl-2">Yearly Plan</span>
+                    <span className="pl-2">{data.paymentPlan.replace(/_/g, ' ')}</span>
                   </div>
                   <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                 </div>
@@ -107,7 +116,7 @@ export const Billing = () => {
                 <div className="flex items-center py-1 font-[100] text-xs">
                   <div className="flex items-center pr-2">
                     <FaBook />
-                    <span className="pl-2">Yearly Plan</span>
+                    <span className="pl-2">{data.paymentPlan.replace(/_/g, ' ')}</span>
                   </div>
                   <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                 </div>
@@ -128,7 +137,7 @@ export const Billing = () => {
         >{isLoading ? <CircularProgress /> : (<>
           <Text color={"white"}>{trxResponse ? "You will be redirected to another page to make your payment" : "Please re-initiate payment: An error occured"}</Text>
           <Flex gap={8} justify={"center"} mt={4}>
-            {trxResponse && <Button>Redirect Me</Button>}
+            {trxResponse && <Button onClick={handleButtonClick} className="hover:border hover:border-black">Redirect Me</Button>}
             <Button onClick={() => { setConfirmation(false); !trxResponse && handlePayment() }}>{trxResponse ? "Cancel" : "Ok"}</Button>
           </Flex></>)}
         </Flex>
