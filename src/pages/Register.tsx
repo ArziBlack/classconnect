@@ -106,13 +106,6 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
 
   function nextPage(page: string) {
     setPage(page);
-    // if (formData.password !== null || guardianData.password !== null) {
-    //   if (formData.password !== formData.confirm_password) {
-    //     toast({ title: "Password", description: "Passwords do not match" });
-    //   }
-    // } else {
-    //   null;
-    // }
   }
 
   const nextPageIndex = (pageIndex: string) => {

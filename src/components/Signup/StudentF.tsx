@@ -4,30 +4,23 @@ import { IStudentProps } from "../../typings/home";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
 import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 
-const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
+const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
   const { fees } = useAppSelector(from => from.other);
-  const [, setPaymentPlan] = useState([]);
+  const [paymentPlan, setPaymentPlan] = useState<{ key: string, value: string }[]>([]);
   const [selectedClass, setSelectedClass] = useState('');
-  console.log(fees?.tuition_fees)
-  console.log(fees?.tuition_fees[data.class_type])
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
     }
     return [];
   };
-  // const payment_plan: Array<string> = [
-  //   "monthly",
-  //   "quarterly",
-  //   "half_yearly",
-  //   "yearly",
-  // ];
-  // const class_type: Array<string> = ["class_of_1", "class_of_5", "class_of_10"];
+ 
   const classKeys = getClassKeys(fees);
   const handleClassChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selected = event.target.value;
     setSelectedClass(selected);
-    setPaymentPlan(Object.keys(fees?.tuition_fees[selected]));
+    const selectedClassPlans = fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
+    setPaymentPlan(Object.entries(selectedClassPlans).map(([key, value]) => ({ key, value })));
   };
   return (
     <>
@@ -40,10 +33,11 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
           onChange={(e) => { onChange(e), handleClassChange(e) }}
           mb="1px"
           placeholder="Select a Class Type"
+          className="capitalize"
         >
           {classKeys?.map((item, idx) => (
             <option key={idx} value={item}>
-              {item}
+              {item.replace(/_/g, ' ')}
             </option>
           ))}
         </Select>
@@ -57,11 +51,13 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
           onChange={onChange}
           mb="1px"
           placeholder="Select a Payment plan"
+          className="capitalize"
           disabled={!selectedClass}
         >
-          {fees?.tuition_fees[data.class_type]?.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item}
+          {selectedClass &&
+          paymentPlan.map((plan, idx) => (
+            <option key={idx} value={plan.key}>
+              {`${plan.key.replace(/_/g, ' ')}: ${plan.value}`}
             </option>
           ))}
         </Select>

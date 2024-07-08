@@ -6,9 +6,8 @@ import { useAppSelector } from "../../hooks/reactReduxHooks";
 
 const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
   const { fees } = useAppSelector(from => from.other);
-  const [, setPaymentPlan] = useState([]);
+  const [paymentPlan, setPaymentPlan] = useState<{ key: string, value: string }[]>([]);
   const [selectedClass, setSelectedClass] = useState('');
-  console.log(fees?.tuition_fees);
   console.log(fees?.tuition_fees[data.class_type]);
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
@@ -16,22 +15,13 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
     }
     return [];
   };
-  // const payment_plan: Array<string> = [
-  //   "monthly_payment",
-  //   "quarterly_payment",
-  //   "half_yearly_payment",
-  //   "yearly_payment",
-  // ];
-  // const class_type: Array<string> = [
-  //   "class of One",
-  //   "class of Five",
-  //   "class of Ten",
-  // ];
+  
   const classKeys = getClassKeys(fees);
   const handleClassChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selected = event.target.value;
     setSelectedClass(selected);
-    setPaymentPlan(Object.keys(fees?.tuition_fees[selected]));
+    const selectedClassPlans = fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
+    setPaymentPlan(Object.entries(selectedClassPlans).map(([key, value]) => ({ key, value })));
   };
   return (
     <>
@@ -44,10 +34,11 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
           onChange={(e) => { onChange(e), handleClassChange(e) }}
           mb="1px"
           placeholder="Select a Class Type"
+          className="capitalize"
         >
           {classKeys?.map((item, idx) => (
             <option key={idx} value={item}>
-              {item}
+              {item.replace(/_/g, ' ')}
             </option>
           ))}
         </Select>
@@ -61,11 +52,13 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
           onChange={onChange}
           mb="1px"
           placeholder="Select a Payment plan"
+          className="capitalize"
           disabled={!selectedClass}
         >
-          {fees?.tuition_fees[data.class_type]?.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item}
+          {selectedClass &&
+          paymentPlan.map((plan, idx) => (
+            <option key={idx} value={plan.key}>
+              {`${plan.key.replace(/_/g, ' ')}: ${plan.value}`}
             </option>
           ))}
         </Select>

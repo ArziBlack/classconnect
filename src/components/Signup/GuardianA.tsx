@@ -6,6 +6,7 @@ import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
 
 const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
+  const { parent_name, parent_phoneNum, student_email } = data;
   return (
     <>
       <Box w="100%" mb={3}>
@@ -52,6 +53,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
           w={"full"}
           text="Next"
           onClick={() => onClick("pagetwo")}
+          isDisabled={parent_name === "" || parent_phoneNum === null || student_email === ""}
         />
       </Flex>
     </>

@@ -1,14 +1,16 @@
+import { useState } from "react";
 import { IStudentProps } from "../../typings/home";
 import CButton from "../Button";
 import InputField from "../Input";
 import { Box, Flex } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const PasswordStrengthBar = ({ password }) => {
   const testResult = zxcvbn(password);
   const num = (testResult.score * 100) / 4;
-
+  
   const createPassLabel = () => {
     switch (testResult.score) {
       case 0:
@@ -25,6 +27,14 @@ const PasswordStrengthBar = ({ password }) => {
         return "";
     }
   };
+
+//  function checkTestRes(){
+//     if (createPassLabel() !== "Strong"){
+//       return false;
+//     } else {
+//       return createPassLabel()
+//     }
+//   }
 
   const progressColor = () => {
     switch (testResult.score) {
@@ -49,6 +59,7 @@ const PasswordStrengthBar = ({ password }) => {
     height: "5px",
   });
 
+
   return (
     <div className="mt-[10px]">
       <div
@@ -65,49 +76,63 @@ const PasswordStrengthBar = ({ password }) => {
 };
 
 const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
-  return (
-    <>
-      <Box w="100%" mb={3}>
-        <InputField
-          id="Password"
-          name="password"
-          label="Password"
-          type="password"
-          onChange={onChange}
-          showPasswordToggle
-          value={data.password}
-          icon={IoLockClosedOutline}
-          placeholder="************"
-        />
-        <PasswordStrengthBar password={data.password} />
-      </Box>
-      <Box w="100%" mb={6}>
-        <InputField
-          id="Password2"
-          label="Confirm Password"
-          type="password"
-          showPasswordToggle
-          value={data.confirm_password}
-          icon={IoLockClosedOutline}
-          placeholder="************"
-        />
-        <Flex gap={5}>
-          <CButton
-            my={3}
-            w={"full"}
-            text="Back"
-            onClick={() => onClick("pageone")}
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const { password } = data;
+  const toast = useCustomToast();
+  const checkPassword = () => {
+    if (password === "" || confirmPassword === "") {
+      toast("Please enter password and confirm password", "error");
+      return false;
+    }else if (password !== confirmPassword ) {
+          toast("Passwords do not Match", "error");
+          return false;
+    } else {
+      onClick("pagethree");
+    }
+  }
+    return (
+      <>
+        <Box w="100%" mb={3}>
+          <InputField
+            id="Password"
+            name="password"
+            label="Password"
+            type="password"
+            onChange={onChange}
+            showPasswordToggle
+            value={data.password}
+            icon={IoLockClosedOutline}
+            placeholder="************"
           />
-          <CButton
-            my={3}
-            w={"full"}
-            text="Next"
-            onClick={() => onClick("pagethree")}
+          <PasswordStrengthBar password={data.password} />
+        </Box>
+        <Box w="100%" mb={6}>
+          <InputField
+            id="Password2"
+            label="Confirm Password"
+            type="password"
+            showPasswordToggle
+            onChange={(e)=> setConfirmPassword(e.target.value)}
+            icon={IoLockClosedOutline}
+            placeholder="************"
           />
-        </Flex>
-      </Box>
-    </>
-  );
-};
+          <Flex gap={5}>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Back"
+              onClick={() => onClick("pageone")}
+            />
+            <CButton
+              my={3}
+              w={"full"}
+              text="Next"
+              onClick={() => checkPassword()}
+            />
+          </Flex>
+        </Box>
+      </>
+    );
+  };
 
-export default StudentB;
+  export default StudentB;

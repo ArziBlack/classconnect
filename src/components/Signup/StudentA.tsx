@@ -7,6 +7,7 @@ import { IStudentProps } from "../../typings/home";
 // import { ISalutation } from "../../typings/signup";
 
 const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
+const { first_name, last_name, student_email} = data;
   return (
     <>
       <Box w="100%" mb={3}>
@@ -52,6 +53,7 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
           w={"full"}
           text="Next"
           onClick={() => onClick("pagetwo")}
+          isDisabled={!first_name || !last_name || !student_email}
         />
       </Flex>
     </>
