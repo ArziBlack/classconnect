@@ -60,8 +60,6 @@ const initialState: AuthState = {
 export const register = createAsyncThunk(
   "auth/signup",
   async ({ URI, data }: IRegister, thunkAPI) => {
-    console.log("URI :", URI, "Data : ", data);
-
     try {
       return await authService.register({ URI, data });
     } catch (err) {

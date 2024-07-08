@@ -30,6 +30,16 @@ export const CourseCard: React.FC<CardProps> = ({
 
   const navigate = useNavigate();
 
+  const truncateDescription = (
+    description: string,
+    maxLength: number = 140
+  ) => {
+    if (description.length <= maxLength) {
+      return description;
+    }
+    return `${description.substring(0, maxLength)}...`;
+  };
+
   return (
     <Box
       width={"100%"}
@@ -48,7 +58,7 @@ export const CourseCard: React.FC<CardProps> = ({
         {title?.toLocaleLowerCase()}
       </Text>
       <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
-        {description}
+        {truncateDescription(description)}
       </Text>
       <Flex
         pt={4}

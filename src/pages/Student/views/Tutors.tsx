@@ -5,17 +5,16 @@ import { useAppDispatch } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "", label: "My Tutors" },
-  { to: "approved", label: "Approved Tutors" },
-  { to: "recommended", label: "Recommended Tutors" },
+  { to: "", label: "All Tutors" },
+  { to: "my-tutors", label: "My Tutors" },
 ];
 
 export const Tutors = () => {
   const dispatch = useAppDispatch();
-  useEffect(()=> {
+  useEffect(() => {
     document.title = "HEP Tutors - Student";
     dispatch(getApprovedTutors());
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <>

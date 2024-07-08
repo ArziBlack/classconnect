@@ -82,7 +82,7 @@ export const getTrxState = createAsyncThunk<
   { rejectValue: string }
 >("student/getTrxState", async (_, thunkAPI) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/paystack/success`);
+    const response = await axiosInstance.get("/paystack/success");
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;

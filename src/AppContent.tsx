@@ -80,13 +80,13 @@ function AppContent() {
         <Route path="courses" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
-      
+
       <Route path="/student" element={<PrivateRoute />}>
         <Route element={<StudentLayout />}>
           <Route index element={<StudentHome />} />
           <Route path="tutors" element={<Tutors />}>
-            <Route index element={<MyTutors />} />
-            <Route path="approved" element={<Approved />} />
+            <Route index element={<Approved />} />
+            <Route path="my-tutors" element={<MyTutors />} />
             <Route path="recommended" element={<Recommended />} />
             <Route path="completed" element={<Started />} />
           </Route>
@@ -112,7 +112,10 @@ function AppContent() {
           </Route>
           <Route path="assessments" element={<Assessment />}>
             <Route index element={<PersonalAssessments />} />
-            <Route path="general-assessments" element={<GeneralAssessments />} />
+            <Route
+              path="general-assessments"
+              element={<GeneralAssessments />}
+            />
           </Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="billing" element={<Billing />} />
@@ -121,7 +124,10 @@ function AppContent() {
 
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
-      <Route path="email-verify/:studentId/:uniqueString" element={<EmailV />} />
+      <Route
+        path="email-verify/:studentId/:uniqueString"
+        element={<EmailV />}
+      />
       <Route path="reset-check" element={<CheckReset />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>

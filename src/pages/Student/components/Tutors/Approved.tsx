@@ -11,8 +11,8 @@ export const Approved = () => {
   return (
     <Box className="text-white ">
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-        {approvedTutors?.data?.map((tutor:IMyTutor, index:number) => (
-          <Skeleton borderRadius={20} isLoaded={!isLoading}>
+        {approvedTutors?.data?.map((tutor: IMyTutor, index: number) => (
+          <Skeleton borderRadius={"md"} isLoaded={!isLoading}>
             <TutorCard
               key={index}
               name={tutor?.name}
