@@ -1,5 +1,11 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { useEffect } from "react";
+import {
+  getGeneralAssessment,
+  getPersonalAssessment,
+} from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "Personal Assessments" },
@@ -7,6 +13,11 @@ const links = [
 ];
 
 export const Assessment = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getPersonalAssessment());
+    dispatch(getGeneralAssessment());
+  }, [dispatch]);
   return (
     <>
       <ViewHeader
