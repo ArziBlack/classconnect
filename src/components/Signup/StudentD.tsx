@@ -3,10 +3,16 @@ import { Box, Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { states } from "../../typings/states";
 import { IStudentProps } from "../../typings/home";
+import InputField from "../Input";
 
-const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
+const StudentD: React.FC<IStudentProps> = ({
+  data,
+  onClick,
+  onChange,
+  setFormData,
+}) => {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -15,9 +21,7 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
       .then((response) => response.json())
       .then((data) => {
         setCountries(data.countries);
-        console.log(data.countries);
-        setSelectedCountry(data.userSelectValue);
-        console.log(data.userSelectValue);
+        console.log("Data Country: ", data.countries);
       });
   }, []);
 
@@ -30,14 +34,20 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
           </FormLabel>
           <Select
             name="country"
-            onChange={onChange}
+            onChange={(e) => {
+              setFormData((prevState) => ({
+                ...prevState,
+                state: "",
+              }));
+              onChange(e);
+            }}
             placeholder="Select a country"
           >
             {/* <option>{selectedCountry}</option> */}
             <option>{selectedCountry?.userCountryCode}</option>
             {countries &&
               countries?.map((country, idx) => (
-                <option key={idx} value={country.value}>
+                <option key={idx} value={country.label.split(" ")[1]}>
                   {country.label}
                 </option>
               ))}
@@ -46,16 +56,35 @@ const StudentD: React.FC<IStudentProps> = ({ onClick, onChange }) => {
       </Box>
       <Box w="100%" mb={3}>
         <FormControl>
-          <FormLabel fontWeight="bold" fontSize="15px">
-            State
-          </FormLabel>
-          <Select name="state" onChange={onChange} placeholder="Select a state">
-            {states.map((item, idx) => (
-              <option value={item.value} key={idx}>
-                {item.label}
-              </option>
-            ))}
-          </Select>
+          {data.country === "Nigeria" ? (
+            <>
+              <FormLabel fontWeight="bold" fontSize="15px">
+                State
+              </FormLabel>
+              <Select
+                name="state"
+                onChange={onChange}
+                placeholder="Select a state"
+              >
+                {states.map((item, idx) => (
+                  <option value={item.value} key={idx}>
+                    {item.label}
+                  </option>
+                ))}
+              </Select>
+            </>
+          ) : (
+            <InputField
+              id="state"
+              name="state"
+              label="State"
+              type="text"
+              onChange={onChange}
+              showPasswordToggle
+              value={data.state}
+              placeholder="Enter state"
+            />
+          )}
         </FormControl>
       </Box>
       <Flex gap={5}>

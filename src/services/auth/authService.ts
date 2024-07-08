@@ -13,6 +13,7 @@ export interface ILoginParams {
 const register = async ({ URI, data }: IRegister) => {
   const headers = {
     "Content-Type": "multipart/form-data",
+    Accept: "*/*",
   };
   const response = await axios.post(`${URI}`, data, { headers: headers });
   return response.data;
@@ -40,7 +41,9 @@ const login = async (formData: ILoginParams) => {
 
 // Verify Student or Guardian
 const verify = async ({ studentId, uniqueString }: IVerify) => {
-  const response = await axios.post(`${API_BASE_URL}/student/verify/${studentId}/${uniqueString}`);
+  const response = await axios.post(
+    `${API_BASE_URL}/student/verify/${studentId}/${uniqueString}`
+  );
   if (response.data) {
     resetLogger("An Email verification", "Verification");
   }
@@ -62,7 +65,7 @@ const resetPassword = async (email) => {
 export const logout = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("data");
-}
+};
 
 const authService = {
   register,

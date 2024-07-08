@@ -22,14 +22,14 @@ const MultipleSelectDropdown = ({
   maxSelections,
   onChange,
   selectedOptions,
-  setSelectedOptions
+  setSelectedOptions,
 }: IMultipleSelectDropdownProps) => {
-  
-
   const handleToggle = (option: string) => {
     let updatedSelectedOptions: string[];
     if (selectedOptions.includes(option)) {
-      updatedSelectedOptions = selectedOptions.filter((item) => item !== option);
+      updatedSelectedOptions = selectedOptions.filter(
+        (item) => item !== option
+      );
     } else if (selectedOptions.length < maxSelections) {
       updatedSelectedOptions = [...selectedOptions, option];
     } else {
@@ -44,7 +44,7 @@ const MultipleSelectDropdown = ({
   const isLimitReached = selectedOptions.length >= maxSelections;
   return (
     <Menu closeOnSelect={false}>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} fontWeight={400}>
         Select Options
       </MenuButton>
       <MenuList>

@@ -84,10 +84,8 @@ const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
       <Box w="100%" mb={6}>
         <InputField
           id="Password2"
-          name="password2"
           label="Confirm Password"
           type="password"
-          onChange={onChange}
           showPasswordToggle
           value={data.confirm_password}
           icon={IoLockClosedOutline}

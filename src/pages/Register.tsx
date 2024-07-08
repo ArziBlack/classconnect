@@ -206,6 +206,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
 
+  console.log(formData);
+
   return (
     <>
       <Modal
@@ -400,6 +402,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                               pagefour: (
                                 <StudentD
                                   data={formData}
+                                  setFormData={setFormData}
                                   onChange={onChange}
                                   onClick={nextPage}
                                 />

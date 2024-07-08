@@ -15,23 +15,6 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
     <>
       <Box w="100%" mb={3}>
         <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
-          Payment Plan
-        </FormLabel>
-        <Select
-          name="payment_plan"
-          onChange={onChange}
-          mb="1px"
-          placeholder="Select a Payment plan"
-        >
-          {payment_plan.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item}
-            </option>
-          ))}
-        </Select>
-      </Box>
-      <Box w="100%" mb={3}>
-        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
           Class Type
         </FormLabel>
         <Select
@@ -47,6 +30,24 @@ const StudentF: FC<IStudentProps> = ({ onClick, onChange }) => {
           ))}
         </Select>
       </Box>
+      <Box w="100%" mb={3}>
+        <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+          Payment Plan
+        </FormLabel>
+        <Select
+          name="payment_plan"
+          onChange={onChange}
+          mb="1px"
+          placeholder="Select a Payment plan"
+        >
+          {payment_plan.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
+          ))}
+        </Select>
+      </Box>
+
       <Flex gap={5}>
         <CButton
           my={3}

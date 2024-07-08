@@ -1,12 +1,5 @@
 import CButton from "../Button";
-import {
-  Box,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-} from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Select } from "@chakra-ui/react";
 import MultipleSelectDropdown from "../Dropdown";
 import { IStudentProps } from "../../typings/home";
 import { useState } from "react";
@@ -14,7 +7,6 @@ import { useState } from "react";
 const StudentE = ({
   onClick,
   onChange,
-  data,
   handleClassTimeOptionsChange,
 }: IStudentProps) => {
   const maxSelections = 4;
@@ -51,21 +43,6 @@ const StudentE = ({
           setSelectedOptions={setSelectedOptions}
         />
       </Box>
-      <FormControl mt={4}>
-        <FormLabel fontWeight="bold" fontSize="15px">
-          Date of Birth
-        </FormLabel>
-        <Input
-          type="date"
-          name="dateOfBirth"
-          value={
-            data.dateOfBirth
-              ? new Date(data.dateOfBirth).toISOString().split("T")[0]
-              : ""
-          }
-          onChange={onChange}
-        />
-      </FormControl>
       <Box w="100%" mb={3}>
         <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
           Course
@@ -75,10 +52,11 @@ const StudentE = ({
           mb="1px"
           name="course"
           placeholder="Select a Course"
+          className="capitalize"
         >
           {courses.map((item, idx) => (
             <option key={idx} value={item}>
-              {item}
+              {item.toLowerCase()}
             </option>
           ))}
         </Select>

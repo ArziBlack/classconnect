@@ -7,9 +7,9 @@ import { IRegister, IVerify } from "../../typings/signup";
 export interface IResponse {
   statusCode: number;
   status?: string;
-  email:string;
+  email: string;
   first_name: string;
-  last_name:string;
+  last_name: string;
   note: string;
   paymentPlan: string;
   profileImage: string;
@@ -20,7 +20,9 @@ export interface IResponse {
   error?: string;
 }
 
-const data: IResponse | null = JSON.parse(localStorage.getItem("user") || "null");
+const data: IResponse | null = JSON.parse(
+  localStorage.getItem("user") || "null"
+);
 const jwt: string | null = localStorage.getItem("token")?.trim();
 
 if (data) {
@@ -58,8 +60,10 @@ const initialState: AuthState = {
 export const register = createAsyncThunk(
   "auth/signup",
   async ({ URI, data }: IRegister, thunkAPI) => {
+    console.log("URI :", URI, "Data : ", data);
+
     try {
-      return await authService.register({URI, data});
+      return await authService.register({ URI, data });
     } catch (err) {
       const error = err as AxiosError;
       const message =
@@ -108,18 +112,21 @@ export const resetPassword = createAsyncThunk(
 );
 
 // Verify a Signed up Student or Guardian before login
-export const emailVerify = createAsyncThunk("auth/verify", async({studentId, uniqueString}: IVerify, thunkAPI)=> {
-  try {
-    return await authService.verify({studentId, uniqueString});
-  } catch (err) {
-    const error = err as AxiosError;
+export const emailVerify = createAsyncThunk(
+  "auth/verify",
+  async ({ studentId, uniqueString }: IVerify, thunkAPI) => {
+    try {
+      return await authService.verify({ studentId, uniqueString });
+    } catch (err) {
+      const error = err as AxiosError;
       const message =
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
       return thunkAPI.rejectWithValue(message);
+    }
   }
-})
+);
 
 export const getToken = createAsyncThunk("auth/token", async () => {
   const token = localStorage.getItem("token");
@@ -223,7 +230,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
       })
-      .addCase(emailVerify.fulfilled, (state, action)=> {
+      .addCase(emailVerify.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.message = action.payload;
@@ -232,7 +239,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = "An Error Occurred!!";
-        });
+      });
   },
 });
 

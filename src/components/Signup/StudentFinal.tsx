@@ -63,8 +63,10 @@ const StudentFinal = ({
   };
 
   const handleSubmit = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     if (validateGuardianData(data)) {
-      const resultAction = await dispatch(register({URI, data}));
+      const resultAction = await dispatch(register({ URI, data }));
 
       if (register.fulfilled.match(resultAction)) {
         showToast(
