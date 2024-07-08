@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Flex, Text, Icon, Image, Skeleton } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import moment from "moment";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../hooks/reactReduxHooks";
-import { getGeneralAssessment } from "../../../../services/student/studentThunks";
+import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 function truncateString(str, maxLength) {
   if (str.length > maxLength) {
@@ -59,10 +55,12 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
 };
 
 const AssessmentList = () => {
-  const { generalAssessment, isLoading } = useAppSelector(
+  const { generalAssessment, isLoading, error } = useAppSelector(
     (state) => state.student
   );
   const [selectedId, setSelectedId] = useState(null);
+
+  console.log(error?.message);
 
   const handleNotificationClick = (index) => {
     setSelectedId(index === selectedId ? null : index);
@@ -70,19 +68,27 @@ const AssessmentList = () => {
 
   return (
     <div className="w-full grid grid-cols-2">
-      <div className="overflow-y-scroll h-[400px] no-scrollbar">
-        {generalAssessment?.data?.map((assess, index) => (
-          <Skeleton borderRadius={20} isLoaded={isLoading}>
-            <div onClick={() => handleNotificationClick(index)} key={index}>
-              <AssessmentItem
-                type={assess.type}
-                date={assess.Date}
-                isSelected={index === selectedId}
-              />
-            </div>
-          </Skeleton>
-        ))}
-      </div>
+      {!error ? (
+        <div className="overflow-y-scroll h-[400px] no-scrollbar">
+          {generalAssessment?.data?.map((assess, index) => (
+            <Skeleton borderRadius={20} isLoaded={isLoading}>
+              <div onClick={() => handleNotificationClick(index)} key={index}>
+                <AssessmentItem
+                  type={assess.type}
+                  date={assess.Date}
+                  isSelected={index === selectedId}
+                />
+              </div>
+            </Skeleton>
+          ))}
+        </div>
+      ) : (
+        <Box p={8}>
+          <Text fontWeight="bold">{error?.message?.split(".")[0]}</Text>
+          <Text fontWeight="bold">{error?.message?.split(".")[1]}</Text>
+          <Text fontWeight="bold">{error?.message?.split(".")[2]}</Text>
+        </Box>
+      )}
       <Flex w="100%" h="400px">
         {selectedId !== null ? (
           <div className="flex flex-col max-h-[400px] w-full overflow-y-scroll no-scrollbar px-10">
@@ -123,10 +129,6 @@ const AssessmentList = () => {
 };
 
 export const GeneralAssessments = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getGeneralAssessment());
-  }, [dispatch]); 
   return (
     <Box
       className="text-white flex items-center"

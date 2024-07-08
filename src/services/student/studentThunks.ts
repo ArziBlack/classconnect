@@ -125,8 +125,6 @@ export const getGeneralAssessment = createAsyncThunk<
 >("student/assessment", async (_, thunkAPI) => {
   try {
     const response = await axiosInstance.get(`/getGeneralAssessment`);
-    console.log(response.data);
-
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -141,13 +139,7 @@ export const getPersonalAssessment = createAsyncThunk<
   { rejectValue: string }
 >("student/personalAssessment", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
-    const response = await axios.get(`${API_BASE_URL}/getPersonalAssessment`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/getPersonalAssessment`);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;

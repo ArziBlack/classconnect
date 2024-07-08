@@ -14,7 +14,6 @@ import {
   SETTINGS,
   TUTORS,
 } from "../../constants/icon";
-import { TEMPLATE } from "../../constants/image";
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
