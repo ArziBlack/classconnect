@@ -9,7 +9,7 @@ interface CardProps {
   description: string;
   difficulty: "Beginner" | "Intermediate" | "Advance";
   lessons: string;
-  link: string;
+  link?: string;
 }
 
 export const CourseCard: React.FC<CardProps> = ({
@@ -17,7 +17,7 @@ export const CourseCard: React.FC<CardProps> = ({
   description,
   difficulty,
   lessons,
-  link
+  link,
 }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -57,7 +57,12 @@ export const CourseCard: React.FC<CardProps> = ({
         onClick={() => navigate("/student/detailed")}
         border={"1px solid #5E7079"}
       >
-        <Text textTransform={"capitalize"} fontSize="xl" fontWeight="bold" mb={2}>
+        <Text
+          textTransform={"capitalize"}
+          fontSize="xl"
+          fontWeight="bold"
+          mb={2}
+        >
           {title?.toLocaleLowerCase()}
         </Text>
         <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
