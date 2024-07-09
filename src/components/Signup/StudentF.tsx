@@ -5,23 +5,36 @@ import { useAppSelector } from "../../hooks/reactReduxHooks";
 import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
 
 const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
-  const { fees } = useAppSelector(from => from.other);
-  const [paymentPlan, setPaymentPlan] = useState<{ key: string, value: string }[]>([]);
-  const [selectedClass, setSelectedClass] = useState('');
+  const { fees } = useAppSelector((from) => from.other);
+  const [paymentPlan, setPaymentPlan] = useState<
+    { key: string; value: string }[]
+  >([]);
+  const [selectedClass, setSelectedClass] = useState("");
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
     }
     return [];
   };
- 
+
   const classKeys = getClassKeys(fees);
+
   const handleClassChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selected = event.target.value;
     setSelectedClass(selected);
-    const selectedClassPlans = fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
-    setPaymentPlan(Object.entries(selectedClassPlans).map(([key, value]) => ({ key, value })));
+
+    const selectedClassPlans =
+      fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
+    const formatKey = (key: string) => key.replace("_payment", "");
+
+    setPaymentPlan(
+      Object.entries(selectedClassPlans).map(([key, value]) => ({
+        key: formatKey(key.toString()),
+        value: value.toString(),
+      }))
+    );
   };
+
   return (
     <>
       <Box w="100%" mb={3}>
@@ -30,15 +43,17 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
         </FormLabel>
         <Select
           name="class_type"
-          onChange={(e) => { onChange(e), handleClassChange(e) }}
+          onChange={(e) => {
+            onChange(e), handleClassChange(e);
+          }}
           mb="1px"
           placeholder="Select a Class Type"
           className="capitalize"
-          value={data?.class_type?.replace(/_/g, ' ')}
+          value={data?.class_type?.replace(/_/g, " ")}
         >
           {classKeys?.map((item, idx) => (
-            <option key={idx} value={item}>
-              {item?.replace(/_/g, ' ')}
+            <option key={idx} value={item?.toString()?.trim()}>
+              {item?.replace(/_/g, " ")}
             </option>
           ))}
         </Select>
@@ -54,14 +69,14 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
           placeholder="Select a Payment plan"
           className="capitalize"
           disabled={!selectedClass}
-          value={selectedClass && data?.payment_plan?.replace(/_/g, ' ')}
+          value={selectedClass && data?.payment_plan?.replace(/_/g, " ")}
         >
           {selectedClass &&
-          paymentPlan.map((plan, idx) => (
-            <option key={idx} value={plan.key}>
-              {`${plan.key.replace(/_/g, ' ')}: ${plan.value}`}
-            </option>
-          ))}
+            paymentPlan.map((plan, idx) => (
+              <option key={idx} value={plan?.key?.toString()?.trim()}>
+                {`${plan.key.replace(/_/g, " ")}: ${plan.value}`}
+              </option>
+            ))}
         </Select>
       </Box>
 

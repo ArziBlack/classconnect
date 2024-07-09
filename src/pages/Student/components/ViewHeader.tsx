@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 interface ViewHeaderProps {
   title: string;
   subtext: string;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const ViewHeader: React.FC<ViewHeaderProps> = ({ title, subtext, loading }) => {

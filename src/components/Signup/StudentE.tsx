@@ -11,7 +11,7 @@ const StudentE = ({
   onChange,
   handleClassTimeOptionsChange,
 }: IStudentProps) => {
-  const { home } = useAppSelector(dat => dat.other);
+  const { home } = useAppSelector((dat) => dat.other);
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -53,7 +53,7 @@ const StudentE = ({
           value={data.course}
         >
           {home?.courses?.map((item, idx) => (
-            <option key={idx} value={item.title}>
+            <option key={idx} value={item?.title?.toString()?.trim()}>
               {item?.title?.toLowerCase()}
             </option>
           ))}
