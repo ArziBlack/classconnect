@@ -1,6 +1,8 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { getMyTuitionFee } from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "Details" },
@@ -11,9 +13,14 @@ const links = [
 ];
 
 const Profile = () => {
+  const dispatch = useAppDispatch();
+  const { tuitionFeeResponse } = useAppSelector(state => state.student);
   useEffect(() => {
     document.title = "HEP Profile - Student";
-  }, []);
+    if (!tuitionFeeResponse) {
+      dispatch(getMyTuitionFee())
+    }
+  }, [dispatch]);
   return (
     <>
       <ViewHeader

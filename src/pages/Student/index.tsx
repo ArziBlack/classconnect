@@ -17,7 +17,6 @@ import {
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
-import { getAllCourses, getApprovedTutors, getGeneralAssessment, getMyCourses, getMyTuitionFee, getPersonalAssessment, initiateTrx } from "../../services/student/studentThunks";
 import Loader from "../../utils/Loader";
 
 type NavProps = {
@@ -118,6 +117,9 @@ const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
   const { isLoading } = useAppSelector((state) => state.student);
+  useEffect(() => {
+    document.title = "HEP | Student Dashboard";
+  }, []);
 
   return (
     <Flex
@@ -187,18 +189,6 @@ const StudentLayout: FC = () => {
     billing:
       "View and handle your billing information. Check your payment history, manage subscriptions, and ensure your account is in good standing.",
   };
-
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    document.title = "Student Dashboard | Learnify";
-    dispatch(getApprovedTutors());
-    dispatch(getMyTuitionFee());
-    dispatch(getAllCourses());
-    dispatch(getMyCourses());
-    dispatch(getPersonalAssessment());
-    dispatch(getGeneralAssessment());
-    dispatch(initiateTrx());
-  }, [])
 
   return (
     <Flex
