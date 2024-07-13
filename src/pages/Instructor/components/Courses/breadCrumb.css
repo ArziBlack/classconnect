@@ -1,0 +1,75 @@
+.breadCrumb {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10;
+}
+
+.breadCrumb-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.breadCrumb-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  border-bottom: 2px solid #bdbdbd;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.breadCrumb-link {
+  height: 100%;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 400;
+  color: white;
+  opacity: 0.5;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.breadCrumb-link::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #00ff84;
+  transition:
+    left 1s ease,
+    width 1s ease;
+}
+
+.breadCrumb-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #00ff84;
+  transition:
+    left 1s ease,
+    width 1s ease;
+}
+
+.breadCrumb-link.active::after {
+  width: 100%;
+}
+
+.breadCrumb-link.active::before {
+  width: 100%;
+}
+
+.breadCrumb-link.active {
+  font-weight: 400;
+  opacity: 1;
+}
