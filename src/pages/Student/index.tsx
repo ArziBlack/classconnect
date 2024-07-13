@@ -18,6 +18,7 @@ import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
 import { getAllCourses, getApprovedTutors, getGeneralAssessment, getMyCourses, getMyTuitionFee, getPersonalAssessment, initiateTrx } from "../../services/student/studentThunks";
+import Loader from "../../utils/Loader";
 
 type NavProps = {
   to: string;
@@ -172,7 +173,7 @@ const MainView: FC = () => {
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
-        {isLoading ? (<div>Loading...</div>) : <Outlet />}
+        {isLoading ? <Loader/> : <Outlet />}
       </Box>
     </Flex>
   );

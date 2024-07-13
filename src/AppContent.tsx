@@ -43,6 +43,7 @@ import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
 import AboutMe from "./pages/Student/components/Tutors/AboutMe";
 import EmailV from "./pages/EmailV";
 import PrivateRoute from "./utils/ProtectedRoute";
+import Loader from "./utils/Loader";
 
 function AppContent() {
   const location = useLocation();
@@ -181,6 +182,7 @@ function AppContent() {
       />
       <Route path="reset-check" element={<CheckReset />} />
       <Route path="/*" element={<NotFound />} />
+      <Route path="loader" element={<Loader />} />
     </Routes>
   );
 }
