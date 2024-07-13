@@ -15,12 +15,6 @@ export const Billing = () => {
   async function handlePayment() {
     await diapatch(initiateTrx());
   }
-  // async function checkPaymentStat(){
-  //   await diapatch(getTrxState())
-  // }
-  React.useEffect(() => {
-    diapatch(initiateTrx());
-  }, [diapatch]);
 
   const handleButtonClick = () => {
     const url = trxResponse.transactionURL;

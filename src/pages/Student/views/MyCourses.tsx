@@ -1,25 +1,15 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../hooks/reactReduxHooks";
-import {
-  getAllCourses,
-  getMyCourses,
-} from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "All Courses" },
-  { to: "started", label: "Ongoing" },
-  // { to: "ongoing", label: "Ongoing" },
-  // { to: "completed", label: "Completed" },
+  { to: "started", label: "Ongoing" }
 ];
 
 export const MyCourses = () => {
-  const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "HEP My Courses - Student";
-    dispatch(getAllCourses());
-    dispatch(getMyCourses());
   }, []);
   return (
     <>

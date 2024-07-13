@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -17,6 +17,7 @@ import {
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
+import { getAllCourses, getApprovedTutors, getGeneralAssessment, getMyCourses, getMyTuitionFee, getPersonalAssessment, initiateTrx } from "../../services/student/studentThunks";
 
 type NavProps = {
   to: string;
@@ -115,6 +116,7 @@ const SideBarNav: FC = () => {
 const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
+  const { isLoading } = useAppSelector((state) => state.student);
 
   return (
     <Flex
@@ -170,7 +172,7 @@ const MainView: FC = () => {
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
-        <Outlet />
+        {isLoading ? (<div>Loading...</div>) : <Outlet />}
       </Box>
     </Flex>
   );
@@ -184,6 +186,18 @@ const StudentLayout: FC = () => {
     billing:
       "View and handle your billing information. Check your payment history, manage subscriptions, and ensure your account is in good standing.",
   };
+
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    document.title = "Student Dashboard | Learnify";
+    dispatch(getApprovedTutors());
+    dispatch(getMyTuitionFee());
+    dispatch(getAllCourses());
+    dispatch(getMyCourses());
+    dispatch(getPersonalAssessment());
+    dispatch(getGeneralAssessment());
+    dispatch(initiateTrx());
+  }, [])
 
   return (
     <Flex

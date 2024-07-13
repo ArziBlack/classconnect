@@ -1,8 +1,6 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../hooks/reactReduxHooks";
-import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "All Tutors" },
@@ -10,11 +8,9 @@ const links = [
 ];
 
 export const Tutors = () => {
-  const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "HEP Tutors - Student";
-    dispatch(getApprovedTutors());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
