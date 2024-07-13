@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Courses from "./components/Courses";
 import CheckReset from "./pages/CheckReset";
 import StudentLayout from "./pages/Student";
+import TutorLayout from "./pages/Instructor";
 import VerifyAccount from "./pages/VerifyEmail";
 import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
@@ -20,6 +21,7 @@ import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
+import { Home as TutorHome } from "./pages/Instructor/views/Home";
 import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
@@ -84,6 +86,51 @@ function AppContent() {
       <Route path="/student" element={<PrivateRoute />}>
         <Route element={<StudentLayout />}>
           <Route index element={<StudentHome />} />
+          <Route path="tutors" element={<Tutors />}>
+            <Route index element={<Approved />} />
+            <Route path="my-tutors" element={<MyTutors />} />
+            <Route path="recommended" element={<Recommended />} />
+            <Route path="completed" element={<Started />} />
+          </Route>
+          <Route path="tutors/:tutorId" element={<TutorDetails />}>
+            <Route index element={<AboutMe />} />
+          </Route>
+          <Route path="courses/:courseId" element={<CourseDetails />}>
+            <Route index element={<Content />} />
+            <Route path="description" element={<Details />} />
+          </Route>
+          <Route path="courses" element={<MyCourses />}>
+            <Route index element={<Browse />} />
+            <Route path="started" element={<Started />} />
+            <Route path="ongoing" element={<OnGoing />} />
+            <Route path="completed" element={<Completed />} />
+          </Route>
+          <Route path="detailed" element={<CourseDetails />}>
+            <Route index element={<Content />} />
+            <Route path="details" element={<Details />} />
+          </Route>
+          <Route path="profile" element={<Profile />}>
+            <Route index element={<ProfileDetails />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="tuition-fee" element={<TuitionFee />} />
+            <Route path="invite" element={<Invite />} />
+            <Route path="become-a-tutor" element={<BecomeTutor />} />
+          </Route>
+          <Route path="assessments" element={<Assessment />}>
+            <Route index element={<PersonalAssessments />} />
+            <Route
+              path="general-assessments"
+              element={<GeneralAssessments />}
+            />
+          </Route>
+          <Route path="assessment" element={<Assessment />} />
+          <Route path="billing" element={<Billing />} />
+        </Route>
+      </Route>
+
+      <Route path="/instructor" element={<PrivateRoute />}>
+        <Route element={<TutorLayout />}>
+          <Route index element={<TutorHome />} />
           <Route path="tutors" element={<Tutors />}>
             <Route index element={<Approved />} />
             <Route path="my-tutors" element={<MyTutors />} />
