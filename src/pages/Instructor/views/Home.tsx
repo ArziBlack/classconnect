@@ -1,30 +1,25 @@
-import { useEffect, useState } from "react";
-import VideoEmbed from "../components/VideoComp";
+import { useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { FaCaretRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
+import DashBoard from "../views/Dashboard";
+import PDFicon from "../../../assets/icons/PDFicon.svg";
+import { NOT_PROFILE } from "../../../constants/image";
 
 const homeCourses = [
   {
-    course: "Frontend Development",
-    image: "image",
-    tutor: "Samuel",
-    status: "completed",
-  },
-  {
-    course: "Cloud Engineering",
-    image: "image",
-    tutor: "Samuel",
-    status: "completed",
+    course: "Write all you understand about design",
+    image: <img src={NOT_PROFILE} />,
+    tutor: "Download the file to do your assignment",
+    download: <img src={PDFicon} />,
   },
 ];
 
 const schedule = [
-  { course: "Frontend Development", time: "2nd July 2024, Tuesday" },
-  { course: "Cloud Engineering", time: "4th July 2024, Wednesday" },
-  { course: "Backend Engineering", time: "6th July 2024, Tuesday" },
+  { course: "UI/UX Design" },
+  { time: "10:00-10:30 (30 mins)" },
+  { meet: "Google meet" },
 ];
 
 const highlightedDates = [
@@ -65,29 +60,15 @@ export const Home = () => {
   console.log(isError);
   console.log(error);
   const name = data?.greeting.split(" ")[1];
-  const [containerWidth, setContainerWidth] = useState<number>(660);
-  const iframeHeight = containerWidth * (300 / 560);
 
-  const truncateOverflow = (sentence: string) => {
-    if (sentence.length > 13) {
-      return sentence.substring(0, 13) + "...";
-    } else {
-      return sentence;
-    }
-  };
+  // const truncateOverflow = (sentence: string) => {
+  //   if (sentence.length > 13) {
+  //     return sentence.substring(0, 13) + "...";
+  //   } else {
+  //     return sentence;
+  //   }
+  // };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width =
-        document.getElementById("video-container")?.offsetWidth ?? 560;
-      setContainerWidth(width);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const videoId = "pBv7igaxfQE-I?si=yEOannHhgq2uXG0j";
   return (
     <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center items-center">
@@ -95,34 +76,28 @@ export const Home = () => {
           <h2 className="font-[600] text-3xl pb-3">Hi {name}</h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
-        <div
-          id="video-container"
-          style={{ width: "100%", maxWidth: "100%" }}
-          className="p-[0] rounded-[20px] bg-black border border-gray-500"
-        >
-          <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
+        <div className="flex flex-col w-full justify-between h-full mt-5 pt-4 pb-1 px-2">
+          <DashBoard />
         </div>
         <div className="flex flex-col w-full justify-between h-full mt-5 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
-          <div className="flex w-full py-1">
-            <h2 className="w-2/4">My Courses</h2>
-            <h2 className="w-1/4">Status</h2>
-            <h2 className="w-1/4 text-right text-[#00ff84]">All Courses</h2>
+          <div className="flex w-full py-1 border-b border-[#5E7079] rounded-[8px, 0px]">
+            <h2 className="w-2/4">Assessment</h2>
+            <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2>
           </div>
           {homeCourses.map((item, id) => (
-            <div
-              className="flex w-full items-center my-1 border border-gray-400 p-1 rounded"
-              key={id}
-            >
+            <div className="flex w-full items-center my-1 p-1 " key={id}>
               <div className="w-2/4 flex items-center">
-                <div className="bg-red-400 rounded-full h-9 w-9 p-1 ml-1"></div>
+                <div className=" h-9 w-9 mb-11 ml-1">{item.image} </div>
                 <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="text-xs">{item.course}</h2>
-                  <h2 className="font-[100] text-xs">{item.tutor}</h2>
+                  <h2 className="text-md">{item.course}</h2>
+                  <h2 className="font-[100] text-xs ">{item.tutor}</h2>
+                  <div className="cursor-pointer h-9 w-9 p-1 ml-1">
+                    {item.download}
+                  </div>
                 </div>
               </div>
-              <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
-              <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
-                View Courses
+              <button className="w-2/4 justify-end -mt-10 py-2 px-1 text-xs text-right rounded text-[#00ff84]">
+                13/07/2024 <span>9:27pm</span>
               </button>
             </div>
           ))}
@@ -139,25 +114,23 @@ export const Home = () => {
         <div className="w-full border-b border-gray-500 my-2 mb-6 mx-4"></div>
         <div className="flex flex-col w-full px-4">
           <div className="flex items-center justify-between w-full">
-            <h2 className="font-[700]">Upcoming classes</h2>
+            <h2 className="font-[700]">Today’s Task</h2>
             <span className="font-light text-[#00ff84]">See All</span>
           </div>
           <div className="">
             {schedule.map((item, id) => (
               <div
-                className="flex w-full items-center my-2 p-1 rounded justify-between bg-[#143543]"
+                className="flex w-full items-center my-2 p-1 rounded justify-between"
                 key={id}
               >
                 <div className="w-2/4 flex items-center text-[9px]">
                   <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
                     <h2 className="font-bold">{item.course}</h2>
-                    <h2 className="font-[100]">
-                      {truncateOverflow(item.time)}
-                    </h2>
+                    <h2 className="font-[100]">{item.time}</h2>
+                    <h2 className="font-bold">{item.meet}</h2>
                   </div>
                 </div>
-                <FaCaretRight />
               </div>
             ))}
           </div>
