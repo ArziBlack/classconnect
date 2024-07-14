@@ -51,7 +51,6 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
-            // color={isActive ? "#ffffff" : "white"}
             color={"white"}
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
