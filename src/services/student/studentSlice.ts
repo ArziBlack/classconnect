@@ -107,7 +107,7 @@ const studentSlice = createSlice({
         getMyTuitionFee.fulfilled,
         (state, action: PayloadAction<ITuitionFee>) => {
           state.isLoading = false;
-          state.trxResponse = action.payload;
+          state.tuitionFeeResponse = action.payload;
           state.isSuccess = true;
         }
       )
@@ -275,30 +275,42 @@ const studentSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      .addCase(getAllCourses.pending, (state)=> {
+      .addCase(getAllCourses.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllCourses.fulfilled, (state, action: PayloadAction<ICoursesResponse>)=> {
-        state.isLoading = false;
-        state.allCoursesResponse = action.payload;
-      })
-      .addCase(getAllCourses.rejected, (state, action: PayloadAction<string>)=> {
-        state.isLoading = false;
-        state.isError = true;
-        state.error = action.payload;
-      })
-      .addCase(getMyCourses.pending, (state)=> {
+      .addCase(
+        getAllCourses.fulfilled,
+        (state, action: PayloadAction<ICoursesResponse>) => {
+          state.isLoading = false;
+          state.allCoursesResponse = action.payload;
+        }
+      )
+      .addCase(
+        getAllCourses.rejected,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.error = action.payload;
+        }
+      )
+      .addCase(getMyCourses.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getMyCourses.fulfilled, (state, action: PayloadAction<ICoursesResponse>)=> {
-        state.isLoading = false;
-        state.myCoursesRes = action.payload;
-      })
-      .addCase(getMyCourses.rejected, (state, action: PayloadAction<string>)=> {
-        state.isLoading = false;
-        state.isError = true;
-        state.error = action.payload;
-      })
+      .addCase(
+        getMyCourses.fulfilled,
+        (state, action: PayloadAction<ICoursesResponse>) => {
+          state.isLoading = false;
+          state.myCoursesRes = action.payload;
+        }
+      )
+      .addCase(
+        getMyCourses.rejected,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.error = action.payload;
+        }
+      )
       .addCase(LogoutStudent.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
