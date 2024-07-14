@@ -14,13 +14,11 @@ const links = [
 
 const Profile = () => {
   const dispatch = useAppDispatch();
-  const { tuitionFeeResponse } = useAppSelector(state => state.student);
+  const { tuitionFeeResponse } = useAppSelector((state) => state.student);
   useEffect(() => {
     document.title = "HEP Profile - Student";
-    if (!tuitionFeeResponse) {
-      dispatch(getMyTuitionFee())
-    }
-  }, [dispatch]);
+    !tuitionFeeResponse && dispatch(getMyTuitionFee());
+  }, []);
   return (
     <>
       <ViewHeader

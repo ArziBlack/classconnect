@@ -3,8 +3,7 @@ import VideoEmbed from "../components/VideoComp";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { getApprovedTutors } from "../../../services/student/studentThunks";
+import { useAppSelector } from "../../../hooks/reactReduxHooks";
 
 const homeCourses = [
   {
@@ -52,18 +51,8 @@ const modifiersStyles = {
 };
 
 export const Home = () => {
-  const dispatch = useAppDispatch();
-  const { isLoading, isError, error, approvedTutors } = useAppSelector(
-    (state) => state.student
-  );
-  useEffect(() => {
-    dispatch(getApprovedTutors());
-  }, []);
   const { data } = useAppSelector((state) => state.auth);
-  console.log(approvedTutors);
-  console.log(isLoading);
-  console.log(isError);
-  console.log(error);
+
   const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
   const iframeHeight = containerWidth * (300 / 560);

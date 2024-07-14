@@ -11,18 +11,19 @@ export const Billing = () => {
   const diapatch = useAppDispatch();
   const { isLoading, trxResponse } = useAppSelector((app) => app.student);
   const { data } = useAppSelector((from) => from.auth);
+  console.log("data", data);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
   async function handlePayment() {
     await diapatch(initiateTrx());
   }
-  // async function checkPaymentStat(){
-  //   await diapatch(getTrxState())
-  // }
+
   React.useEffect(() => {
     if (!trxResponse) {
       diapatch(initiateTrx());
     }
-  }, [diapatch]);
+  }, [diapatch, trxResponse]);
+
+  console.log("trxResponse", trxResponse);
 
   const handleButtonClick = () => {
     const url = trxResponse.transactionURL;
@@ -68,10 +69,10 @@ export const Billing = () => {
           <div className="flex flex-col items-start py-1">
             <label className="py-1 font-light">Email</label>
             <input
-              type="number"
+              type="text"
               placeholder="Your Email....."
               className="px-2 my-1 py-3 flex w-full bg-[#255E78] border-none rounded-md"
-              value={data.email}
+              value={data?.email}
               readOnly
             />
           </div>
@@ -182,12 +183,12 @@ export const Billing = () => {
           ) : (
             <>
               <Text color={"white"}>
-                {trxResponse
+                {trxResponse?.transactionURL
                   ? "You will be redirected to another page to make your payment"
-                  : "Please re-initiate payment: An error occured"}
+                  : trxResponse?.message }
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
-                {trxResponse && (
+                {trxResponse?.transactionURL && (
                   <Button
                     onClick={handleButtonClick}
                     className="hover:border hover:border-black"
@@ -198,10 +199,10 @@ export const Billing = () => {
                 <Button
                   onClick={() => {
                     setConfirmation(false);
-                    !trxResponse && handlePayment();
+                    !trxResponse?.transactionURL && handlePayment();
                   }}
                 >
-                  {trxResponse ? "Cancel" : "Ok"}
+                  {trxResponse?.transactionURL ? "Cancel" : "Ok"}
                 </Button>
               </Flex>
             </>

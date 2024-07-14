@@ -17,7 +17,6 @@ import {
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
-import Loader from "../../utils/Loader";
 
 type NavProps = {
   to: string;
@@ -52,7 +51,6 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
-            // color={isActive ? "#ffffff" : "white"}
             color={"white"}
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
@@ -116,7 +114,6 @@ const SideBarNav: FC = () => {
 const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
-  const { isLoading } = useAppSelector((state) => state.student);
   useEffect(() => {
     document.title = "HEP | Student Dashboard";
   }, []);
@@ -175,7 +172,7 @@ const MainView: FC = () => {
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
-        {isLoading ? <Loader/> : <Outlet />}
+        <Outlet />
       </Box>
     </Flex>
   );

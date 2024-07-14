@@ -53,7 +53,7 @@ export const Home = () => {
   );
   useEffect(() => {
     dispatch(getApprovedTutors());
-  }, []);
+  }, [dispatch]);
   const { data } = useAppSelector((state) => state.auth);
   console.log(approvedTutors);
   console.log(isLoading);
