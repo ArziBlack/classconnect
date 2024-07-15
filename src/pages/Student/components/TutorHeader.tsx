@@ -1,9 +1,19 @@
 import React, { useState } from "react";
-import { Text, Box, Flex, Image, Button, SkeletonText, CircularProgress } from "@chakra-ui/react";
+import {
+  Text,
+  Box,
+  Flex,
+  Image,
+  Button,
+  SkeletonText,
+  CircularProgress,
+} from "@chakra-ui/react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import ChakraModal from "../../../components/ChakraModal";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { chooseTutor } from "../../../services/student/studentThunks";
+import CButton from "../../../components/Button";
+import { PiWarningCircle } from "react-icons/pi";
 
 interface TutorHeaderProps {
   title: string;
@@ -12,17 +22,36 @@ interface TutorHeaderProps {
   spec: string;
   pic: string;
   url: string;
+  status: string;
 }
 
-const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec, pic, url }) => {
+const TutorHeader: React.FC<TutorHeaderProps> = ({
+  title,
+  subtext,
+  loading,
+  spec,
+  pic,
+  url,
+  status,
+}) => {
   const dispatch = useAppDispatch();
   const [confirmation, setConfirmation] = useState(false);
-  const { recommendResponse, isLoading } = useAppSelector(sammy => sammy.student);
+  const { recommendResponse, isLoading, error } = useAppSelector(
+    (sammy) => sammy.student
+  );
   const handleChooseTutor = () => {
     dispatch(chooseTutor({ url }));
-  }
-  console.log(url);
-  console.log(recommendResponse);
+  };
+
+  const getButtonColor = () => {
+    return status === "Not engaged yet" ? "#00ff84" : "yellow";
+  };
+
+  const getTutorStatus = () => {
+    return status === "Not engaged yet"
+      ? "This Tutor is open to accept a student"
+      : "This tutor is no longer open to accept students";
+  };
 
   return (
     <Flex maxW={"700px"} justify={"space-between"}>
@@ -76,23 +105,29 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec
         >
           {subtext}
         </Text>
-        <Text
-          fontSize={"12px"}
-          fontWeight={500}
-          color={"black"}
-          borderRadius={"4px"}
-          p={"4px 8px"}
-          pt={"3px"}
-          mt={"15px"}
-          bg={"yellow"}
-          opacity={0.6}
-          cursor={"pointer"}
-          _hover={{ opacity: 1 }}
-          w={"fit-content"}
-          onClick={() => setConfirmation(true)}
-        >
-          CHOOSE TUTOR
-        </Text>
+        <Flex gap={4} mt={"15px"} flexDir={"column"}>
+          <CButton
+            fontSize={"12px"}
+            fontWeight={500}
+            color={"black"}
+            // borderRadius={"4px"}
+            // p={"4px 8px"}
+            // pt={"3px"}
+            bg={getButtonColor()}
+            opacity={0.8}
+            cursor={"pointer"}
+            _hover={{ opacity: 1 }}
+            w={"fit-content"}
+            isDisabled={status !== "Not engaged yet"}
+            onClick={() => setConfirmation(true)}
+            text="CHOOSE TUTOR"
+          />
+
+          <Flex gap={2} align={"center"} fontSize={"12px"} color={"white"}>
+            <PiWarningCircle />
+            {getTutorStatus()}
+          </Flex>
+        </Flex>
       </Box>
       <Image borderRadius="full" boxSize="160px" src={pic} alt="Avatar" />
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
@@ -101,12 +136,26 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({ title, subtext, loading, spec
           flexDirection={"column"}
           borderRadius={"12px"}
           padding={10}
-        >{isLoading ? <CircularProgress /> : (<>
-          <Text color={"white"}>{!recommendResponse ? "Are you sure about choosing this tutor" : recommendResponse?.message}</Text>
-          <Flex gap={8} justify={"center"} mt={4}>
-            {!recommendResponse && <Button onClick={handleChooseTutor}>Yes </Button>}
-            <Button onClick={() => setConfirmation(false)}>{recommendResponse ? "Ok" : "No"}</Button>
-          </Flex></>)}
+        >
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Text color={"white"}>
+                {!recommendResponse?.message
+                  ? "Are you sure about choosing this tutor"
+                  : error.error}
+              </Text>
+              <Flex gap={8} justify={"center"} mt={4}>
+                {!recommendResponse && (
+                  <Button onClick={handleChooseTutor}>Yes </Button>
+                )}
+                <Button onClick={() => setConfirmation(false)}>
+                  {recommendResponse ? "Ok" : "No"}
+                </Button>
+              </Flex>
+            </>
+          )}
         </Flex>
       </ChakraModal>
     </Flex>
