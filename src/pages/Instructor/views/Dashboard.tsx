@@ -1,6 +1,7 @@
 import Vector from "../../../assets/icons/Vector.svg";
 import checkbok from "../../../assets/icons/checkbok.svg";
 import academicCap from "../../../assets/icons/academic-cap.svg";
+import { NOT_PROFILE } from "../../../constants/image";
 
 const HeaderProp = [
   {
@@ -38,22 +39,26 @@ const HeaderComponent = () => (
 );
 
 const students = [
-  { name: "Miss Favour Ogechi", score: 80, imageUrl: "path_to_image1" },
-  { name: "Miss Theresa", score: 40, imageUrl: "path_to_image2" },
-  { name: "Mr John", score: 80, imageUrl: "path_to_image3" },
-  { name: "MisBrenda", score: 55, imageUrl: "path_to_image4" },
-  { name: "Mr Godfrey", score: 20, imageUrl: "path_to_image5" },
+  {
+    name: "Miss Favour Ogechi",
+    score: 80,
+    imageUrl: <img src={NOT_PROFILE} />,
+  },
+  { name: "Miss Theresa", score: 40, imageUrl: <img src={NOT_PROFILE} /> },
+  { name: "Mr John", score: 80, imageUrl: <img src={NOT_PROFILE} /> },
+  { name: "MisBrenda", score: 55, imageUrl: <img src={NOT_PROFILE} /> },
+  { name: "Mr Godfrey", score: 20, imageUrl: <img src={NOT_PROFILE} /> },
 ];
 
 const getScoreColor = (score) => {
   if (score >= 50) return "bg-green-200 text-green-800";
-  if (score >= 30) return "bg-yellow-200 text-yellow-800";
+  if (score >= 30) return "bg-yellow-400 text-yellow-800";
   return "bg-red-500 text-red-800";
 };
 
 const StudentPerformance = () => (
-  <div className="shadow-lg rounded-lg w-[350px] border gap-[24px] border-[#5E7079] h-[436px] text-white">
-    <div className="flex justify-between items-center w-[350px] p-[16px] h-[59px] border-b border-[#5E7079] rounded-[8px, 0px] mb-4">
+  <div className="shadow-lg rounded-lg flex flex-col justify-between w-full h-full  border gap-[24px] border-[#5E7079] text-white">
+    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] mb-4">
       <span className="text-lg font-semibold">Students Performance</span>
       <a href="#" className="text-teal-300 text-sm">
         View all
@@ -66,11 +71,7 @@ const StudentPerformance = () => (
           className="flex justify-between items-center rounded mb-3 p-2"
         >
           <div className="flex items-center">
-            <img
-              src={student.imageUrl}
-              alt={student.name}
-              className="w-8 h-8 rounded-full mr-3"
-            />
+            <div className="w-8 h-8 rounded-full mr-3">{student.imageUrl}</div>
             <span className="text-white">{student.name}</span>
           </div>
           <span
@@ -85,12 +86,12 @@ const StudentPerformance = () => (
 );
 
 const TopCourses = () => (
-  <div className="mb-8 rounded-lg shadow-lg w-[300px] h-[436px] border gap-[38px] border-[#5E7079] ">
-    <div className="flex justify-between items-center mb-4 w-[300px] p-[16px] h-[59px] border-b border-[#5E7079] rounded-[8px, 0px]">
+  <div className="flex flex-col justify-between w-full h-full mb-8 rounded-lg shadow-lg border gap-[38px] border-[#5E7079] ">
+    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] m-1 ">
       <h2 className="text-white text-lg font-bold">Top Courses</h2>
       <span className="text-green-400">No of students</span>
     </div>
-    <div className="w-[334pxpx">
+    <div className="w-full h-full">
       {[
         { name: "UI/UX Design", students: 80, description: "General design" },
         { name: "Computing", students: 70, description: "Computing" },
@@ -100,7 +101,7 @@ const TopCourses = () => (
       ].map((course) => (
         <div
           key={course.name}
-          className="flex justify-between items-center p-2 rounded mb-2"
+          className="flex justify-between items-center p-2 rounded"
         >
           <div className="flex items-center">
             <div className="bg-[#023248] shadow-lg p-2 rounded mr-2">
