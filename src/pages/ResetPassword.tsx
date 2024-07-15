@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   Container,
   FormControl,
   FormLabel,
@@ -20,8 +21,8 @@ import { useNavigate } from "react-router-dom";
 import { LOGO } from "../constants/icon";
 
 const ResetPassword = () => {
-  const bgColor = useColorModeValue("gray.50", "gray.900");
-  const cardBgColor = useColorModeValue("white", "gray.800");
+  const bgColor = useColorModeValue("#002333", "#002333");
+  const cardBgColor = useColorModeValue("#EDE9F2", "#EDE9F2");
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.900", "white");
   const placeholderColor = useColorModeValue("gray.400", "gray.400");
@@ -30,7 +31,7 @@ const ResetPassword = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const [email, setEmail] = useState<{ email: string }>({ email: "" });
-  const { message, isError, isSuccess } = useAppSelector((state) => state.auth);
+  const { message, isError, isSuccess, isLoading } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   async function sendReset(e) {
     e.preventDefault();
@@ -38,7 +39,7 @@ const ResetPassword = () => {
       toast("Email field can't be Blank!!!", "error");
     }
     const result = await dispatch(resetPassword(email));
-    if (result.meta.requestStatus === "fulfilled") {
+    if (result.meta.requestStatus === "fulfilled") { 
       toast("Password reset link sent successfully!", "success");
       setTimeout(()=> {
         navigate("/reset-check")
@@ -65,6 +66,7 @@ const ResetPassword = () => {
       justifyContent="center"
       px={6}
       py={8}
+      w="100vw"
     >
       <Container centerContent width={`100%`}>
         <Link
@@ -80,7 +82,7 @@ const ResetPassword = () => {
             as="img"
             src={LOGO}
             alt="logo"
-            w={8}
+            w={12}
             h={8}
             mr={2}
           />
@@ -129,7 +131,7 @@ const ResetPassword = () => {
                 id="email"
                 name="email"
                 placeholder="name@company.com"
-                bg={bgColor}
+                bg={`#FFF`}
                 borderColor={borderColor}
                 color={textColor}
                 _placeholder={{ color: placeholderColor }}
@@ -191,7 +193,7 @@ const ResetPassword = () => {
                 colorScheme="blue"
                 borderColor={borderColor}
                 mr={3}
-                bg={bgColor}
+                bg={`white`}
                 ringColor={primaryColor}
                 // dark={{ ringOffsetColor: "gray.800" }}
               />
@@ -230,7 +232,7 @@ const ResetPassword = () => {
               //     focusRingColor: "primary.800",
               //   }}
             >
-              Reset password
+              {isLoading ? <CircularProgress/>: "Reset password"}
             </Button>
           </VStack>
         </Box>

@@ -3,9 +3,9 @@ import React from "react";
 const CheckReset = () => {
     
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12 bg-white">
+    <div className="relative flex min-h-screen flex-col w-screen items-center justify-center overflow-hidden py-6 sm:py-12 bg-[#002333] text-white">
       <div className="max-w-xl px-5 text-center">
-        <h2 className="mb-2 text-[42px] font-bold text-zinc-800">
+        <h2 className="mb-2 text-[42px] font-bold text-zinc-300">
           Check your inbox
         </h2>
         <p className="mb-2 text-lg text-zinc-500">
