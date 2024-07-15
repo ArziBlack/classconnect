@@ -6,6 +6,7 @@ import { initiateTrx } from "../../../services/student/studentThunks";
 import ChakraModal from "../../../components/ChakraModal";
 import { Flex } from "@chakra-ui/layout";
 import { Button, CircularProgress, Text } from "@chakra-ui/react";
+import { data as htada } from "../../../utils/data";
 
 export const Billing = () => {
   const diapatch = useAppDispatch();
@@ -16,6 +17,14 @@ export const Billing = () => {
   async function handlePayment() {
     await diapatch(initiateTrx());
   }
+
+  const getPlanImage = () => {
+    const image = htada.find(item => data.classType === item.name);
+    return image;
+  }
+
+  const image = getPlanImage();
+  console.log(image);
 
   React.useEffect(() => {
     if (!trxResponse) {
@@ -96,8 +105,8 @@ export const Billing = () => {
           <h2 className="font-[600] py-3">Your Plan</h2>
           <div className="flex items-center justify-between w-full font-light text-sm py-3">
             <div className="flex items-center">
-              <div className="h-[70px] w-[70px] bg-[#255E78]">
-                <img alt="plan" />
+              <div className="h-[70px] w-[70px] bg-[#255E78] rounded-full">
+                <img alt="plan" src={image?.image} />
               </div>
               <span className="ml-1">
                 {data.paymentPlan.replace(/_/g, " ")}
