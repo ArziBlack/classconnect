@@ -12,8 +12,9 @@ export const Billing = () => {
   const diapatch = useAppDispatch();
   const { isLoading, trxResponse } = useAppSelector((app) => app.student);
   const { data } = useAppSelector((from) => from.auth);
-  console.log("data", data);
+  const { fees } = useAppSelector((from) => from.other);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
+  const [paymentHis,] = React.useState<boolean>(false);
   async function handlePayment() {
     await diapatch(initiateTrx());
   }
@@ -24,7 +25,29 @@ export const Billing = () => {
   }
 
   const image = getPlanImage();
-  console.log(image);
+  const getPlanAmount = (fees) => {
+    if (fees?.tuition_fees) {
+      return fees?.tuition_fees[image.name];
+    }
+    return [];
+  };
+
+  const amount = getPlanAmount(fees);
+
+  const getAmount = () => {
+    if (fees?.tuition_fees) {
+      // const formatKey = (key: string) => key.concat("_payment");
+      const formatKey = (key: string) => key.replace("_payment", "");
+      const lubu = Object.entries(amount).map(([key, value]) => ({
+        key: formatKey(key.toString()),
+        value: formatKey(value.toString())
+      }));
+      const laff = lubu.find(item => item.key === data.paymentPlan)
+      return laff;
+    }
+    return { key: 'no-plan', value: 'no-value'};
+  }
+  const haha = getAmount();
 
   React.useEffect(() => {
     if (!trxResponse) {
@@ -113,18 +136,19 @@ export const Billing = () => {
               </span>
             </div>
             <div className="flex">
-              <span>$100,000/</span>
-              <span>year</span>
+              <span>{haha?.value}/</span>
+              <span>{data.paymentPlan}</span>
             </div>
           </div>
           <div className="flex items-center justify-between py-4 border-t border-[#255E78] font-[600]">
             <span>Total</span>
-            <span>N100,000</span>
+            <span>{haha?.value}</span>
           </div>
         </div>
         <div className="flex flex-col p-3"></div>
         <div className="bg-[#023248] rounded-md flex flex-col h-full py-5 px-3 my-4 justify-between text-white">
-          <h2 className="text-sm py-2">Purchase History</h2>
+          <h2 className="text-sm py-2">Payment History</h2>
+          {paymentHis ? 
           <div className="flex flex-col py-4">
             <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
               <div className="flex flex-col text-sm font-[100]">
@@ -177,7 +201,7 @@ export const Billing = () => {
                 <FaArrowDown />
               </div>
             </div>
-          </div>
+          </div> : <h2>Your Payments history will appear here...</h2>}
         </div>
       </div>
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
@@ -194,7 +218,7 @@ export const Billing = () => {
               <Text color={"white"}>
                 {trxResponse?.transactionURL
                   ? "You will be redirected to another page to make your payment"
-                  : trxResponse?.message }
+                  : trxResponse?.message}
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
                 {trxResponse?.transactionURL && (
