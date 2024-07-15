@@ -1,12 +1,12 @@
 import Vector from "../../../assets/icons/Vector.svg";
-import checkbok from "../../../assets/icons/checkbok.svg";
-import academicCap from "../../../assets/icons/academic-cap.svg";
+import checkbox from "../../../assets/icons/checkbok.svg";
+import { ACADEMIC_LIGHT } from "../../../constants/icon";
 import { NOT_PROFILE } from "../../../constants/image";
 
 const HeaderProp = [
   {
     title: "Students",
-    icon: <img src={academicCap} alt="Academic Cap" />,
+    icon: <img src={ACADEMIC_LIGHT} alt="Academic Cap" />,
     text: "50",
   },
   {
@@ -16,16 +16,16 @@ const HeaderProp = [
   },
   {
     title: "Classes",
-    icon: <img src={checkbok} alt="Checkbox" />,
+    icon: <img src={checkbox} alt="Checkbox" />,
     text: "24",
   },
 ];
 
 const HeaderComponent = () => (
-  <div className="flex justify-between gap-4 p-4">
+  <div className="flex justify-between gap-4 mb-4">
     {HeaderProp.map((item, index) => (
       <div
-        className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-[200px] h-[104px] "
+        className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]"
         key={index}
       >
         <div className="flex items-center justify-between w-full mb-2">
@@ -57,28 +57,32 @@ const getScoreColor = (score) => {
 };
 
 const StudentPerformance = () => (
-  <div className="shadow-lg rounded-lg flex flex-col justify-between w-full h-full  border gap-[24px] border-[#5E7079] text-white">
-    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] mb-4">
+  <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
+    <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px]  rounded-[8px, 0px] px-6">
       <span className="text-lg font-semibold">Students Performance</span>
-      <a href="#" className="text-teal-300 text-sm">
+      <a href="#" className="text-green-400">
         View all
       </a>
     </div>
     <div>
-      {students.map((student) => (
+      {students.map((student, index) => (
         <div
           key={student.name}
-          className="flex justify-between items-center rounded mb-3 p-2"
+          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
         >
-          <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full mr-3">{student.imageUrl}</div>
-            <span className="text-white">{student.name}</span>
+          <div className={`flex justify-between items-center px-6 py-3`}>
+            <div className="flex items-center">
+              <div className="w-8 h-8 rounded-full mr-3">
+                {student.imageUrl}
+              </div>
+              <span className="text-white">{student.name}</span>
+            </div>
+            <span
+              className={`font-bold px-2 py-1 rounded ${getScoreColor(student.score)}`}
+            >
+              {student.score}%
+            </span>
           </div>
-          <span
-            className={`font-bold px-2 py-1 rounded ${getScoreColor(student.score)}`}
-          >
-            {student.score}%
-          </span>
         </div>
       ))}
     </div>
@@ -86,40 +90,44 @@ const StudentPerformance = () => (
 );
 
 const TopCourses = () => (
-  <div className="flex flex-col justify-between w-full h-full mb-8 rounded-lg shadow-lg border gap-[38px] border-[#5E7079] ">
-    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] mb-1 ">
-      <h2 className="text-white text-lg font-bold">Top Courses</h2>
-      <span className="text-green-400">No of students</span>
+  <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
+    <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px]  rounded-[8px, 0px] px-6">
+      <h2 className="text-white text-lg font-semibold">Top Courses</h2>
+      <span className="text-green-400">View all</span>
     </div>
     <div className="w-full h-full">
       {[
         { name: "UI/UX Design", students: 80, description: "General design" },
-        { name: "Computing", students: 70, description: "Computing" },
-        { name: "Agriculture", students: 20, description: "Farming" },
-        { name: "Economics", students: 10, description: "Scale of prefer" },
+        { name: "Frontend", students: 70, description: "Computing" },
+        { name: "Backend", students: 20, description: "Farming" },
+        {
+          name: "Cloud engineering",
+          students: 10,
+          description: "Scale of prefer",
+        },
         { name: "Marketing", students: 5, description: "Strategy" },
-      ].map((course) => (
+      ].map((course, index) => (
         <div
           key={course.name}
-          className="flex justify-between items-center p-2 rounded mb-1"
+          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
         >
-          <div className="flex items-center">
-            <div className="bg-[#023248] shadow-lg p-2 rounded mr-2">
-              <img src={Vector} alt="Book" />
+          <div className={`flex justify-between items-center px-6 py-3`}>
+            <div className="flex items-center">
+              <div className="bg-[#023248] shadow-lg pr-2 rounded mr-2">
+                <img src={Vector} alt="Book" />
+              </div>
+              <div>
+                <span className="text-white text-md ">{course.name}</span>
+                <br />
+                <span className="text-gray-400 text-sm">
+                  {course.description}
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="text-white text-md font-semibold">
-                {course.name}
-              </span>
-              <br />
-              <span className="text-gray-400 text-sm">
-                {course.description}
-              </span>
-            </div>
+            <span className="text-green-400 text-[14px] ">
+              {course.students} Students
+            </span>
           </div>
-          <span className="text-green-400 text-[14px] font-semibold">
-            {course.students} Students
-          </span>
         </div>
       ))}
     </div>
@@ -127,16 +135,10 @@ const TopCourses = () => (
 );
 
 const Dashboard = () => (
-  <div>
+  <div className="flex flex-col gap-4 w-full h-full mb-4">
     <HeaderComponent />
-    <div className="flex space-x-8 items-start mt-8">
-      <div className="flex-1">
-        <StudentPerformance />
-      </div>
-      <div className="flex-1">
-        <TopCourses />
-      </div>
-    </div>
+    <StudentPerformance />
+    <TopCourses />
   </div>
 );
 
