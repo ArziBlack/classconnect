@@ -7,12 +7,16 @@ import ChakraModal from "../../../components/ChakraModal";
 import { Flex } from "@chakra-ui/layout";
 import { Button, CircularProgress, Text } from "@chakra-ui/react";
 import { data as htada } from "../../../utils/data";
+import { getTuitionFees } from "../../../services/others/otherSlice";
 
 export const Billing = () => {
   const diapatch = useAppDispatch();
   const { isLoading, trxResponse } = useAppSelector((app) => app.student);
   const { data } = useAppSelector((from) => from.auth);
   const { fees } = useAppSelector((from) => from.other);
+  React.useEffect(() => {
+      !fees && diapatch(getTuitionFees());
+  }, [diapatch]);
   const [confirmation, setConfirmation] = React.useState<boolean>(false);
   const [paymentHis,] = React.useState<boolean>(false);
   async function handlePayment() {
@@ -36,7 +40,6 @@ export const Billing = () => {
 
   const getAmount = () => {
     if (fees?.tuition_fees) {
-      // const formatKey = (key: string) => key.concat("_payment");
       const formatKey = (key: string) => key.replace("_payment", "");
       const lubu = Object.entries(amount).map(([key, value]) => ({
         key: formatKey(key.toString()),
@@ -45,7 +48,7 @@ export const Billing = () => {
       const laff = lubu.find(item => item.key === data.paymentPlan)
       return laff;
     }
-    return { key: 'no-plan', value: 'no-value'};
+    return { key: 'no-plan', value: 'no-value' };
   }
   const haha = getAmount();
 
@@ -129,7 +132,7 @@ export const Billing = () => {
           <div className="flex items-center justify-between w-full font-light text-sm py-3">
             <div className="flex items-center">
               <div className="h-[70px] w-[70px] bg-[#255E78] rounded-full">
-                <img alt="plan" src={image?.image} />
+                <img alt="plan" src={image?.image} className="w-full h-full" />
               </div>
               <span className="ml-1">
                 {data.paymentPlan.replace(/_/g, " ")}
@@ -137,7 +140,7 @@ export const Billing = () => {
             </div>
             <div className="flex">
               <span>{haha?.value}/</span>
-              <span>{data.paymentPlan}</span>
+              <span>{data?.paymentPlan}</span>
             </div>
           </div>
           <div className="flex items-center justify-between py-4 border-t border-[#255E78] font-[600]">
@@ -148,60 +151,60 @@ export const Billing = () => {
         <div className="flex flex-col p-3"></div>
         <div className="bg-[#023248] rounded-md flex flex-col h-full py-5 px-3 my-4 justify-between text-white">
           <h2 className="text-sm py-2">Payment History</h2>
-          {paymentHis ? 
-          <div className="flex flex-col py-4">
-            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
-              <div className="flex flex-col text-sm font-[100]">
-                <span className="py-1">21st June, 2024 at 11:30 PM</span>
-                <div className="flex items-center py-1 font-[100] text-xs">
-                  <div className="flex items-center pr-2">
-                    <FaBook />
-                    <span className="pl-2 capitalize">
-                      {data.paymentPlan.replace(/_/g, " ")}
-                    </span>
+          {paymentHis ?
+            <div className="flex flex-col py-4">
+              <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+                <div className="flex flex-col text-sm font-[100]">
+                  <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                  <div className="flex items-center py-1 font-[100] text-xs">
+                    <div className="flex items-center pr-2">
+                      <FaBook />
+                      <span className="pl-2 capitalize">
+                        {data.paymentPlan.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                    <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                   </div>
-                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+                <div className="p-2 rounded-md bg-[#2E799C]">
+                  <FaArrowDown />
                 </div>
               </div>
-              <div className="p-2 rounded-md bg-[#2E799C]">
-                <FaArrowDown />
-              </div>
-            </div>
-            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
-              <div className="flex flex-col text-sm font-[100]">
-                <span className="py-1">21st June, 2024 at 11:30 PM</span>
-                <div className="flex items-center py-1 font-[100] text-xs">
-                  <div className="flex items-center pr-2">
-                    <FaBook />
-                    <span className="pl-2">
-                      {data.paymentPlan.replace(/_/g, " ")}
-                    </span>
+              <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+                <div className="flex flex-col text-sm font-[100]">
+                  <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                  <div className="flex items-center py-1 font-[100] text-xs">
+                    <div className="flex items-center pr-2">
+                      <FaBook />
+                      <span className="pl-2">
+                        {data.paymentPlan.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                    <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                   </div>
-                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+                <div className="p-2 rounded-md bg-[#2E799C]">
+                  <FaArrowDown />
                 </div>
               </div>
-              <div className="p-2 rounded-md bg-[#2E799C]">
-                <FaArrowDown />
-              </div>
-            </div>
-            <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
-              <div className="flex flex-col text-sm font-[100]">
-                <span className="py-1">21st June, 2024 at 11:30 PM</span>
-                <div className="flex items-center py-1 font-[100] text-xs">
-                  <div className="flex items-center pr-2">
-                    <FaBook />
-                    <span className="pl-2">
-                      {data.paymentPlan.replace(/_/g, " ")}
-                    </span>
+              <div className="bg-[#255E78] rounded-md flex items-center justify-between p-2 my-2">
+                <div className="flex flex-col text-sm font-[100]">
+                  <span className="py-1">21st June, 2024 at 11:30 PM</span>
+                  <div className="flex items-center py-1 font-[100] text-xs">
+                    <div className="flex items-center pr-2">
+                      <FaBook />
+                      <span className="pl-2">
+                        {data.paymentPlan.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                    <span className="text-[#1AEA8F] font-[600]">$190,000</span>
                   </div>
-                  <span className="text-[#1AEA8F] font-[600]">$190,000</span>
+                </div>
+                <div className="p-2 rounded-md bg-[#2E799C]">
+                  <FaArrowDown />
                 </div>
               </div>
-              <div className="p-2 rounded-md bg-[#2E799C]">
-                <FaArrowDown />
-              </div>
-            </div>
-          </div> : <h2>Your Payments history will appear here...</h2>}
+            </div> : <h2 className="text-sm font-[100] py-2">Your Payments history will appear here...</h2>}
         </div>
       </div>
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
