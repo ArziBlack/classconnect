@@ -87,7 +87,7 @@ const StudentPerformance = () => (
 
 const TopCourses = () => (
   <div className="flex flex-col justify-between w-full h-full mb-8 rounded-lg shadow-lg border gap-[38px] border-[#5E7079] ">
-    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] m-1 ">
+    <div className="flex justify-between items-center w-full h-full p-[16px] border-b border-[#5E7079] rounded-[8px, 0px] mb-1 ">
       <h2 className="text-white text-lg font-bold">Top Courses</h2>
       <span className="text-green-400">No of students</span>
     </div>
@@ -101,7 +101,7 @@ const TopCourses = () => (
       ].map((course) => (
         <div
           key={course.name}
-          className="flex justify-between items-center p-2 rounded"
+          className="flex justify-between items-center p-2 rounded mb-1"
         >
           <div className="flex items-center">
             <div className="bg-[#023248] shadow-lg p-2 rounded mr-2">
