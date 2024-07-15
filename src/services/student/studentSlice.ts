@@ -14,6 +14,7 @@ import {
   getTrxState,
   initiateTrx,
   rejectRecommendation,
+  requestRecommendation,
 } from "./studentThunks";
 import {
   IAcceptnRejectResponse,
@@ -215,6 +216,21 @@ const studentSlice = createSlice({
           state.error = action.payload;
         }
       )
+      .addCase(requestRecommendation.pending, (state)=> {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(requestRecommendation.fulfilled, (state, action: PayloadAction<IRecommendationResponse>)=> {
+        state.isLoading = false;
+        state.recommendResponse = action.payload;
+        state.isSuccess = true;
+      })
+      .addCase(requestRecommendation.rejected, (state, action: PayloadAction<string>) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
       .addCase(acceptRecommendation.pending, (state) => {
         state.isLoading = true;
         state.isError = false;

@@ -148,6 +148,31 @@ export const getPersonalAssessment = createAsyncThunk<
 });
 
 // Accept Tutor Recommendation
+export const requestRecommendation = createAsyncThunk<
+IRecommendationResponse,
+void,
+  { rejectValue: string }
+>("student/requestRecommendation", async (_, thunkAPI) => {
+  try {
+    const token = localStorage.getItem("token");
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post(
+      `${API_BASE_URL}/getTutorRecommendation/`,
+      {},
+      params
+    );
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Accept Tutor Recommendation
 export const acceptRecommendation = createAsyncThunk<
   IAcceptnRejectResponse,
   { tutorId: string; studentId: string },

@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, SimpleGrid, Skeleton, Text, Flex } from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
-import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
 import { IMyTutor } from "../../../../typings/student";
 import Button from "../../../../components/Button";
 import { IoFilter } from "react-icons/io5";
+import { requestRecommendation } from "../../../../services/student/studentThunks";
+import useCustomToast from "../../../../hooks/useCustomToast";
 
 export const Approved = () => {
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   !home && dispatch(getHomeResponse());
-  // }, []);
-  // const { home } = useAppSelector((dat) => dat.other);
-
-  const { approvedTutors, isLoading } = useAppSelector(
+  const toast = useCustomToast();
+  const dispatch = useAppDispatch();
+  const { approvedTutors, isLoading, error } = useAppSelector(
     (state) => state.student
   );
+  console.log(error);
+
+ useEffect(() => {
+    let isMounted = true;
+    if (error && isMounted) {
+      toast(error.message, "error");
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [error, isLoading]);
 
   const home = {
     courses: [
@@ -24,6 +33,9 @@ export const Approved = () => {
       { title: "CLOUD ENGINEERING" },
     ],
   };
+
+  // const handleRecommendation = () => {
+  // }
 
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -82,7 +94,7 @@ export const Approved = () => {
               ))}
             </Flex>
           )}
-          <Button text="Recommend a tutor" />
+          <Button text="Recommend a tutor" onClick={() => dispatch(requestRecommendation())} isLoading={isLoading} />
         </Flex>
       </Flex>
 
