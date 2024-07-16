@@ -17,6 +17,7 @@ import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
 import { Tutors } from "./pages/Student/views/Tutors";
 import Profile from "./pages/Student/views/Profile";
+import TutorProfile from "./pages/Instructor/views/Profile";
 import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
@@ -157,7 +158,7 @@ function AppContent() {
             <Route index element={<Content />} />
             <Route path="details" element={<Details />} />
           </Route>
-          <Route path="profile" element={<Profile />}>
+          <Route path="profile" element={<TutorProfile />}>
             <Route index element={<ProfileDetails />} />
             <Route path="notification" element={<Notification />} />
             <Route path="tuition-fee" element={<TuitionFee />} />
