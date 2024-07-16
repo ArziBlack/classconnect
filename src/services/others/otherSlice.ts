@@ -87,6 +87,16 @@ export const getTutorForgotPasswordURL = createAsyncThunk("other/tutor-forgot-pa
   }
 });
 
+// Logout Tutor
+export const logoutTutor = createAsyncThunk("other/logout-tutor", async (_, { rejectWithValue
+}) => {
+  try {
+    return await otherService.LogoutTutor();
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
 const otherSlice = createSlice({
   name: "other",
   initialState,
@@ -167,6 +177,16 @@ const otherSlice = createSlice({
       .addCase(getTutorForgotPasswordURL.rejected, (state) => {
         state.isLoading = false;
         state.message = "Something went wrong. Please try again later";
+      })
+      .addCase(logoutTutor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutTutor.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(logoutTutor.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.error = action.payload.message;
       })
   },
 });
