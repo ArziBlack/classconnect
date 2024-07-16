@@ -51,13 +51,41 @@ export const getTuitionFees = createAsyncThunk(
   }
 );
 
-export const getSignupPage = createAsyncThunk("other/url", async(_, thunkAPI)=> {
+// get Student Sign-up URL
+export const getSignupPage = createAsyncThunk("other/signup-url", async (_, thunkAPI) => {
   try {
     return await otherService.getSignupPage();
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
-})
+});
+
+// get the Tutor Sign-up URL
+export const getTutorSignupURL = createAsyncThunk("other/tutor-url", async (_, { rejectWithValue }) => {
+  try {
+    return await otherService.getTutorSignupURL();
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+// get the Tutor Login URL
+export const getTutorLoginURL = createAsyncThunk("other/tutor-login-url", async (_, { rejectWithValue }) => {
+  try {
+    return await otherService.getTutorLoginURL();
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+// get forgot password URL for Tutor
+export const getTutorForgotPasswordURL = createAsyncThunk("other/tutor-forgot-password", async (_, { rejectWithValue }) => {
+  try {
+    return await otherService.getTutorForgotPasswordURL();
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
 
 const otherSlice = createSlice({
   name: "other",
@@ -117,16 +145,28 @@ const otherSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload.message;
       })
-      .addCase(getSignupPage.pending, (state)=> {
+      .addCase(getSignupPage.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSignupPage.fulfilled, (state, action: PayloadAction<ISignupPage>)=> {
+      .addCase(getSignupPage.fulfilled, (state, action: PayloadAction<ISignupPage>) => {
         state.isLoading = false;
         state.URL = action.payload.signupFormURL
       })
-      .addCase(getSignupPage.rejected, (state, action: PayloadAction<any>)=> {
+      .addCase(getSignupPage.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
+      })
+      .addCase(getTutorForgotPasswordURL.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+      })
+      .addCase(getTutorForgotPasswordURL.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.URL = action.payload;
+      })
+      .addCase(getTutorForgotPasswordURL.rejected, (state) => {
+        state.isLoading = false;
+        state.message = "Something went wrong. Please try again later";
       })
   },
 });
