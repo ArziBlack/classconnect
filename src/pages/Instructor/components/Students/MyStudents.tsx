@@ -8,7 +8,7 @@ import {
 } from "../../../../hooks/reactReduxHooks";
 import { IMyTutor } from "../../../../typings/student";
 
-export const MyTutors = () => {
+export const MyStudents = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getMyTutors());
@@ -19,7 +19,7 @@ export const MyTutors = () => {
     <Box className="text-white" textAlign="center">
       {myTutors?.data?.length ? (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-          {myTutors.data.map((tutor:IMyTutor, index:number) => (
+          {myTutors.data.map((tutor: IMyTutor, index: number) => (
             <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>
               <TutorCard
                 name={tutor?.name}
@@ -34,7 +34,7 @@ export const MyTutors = () => {
         </SimpleGrid>
       ) : (
         <Box p={8}>
-          <Text fontWeight="bold">You are yet to be assigned a tutor.</Text>
+          <Text fontWeight="bold">You are yet to be assigned a student.</Text>
         </Box>
       )}
     </Box>

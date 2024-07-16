@@ -88,7 +88,12 @@ export const Home = () => {
         <DayPicker
           fromYear={2010}
           toYear={2024}
-          styles={{ day: cells }}
+          styles={{
+            day: cells,
+            months: {
+              fontWeight: 200,
+            },
+          }}
           showOutsideDays
           modifiers={modifiers}
           className="custom-day-picker"

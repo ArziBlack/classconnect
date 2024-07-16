@@ -22,6 +22,7 @@ import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
 import { Home as TutorHome } from "./pages/Instructor/views/Home";
+import { Students } from "./pages/Instructor/views/Students";
 import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
@@ -44,6 +45,7 @@ import AboutMe from "./pages/Student/components/Tutors/AboutMe";
 import EmailV from "./pages/EmailV";
 import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
+import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
 
 function AppContent() {
   const location = useLocation();
@@ -132,8 +134,8 @@ function AppContent() {
       <Route path="/instructor" element={<PrivateRoute />}>
         <Route element={<TutorLayout />}>
           <Route index element={<TutorHome />} />
-          <Route path="tutors" element={<Tutors />}>
-            <Route index element={<Approved />} />
+          <Route path="students" element={<Students />}>
+            <Route index element={<MyStudents />} />
             <Route path="my-tutors" element={<MyTutors />} />
             <Route path="recommended" element={<Recommended />} />
             <Route path="completed" element={<Started />} />
