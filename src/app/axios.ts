@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logout } from '../services/auth/authService';
 
 const axiosInstance = axios.create({
   baseURL: 'https://hep-coding.onrender.com/v1/student',
@@ -15,6 +16,16 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      logout();
+    }
     return Promise.reject(error);
   }
 );

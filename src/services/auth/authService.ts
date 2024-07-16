@@ -95,6 +95,9 @@ const resetPassword = async (email) => {
 export const logout = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("data");
+  setTimeout(()=> {
+    window.location.href = '/login';
+  }, 1000);
 };
 
 const authService = {
