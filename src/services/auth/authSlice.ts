@@ -73,7 +73,21 @@ export const register = createAsyncThunk(
   }
 );
 
-// Student Login
+// Tutor Signup Function
+export const registerTutor = createAsyncThunk("auth/tutorSignup", async ({ URI, data }: IRegister, thunkAPI) => {
+  try {
+    return await authService.registerTutor({ URI, data });
+  } catch (err) {
+    const error = err as AxiosError;
+    const message =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+})
+
+// Student Login Function
 export const login = createAsyncThunk(
   "auth/signin",
   async (user: ILoginParams, thunkAPI) => {
@@ -91,6 +105,21 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+// Tutor Login Function
+export const loginTutor = createAsyncThunk("auth/tutorLogin", async (user: ILoginParams, thunkAPI) => {
+  try {
+    return await authService.loginTutor(user);
+  } catch (err) {
+    const error = err as AxiosError;
+    const message =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+    console.log(message);
+    return thunkAPI.rejectWithValue(message);
+  }
+})
 
 // Send Reset Email for Password Reset
 export const resetPassword = createAsyncThunk(
@@ -175,6 +204,24 @@ const authSlice = createSlice({
         state.message = action.payload || "Registration failed";
         state.data = null;
       })
+      .addCase(registerTutor.pending, (state)=> {
+        state.isLoading = true;
+        state.isError = false;
+        state.message = "";
+        state.Loaded = false;
+      })
+      .addCase(registerTutor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.data = action.payload;
+        state.message = action.payload.message;
+        state.token = action.payload.token;
+      })
+      .addCase(registerTutor.rejected, (state, action: PayloadAction<any>)=> {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload.error || "Registration failed";
+      })
       .addCase(login.pending, (state) => {
         state.Loaded = false;
         state.isLoading = true;
@@ -195,6 +242,23 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isStudentLogged = false;
+        state.message = action.payload.error;
+        state.data = null;
+      })
+      .addCase(loginTutor.pending, (state) => {
+        state.isLoading = true;
+        state.Loaded = false;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(loginTutor.fulfilled, (state, action: PayloadAction<any>)=> {
+        state.Loaded = true;
+        state.isLoading = false;
+        state.isError = false;
+        state.data = action.payload;
+      })
+      .addCase(loginTutor.rejected, (state, action: PayloadAction<any>) => {
+        state.Loaded = false;
         state.message = action.payload.error;
         state.data = null;
       })

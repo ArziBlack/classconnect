@@ -19,6 +19,18 @@ const register = async ({ URI, data }: IRegister) => {
   return response.data;
 };
 
+// register Tutor (signup)
+const registerTutor = async ({ URI, data }: IRegister) => {
+  const headers = {
+    "Content-Type": "multipart/form-data",
+    Accept: "*/*",
+  };
+  const response = await axios.post(`${URI}/tutor/signup`, data, {
+    headers
+  });
+  return response.data;
+}
+
 // Login Guardian or Student Login
 const login = async (formData: ILoginParams) => {
   const headers = {
@@ -38,6 +50,24 @@ const login = async (formData: ILoginParams) => {
 
   return response.data;
 };
+
+// login tutor service
+const loginTutor = async (tutorData: ILoginParams) => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  const response = await axios.post(`${API_BASE_URL}/tutor/login`, tutorData, {
+    headers,
+  });
+
+  if (response.data) {
+    authLogger("Logged in", "User Signin", tutorData.email);
+    localStorage.setItem("tutor", JSON.stringify(response.data));
+    localStorage.setItem("token", response.data.token);
+  }
+
+  return response.data;
+}
 
 // Verify Student or Guardian
 const verify = async ({ studentId, uniqueString }: IVerify) => {
@@ -73,6 +103,8 @@ const authService = {
   verify,
   resetPassword,
   token,
+  loginTutor,
+  registerTutor
 };
 
 export default authService;
