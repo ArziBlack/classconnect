@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import authService, { ILoginParams } from "./authService";
-import { IRegister, IVerify } from "../../typings/signup";
+import { IRegister, IReset, IVerify } from "../../typings/signup";
 
 export interface IResponse {
   statusCode: number;
@@ -121,10 +121,10 @@ export const loginTutor = createAsyncThunk("auth/tutorLogin", async (user: ILogi
   }
 })
 
-// Send Reset Email for Password Reset
+// Send Reset Password for Student Forgot Password
 export const resetPassword = createAsyncThunk(
   "auth/reset",
-  async (email: object, thunkAPI) => {
+  async (email: IReset, thunkAPI) => {
     try {
       return await authService.resetPassword(email);
     } catch (err) {
@@ -138,12 +138,43 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+// Send Reset Password for Tutor Forgot Password
+export const resetTutorPassword = createAsyncThunk("auth/tutorReset", async (email: IReset, thunkAPI) => {
+  try {
+    return await authService.resetTutorPassword(email);
+  } catch (err) {
+    const error = err as AxiosError;
+    const message =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+})
+
 // Verify a Signed up Student or Guardian before login
 export const emailVerify = createAsyncThunk(
   "auth/verify",
   async ({ studentId, uniqueString }: IVerify, thunkAPI) => {
     try {
       return await authService.verify({ studentId, uniqueString });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// verify Tutor Account before login
+export const tutorEmailVerify = createAsyncThunk(
+  "auth/tutorVerify",
+  async ({ tutorId, uniqueString }: IVerify, thunkAPI) => {
+    try {
+      return await authService.verifyTutor({ tutorId, uniqueString });
     } catch (err) {
       const error = err as AxiosError;
       const message =
@@ -204,7 +235,7 @@ const authSlice = createSlice({
         state.message = action.payload || "Registration failed";
         state.data = null;
       })
-      .addCase(registerTutor.pending, (state)=> {
+      .addCase(registerTutor.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
         state.message = "";
@@ -217,7 +248,7 @@ const authSlice = createSlice({
         state.message = action.payload.message;
         state.token = action.payload.token;
       })
-      .addCase(registerTutor.rejected, (state, action: PayloadAction<any>)=> {
+      .addCase(registerTutor.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload.error || "Registration failed";
@@ -251,7 +282,7 @@ const authSlice = createSlice({
         state.isError = false;
         state.message = "";
       })
-      .addCase(loginTutor.fulfilled, (state, action: PayloadAction<any>)=> {
+      .addCase(loginTutor.fulfilled, (state, action: PayloadAction<any>) => {
         state.Loaded = true;
         state.isLoading = false;
         state.isError = false;
@@ -276,6 +307,23 @@ const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload || "An Error Occurred!!";
       })
+      .addCase(resetTutorPassword.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.isSuccess = false;
+        state.message = "";
+      })
+      .addCase(resetTutorPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.message = action.payload.message;
+      })
+      .addCase(resetTutorPassword.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload.message || "An Error Occurred!!";
+      })
       .addCase(getToken.pending, (state) => {
         state.isLoading = true;
       })
@@ -298,6 +346,21 @@ const authSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(emailVerify.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "An Error Occurred!!";
+      })
+      .addCase(tutorEmailVerify.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(tutorEmailVerify.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload.message;
+      })
+      .addCase(tutorEmailVerify.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.message = "An Error Occurred!!";

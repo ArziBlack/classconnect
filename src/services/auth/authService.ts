@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IRegister, IVerify } from "../../typings/signup";
+import { IRegister, IReset, IVerify } from "../../typings/signup";
 import { authLogger, resetLogger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
@@ -89,7 +89,7 @@ const verify = async ({ studentId, uniqueString }: IVerify) => {
 };
 
 // Reset Tutor Password
-const resetTutorPassword = async (email: string) => {
+const resetTutorPassword = async (email: IReset) => {
   const response = await axios.post(`${API_BASE_URL}/tutor/resetPassword`, email);
   if (response.data) {
     resetLogger("Password Reset", "Password Reset");
@@ -98,7 +98,7 @@ const resetTutorPassword = async (email: string) => {
 }
 
 // Reset Password
-const resetPassword = async (email) => {
+const resetPassword = async (email : IReset) => {
   const response = await axios.post(
     `${API_BASE_URL}/student/resetPassword`,
     email
@@ -109,6 +109,16 @@ const resetPassword = async (email) => {
   return response.data;
 };
 
+// New Password for Tutor
+const newPassword = async ({id, newPassword}) => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  const response = await axios.post(`https://hep-coding.onrender.com/v1/tutor/newPassword/${id}`, newPassword, { headers });
+  return response.data;
+}
+
+// logout
 export const logout = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("data");
@@ -126,7 +136,8 @@ const authService = {
   token,
   loginTutor,
   registerTutor,
-  resetTutorPassword
+  resetTutorPassword,
+  newPassword
 };
 
 export default authService;

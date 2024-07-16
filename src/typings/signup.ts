@@ -127,3 +127,7 @@ export interface IVerify {
   tutorId?: string;
   uniqueString: string;
 }
+
+export interface IReset {
+  email: string;
+}
