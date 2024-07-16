@@ -123,6 +123,7 @@ export const guardianInit = {
 };
 
 export interface IVerify {
-  studentId: string;
+  studentId?: string;
+  tutorId?: string;
   uniqueString: string;
 }

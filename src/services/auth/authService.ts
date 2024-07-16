@@ -69,6 +69,14 @@ const loginTutor = async (tutorData: ILoginParams) => {
   return response.data;
 }
 
+// Login Tutor Verification
+const verifyTutor = async ({ tutorId, uniqueString }: IVerify) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/tutor/verify/${tutorId}/${uniqueString}`
+  );
+  return response.data;
+}
+
 // Verify Student or Guardian
 const verify = async ({ studentId, uniqueString }: IVerify) => {
   const response = await axios.post(
@@ -79,6 +87,15 @@ const verify = async ({ studentId, uniqueString }: IVerify) => {
   }
   return response.data;
 };
+
+// Reset Tutor Password
+const resetTutorPassword = async (email: string) => {
+  const response = await axios.post(`${API_BASE_URL}/tutor/resetPassword`, email);
+  if (response.data) {
+    resetLogger("Password Reset", "Password Reset");
+  }
+  return response.data;
+}
 
 // Reset Password
 const resetPassword = async (email) => {
@@ -104,10 +121,12 @@ const authService = {
   register,
   login,
   verify,
+  verifyTutor,
   resetPassword,
   token,
   loginTutor,
-  registerTutor
+  registerTutor,
+  resetTutorPassword
 };
 
 export default authService;
