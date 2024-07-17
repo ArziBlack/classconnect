@@ -67,16 +67,15 @@ export const MyStudents = () => {
       nationality: "Nigeria",
       time: "Wednesday 5:00pm - 7:00pm WAT",
     },
-    // Add more student objects as needed
   ];
 
   return (
-    <Box className="text-white" textAlign="center">
+    <Box className=" flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
       {students?.length ? (
-        <div className="p-6  text-white min-h-screen">
-          <table className="w-full table-auto border-collapse">
-            <thead className="justify-center align">
-              <tr className="text-left text-lg font-semibold">
+        <div className="text-white">
+          <table className="w-full">
+            <thead className="w-full h-20 gap-10">
+              <tr className=" text-center py-5 text-lg font-semibold">
                 <th className="py-2 px-4">Name</th>
                 <th className="py-2 px-4">Status</th>
                 <th className="py-2 px-4">Course</th>
@@ -88,8 +87,11 @@ export const MyStudents = () => {
             </thead>
             <tbody>
               {students.map((student, index) => (
-                <tr key={index} className="">
-                  <td className="py-2 px-4 flex items-center">
+                <tr
+                  key={index}
+                  className={`justify-center text-center border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
+                >
+                  <td className="py-6 px-2 flex items-center">
                     <img
                       src={NOT_PROFILE}
                       alt="Avatar"
@@ -97,15 +99,15 @@ export const MyStudents = () => {
                     />
                     {student.name}
                   </td>
-                  <td className="py-2 px-4">
+                  <td>
                     <span
-                      className={`px-2 py-2 rounded-full text-sm ${
+                      className={`flex justify-around px-2 py-2 rounded-full text-sm ${
                         student.status === "Active"
                           ? "bg-green-500"
                           : "bg-red-500"
                       }`}
                     >
-                      <span className="rounded-full bg-black shadow-lg border px-2"></span>
+                      <span className="w-4 h-4 flex py-2  px-2 justify-center items-center rounded-full bg-[#023248] shadow-lg"></span>
                       {student.status}
                     </span>
                   </td>
