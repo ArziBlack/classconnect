@@ -75,3 +75,17 @@ export interface ICurriculumResponse {
     statusCode: number;
     message: ICurriculumMessage;
 }
+
+export interface ITutor {
+    myStudents: IMyStudentsResponse | null;
+    generalAssessment: IAssessmentResponse | null;
+    personnalAssessment: IAssessmentResponse | null;
+    reportResponse: IReportResponse | null;
+    classSchedule: IClassSchedule | null;
+    noticeResponse: INoticeResponse | null;
+    curriculumResponse: ICurriculumResponse | null;
+    isLoading: boolean;
+    isError: boolean;
+    error: string;
+    isSuccess: boolean;
+}
