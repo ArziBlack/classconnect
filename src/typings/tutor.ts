@@ -1,0 +1,77 @@
+interface Student {
+    name: string;
+    status: string;
+    course: string;
+    age: number;
+    sex: string;
+    country: string;
+    profileImage: string;
+    classTime_options: string[];
+    assessmentFormActionUrl: string;
+    sessionReportFormActionUrl: string;
+}
+
+interface AssessmentData {
+    type: string;
+    content: string;
+    tutor: string;
+    student?: string;
+    createdAt: string;
+    _id: string;
+    __v: number;
+}
+
+export interface IMyStudentsResponse {
+    statusCode: number;
+    message: string;
+    data: Student[];
+}
+
+export interface IAssessmentResponse {
+    statusCode: number;
+    message: string;
+    summary?: string;
+    data: AssessmentData;
+}
+
+export interface IAssessmentData {
+    type: string;
+    title?: string;
+    content: string;
+}
+
+export interface IClassData {
+    course: string;
+    todays_topic: string;
+    next_session_topic: string;
+    homework_status: string;
+    class_performance: string;
+}
+
+export interface IReportResponse {
+    statusCode: number;
+    message: string;
+}
+
+export interface IClassSchedule {
+    time1: string;
+    time2: string;
+    class_link: string;
+}
+
+export interface INoticeResponse {
+    statusCode: number;
+    message: string;
+    summary: string;
+}
+
+interface ICurriculumMessage {
+    title: string;
+    description: string;
+    curriculum: string;
+}
+
+export interface ICurriculumResponse {
+    statusCode: number;
+    message: ICurriculumMessage;
+}
