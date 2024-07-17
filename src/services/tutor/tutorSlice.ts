@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAssessmentResponse, IMyStudentsResponse, ITutor } from "../../typings/tutor";
-import { createGeneralAssessments, createPersonnalAssessment, getMyStudents } from "./tutorThunk";
+import { IAssessmentResponse, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
+import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getMyCurriculum, getMyStudents, sendClassNotice } from "./tutorThunk";
 
 const initialState = {
     myStudents: null,
@@ -79,6 +79,66 @@ const tutorSlice = createSlice({
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
             })
+            .addCase(createGeneralReport.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(createGeneralReport.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.reportResponse = action.payload;
+            })
+            .addCase(createGeneralReport.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
+            .addCase(createStudentReport.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(createStudentReport.fulfilled, (state, action: PayloadAction<IReportResponse>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.reportResponse = action.payload;
+            })
+            .addCase(createStudentReport.rejected, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
+            .addCase(sendClassNotice.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(sendClassNotice.fulfilled, (state, action: PayloadAction<INoticeResponse>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.noticeResponse = action.payload;
+            })
+            .addCase(sendClassNotice.rejected, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
+            .addCase(getMyCurriculum.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(getMyCurriculum.fulfilled, (state, action: PayloadAction<ICurriculumResponse>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.curriculumResponse = action.payload;
+            })
+            .addCase(getMyCurriculum.rejected, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            });
     },
 })
 
