@@ -17,9 +17,11 @@ import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
 import { Tutors } from "./pages/Student/views/Tutors";
 import Profile from "./pages/Student/views/Profile";
+import TutorProfile from "./pages/Instructor/views/Profile";
 import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
+import { Assessment as TutorAssessment } from "./pages/Instructor/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
 import { Home as TutorHome } from "./pages/Instructor/views/Home";
 import { Students } from "./pages/Instructor/views/Students";
@@ -157,14 +159,14 @@ function AppContent() {
             <Route index element={<Content />} />
             <Route path="details" element={<Details />} />
           </Route>
-          <Route path="profile" element={<Profile />}>
+          <Route path="profile" element={<TutorProfile />}>
             <Route index element={<ProfileDetails />} />
             <Route path="notification" element={<Notification />} />
             <Route path="tuition-fee" element={<TuitionFee />} />
             <Route path="invite" element={<Invite />} />
             <Route path="become-a-tutor" element={<BecomeTutor />} />
           </Route>
-          <Route path="assessments" element={<Assessment />}>
+          <Route path="assessments" element={<TutorAssessment />}>
             <Route index element={<PersonalAssessments />} />
             <Route
               path="general-assessments"
