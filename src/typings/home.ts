@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
-import { IGuardian, IStudent } from "./signup";
+import { IGuardian, IStudent, ITutor } from "./signup";
 
 export interface IStudentProps {
   onClick?: (e: SyntheticEvent<HTMLFormElement, SubmitEvent> | string) => void;
@@ -21,6 +21,17 @@ export interface IGuardianProps {
   setGuardianData?: Dispatch<SetStateAction<IGuardian>>;
   isGuardian?: boolean;
   typeModal?: () => void;
+}
+
+export interface ITutorProps {
+  onClick?: (e: SyntheticEvent<HTMLFormElement, SubmitEvent> | string) => void;
+  onChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => void;
+  data: ITutor;
+  handleClassTimeOptionsChange?: (selectedOptions: string[]) => void;
+  submit?: () => void;
+  setFormData?: Dispatch<SetStateAction<ITutor>>;
 }
 
 export interface IFees {

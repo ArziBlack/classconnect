@@ -54,7 +54,11 @@ function AppContent() {
   const [previousPath, setPreviousPath] = useState("/");
 
   useEffect(() => {
-    if (location.pathname !== "/signin" && location.pathname !== "/register") {
+    if (
+      location.pathname !== "/signin" &&
+      location.pathname !== "/register" &&
+      location.pathname !== "/apply"
+    ) {
       setPreviousPath(location.pathname);
     }
   }, [location.pathname]);
@@ -80,6 +84,7 @@ function AppContent() {
         <Route index element={<Home />} />
         <Route path="signin" element={getCurrentComponent(previousPath)} />
         <Route path="register" element={getCurrentComponent(previousPath)} />
+        <Route path="apply" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="tutor" element={<Tutor />} />
         <Route path="about" element={<About />} />

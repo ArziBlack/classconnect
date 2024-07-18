@@ -74,18 +74,21 @@ export const register = createAsyncThunk(
 );
 
 // Tutor Signup Function
-export const registerTutor = createAsyncThunk("auth/tutorSignup", async ({ URI, data }: IRegister, thunkAPI) => {
-  try {
-    return await authService.registerTutor({ URI, data });
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const registerTutor = createAsyncThunk(
+  "auth/tutorSignup",
+  async (data: IRegister, thunkAPI) => {
+    try {
+      return await authService.registerTutor(data);
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-})
+);
 
 // Student Login Function
 export const login = createAsyncThunk(
@@ -107,19 +110,22 @@ export const login = createAsyncThunk(
 );
 
 // Tutor Login Function
-export const loginTutor = createAsyncThunk("auth/tutorLogin", async (user: ILoginParams, thunkAPI) => {
-  try {
-    return await authService.loginTutor(user);
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    console.log(message);
-    return thunkAPI.rejectWithValue(message);
+export const loginTutor = createAsyncThunk(
+  "auth/tutorLogin",
+  async (user: ILoginParams, thunkAPI) => {
+    try {
+      return await authService.loginTutor(user);
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-})
+);
 
 // Send Reset Password for Student Forgot Password
 export const resetPassword = createAsyncThunk(
@@ -139,18 +145,21 @@ export const resetPassword = createAsyncThunk(
 );
 
 // Send Reset Password for Tutor Forgot Password
-export const resetTutorPassword = createAsyncThunk("auth/tutorReset", async (email: IReset, thunkAPI) => {
-  try {
-    return await authService.resetTutorPassword(email);
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const resetTutorPassword = createAsyncThunk(
+  "auth/tutorReset",
+  async (email: IReset, thunkAPI) => {
+    try {
+      return await authService.resetTutorPassword(email);
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-})
+);
 
 // Verify a Signed up Student or Guardian before login
 export const emailVerify = createAsyncThunk(
@@ -319,11 +328,14 @@ const authSlice = createSlice({
         state.isSuccess = true;
         state.message = action.payload.message;
       })
-      .addCase(resetTutorPassword.rejected, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload.message || "An Error Occurred!!";
-      })
+      .addCase(
+        resetTutorPassword.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload.message || "An Error Occurred!!";
+        }
+      )
       .addCase(getToken.pending, (state) => {
         state.isLoading = true;
       })

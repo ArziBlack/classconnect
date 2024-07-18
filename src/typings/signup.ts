@@ -19,8 +19,8 @@ export interface IGender {
 }
 
 export interface IRegister {
-  URI: string;
-  data: IStudent | IGuardian;
+  URI?: string;
+  data: IStudent | IGuardian | ITutor;
 }
 
 export interface ICountry {
@@ -82,7 +82,44 @@ export interface IStudent {
   student_phoneNum: number | string;
 }
 
-export const studentInit = {
+export interface ITutor {
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
+  sex: string | null;
+  country: string | null;
+  state: string | null;
+  dateOfBirth: Date | number | null;
+  yearsOfExperience: number | null;
+  phoneNum: number | string;
+  introduction: string | null;
+  specialization: string | null;
+  password: string;
+  confirm_password?: string;
+  profileImage: File;
+  resume: File;
+  agreement_status: boolean | string;
+}
+
+export const tutorInit: ITutor = {
+  first_name: null,
+  last_name: null,
+  email: null,
+  sex: null,
+  country: null,
+  state: null,
+  dateOfBirth: null,
+  yearsOfExperience: null,
+  phoneNum: null,
+  introduction: null,
+  specialization: null,
+  password: "",
+  profileImage: null,
+  resume: null,
+  agreement_status: "agreed",
+};
+
+export const studentInit: IStudent = {
   first_name: null,
   last_name: null,
   student_email: null,
@@ -100,7 +137,7 @@ export const studentInit = {
   student_phoneNum: null,
 };
 
-export const guardianInit = {
+export const guardianInit: IGuardian = {
   first_name: null,
   last_name: null,
   student_email: null,

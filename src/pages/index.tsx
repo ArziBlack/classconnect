@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import RegisterModal from "./Register";
 import NewsletterSection from "../components/NewsletterSection";
 import AdmissionBanner from "../components/AdmissionBanner";
+import ApplyModal from "./TutorRegisteration";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -21,6 +22,11 @@ const Layout = () => {
     onOpen: onRegisterOpen,
     onClose: onRegisterClose,
   } = useDisclosure();
+  const {
+    isOpen: isApplyOpen,
+    onOpen: onApplyOpen,
+    onClose: onApplyClose,
+  } = useDisclosure();
 
   React.useEffect(() => {
     if (location.pathname === "/signin") {
@@ -34,7 +40,20 @@ const Layout = () => {
     } else {
       onRegisterClose();
     }
-  }, [location, onSignInOpen, onSignInClose, onRegisterOpen, onRegisterClose]);
+    if (location.pathname === "/apply") {
+      onApplyOpen();
+    } else {
+      onApplyClose();
+    }
+  }, [
+    location,
+    onSignInOpen,
+    onSignInClose,
+    onRegisterOpen,
+    onRegisterClose,
+    onApplyOpen,
+    onApplyClose,
+  ]);
 
   const closeSignInModal = () => {
     navigate(-1);
@@ -44,6 +63,11 @@ const Layout = () => {
   const closeRegisterModal = () => {
     navigate(-1);
     onRegisterClose();
+  };
+
+  const closeApplyModal = () => {
+    navigate(-1);
+    onApplyClose();
   };
 
   return (
@@ -57,6 +81,7 @@ const Layout = () => {
       <Footer />
       <SignInModal isOpen={isSignInOpen} onClose={closeSignInModal} />
       <RegisterModal isOpen={isRegisterOpen} onClose={closeRegisterModal} />
+      <ApplyModal isOpen={isApplyOpen} onClose={closeApplyModal} />
     </Box>
   );
 };

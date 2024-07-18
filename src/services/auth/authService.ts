@@ -20,16 +20,16 @@ const register = async ({ URI, data }: IRegister) => {
 };
 
 // register Tutor (signup)
-const registerTutor = async ({ URI, data }: IRegister) => {
+const registerTutor = async ({ data }: IRegister) => {
   const headers = {
     "Content-Type": "multipart/form-data",
     Accept: "*/*",
   };
-  const response = await axios.post(`${URI}/tutor/signup`, data, {
-    headers
+  const response = await axios.post(`${API_BASE_URL}/tutor/signup`, data, {
+    headers,
   });
   return response.data;
-}
+};
 
 // Login Guardian or Student Login
 const login = async (formData: ILoginParams) => {
@@ -67,7 +67,7 @@ const loginTutor = async (tutorData: ILoginParams) => {
   }
 
   return response.data;
-}
+};
 
 // Login Tutor Verification
 const verifyTutor = async ({ tutorId, uniqueString }: IVerify) => {
@@ -75,7 +75,7 @@ const verifyTutor = async ({ tutorId, uniqueString }: IVerify) => {
     `${API_BASE_URL}/tutor/verify/${tutorId}/${uniqueString}`
   );
   return response.data;
-}
+};
 
 // Verify Student or Guardian
 const verify = async ({ studentId, uniqueString }: IVerify) => {
@@ -90,15 +90,18 @@ const verify = async ({ studentId, uniqueString }: IVerify) => {
 
 // Reset Tutor Password
 const resetTutorPassword = async (email: IReset) => {
-  const response = await axios.post(`${API_BASE_URL}/tutor/resetPassword`, email);
+  const response = await axios.post(
+    `${API_BASE_URL}/tutor/resetPassword`,
+    email
+  );
   if (response.data) {
     resetLogger("Password Reset", "Password Reset");
   }
   return response.data;
-}
+};
 
 // Reset Password
-const resetPassword = async (email : IReset) => {
+const resetPassword = async (email: IReset) => {
   const response = await axios.post(
     `${API_BASE_URL}/student/resetPassword`,
     email
@@ -110,20 +113,24 @@ const resetPassword = async (email : IReset) => {
 };
 
 // New Password for Tutor
-const newPassword = async ({id, newPassword}) => {
+const newPassword = async ({ id, newPassword }) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   };
-  const response = await axios.post(`https://hep-coding.onrender.com/v1/tutor/newPassword/${id}`, newPassword, { headers });
+  const response = await axios.post(
+    `https://hep-coding.onrender.com/v1/tutor/newPassword/${id}`,
+    newPassword,
+    { headers }
+  );
   return response.data;
-}
+};
 
 // logout
 export const logout = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("data");
-  setTimeout(()=> {
-    window.location.href = '/login';
+  setTimeout(() => {
+    window.location.href = "/login";
   }, 1000);
 };
 
@@ -137,7 +144,7 @@ const authService = {
   loginTutor,
   registerTutor,
   resetTutorPassword,
-  newPassword
+  newPassword,
 };
 
 export default authService;

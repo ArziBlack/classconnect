@@ -16,10 +16,14 @@ import {
   useTab,
 } from "@chakra-ui/react";
 import { PiCircleFill } from "react-icons/pi";
-import Button from "./Button";
 import { APPLY_TUTOR } from "../constants/illustrations";
+import CButton from "./Button";
+import { GoArrowUpRight } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const ApplyInstructor = () => {
+  const navigate = useNavigate();
+
   const CustomTab = ({ children }) => {
     const tabProps = useTab({});
 
@@ -147,7 +151,15 @@ const ApplyInstructor = () => {
               </TabPanel>
             </TabPanels>
           </Tabs>
-          <Button mt={5} bg={"brand.action"} text="Apply Now" />
+          <CButton
+            mt={5}
+            text="Apply now"
+            icon={GoArrowUpRight}
+            iconPosition="right"
+            onClick={() => {
+              navigate("/apply");
+            }}
+          />
         </Box>
       </Flex>
     </Box>
