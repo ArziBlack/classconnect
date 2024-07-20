@@ -1,5 +1,4 @@
 import { Box, Text } from "@chakra-ui/react";
-import { GrFormDown } from "react-icons/gr";
 import { NOT_PROFILE } from "../../../../constants/image";
 
 export const MyStudents = () => {
