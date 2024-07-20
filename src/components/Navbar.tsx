@@ -11,7 +11,8 @@ import {
   DrawerContent,
   useDisclosure,
   DrawerCloseButton,
-  Link as ChakraLink,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import { LOGO } from "../constants/icon";
 import { FaUser, FaBars } from "react-icons/fa6";
@@ -21,6 +22,8 @@ import {
   Link as ReactRouterLink,
 } from "react-router-dom";
 import { useState } from "react";
+import { setUserType } from "../services/others/otherSlice";
+import { useAppDispatch } from "../hooks/reactReduxHooks";
 
 type NavbarLinksProp = {
   onClick?: () => void;
@@ -88,6 +91,16 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const userType = [{ type: "student" }, { type: "tutor" }];
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleSelect = (event: string) => {
+    dispatch(setUserType(event));
+    setShowDropdown(false);
+  };
 
   return (
     <VStack
@@ -134,29 +147,60 @@ const Navbar = () => {
         <HStack
           ml="auto"
           pb={"2px"}
-          opacity={0.7}
           display={{ base: "none", md: "block" }}
           transition="border-bottom 0.3s ease-in-out"
           _hover={{
-            opacity: "1",
             textDecor: "none",
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <HStack>
-            <ChakraLink
+            <Box
               fontSize="16px"
+              opacity={0.7}
               fontWeight={700}
               as={ReactRouterLink}
+              onClick={() => setShowDropdown(!showDropdown)}
               _hover={{
+                opacity: "1",
                 textDecor: "none",
               }}
-              to={location.pathname !== "/signin" ? "/signin" : "/"}
             >
-              Login
-            </ChakraLink>
-            <FaUser color={isHovered ? "#00ff84" : ""} />
+              Login as
+            </Box>
+            <FaUser
+              color={isHovered ? "#00ff84" : ""}
+              opacity={isHovered ? 1 : 0.7}
+            />
+            {showDropdown && (
+              <Flex
+                direction="column"
+                position="absolute"
+                top="60px"
+                bg="rgba(0, 0, 0, 0.5)"
+                color="white"
+                backdropFilter="blur(10px)"
+                zIndex={1}
+              >
+                {userType?.map((type) => (
+                  <Box
+                    as={ReactRouterLink}
+                    key={type.type}
+                    fontSize={"sm"}
+                    py={2}
+                    px={4}
+                    onClick={() => handleSelect(type.type)}
+                    _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
+                    cursor="pointer"
+                    textTransform={"capitalize"}
+                    to={location.pathname !== "/signin" ? "/signin" : "/"}
+                  >
+                    {type.type}
+                  </Box>
+                ))}
+              </Flex>
+            )}
           </HStack>
         </HStack>
       </HStack>

@@ -16,7 +16,12 @@ import {
 import CButton from "../components/Button";
 import InputField from "../components/Input.tsx";
 import { LOGIN } from "../constants/illustrations.ts";
-import { IResponse, login, reset } from "../services/auth/authSlice.ts";
+import {
+  IResponse,
+  login,
+  loginTutor,
+  reset,
+} from "../services/auth/authSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, IRootState } from "../app/store.ts";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
@@ -38,6 +43,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   const showToast = useCustomToast();
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading } = useSelector((store: IRootState) => store.auth);
+  const { userType } = useSelector((store: IRootState) => store.other);
   const [check, setCheck] = useState<boolean>(false);
   const [inputError] = useState<string>("");
   const [userData, setUserData] = useState({
@@ -51,15 +57,28 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
       return;
     }
 
-    const resultAction = await dispatch(login(userData));
+    const resultAction =
+      userType === "student"
+        ? await dispatch(login(userData))
+        : await dispatch(loginTutor(userData));
     dispatch(reset());
-    // dispatch(logout());
-    if (login.fulfilled.match(resultAction)) {
+
+    if (
+      login.fulfilled.match(resultAction) ||
+      loginTutor.fulfilled.match(resultAction)
+    ) {
       showToast(resultAction.payload.message || "Login successful", "success");
-      setTimeout(()=> {
-        navigate("/student");
-      },3000);
-    } else if (login.rejected.match(resultAction)) {
+      setTimeout(() => {
+        if (userType === "student") {
+          navigate("/student");
+        } else {
+          navigate("/instructor");
+        }
+      }, 3000);
+    } else if (
+      login.rejected.match(resultAction) ||
+      loginTutor.rejected.match(resultAction)
+    ) {
       showToast(
         (resultAction.payload as IResponse).message ||
           (resultAction.payload as IResponse).error ||
@@ -184,7 +203,9 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                         fontWeight="400"
                         color="black"
                       >
-                        Sign In to your account to continue
+                        Sign In to your{" "}
+                        <strong className="font-[500]">{userType}</strong>{" "}
+                        dashboard
                       </Text>
                     </Box>
                     <Box w="100%" mb={3}>

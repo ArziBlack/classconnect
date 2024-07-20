@@ -81,6 +81,7 @@ export interface OtherState {
   message: string;
   isLoading: boolean;
   isSuccess: boolean;
+  userType: string | null;
 }
 
 export interface Admission {

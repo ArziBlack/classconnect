@@ -24,31 +24,31 @@ const getTnC_Policy = async () => {
 const getSignupPage = async () => {
   const response = await axios.get(`${API_BASE_URL}/student/openSignupPage`);
   return response.data;
-}
+};
 
 // Endpoint to Get Tutor Signup URL based on if the admission is open or not.
 const getTutorSignupURL = async () => {
   const response = await axios.get(`${API_BASE_URL}/tutor/signup`);
   return response.data;
-}
+};
 
 // Endpoint to Get Tutor Login URL based on if the admission is open or not.
 const getTutorLoginURL = async () => {
   const response = await axios.get(`${API_BASE_URL}/tutor/login`);
   return response.data;
-}
+};
 
 // Endpoint to Get Tutor Forgot Password URL based on if the admission is open or not.
 const getTutorForgotPasswordURL = async () => {
   const response = await axios.get(`${API_BASE_URL}/tutor/forgotPassword`);
   return response.data;
-}
+};
 
 // Logout Tutor
 const LogoutTutor = async () => {
   const response = await axios.get(`${API_BASE_URL}/tutor/logout`);
   return response.data;
-}
+};
 
 const otherService = {
   getHomeResponse,
@@ -58,7 +58,7 @@ const otherService = {
   getTutorSignupURL,
   getTutorLoginURL,
   getTutorForgotPasswordURL,
-  LogoutTutor
+  LogoutTutor,
 };
 
 export default otherService;

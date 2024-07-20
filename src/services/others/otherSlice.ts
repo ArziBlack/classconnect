@@ -2,7 +2,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import otherService from "./otherService.ts";
-import { IFees, IHomeResponse, ISignupPage, OtherState } from "../../typings/home.ts";
+import {
+  IFees,
+  IHomeResponse,
+  ISignupPage,
+  OtherState,
+} from "../../typings/home.ts";
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
@@ -15,6 +20,7 @@ const initialState: OtherState = {
   message: "",
   isLoading: false,
   isSuccess: false,
+  userType: null,
 };
 
 export const getHomeResponse = createAsyncThunk(
@@ -52,50 +58,64 @@ export const getTuitionFees = createAsyncThunk(
 );
 
 // get Student Sign-up URL
-export const getSignupPage = createAsyncThunk("other/signup-url", async (_, thunkAPI) => {
-  try {
-    return await otherService.getSignupPage();
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const getSignupPage = createAsyncThunk(
+  "other/signup-url",
+  async (_, thunkAPI) => {
+    try {
+      return await otherService.getSignupPage();
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 // get the Tutor Sign-up URL
-export const getTutorSignupURL = createAsyncThunk("other/tutor-url", async (_, { rejectWithValue }) => {
-  try {
-    return await otherService.getTutorSignupURL();
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const getTutorSignupURL = createAsyncThunk(
+  "other/tutor-url",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getTutorSignupURL();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 // get the Tutor Login URL
-export const getTutorLoginURL = createAsyncThunk("other/tutor-login-url", async (_, { rejectWithValue }) => {
-  try {
-    return await otherService.getTutorLoginURL();
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const getTutorLoginURL = createAsyncThunk(
+  "other/tutor-login-url",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getTutorLoginURL();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 // get forgot password URL for Tutor
-export const getTutorForgotPasswordURL = createAsyncThunk("other/tutor-forgot-password", async (_, { rejectWithValue }) => {
-  try {
-    return await otherService.getTutorForgotPasswordURL();
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const getTutorForgotPasswordURL = createAsyncThunk(
+  "other/tutor-forgot-password",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getTutorForgotPasswordURL();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 // Logout Tutor
-export const logoutTutor = createAsyncThunk("other/logout-tutor", async (_, { rejectWithValue
-}) => {
-  try {
-    return await otherService.LogoutTutor();
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const logoutTutor = createAsyncThunk(
+  "other/logout-tutor",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.LogoutTutor();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 const otherSlice = createSlice({
   name: "other",
@@ -106,6 +126,10 @@ const otherSlice = createSlice({
         (state.isSuccess = false),
         (state.error = ""),
         (state.message = "");
+      state.userType = null;
+    },
+    setUserType: (state, action: PayloadAction<string>) => {
+      state.userType = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -158,10 +182,13 @@ const otherSlice = createSlice({
       .addCase(getSignupPage.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSignupPage.fulfilled, (state, action: PayloadAction<ISignupPage>) => {
-        state.isLoading = false;
-        state.URL = action.payload.signupFormURL
-      })
+      .addCase(
+        getSignupPage.fulfilled,
+        (state, action: PayloadAction<ISignupPage>) => {
+          state.isLoading = false;
+          state.URL = action.payload.signupFormURL;
+        }
+      )
       .addCase(getSignupPage.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
@@ -187,9 +214,9 @@ const otherSlice = createSlice({
       .addCase(logoutTutor.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
-      })
+      });
   },
 });
 
-export const { reset } = otherSlice.actions;
+export const { reset, setUserType } = otherSlice.actions;
 export default otherSlice.reducer;
