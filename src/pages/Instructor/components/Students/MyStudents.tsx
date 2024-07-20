@@ -75,7 +75,7 @@ export const MyStudents = () => {
         <div className="text-white">
           <table className="w-full">
             <thead className="w-full h-20 gap-10">
-              <tr className=" text-center py-5 text-lg font-semibold">
+              <tr className=" text-left py-5 text-lg font-semibold">
                 <th className="py-2 px-4">Name</th>
                 <th className="py-2 px-4">Status</th>
                 <th className="py-2 px-4">Course</th>
@@ -89,7 +89,7 @@ export const MyStudents = () => {
               {students.map((student, index) => (
                 <tr
                   key={index}
-                  className={`justify-center text-center border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
+                  className={`justify-center  border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
                 >
                   <td className="py-6 px-2 flex items-center">
                     <img
@@ -115,12 +115,11 @@ export const MyStudents = () => {
                   <td className="py-2 px-4">{student.age}</td>
                   <td className="py-2 px-4">{student.sex}</td>
                   <td className="py-2 px-4">{student.nationality}</td>
-                  <td className="py-2 px-4 flex justify-between items-center">
+                  <td className="py-2 px-4">{student.nationality}</td>
+                  {/* <td className="py-2 px-4 flex">
                     {student.time}
-                    <span className="ml-2">
-                      <GrFormDown />
-                    </span>
-                  </td>
+                    <GrFormDown />
+                  </td> */}
                 </tr>
               ))}
             </tbody>
