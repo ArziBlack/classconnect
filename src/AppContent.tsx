@@ -49,6 +49,7 @@ import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
 import { Curriculum } from "./pages/Instructor/views/Curriculum";
+import StudentDetailed from "./pages/Instructor/views/StudentDetailed";
 
 function AppContent() {
   const location = useLocation();
@@ -145,9 +146,7 @@ function AppContent() {
           <Route path="students" element={<Students />}>
             <Route index element={<MyStudents />} />
           </Route>
-          <Route path="tutors/:tutorId" element={<TutorDetails />}>
-            <Route index element={<AboutMe />} />
-          </Route>
+          <Route path="students/:studentId" element={<StudentDetailed />} />
           <Route path="courses/:courseId" element={<CourseDetails />}>
             <Route index element={<Content />} />
             <Route path="description" element={<Details />} />

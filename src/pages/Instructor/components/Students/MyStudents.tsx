@@ -1,7 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
 import { NOT_PROFILE } from "../../../../constants/image";
+import { useNavigate } from "react-router-dom";
 
 export const MyStudents = () => {
+  const navigate = useNavigate();
+  function handleClick(input: string) {
+    navigate(input);
+  }
+  
   const students = [
     {
       name: "Favour Ogechi",
@@ -89,8 +95,9 @@ export const MyStudents = () => {
                 <tr
                   key={index}
                   className={`justify-center  border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
+                  onClick={() => handleClick(student.name.replace(" ", ""))}
                 >
-                  <td className="py-6 px-2 flex items-center">
+                  <td className="py-6 px-2 flex items-center hover:cursor-pointer">
                     <img
                       src={NOT_PROFILE}
                       alt="Avatar"
@@ -115,10 +122,6 @@ export const MyStudents = () => {
                   <td className="py-2 px-4">{student.sex}</td>
                   <td className="py-2 px-4">{student.nationality}</td>
                   <td className="py-2 px-4">{student.nationality}</td>
-                  {/* <td className="py-2 px-4 flex">
-                    {student.time}
-                    <GrFormDown />
-                  </td> */}
                 </tr>
               ))}
             </tbody>

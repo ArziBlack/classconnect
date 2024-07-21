@@ -15,9 +15,13 @@ export interface IResponse {
   profileImage: string;
   phoneNum: string;
   classType: string;
+  class_type?: string;
   message: string;
   greeting?: string;
+  student_count?: number;
+  classNoticeUrl? : string;
   error?: string;
+  token?: string;
 }
 
 const data: IResponse | null = JSON.parse(
