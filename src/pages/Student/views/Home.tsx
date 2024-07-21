@@ -4,21 +4,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
 import { useAppSelector } from "../../../hooks/reactReduxHooks";
-
-const homeCourses = [
-  {
-    course: "Frontend Development",
-    image: "image",
-    tutor: "Samuel",
-    status: "completed",
-  },
-  {
-    course: "Cloud Engineering",
-    image: "image",
-    tutor: "Samuel",
-    status: "completed",
-  },
-];
+import { Link } from "react-router-dom";
 
 const schedule = [
   { course: "Frontend Development", time: "2nd July 2024, Tuesday" },
@@ -52,6 +38,7 @@ const modifiersStyles = {
 
 export const Home = () => {
   const { data } = useAppSelector((state) => state.auth);
+  const { myCoursesRes } = useAppSelector((state) => state.student);
 
   const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
@@ -95,9 +82,11 @@ export const Home = () => {
           <div className="flex w-full py-1">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4">Status</h2>
-            <h2 className="w-1/4 text-right text-[#00ff84]">All Courses</h2>
+            <Link to={`/student/courses/started`} className="w-1/4 text-right text-[#00ff84]">
+              All Courses
+            </Link>
           </div>
-          {homeCourses.map((item, id) => (
+          {!myCoursesRes || myCoursesRes?.message?.length === 0 ? (<div className="text-center my-2 border border-gray-400 p-1 rounded">You Dont Have any Courses Yet...</div>) : myCoursesRes?.message?.slice(0, 2).map((item, id) => (
             <div
               className="flex w-full items-center my-1 border border-gray-400 p-1 rounded"
               key={id}
@@ -105,11 +94,11 @@ export const Home = () => {
               <div className="w-2/4 flex items-center">
                 <div className="bg-red-400 rounded-full h-9 w-9 p-1 ml-1"></div>
                 <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="text-xs">{item.course}</h2>
-                  <h2 className="font-[100] text-xs">{item.tutor}</h2>
+                  <h2 className="text-xs">{item?.title}</h2>
+                  {/* <h2 className="font-[100] text-xs">{item?.tutor}</h2> */}
                 </div>
               </div>
-              <h2 className="w-1/4 font-[100] text-xs">{item.status}</h2>
+              <h2 className="w-1/4 font-[100] text-xs">Started</h2>
               <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
                 View Courses
               </button>
