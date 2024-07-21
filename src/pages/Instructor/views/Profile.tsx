@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useAppSelector } from "../../../hooks/reactReduxHooks";
 
 const fadeAnimation = keyframes`
   0% { opacity: 0.2; }
@@ -18,16 +19,17 @@ const fadeAnimation = keyframes`
 `;
 
 const Profile = () => {
+  const { data } = useAppSelector(state => state.auth);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    firstName: "John",
-    lastName: "Drake",
-    email: "John@example.com",
-    mobile: "07069476260",
-    dob: "2/7/1995",
-    sex: "Male",
-    country: "Nigeria",
-    state: "Abia",
+    "First Name": data?.first_name,
+    lastName: data?.last_name,
+    email: data?.email,
+    mobile: data?.phoneNum,
+    dob: "Unknown",
+    sex: "Unknown",
+    "Student Count": data?.student_count,
+    "Class Type": data?.class_type,
   });
 
   const handleEditClick = () => {
@@ -74,11 +76,10 @@ const Profile = () => {
             src="/path/to/image.jpg"
           />
           <Text fontSize="2xl" fontWeight="bold" mt={4}>
-            John Michael Drake
+            {data?.first_name}{" "}{data?.last_name}
           </Text>
           <Text fontSize="md" fontWeight={200} mt={2}>
-            Lorem ipsum dolor sit amet consectetur. Morbi aliquam aliquam
-            gravida pellentesque...
+            {data?.greeting}...
           </Text>
           <VStack spacing={4} mt={6}>
             <HStack>

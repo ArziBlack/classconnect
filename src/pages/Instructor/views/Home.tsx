@@ -3,6 +3,7 @@ import "react-day-picker/dist/style.css";
 import DashBoard from "../views/Dashboard";
 import PDFicon from "../../../assets/icons/PDFicon.svg";
 import { NOT_PROFILE } from "../../../constants/image";
+import { useAppSelector } from "../../../hooks/reactReduxHooks";
 
 const homeCourses = [
   {
@@ -48,15 +49,14 @@ const modifiersStyles = {
 };
 
 export const Home = () => {
+  const { data } = useAppSelector(store => store.auth);
   return (
     <div className="w-full flex gap-6 text-white text-[14px] font-['Inter']">
       <div className="w-2/3 flex flex-col justify-center items-center">
         <div className="my-8">
-          <h2 className="font-[600] text-3xl pb-3">Hi Felix </h2>
+          <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name} </h2>
           <p className=" font-[400] text-[16px]">
-            Welcome Back. Your free plan has expired.We will miss you in
-            class.Proceed to make payment to reactivate your access to live
-            classes and Learning resources
+           {data?.greeting}
           </p>
         </div>
         <DashBoard />
