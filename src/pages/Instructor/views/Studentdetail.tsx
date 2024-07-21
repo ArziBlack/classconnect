@@ -233,6 +233,20 @@ const StudentDetail = () => {
                             color="white"
                             text="Create Assessment"
                         />
+                        <div className="mx-2"></div>
+                        <Button
+                            onClick={onOpen}
+                            leftIcon={<IoPeopleCircle size={23} />}
+                            mt={{ sm: 2, md: 3 }}
+                            width={{ sm: "100px", md: "200px" }}
+                            height={{ sm: "7", md: "10" }}
+                            fontSize={{ sm: "xs", md: "sm" }}
+                            borderRadius="md"
+                            bg="#002c8a"
+                            _hover={{ bg: "#002C6A" }}
+                            color="white"
+                            text="Create Report"
+                        />
                     </Flex>
 
                     <Modal
