@@ -49,7 +49,6 @@ import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
 import { Curriculum } from "./pages/Instructor/views/Curriculum";
-// import StudentDetailed from "./pages/Instructor/views/StudentDetailed";
 import StudentDetail from "./pages/Instructor/views/Studentdetail";
 
 function AppContent() {

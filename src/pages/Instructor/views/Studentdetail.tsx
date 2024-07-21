@@ -137,7 +137,6 @@ const StudentDetail = () => {
                                 <SkeletonText isLoaded={Loaded}>{""}</SkeletonText>
                             </Text>
                         </HStack>
-                        <div className=" w-full border-t-[1px] mt-2"></div>
                         <Box>
                             <Text
                                 fontSize={{ sm: "xs", md: "md" }}
