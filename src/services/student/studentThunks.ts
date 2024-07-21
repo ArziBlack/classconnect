@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IRootState } from "../../app/store";
+// import { IRootState } from "../../app/store";
 import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
@@ -97,17 +97,9 @@ export const chooseTutor = createAsyncThunk<
   { rejectValue: string }
 >("student/chooseTutor", async ({ url }, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = state.auth.token;
-
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${url}`,
       {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
     );
 
     return response.data;
@@ -229,14 +221,7 @@ export const getMyTutors = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyTutors", async (_, thunkAPI) => {
   try {
-    const state = thunkAPI.getState() as IRootState;
-    const token = JSON.parse(state.auth.token);
-
-    const response = await axios.get(`${API_BASE_URL}/getMyTutors`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`${API_BASE_URL}/getMyTutors`);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -251,13 +236,7 @@ export const getMyCourses = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyCourses", async (_, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token")?.trim()?.toString();
-
-    const response = await axios.get(`${API_BASE_URL}/getMyCourses`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`${API_BASE_URL}/getMyCourses`);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;

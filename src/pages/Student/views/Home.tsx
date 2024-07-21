@@ -40,7 +40,6 @@ export const Home = () => {
   const { data } = useAppSelector((state) => state.auth);
   const { myCoursesRes } = useAppSelector((state) => state.student);
 
-  const name = data?.greeting.split(" ")[1];
   const [containerWidth, setContainerWidth] = useState<number>(660);
   const iframeHeight = containerWidth * (300 / 560);
 
@@ -68,7 +67,7 @@ export const Home = () => {
     <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center items-center">
         <div className="mb-8">
-          <h2 className="font-[600] text-3xl pb-3">Hi {name}</h2>
+          <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name}</h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <div
