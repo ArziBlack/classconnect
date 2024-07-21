@@ -37,6 +37,7 @@ const StudentDetail = () => {
     const [type, setType] = useState("");
     const [content, setContent] = useState("");
     const [attachment, setAttachment] = useState(null);
+    const [assessmentSwitch, setAssessmentSwitch] = useState("");
     const toast = useToast();
 
     const handleTypeChange = (e) => setType(e.target.value);
@@ -126,7 +127,7 @@ const StudentDetail = () => {
                             <Image
                                 borderRadius="xl"
                                 boxSize={{ sm: "250px", md: "300px" }}
-                                  src={NOT_PROFILE}
+                                src={NOT_PROFILE}
                                 alt="Dan Abramov"
                             />
                         </Skeleton>
@@ -220,7 +221,7 @@ const StudentDetail = () => {
                         </Text>
                         <Spacer />
                         <Button
-                            onClick={onOpen}
+                            onClick={() => { onOpen(); setAssessmentSwitch("assessment") }}
                             leftIcon={<IoPeopleCircle size={23} />}
                             mt={{ sm: 2, md: 3 }}
                             width={{ sm: "100px", md: "200px" }}
@@ -234,7 +235,7 @@ const StudentDetail = () => {
                         />
                         <div className="mx-2"></div>
                         <Button
-                            onClick={onOpen}
+                            onClick={() => { onOpen(); setAssessmentSwitch("report") }}
                             leftIcon={<IoPeopleCircle size={23} />}
                             mt={{ sm: 2, md: 3 }}
                             width={{ sm: "100px", md: "200px" }}
@@ -261,48 +262,74 @@ const StudentDetail = () => {
                                 fontSize={{ sm: "xs", md: "sm" }}
                                 color="#002c8a"
                             >
-                                Create Student Personnal Assesment
+                                Create Student Personnal {assessmentSwitch}
                             </ModalHeader>
                             <ModalCloseButton />
                             <Box maxW="600px" p={6}>
                                 <Text fontSize="2xl" fontWeight="bold" mb={3}>
-                                    Create Assessment
+                                    Create {assessmentSwitch}
                                 </Text>
-                                <form onSubmit={handleSubmit}>
-                                    <VStack spacing={4} align="stretch">
-                                        <FormControl id="type" isRequired>
-                                            <FormLabel>Type</FormLabel>
-                                            <Select
-                                                value={type}
-                                                colorScheme={"dark"}
-                                                onChange={handleTypeChange}
-                                                placeholder="Select assessment type"
-                                            >
-                                                <option value="Home-work">Home-work</option>
-                                                <option value="Class-work">Class-work</option>
-                                                <option value="Test">Test</option>
-                                            </Select>
-                                        </FormControl>
-                                        <FormControl id="content" isRequired>
-                                            <FormLabel>Content</FormLabel>
-                                            <Textarea
-                                                value={content}
-                                                onChange={handleContentChange}
-                                                placeholder="Enter the assessment details"
-                                                rows={6}
-                                            />
-                                        </FormControl>
-                                        <FormControl id="attachment">
-                                            <FormLabel>Attachment (optional)</FormLabel>
-                                            <Input
-                                                type="file"
-                                                onChange={handleAttachmentChange}
-                                                accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
-                                            />
-                                        </FormControl>
-                                        <Button type="submit" text="Send Assessment" ml={"auto"}></Button>
-                                    </VStack>
-                                </form>
+                                {assessmentSwitch === "assessment" &&
+                                    (<form onSubmit={handleSubmit}>
+                                        <VStack spacing={4} align="stretch">
+                                            <FormControl id="type" isRequired>
+                                                <FormLabel>Type</FormLabel>
+                                                <Select
+                                                    value={type}
+                                                    colorScheme={"dark"}
+                                                    onChange={handleTypeChange}
+                                                    placeholder="Select assessment type"
+                                                >
+                                                    <option value="Home-work">Home-work</option>
+                                                    <option value="Class-work">Class-work</option>
+                                                    <option value="Test">Test</option>
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl id="content" isRequired>
+                                                <FormLabel>Content</FormLabel>
+                                                <Textarea
+                                                    value={content}
+                                                    onChange={handleContentChange}
+                                                    placeholder="Enter the assessment details"
+                                                    rows={6}
+                                                />
+                                            </FormControl>
+                                            <FormControl id="attachment">
+                                                <FormLabel>Attachment (optional)</FormLabel>
+                                                <Input
+                                                    type="file"
+                                                    onChange={handleAttachmentChange}
+                                                    accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
+                                                />
+                                            </FormControl>
+                                            <Button type="submit" text="Send Assessment" ml={"auto"}></Button>
+                                        </VStack>
+                                    </form>)}
+                                {assessmentSwitch === "report" &&
+                                    (<form onSubmit={handleSubmit}>
+                                        <VStack spacing={4} align="stretch">
+                                            <FormControl id="type" isRequired>
+                                                <FormLabel>Title</FormLabel>
+                                                <Input
+                                                    fontSize={{ sm: "xs", md: "sm" }}
+                                                    isDisabled
+                                                    type="text"
+                                                    placeholder="..."
+                                                    _placeholder={{ color: "white" }}
+                                                />
+                                            </FormControl>
+                                            <FormControl id="content" isRequired>
+                                                <FormLabel>Content</FormLabel>
+                                                <Textarea
+                                                    value={content}
+                                                    onChange={handleContentChange}
+                                                    placeholder="Enter the Report details"
+                                                    rows={6}
+                                                />
+                                            </FormControl>
+                                            <Button type="submit" text="Send Report" ml={"auto"}></Button>
+                                        </VStack>
+                                    </form>)}
                             </Box>
                         </ModalContent>
                     </Modal>
