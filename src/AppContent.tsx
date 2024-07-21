@@ -48,6 +48,7 @@ import EmailV from "./pages/EmailV";
 import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
+import { Curriculum } from "./pages/Instructor/views/Curriculum";
 
 function AppContent() {
   const location = useLocation();
@@ -143,9 +144,6 @@ function AppContent() {
           <Route index element={<TutorHome />} />
           <Route path="students" element={<Students />}>
             <Route index element={<MyStudents />} />
-            <Route path="my-tutors" element={<MyTutors />} />
-            <Route path="recommended" element={<Recommended />} />
-            <Route path="completed" element={<Started />} />
           </Route>
           <Route path="tutors/:tutorId" element={<TutorDetails />}>
             <Route index element={<AboutMe />} />
@@ -154,30 +152,13 @@ function AppContent() {
             <Route index element={<Content />} />
             <Route path="description" element={<Details />} />
           </Route>
-          <Route path="courses" element={<MyCourses />}>
-            <Route index element={<Browse />} />
-            <Route path="started" element={<Started />} />
-            <Route path="ongoing" element={<OnGoing />} />
-            <Route path="completed" element={<Completed />} />
-          </Route>
+          <Route path="curriculum" element={<Curriculum />}></Route>
           <Route path="detailed" element={<CourseDetails />}>
             <Route index element={<Content />} />
             <Route path="details" element={<Details />} />
           </Route>
-          <Route path="profile" element={<TutorProfile />}>
-            <Route index element={<ProfileDetails />} />
-            <Route path="notification" element={<Notification />} />
-            <Route path="tuition-fee" element={<TuitionFee />} />
-            <Route path="invite" element={<Invite />} />
-            <Route path="become-a-tutor" element={<BecomeTutor />} />
-          </Route>
-          <Route path="assessments" element={<TutorAssessment />}>
-            <Route index element={<PersonalAssessments />} />
-            <Route
-              path="general-assessments"
-              element={<GeneralAssessments />}
-            />
-          </Route>
+          <Route path="profile" element={<TutorProfile />}></Route>
+          <Route path="assessments" element={<TutorAssessment />}></Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="billing" element={<Billing />} />
         </Route>

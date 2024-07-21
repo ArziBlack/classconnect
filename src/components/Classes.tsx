@@ -19,7 +19,7 @@ const Classes = () => {
         w={{ base: "90%", md: "450px" }}
         marginBottom={{ base: "4", md: "0" }}
       >
-        High quality video, audio & live classes
+        Beginner-Friendly Courses
       </Heading>
 
       <Text
@@ -31,11 +31,11 @@ const Classes = () => {
         paddingBottom={`10px`}
         w={{ base: "90%", md: "650px" }}
       >
-        High-definition video is video of higher resolution and quality than
-        standard-definition. While there is no standardized meaning for
-        high-definition, generally any video image with considerably more than
-        480 vertical scan lines or 576 vertical lines is considered
-        high-definition.
+        Our platform is designed with flexibility in mind, offering courses that
+        are perfect for beginners. All classes are conducted via Google Meet,
+        ensuring that you can join from anywhere with ease. Our courses are
+        structured to accommodate your schedule, allowing you to learn at your
+        own pace and convenience.
       </Text>
       <Button text="Visit Courses" onClick={() => handleLinkClick()} />
     </VStack>

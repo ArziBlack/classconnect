@@ -99,7 +99,7 @@ const SideBarNav: FC = () => {
         <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/instructor" icon={HOME} />
         <Nav text="Students" to="students" icon={ACADEMIC_CAP} />
-        <Nav text="Curriculum" to="courses" icon={COURSES} />
+        <Nav text="Curriculum" to="curriculum" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={TUTORS} />
         <Nav text="Assessments" to="assessments" icon={_ASSESSMENT} />
       </Flex>

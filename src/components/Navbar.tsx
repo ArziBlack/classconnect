@@ -21,7 +21,7 @@ import {
   useLocation,
   Link as ReactRouterLink,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { setUserType } from "../services/others/otherSlice";
 import { useAppDispatch } from "../hooks/reactReduxHooks";
 
@@ -31,7 +31,7 @@ type NavbarLinksProp = {
 
 const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
   const links = [
-    { to: "/", label: " Home " },
+    { to: "/", label: "Home" },
     { to: "/tutor", label: "Tutor" },
     { to: "/courses", label: "Courses" },
     { to: "/pricing", label: "Pricing" },
@@ -96,11 +96,28 @@ const Navbar = () => {
   const userType = [{ type: "student" }, { type: "tutor" }];
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (event: string) => {
     dispatch(setUserType(event));
     setShowDropdown(false);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <VStack
@@ -182,6 +199,7 @@ const Navbar = () => {
                 color="white"
                 backdropFilter="blur(10px)"
                 zIndex={1}
+                ref={dropdownRef}
               >
                 {userType?.map((type) => (
                   <Box

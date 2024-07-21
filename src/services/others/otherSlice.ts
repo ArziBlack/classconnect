@@ -20,7 +20,7 @@ const initialState: OtherState = {
   message: "",
   isLoading: false,
   isSuccess: false,
-  userType: null,
+  userType: "student",
 };
 
 export const getHomeResponse = createAsyncThunk(
