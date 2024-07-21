@@ -48,6 +48,7 @@ import EmailV from "./pages/EmailV";
 import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
+import StudentDetailed from "./pages/Instructor/views/StudentDetailed";
 
 function AppContent() {
   const location = useLocation();
@@ -147,9 +148,7 @@ function AppContent() {
             <Route path="recommended" element={<Recommended />} />
             <Route path="completed" element={<Started />} />
           </Route>
-          <Route path="tutors/:tutorId" element={<TutorDetails />}>
-            <Route index element={<AboutMe />} />
-          </Route>
+          <Route path="students/:studentId" element={<StudentDetailed />}/>
           <Route path="courses/:courseId" element={<CourseDetails />}>
             <Route index element={<Content />} />
             <Route path="description" element={<Details />} />

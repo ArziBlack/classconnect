@@ -2,15 +2,15 @@ import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../../hooks/reactReduxHooks";
-import { getApprovedTutors } from "../../../services/student/studentThunks";
+import { getMyStudents } from "../../../services/tutor/tutorThunk";
 
 const links = [{ to: "", label: "My Students" }];
 
 export const Students = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    document.title = "HEP Tutors - Student";
-    dispatch(getApprovedTutors());
+    document.title = "HEP Tutors - My Students";
+    dispatch(getMyStudents());
   }, [dispatch]);
 
   return (
