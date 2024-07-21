@@ -1,78 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
 import { NOT_PROFILE } from "../../../../constants/image";
 import { useNavigate } from "react-router-dom";
+import { students } from "../../../../mock/students";
 
 export const MyStudents = () => {
   const navigate = useNavigate();
   function handleClick(input: string) {
     navigate(input);
   }
-  
-  const students = [
-    {
-      name: "Favour Ogechi",
-      status: "Active",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Inactive",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Inactive",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Inactive",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Active",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Inactive",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-    {
-      name: "Favour Ogechi",
-      status: "Active",
-      course: "Backend Development",
-      age: 24,
-      sex: "Male",
-      nationality: "Nigeria",
-      time: "Wednesday 5:00pm - 7:00pm WAT",
-    },
-  ];
 
   return (
     <Box className=" flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">

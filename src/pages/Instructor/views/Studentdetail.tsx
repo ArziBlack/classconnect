@@ -24,8 +24,16 @@ import {
 import { useEffect, useState } from "react";
 import { IoPeopleCircle } from "react-icons/io5";
 import Button from "../../../components/Button";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/reactReduxHooks";
+import { students } from "../../../mock/students";
+import { NOT_PROFILE } from "../../../constants/image";
 
 const StudentDetail = () => {
+    const { studentId } = useParams();
+    const { myStudents } = useAppSelector(state => state.tutor);
+    const student = myStudents?.data?.find(item => item?.name.replace(" ", "") === studentId);
+    const stud = students.find(item => item.name.replace(" ", "") === studentId);
     const [type, setType] = useState("");
     const [content, setContent] = useState("");
     const [attachment, setAttachment] = useState(null);
@@ -35,6 +43,9 @@ const StudentDetail = () => {
     const handleContentChange = (e) => setContent(e.target.value);
     const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
 
+    console.log(attachment);
+    console.log(student);
+    console.log(stud);
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -62,25 +73,6 @@ const StudentDetail = () => {
         }
     }, [Loaded]);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-    };
-
-    // if (Loaded) {
-    //   return (
-    //     <Stack
-    //       as={Box}
-    //       textAlign={"center"}
-    //       spacing={{ base: 4, md: 7 }}
-    //       py={{ base: 20, md: 36 }}
-    //     >
-    //       <Center>
-    //         <Spinner size="xl" color="#002c8a" />
-    //       </Center>
-    //     </Stack>
-    //   );
-    // }
-
     return (
         <div>
             <Text
@@ -94,13 +86,13 @@ const StudentDetail = () => {
                 <Flex alignItems="center" p="5px" mb="10px">
                     <Box p="5px" bg="#f4f5f6" borderRadius="8px" mr="10px">
                         <Skeleton borderRadius="8px" isLoaded={true}>
-                            {/* <Image src={profile} h="17px" w="17px" /> */}
+                            <Image src={NOT_PROFILE} h="17px" w="17px" />
                         </Skeleton>
                     </Box>
                     <Text
-                        fontSize={{ sm: "sm", md: "md" }}
+                        fontSize={{ sm: "lg", md: "xl" }}
                         className="text-[white]"
-                        fontWeight="bold"
+                        fontWeight="700"
                     >
                         <SkeletonText isLoaded={Loaded}>Student Profile</SkeletonText>
                     </Text>
@@ -134,7 +126,7 @@ const StudentDetail = () => {
                             <Image
                                 borderRadius="xl"
                                 boxSize={{ sm: "250px", md: "300px" }}
-                                //   src={userimage}
+                                  src={NOT_PROFILE}
                                 alt="Dan Abramov"
                             />
                         </Skeleton>
@@ -159,7 +151,7 @@ const StudentDetail = () => {
                                     <Input
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         type="name"
-                                        placeholder={"Full Name"}
+                                        placeholder={stud.name}
                                         _placeholder={{ color: "white" }}
                                         mt="5px"
                                     />
@@ -168,7 +160,7 @@ const StudentDetail = () => {
                                     <Input
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         type="name"
-                                        placeholder={"Course"}
+                                        placeholder={stud.course}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -178,7 +170,17 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="email"
-                                        placeholder={"Country"}
+                                        placeholder={stud.nationality}
+                                        _placeholder={{ color: "white" }}
+                                        mt="15px"
+                                    />
+                                </Skeleton>
+                                <Skeleton borderRadius="10px" isLoaded={Loaded}>
+                                    <Input
+                                        fontSize={{ sm: "xs", md: "sm" }}
+                                        isDisabled
+                                        type="text"
+                                        placeholder={stud.age.toString()}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -188,17 +190,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="email"
-                                        placeholder={"Age"}
-                                        _placeholder={{ color: "white" }}
-                                        mt="15px"
-                                    />
-                                </Skeleton>
-                                <Skeleton borderRadius="10px" isLoaded={Loaded}>
-                                    <Input
-                                        fontSize={{ sm: "xs", md: "sm" }}
-                                        isDisabled
-                                        type="email"
-                                        placeholder={"Sex"}
+                                        placeholder={stud.sex}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
