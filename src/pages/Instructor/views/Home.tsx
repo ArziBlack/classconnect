@@ -49,15 +49,13 @@ const modifiersStyles = {
 };
 
 export const Home = () => {
-  const { data } = useAppSelector(store => store.auth);
+  const { data } = useAppSelector((store) => store.auth);
   return (
     <div className="w-full flex gap-6 text-white text-[14px] font-['Inter']">
-      <div className="w-2/3 flex flex-col justify-center items-center">
+      <div className="w-2/3 flex flex-col justify-center items-start">
         <div className="my-8">
           <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name} </h2>
-          <p className=" font-[400] text-[16px]">
-           {data?.greeting}
-          </p>
+          <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <DashBoard />
         <div className="flex flex-col w-full justify-between h-full bg-[#023248] border border-gray-500 pt-4 pb-1 px-2 rounded-lg">

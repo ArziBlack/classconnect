@@ -1,3 +1,4 @@
+import React from "react";
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import {
@@ -10,6 +11,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Button from "../../../components/Button";
+import jsPDF from "jspdf";
 
 const links = [{ to: "", label: "My curriculum" }];
 
@@ -37,6 +39,30 @@ const accordionItems = [
 ];
 
 export const Curriculum = () => {
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("HEP curriculum", 10, 10);
+
+    doc.setFontSize(12);
+    doc.text(
+      "View your enrolled curriculum. Track your progress, access curriculum materials, and stay updated with upcoming lessons and assignments.",
+      10,
+      20,
+      { maxWidth: 180 }
+    );
+
+    accordionItems.forEach((item, index) => {
+      doc.setFontSize(14);
+      doc.text(item.title, 10, 30 + index * 30);
+      doc.setFontSize(12);
+      doc.text(item.content, 10, 40 + index * 30, { maxWidth: 180 });
+    });
+
+    doc.save("curriculum.pdf");
+  };
+
   return (
     <>
       <ViewHeader
@@ -72,8 +98,10 @@ export const Curriculum = () => {
             </AccordionItem>
           ))}
         </Accordion>
-        <Button text="Download Curriculum" onClick={() => {}} />
+        <Button text="Download Curriculum" onClick={generatePDF} />
       </Flex>
     </>
   );
 };
+
+export default Curriculum;

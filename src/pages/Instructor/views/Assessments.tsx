@@ -7,18 +7,18 @@ import {
   Textarea,
   VStack,
   Select,
-  useToast,
   Text,
 } from "@chakra-ui/react";
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import Button from "../../../components/Button";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 export const Assessment = () => {
+  const showToast = useCustomToast();
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const toast = useToast();
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -26,14 +26,9 @@ export const Assessment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(attachment);
 
-    toast({
-      title: "Assessment sent.",
-      description: "The assessment has been sent to all students.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+    showToast("The assessment has been sent to all students.", "success");
 
     setType("");
     setContent("");
@@ -69,6 +64,11 @@ export const Assessment = () => {
                 <Select
                   value={type}
                   colorScheme={"dark"}
+                  _expanded={{ color: "gray.500" }}
+                  // _hover={{ color: "gray.500" }}
+                  _focus={{ color: "black" }}
+                  _selected={{ color: "white" }}
+                  _active={{ color: "white" }}
                   onChange={handleTypeChange}
                   placeholder="Select assessment type"
                 >
