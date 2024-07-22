@@ -2,7 +2,7 @@ import axios from 'axios';
 import { logout } from '../services/auth/authService';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://hep-coding.onrender.com/v1/student',
+  baseURL: 'https://hep-coding.onrender.com/v1',
 });
 
 axiosInstance.interceptors.request.use(

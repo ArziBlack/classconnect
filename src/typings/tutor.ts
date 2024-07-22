@@ -88,4 +88,12 @@ export interface ITutor {
     isError: boolean;
     error: string;
     isSuccess: boolean;
+    message: string;
 }
+
+export interface IUpdateTutorData {
+    first_name: string;
+    last_name: string;
+    student_phoneNum: number;
+    student_email: string;
+  }
