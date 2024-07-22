@@ -278,6 +278,18 @@ export const UpdateStudentProfile = createAsyncThunk<IResponse, { update: IUpdat
     const error = err.response ? err.response.data : err.message;
     return thunkAPI.rejectWithValue(error);
   }
+});
+
+// Register For A New Course
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const RegisterForACourse = createAsyncThunk<any, { newCourse: string }, { rejectValue: string }>("student/register-course", async ({ newCourse }, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post("/student/registerNewCourse", { newCourse });
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
 })
 
 // Logout Student...

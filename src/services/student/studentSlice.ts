@@ -2,6 +2,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   LogoutStudent,
+  RegisterForACourse,
   UpdateStudentProfile,
   acceptRecommendation,
   chooseTutor,
@@ -339,6 +340,20 @@ const studentSlice = createSlice({
         state.message = action.payload.message;
       })
       .addCase(UpdateStudentProfile.rejected, (state, action)=> {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(RegisterForACourse.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+      })
+      .addCase(RegisterForACourse.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload.message;
+      })
+      .addCase(RegisterForACourse.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
