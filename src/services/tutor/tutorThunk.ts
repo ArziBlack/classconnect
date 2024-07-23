@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../app/axios";
-import { IAssessmentData, IAssessmentResponse, IClassData, IClassSchedule, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse } from "../../typings/tutor";
+import { IAssessmentData, IAssessmentResponse, IClassData, IClassSchedule, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, IUpdateTutorData } from "../../typings/tutor";
+import { IResponse } from "../auth/authSlice";
 
 // Get all My students
 export const getMyStudents = createAsyncThunk<IMyStudentsResponse, void, { rejectValue: string }>("tutor/myStudents", async (_, thunkAPI) => {
@@ -80,3 +81,14 @@ export const getMyCurriculum = createAsyncThunk<ICurriculumResponse, void, { rej
         return thunkAPI.rejectWithValue(error);
     }
 });
+
+// Update Tutor Profile Details
+export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateTutorData }, { rejectValue: string }>("tutor/update-tutor", async (update, thunkAPI) => {
+    try {
+        const response = await axiosInstance.post<IResponse>("/tutor/updateTutorProfile", update);
+        return response.data;
+    } catch (err) {
+        const error = err.response?.data?.message || "An unknown error occurred";
+        return thunkAPI.rejectWithValue(error);
+    }
+})

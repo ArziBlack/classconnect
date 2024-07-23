@@ -77,3 +77,10 @@ export interface ICoursesResponse {
   statusCode: number;
   message: ICourseData[];
 }
+
+export interface IUpdateStudentData {
+  first_name: string;
+  last_name: string;
+  student_phoneNum: number;
+  student_email?: string;
+}

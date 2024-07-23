@@ -10,14 +10,19 @@ import {
 } from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
-import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { UpdateStudentProfile } from "../../../../services/student/studentThunks";
+import { IUpdateStudentData } from "../../../../typings/student";
+import { IResponse } from "../../../../services/auth/authSlice";
 
 export const ProfileDetails = () => {
+  const dispatch = useAppDispatch();
   const { data } = useAppSelector(sam => sam.auth);
+  const { message, isLoading } = useAppSelector(sam => sam.student);
   const [first_name, setFirstName] = useState(data?.first_name);
   const [last_name, setLastName] = useState(data?.last_name);
-  const [email, ] = useState(data?.email);
-  const [phone, setPhone] = useState<number>(parseInt(data?.phoneNum));
+  const [email,] = useState(data?.email);
+  const [student_phoneNum, setPhone] = useState<number>(parseInt(data?.phoneNum));
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
 
@@ -32,14 +37,36 @@ export const ProfileDetails = () => {
     }
   };
 
-  const handleSave = () => {
-    toast({
-      title: "Profile updated.",
-      description: "Your changes have been saved.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+  const user: IResponse = JSON.parse(localStorage.getItem("user"));
+
+  const handleSave = async () => {
+    const update: IUpdateStudentData = {
+      first_name,
+      last_name,
+      student_phoneNum,
+    }
+    const response = await dispatch(UpdateStudentProfile({ update }));
+    if (UpdateStudentProfile.fulfilled.match(response)) {
+      toast({
+        title: "Profile updated.",
+        description: "Your changes have been saved.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      });
+      const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
+      localStorage.setItem("user", JSON.stringify(updated));
+    } else {
+      toast({
+        title: "Error Updating Profile",
+        description: message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      });
+    }
   };
 
   return (
@@ -124,7 +151,7 @@ export const ProfileDetails = () => {
                 Phone
               </label>
               <Input
-                value={phone}
+                value={student_phoneNum}
                 onChange={(e) => setPhone(Number(e.target.value))}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
@@ -140,6 +167,7 @@ export const ProfileDetails = () => {
           cursor="pointer"
           marginLeft={"auto"}
           text="Save Changes"
+          isLoading={isLoading}
         />
       </VStack>
     </Box>

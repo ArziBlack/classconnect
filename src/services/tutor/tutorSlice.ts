@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IAssessmentResponse, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
-import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getMyCurriculum, getMyStudents, sendClassNotice } from "./tutorThunk";
+import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getMyCurriculum, getMyStudents, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
 
 const initialState = {
     myStudents: null,
@@ -14,6 +14,7 @@ const initialState = {
     isError: false || null,
     isSuccess: false || null,
     error: "",
+    message: ""
 } satisfies ITutor;
 
 const tutorSlice = createSlice({
@@ -74,7 +75,7 @@ const tutorSlice = createSlice({
                 state.isSuccess = true;
                 state.personnalAssessment = action.payload;
             })
-            .addCase(createPersonnalAssessment.rejected, (state, action) => {
+            .addCase(createPersonnalAssessment.rejected, (state, action:PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
@@ -138,7 +139,22 @@ const tutorSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
-            });
+            })
+            .addCase(UpdateTutorProfile.pending, (state)=> {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(UpdateTutorProfile.fulfilled, (state, action)=> {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.message = action.payload.message;
+            })
+            .addCase(UpdateTutorProfile.rejected, (state, action)=> {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
     },
 })
 
