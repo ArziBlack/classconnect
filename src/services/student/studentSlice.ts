@@ -9,6 +9,7 @@ import {
   getAllCourses,
   getApprovedTutors,
   getClassSchedule,
+  getCurriculum,
   getGeneralAssessment,
   getMyCourses,
   getMyTuitionFee,
@@ -23,6 +24,7 @@ import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
   ICoursesResponse,
+  ICurriculumResponse,
   IMyTutorsResponse,
   IRecommendationResponse,
   IScheduleResponse,
@@ -42,6 +44,7 @@ interface IState {
   allCoursesResponse: ICoursesResponse;
   myCoursesRes: ICoursesResponse;
   mySchedule: IScheduleResponse;
+  curriculum: ICurriculumResponse;
   isLoading: boolean;
   error: string | null;
   isSuccess: boolean | null;
@@ -60,6 +63,7 @@ const initialState = {
   allCoursesResponse: null,
   myCoursesRes: null,
   mySchedule: null,
+  curriculum: null,
   isLoading: null,
   error: null,
   isSuccess: false || null,
@@ -371,6 +375,19 @@ const studentSlice = createSlice({
         state.mySchedule = action.payload;
       })
       .addCase(getClassSchedule.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(getCurriculum.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCurriculum.fulfilled, (state, action: PayloadAction<ICurriculumResponse>) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.curriculum = action.payload;
+      })
+      .addCase(getCurriculum.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
