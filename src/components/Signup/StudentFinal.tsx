@@ -1,14 +1,41 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Text, Checkbox, Flex } from "@chakra-ui/react";
 import CButton from "../Button";
 import { IStudentProps } from "../../typings/home";
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
 import { IStudent, studentInit } from "../../typings/signup";
 import { useNavigate } from "react-router-dom";
-
 import { IResponse, register, reset } from "../../services/auth/authSlice";
 import { AVATAR } from "../../constants/icon";
 import useCustomToast from "../../hooks/useCustomToast";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  student_email: Yup.string()
+    .email("Invalid email")
+    .required("Student Email is required"),
+  sex: Yup.string().required("Sex is required"),
+  country: Yup.string().required("Country is required"),
+  state: Yup.string().required("State is required"),
+  course: Yup.string().required("Course is required"),
+  dateOfBirth: Yup.date().required("Date of Birth is required"),
+  classTime_options: Yup.array().min(
+    1,
+    "At least one Class Time Option is required"
+  ),
+  payment_plan: Yup.string().required("Payment Plan is required"),
+  class_type: Yup.string().required("Class Type is required"),
+  password: Yup.string().required("Password is required"),
+  profileImage: Yup.mixed().required("Profile Image is required"),
+  student_phoneNum: Yup.string().required("Student Phone Number is required"),
+  agreement_status: Yup.boolean().oneOf(
+    [true],
+    "Agreement status must be true"
+  ),
+});
 
 const StudentFinal = ({
   onChange,
@@ -18,82 +45,50 @@ const StudentFinal = ({
 }: IStudentProps) => {
   const navigate = useNavigate();
   const { URL: URI } = useAppSelector((store) => store.other);
-  const [check, setCheck] = useState(true);
   const [imgUrl, setImgUrl] = useState(AVATAR);
   const showToast = useCustomToast();
   const { isLoading } = useAppSelector((state) => state.auth);
 
   const dispatch = useAppDispatch();
 
-  function handleCheckBox() {
-    setCheck(!check);
-  }
-
-  const validateGuardianData = (data: IStudent): boolean => {
-    const fieldNames: { [key: string]: string } = {
-      first_name: "First Name",
-      last_name: "Last Name",
-      student_email: "Student Email",
-      sex: "Sex",
-      country: "Country",
-      state: "State",
-      course: "Course",
-      dateOfBirth: "Date of Birth",
-      classTime_options: "Class Time Options",
-      payment_plan: "Payment Plan",
-      class_type: "Class Type",
-      password: "Password",
-      profileImage: "Profile Image",
-      student_phoneNum: "Student Phone Number",
-    };
-
-    for (const key in fieldNames) {
-      if (data[key as keyof IStudent] === null) {
-        showToast(`${fieldNames[key]} cannot be null.`, "error");
-        return false;
-      }
+  useEffect(() => {
+    if (data.profileImage) {
+      setImgUrl(URL.createObjectURL(data.profileImage));
     }
+  }, [data.profileImage]);
 
-    if (!data.agreement_status) {
-      showToast("Agreement status must be true.", "error");
-      return false;
-    }
+  const handleSubmit = async (values: IStudent) => {
+    const resultAction = await dispatch(register({ URI, data: values }));
 
-    return true;
-  };
-
-  const handleSubmit = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-    if (validateGuardianData(data)) {
-      const resultAction = await dispatch(register({ URI, data }));
-
-      if (register.fulfilled.match(resultAction)) {
-        showToast(
-          resultAction.payload.message ||
-            "Please check your email for more details",
-          "success"
-        );
-        navigate("/");
-        dispatch(reset());
-        setFormData(studentInit);
-      } else if (register.rejected.match(resultAction)) {
-        showToast(
-          (resultAction.payload as IResponse).message || "Registration failed",
-          "error"
-        );
-      }
-    } else {
-      showToast("No Field can be left blank!", "error");
+    if (register.fulfilled.match(resultAction)) {
+      showToast(
+        resultAction.payload.message ||
+          "Please check your email for more details",
+        "success"
+      );
+      navigate("/");
+      navigate("/signin");
+      onClick("pageone");
+      dispatch(reset());
+      setFormData(studentInit);
+    } else if (register.rejected.match(resultAction)) {
+      showToast(
+        (resultAction.payload as IResponse).message || "Registration failed",
+        "error"
+      );
     }
   };
 
   const imgRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFieldValue
+  ) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImgUrl(URL.createObjectURL(file));
+      setFieldValue("profileImage", file);
       setFormData((prevState) => ({
         ...prevState,
         profileImage: file,
@@ -106,65 +101,85 @@ const StudentFinal = ({
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center mb-8">
-        <div
-          onClick={openFile}
-          className="relative rounded-full overflow-hidden cursor-pointer opacity-65 hover:opacity-80"
-        >
-          <div className="text-xs bottom-0 h-[25%] w-full absolute bg-[#979292] opacity-60 text-center text-[#000000] font-bold pt-1">
-            Image
+    <Formik
+      initialValues={data}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ setFieldValue, isValid }) => (
+        <Form>
+          <div className="flex flex-col items-center mb-8">
+            <div
+              onClick={openFile}
+              className="relative rounded-full overflow-hidden cursor-pointer opacity-65 hover:opacity-80"
+            >
+              <div className="text-xs bottom-0 h-[25%] w-full absolute bg-[#979292] opacity-60 text-center text-[#000000] font-bold pt-1">
+                Image
+              </div>
+              <img
+                alt="profile image"
+                className="rounded-full w-[100px] h-[100px] object-cover"
+                src={imgUrl}
+              />
+              <input
+                type="file"
+                ref={imgRef}
+                className="hidden"
+                onChange={(e) => handleFileChange(e, setFieldValue)}
+                accept="image/png, image/jpg, image/jpeg"
+              />
+            </div>
           </div>
-          <img
-            alt="profile image"
-            className="rounded-full w-[100px] h-[100px] object-cover"
-            src={imgUrl}
+          <Box display="flex" mb={6} gap={2}>
+            <Field name="agreement_status">
+              {({ field }) => (
+                <Checkbox
+                  {...field}
+                  defaultChecked
+                  onChange={(e) => {
+                    onChange(e);
+                    field.onChange(e);
+                    setFieldValue("agreement_status", e.target.checked);
+                  }}
+                  name="agreement_status"
+                ></Checkbox>
+              )}
+            </Field>
+            <Text fontSize="14px">
+              By creating an account, you agree to our{" "}
+              <Text
+                display={"inline-block"}
+                cursor={"pointer"}
+                _hover={{ color: "brand.action" }}
+              >
+                Terms & Conditions and Privacy Policy
+              </Text>
+            </Text>
+          </Box>
+          <ErrorMessage
+            name="agreement_status"
+            component="div"
+            className="!text-[#e53e3e] !text-xs mt-1"
           />
-          <input
-            type="file"
-            ref={imgRef}
-            max={1000}
-            className="hidden"
-            onChange={handleFileChange}
-            accept="image/png, image/jpg, image/jpeg"
-            // value={imgUrl}
-          />
-        </div>
-      </div>
-      <Box display="flex" mb={6} gap={2} onClick={handleCheckBox}>
-        <Checkbox
-          defaultChecked
-          onChange={onChange}
-          name="agreement_status"
-        ></Checkbox>
-        <Text fontSize="14px">
-          By creating an account, you agree to our{" "}
-          <Text
-            display={"inline-block"}
-            cursor={"pointer"}
-            _hover={{ color: "brand.action" }}
-          >
-            Terms & Conditions and Privacy Policy
-          </Text>
-        </Text>
-      </Box>
-      <Flex gap={5}>
-        <CButton
-          my={3}
-          w={"full"}
-          text="Back"
-          onClick={() => onClick("pagesix")}
-        />
-        <CButton
-          my={3}
-          text="Submit"
-          width="full"
-          isLoading={isLoading}
-          onClick={handleSubmit}
-          isDisabled={check ? false : true}
-        />
-      </Flex>
-    </>
+          <Flex gap={5}>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Back"
+              onClick={() => onClick("pagesix")}
+            />
+            <CButton
+              my={3}
+              text="Submit"
+              width="full"
+              isLoading={isLoading}
+              type="submit"
+              isDisabled={!isValid}
+            />
+          </Flex>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

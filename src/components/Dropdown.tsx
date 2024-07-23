@@ -41,7 +41,7 @@ const MultipleSelectDropdown = ({
 
   const isChecked = (option) => selectedOptions.includes(option);
 
-  const isLimitReached = selectedOptions.length >= maxSelections;
+  const isLimitReached = selectedOptions?.length >= maxSelections;
   return (
     <Menu closeOnSelect={false}>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />} fontWeight={400}>

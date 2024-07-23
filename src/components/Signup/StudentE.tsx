@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box, Flex, FormLabel, Select } from "@chakra-ui/react";
@@ -36,7 +36,7 @@ const StudentE = ({
 
   const maxSelections = 4;
   const [selectedOptions, setSelectedOptions] = useState<string[]>(
-    data.classTime_options
+    !data?.classTime_options ? [] : data?.classTime_options
   );
 
   return (
@@ -59,9 +59,9 @@ const StudentE = ({
                   options={times}
                   maxSelections={maxSelections}
                   onChange={(options) => {
-                    setFieldValue("classTimeOptions", options);
                     handleClassTimeOptionsChange(options);
                     setSelectedOptions(options);
+                    setFieldValue("classTimeOptions", selectedOptions);
                   }}
                   selectedOptions={selectedOptions}
                   setSelectedOptions={setSelectedOptions}
@@ -79,7 +79,7 @@ const StudentE = ({
               Course
             </FormLabel>
             <Field name="course" as="select">
-              {({ field, form }) => (
+              {({ field }) => (
                 <Select
                   {...field}
                   onChange={(e) => {
@@ -91,11 +91,6 @@ const StudentE = ({
                   placeholder="Select a Course"
                   className="capitalize"
                   value={data.course}
-                  error={
-                    form.errors.course && form.touched.course
-                      ? form.errors.course
-                      : null
-                  }
                 >
                   {home?.courses?.map((item, idx) => (
                     <option key={idx} value={item?.title?.toString()?.trim()}>
