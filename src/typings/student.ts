@@ -82,5 +82,5 @@ export interface IUpdateStudentData {
   first_name: string;
   last_name: string;
   student_phoneNum: number;
-  student_email: string;
+  student_email?: string;
 }
