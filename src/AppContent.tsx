@@ -52,6 +52,7 @@ import { Curriculum } from "./pages/Instructor/views/Curriculum";
 import StudentDetail from "./pages/Instructor/views/Studentdetail";
 import { CreateAssessment } from "./pages/Instructor/components/Assessments/CreateAssessment";
 import { CreateReport } from "./pages/Instructor/components/Assessments/CreateReport";
+import CreateClassNotice from "./pages/Instructor/components/Assessments/CreateClassNotice";
 
 function AppContent() {
   const location = useLocation();
@@ -162,6 +163,7 @@ function AppContent() {
           <Route path="assessments" element={<TutorAssessment />}>
             <Route index element={<CreateAssessment/>}/>
             <Route path="report" element={<CreateReport/>}/>
+            <Route path="class-notice" element={<CreateClassNotice/>}/>
           </Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="billing" element={<Billing />} />

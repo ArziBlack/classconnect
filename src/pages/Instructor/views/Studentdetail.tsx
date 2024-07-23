@@ -19,48 +19,123 @@ import {
     FormControl,
     Select,
     Textarea,
-    useToast
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { IoPeopleCircle } from "react-icons/io5";
-import Button from "../../../components/Button";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../../hooks/reactReduxHooks";
-import { students } from "../../../mock/students";
+import Button from "../../../components/Button";
+import { IoPeopleCircle } from "react-icons/io5";
 import { NOT_PROFILE } from "../../../constants/image";
+import useCustomToast from "../../../hooks/useCustomToast";
+import { IAssessmentData, IClassData } from "../../../typings/tutor";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { createPersonnalAssessment, createStudentReport } from "../../../services/tutor/tutorThunk";
 
 const StudentDetail = () => {
+    const toast = useCustomToast();
+    const dispatch = useAppDispatch();
     const { studentId } = useParams();
+    const { home } = useAppSelector(from => from.other);
     const { myStudents } = useAppSelector(state => state.tutor);
-    const student = myStudents?.data?.find(item => item?.name.replace(" ", "") === studentId);
-    const stud = students.find(item => item.name.replace(" ", "") === studentId);
+    const student = myStudents?.data?.find(item => item?.name?.replace(" ", "") === studentId);
+    const { assessmentFormActionUrl, sessionReportFormActionUrl } = student;
     const [type, setType] = useState("");
     const [content, setContent] = useState("");
+    const [course, setCourse] = useState("");
+    const [todays_topic, setTopic] = useState("");
+    const [homework_status, setHomeworkStatus] = useState("");
+    const [next_session_topic, setNextTopic] = useState("");
+    const [class_performance, setPerformance] = useState("");
     const [attachment, setAttachment] = useState(null);
     const [assessmentSwitch, setAssessmentSwitch] = useState("");
-    const toast = useToast();
 
     const handleTypeChange = (e) => setType(e.target.value);
+    const handleCourseChange = (e) => setCourse(e.target.value);
+    const handleTopicChange = (e) => setTopic(e.target.value);
+    const handleHomeworkChange = (e) => setHomeworkStatus(e.target.value);
+    const handleNextTopicChange = (e) => setNextTopic(e.target.value);
+    const handlePerformanceChange = (e) => setPerformance(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
     const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
 
-    console.log(attachment);
-    console.log(student);
-    console.log(stud);
-    const handleSubmit = (e) => {
+    const handleAssessmentSubmit = async (e) => {
         e.preventDefault();
-
-        toast({
-            title: "Assessment sent.",
-            description: "The assessment has been sent to all students.",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-        });
-
+        if (!type) {
+            toast("Please select assessment type", "error");
+            return;
+        }
+    
+        if (!content) {
+            toast("Please enter assessment content", "error");
+            return;
+        }
+    
+        const assessment: IAssessmentData = {
+            type,
+            content,
+            document: attachment
+        };
+    
+        const result = await dispatch(createPersonnalAssessment({ assessmentFormActionUrl, assessment }));
+    
+        if (result.meta.requestStatus === "fulfilled") {
+            toast("Assessment created successfully", "success");
+        } else if (result.meta.requestStatus === "rejected") {
+            toast("Assessment creation failed", "error");
+        }
+    
         setType("");
         setContent("");
         setAttachment(null);
+    };
+
+    const handleReportSubmit = async (e) => {
+        e.preventDefault();
+        if (!course) {
+            toast("Please select a course", "error");
+            return;
+        }
+    
+        if (!todays_topic) {
+            toast("Please enter today's topic", "error");
+            return;
+        }
+    
+        if (!homework_status) {
+            toast("Please enter homework status", "error");
+            return;
+        }
+    
+        if (!next_session_topic) {
+            toast("Please enter next session's topic", "error");
+            return;
+        }
+    
+        if (!class_performance) {
+            toast("Please enter class performance", "error");
+            return;
+        }
+    
+        const report: IClassData = {
+            course,
+            todays_topic,
+            homework_status,
+            next_session_topic,
+            class_performance
+        };
+    
+        const result = await dispatch(createStudentReport({ sessionReportFormActionUrl, report }));
+    
+        if (result.meta.requestStatus === "fulfilled") {
+            toast("Report created successfully", "success");
+        } else if (result.meta.requestStatus === "rejected") {
+            toast("Report creation failed", "error");
+        }
+    
+        setCourse("");
+        setTopic("");
+        setHomeworkStatus("");
+        setNextTopic("");
+        setPerformance("");
     };
 
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -151,7 +226,7 @@ const StudentDetail = () => {
                                     <Input
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         type="name"
-                                        placeholder={stud.name}
+                                        placeholder={student?.name}
                                         _placeholder={{ color: "white" }}
                                         mt="5px"
                                     />
@@ -160,7 +235,7 @@ const StudentDetail = () => {
                                     <Input
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         type="name"
-                                        placeholder={stud.course}
+                                        placeholder={student?.course}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -170,7 +245,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="email"
-                                        placeholder={stud.nationality}
+                                        placeholder={student?.nationality}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -180,7 +255,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="text"
-                                        placeholder={stud.age.toString()}
+                                        placeholder={student?.age?.toString()}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -190,7 +265,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="email"
-                                        placeholder={stud.sex}
+                                        placeholder={student?.sex}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -270,7 +345,7 @@ const StudentDetail = () => {
                                     Create {assessmentSwitch}
                                 </Text>
                                 {assessmentSwitch === "assessment" &&
-                                    (<form onSubmit={handleSubmit}>
+                                    (<form onSubmit={handleAssessmentSubmit}>
                                         <VStack spacing={4} align="stretch">
                                             <FormControl id="type" isRequired>
                                                 <FormLabel>Type</FormLabel>
@@ -306,25 +381,80 @@ const StudentDetail = () => {
                                         </VStack>
                                     </form>)}
                                 {assessmentSwitch === "report" &&
-                                    (<form onSubmit={handleSubmit}>
+                                    (<form onSubmit={handleReportSubmit}>
                                         <VStack spacing={4} align="stretch">
                                             <FormControl id="type" isRequired>
-                                                <FormLabel>Title</FormLabel>
+                                                <FormLabel>Course</FormLabel>
+                                                <Select
+                                                    value={course}
+                                                    colorScheme={"dark"}
+                                                    _expanded={{ color: "gray.500" }}
+                                                    _hover={{ color: "gray.500" }}
+                                                    _focus={{ color: "black" }}
+                                                    _selected={{ color: "white" }}
+                                                    _active={{ color: "white" }}
+                                                    onChange={handleCourseChange}
+                                                    placeholder="Select course to create report..."
+                                                    name="course"
+                                                    className="capitalize"
+                                                >
+                                                    {home?.courses?.map((item, idx) => (
+                                                        <option key={idx} value={item?.title}>
+                                                            {item?.title?.toLowerCase()}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl id="content" isRequired>
+                                                <FormLabel>Topic</FormLabel>
                                                 <Input
                                                     fontSize={{ sm: "xs", md: "sm" }}
                                                     isDisabled
                                                     type="text"
-                                                    placeholder="..."
+                                                    name="todays_topic"
+                                                    value={todays_topic}
+                                                    onChange={handleTopicChange}
+                                                    placeholder="Today's Topic..."
                                                     _placeholder={{ color: "white" }}
                                                 />
                                             </FormControl>
-                                            <FormControl id="content" isRequired>
-                                                <FormLabel>Content</FormLabel>
-                                                <Textarea
-                                                    value={content}
-                                                    onChange={handleContentChange}
-                                                    placeholder="Enter the Report details"
-                                                    rows={6}
+                                            <FormControl id="type" isRequired>
+                                                <FormLabel>Home Work Status</FormLabel>
+                                                <Input
+                                                    fontSize={{ sm: "xs", md: "sm" }}
+                                                    isDisabled
+                                                    type="text"
+                                                    name="homework_status"
+                                                    value={homework_status}
+                                                    onChange={handleHomeworkChange}
+                                                    placeholder="Home work status..."
+                                                    _placeholder={{ color: "white" }}
+                                                />
+                                            </FormControl>
+                                            <FormControl id="type" isRequired>
+                                                <FormLabel>Student Class Performance</FormLabel>
+                                                <Input
+                                                    fontSize={{ sm: "xs", md: "sm" }}
+                                                    isDisabled
+                                                    type="text"
+                                                    name="class_performance"
+                                                    value={class_performance}
+                                                    onChange={handlePerformanceChange}
+                                                    placeholder="class performance..."
+                                                    _placeholder={{ color: "white" }}
+                                                />
+                                            </FormControl>
+                                            <FormControl id="type" isRequired>
+                                                <FormLabel>Next Session Topic</FormLabel>
+                                                <Input
+                                                    fontSize={{ sm: "xs", md: "sm" }}
+                                                    isDisabled
+                                                    type="text"
+                                                    name="next_session_topic"
+                                                    value={next_session_topic}
+                                                    onChange={handleNextTopicChange}
+                                                    placeholder="class performance..."
+                                                    _placeholder={{ color: "white" }}
                                                 />
                                             </FormControl>
                                             <Button type="submit" text="Send Report" ml={"auto"}></Button>

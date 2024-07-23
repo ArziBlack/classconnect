@@ -41,12 +41,16 @@ export interface IAssessmentData {
     document?: File;
 }
 
+export interface IPersonnalAssessmentData {
+    assessmentFormActionUrl: string;
+}
+
 export interface IClassData {
     course: string;
     todays_topic: string;
-    next_session_topic: string;
     homework_status: string;
     class_performance: string;
+    next_session_topic: string;
 }
 
 export interface IReportResponse {

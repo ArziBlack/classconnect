@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../app/axios";
+import axios from "axios";
 import { IAssessmentData, IAssessmentResponse, IClassData, IClassSchedule, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, IUpdateTutorData } from "../../typings/tutor";
 import { IResponse } from "../auth/authSlice";
 
@@ -26,9 +27,15 @@ export const createGeneralAssessments = createAsyncThunk<IAssessmentResponse, { 
 });
 
 // Post a Personnal Assessment
-export const createPersonnalAssessment = createAsyncThunk<IAssessmentResponse, { assessment: IAssessmentData, id: string }, { rejectValue: string }>("tutor/personnal-assessment", async ({ assessment, id }, thunkAPI) => {
+export const createPersonnalAssessment = createAsyncThunk<IAssessmentResponse, { assessmentFormActionUrl: string, assessment: IAssessmentData }, { rejectValue: string }>("tutor/personnal-assessment", async ({ assessmentFormActionUrl, assessment }, thunkAPI) => {
     try {
-        const response = await axiosInstance.post<IAssessmentResponse>(`/tutor/createPersonalassessment/${id}`, assessment);
+        const token = localStorage.getItem("token");
+        const params = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          };
+        const response = await axios.post<IAssessmentResponse>(`${assessmentFormActionUrl}`, assessment, params);
         return response.data;
     } catch (err) {
         const error = err.response?.data?.message || "An unknown error occurred";
@@ -48,10 +55,16 @@ export const createGeneralReport = createAsyncThunk<IAssessmentResponse, { repor
 });
 
 // create a student report
-export const createStudentReport = createAsyncThunk<IReportResponse, { report: IClassData, id: string }, { rejectValue: string }>("tutor/student-report", async ({ report, id }, thunkAPI) => {
+export const createStudentReport = createAsyncThunk<IReportResponse, { sessionReportFormActionUrl: string, report: IClassData }, { rejectValue: string }>("tutor/student-report", async ({ sessionReportFormActionUrl, report }, thunkAPI) => {
     try {
-        const response = await axiosInstance.post<IReportResponse>(`/tutor/sessionReport/${id}`,
-            report);
+        const token = localStorage.getItem("token");
+        const params = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          };
+        const response = await axios.post<IReportResponse>(`${sessionReportFormActionUrl}`,
+            report, params);
         return response.data;
     } catch (err) {
         const error = err.response?.data?.message || "An unknown error occurred";
