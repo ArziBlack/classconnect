@@ -13,7 +13,7 @@ import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import Button from "../../../components/Button";
 import useCustomToast from "../../../hooks/useCustomToast";
-import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { createGeneralAssessments } from "../../../services/tutor/tutorThunk";
 import { IAssessmentData } from "../../../typings/tutor";
 
@@ -23,6 +23,7 @@ export const Assessment = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState(null);
+  const { error, isLoading, message } = useAppSelector(state => state.tutor);
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -44,9 +45,9 @@ export const Assessment = () => {
     } else {
       const result = await dispatch(createGeneralAssessments({ assessment }));
       if (result.meta.requestStatus === "fulfilled") {
-        showToast("The assessment has been sent to all students.", "success");
+        showToast(message, "success");
       } else if (result.meta.requestStatus === "rejected") {
-        showToast("Error creating assessment", "error");
+        showToast(error, "error");
       }
     }
 
@@ -114,7 +115,7 @@ export const Assessment = () => {
                   accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
                 />
               </FormControl>
-              <Button type="submit" text="Send Assessment" ml={"auto"}></Button>
+              <Button type="submit" text="Send Assessment" ml={"auto"} isLoading={isLoading}></Button>
             </VStack>
           </form>
         </Box>

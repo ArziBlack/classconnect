@@ -130,7 +130,7 @@ export const logout = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("data");
   setTimeout(() => {
-    window.location.href = "/login";
+    window.location.href = "/signin";
   }, 1000);
 };
 
