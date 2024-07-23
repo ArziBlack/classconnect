@@ -97,9 +97,13 @@ export const chooseTutor = createAsyncThunk<
   { rejectValue: string }
 >("student/chooseTutor", async ({ url }, thunkAPI) => {
   try {
+    const token = localStorage.getItem("token")?.trim()?.toString();
     const response = await axios.post(
       `${url}`,
       {},
+      {headers: {
+        Authorization: `Bearer ${token}`,
+      },}
     );
 
     return response.data;

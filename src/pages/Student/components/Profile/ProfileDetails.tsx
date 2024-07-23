@@ -47,7 +47,6 @@ export const ProfileDetails = () => {
     }
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
-      console.log(response);
       toast({
         title: "Profile updated.",
         description: "Your changes have been saved.",

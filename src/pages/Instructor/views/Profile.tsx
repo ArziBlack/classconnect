@@ -28,6 +28,7 @@ const Profile = () => {
     mobile: data?.phoneNum,
     dob: "Unknown",
     sex: "Unknown",
+    state:"Unknown",
     "Student Count": data?.student_count,
     "Class Type": data?.class_type,
   });
