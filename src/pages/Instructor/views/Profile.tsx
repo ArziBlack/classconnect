@@ -41,7 +41,7 @@ const Profile = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
-    if (isEditing === false) {
+    if (isEditing === true) {
       handleSave();
     }
   };

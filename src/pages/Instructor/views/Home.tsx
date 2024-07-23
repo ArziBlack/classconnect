@@ -12,7 +12,7 @@ const homeCourses = [
     tutor: "Download the file to do your assignment",
     download: <img src={PDFicon} />,
   },
-];
+]; 
 
 const schedule = [
   { course: "UI/UX Design" },
@@ -63,7 +63,7 @@ export const Home = () => {
             <h2 className="w-2/4">Assessment</h2>
             <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2>
           </div>
-          {homeCourses.map((item, id) => (
+          {!homeCourses ? homeCourses.map((item, id) => (
             <div className="flex w-full items-center my-1 p-1 " key={id}>
               <div className="w-2/4 flex items-center">
                 <div className=" h-9 w-9 mb-11 ml-1">{item.image} </div>
@@ -79,7 +79,7 @@ export const Home = () => {
                 13/07/2024 <span>9:27pm</span>
               </button>
             </div>
-          ))}
+          )) : <div className="flex w-full items-center my-1 p-1 justify-center text-center">You Haven't Sent any Assessments yet.</div> }
         </div>
       </div>
       <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-[calc(100vh-90px)] border border-gray-500 rounded-lg mr-2 font-light mb-5 sticky top-0">
@@ -104,7 +104,7 @@ export const Home = () => {
             <span className="font-light text-[#00ff84]">See All</span>
           </div>
           <div className="">
-            {schedule.map((item, id) => (
+            {!schedule ? schedule.map((item, id) => (
               <div
                 className="flex w-full items-center my-2 p-1 rounded justify-between"
                 key={id}
@@ -118,7 +118,7 @@ export const Home = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            )): <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">You Dont Have any Upcoming Classes</div>}
           </div>
         </div>
       </div>

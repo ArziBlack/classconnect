@@ -13,8 +13,12 @@ import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
 import Button from "../../../components/Button";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { createGeneralAssessments } from "../../../services/tutor/tutorThunk";
+import { IAssessmentData } from "../../../typings/tutor";
 
 export const Assessment = () => {
+  const dispatch = useAppDispatch();
   const showToast = useCustomToast();
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
@@ -24,9 +28,20 @@ export const Assessment = () => {
   const handleContentChange = (e) => setContent(e.target.value);
   const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(attachment);
+    const assessment: IAssessmentData = {
+      type,
+      content
+    }
+
+    const result = await dispatch(createGeneralAssessments({ assessment }));
+    if (result.meta.requestStatus === "fulfilled") {
+      showToast( "Assessment created successfully", "success");
+    } else if (result.meta.requestStatus === "rejected") {
+      showToast( "Error creating assessment", "error");
+    }
 
     showToast("The assessment has been sent to all students.", "success");
 
