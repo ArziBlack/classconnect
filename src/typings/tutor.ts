@@ -93,7 +93,7 @@ export interface ITutor {
 
 export interface IUpdateTutorData {
     first_name: string;
-    last_name: string;
-    student_phoneNum: number;
-    student_email: string;
+    last_name?: string;
+    student_phoneNum?: number;
+    student_email?: string;
   }

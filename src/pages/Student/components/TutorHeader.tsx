@@ -142,17 +142,17 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
           ) : (
             <>
               <Text color={"white"}>
-                {!recommendResponse?.message
+                {error ? error.message : !recommendResponse?.message
                   ? "Are you sure about choosing this tutor"
-                  : error.error}
+                  : error}
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
-                {!recommendResponse && (
+                {!error ? (
                   <Button onClick={handleChooseTutor}>Yes </Button>
-                )}
-                <Button onClick={() => setConfirmation(false)}>
+                ) : <Button onClick={() => setConfirmation(false)}>Ok</Button>}
+                {!error && <Button onClick={() => setConfirmation(false)}>
                   {recommendResponse ? "Ok" : "No"}
-                </Button>
+                </Button>}
               </Flex>
             </>
           )}

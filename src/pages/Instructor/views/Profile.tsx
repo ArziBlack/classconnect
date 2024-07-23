@@ -10,7 +10,10 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useAppSelector } from "../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { IResponse } from "../../../services/auth/authSlice";
+import { UpdateTutorProfile } from "../../../services/tutor/tutorThunk";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 const fadeAnimation = keyframes`
   0% { opacity: 0.2; }
@@ -19,22 +22,28 @@ const fadeAnimation = keyframes`
 `;
 
 const Profile = () => {
+  const dispatch = useAppDispatch();
+  const toast = useCustomToast();
   const { data } = useAppSelector(state => state.auth);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    "First Name": data?.first_name,
+    first_name: data?.first_name,
     lastName: data?.last_name,
     email: data?.email,
     mobile: data?.phoneNum,
     dob: "Unknown",
     sex: "Unknown",
-    state:"Unknown",
-    "Student Count": data?.student_count,
-    "Class Type": data?.class_type,
+    state: "Unknown",
+    student_count: data?.student_count,
+    class_type: data?.class_type,
   });
+  const { first_name, lastName, mobile } = profile;
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+    if (isEditing === false) {
+      handleSave();
+    }
   };
 
   const handleChange = (e) => {
@@ -44,6 +53,27 @@ const Profile = () => {
       [name]: value,
     }));
   };
+
+  const tutor: IResponse = JSON.parse(localStorage.getItem("tutor"));
+
+  const handleSave = async() => {
+    const update = {
+      first_name,
+      last_name: lastName,
+      phoneNum: mobile
+    }
+    const response = await dispatch(UpdateTutorProfile({ update }));
+    if (UpdateTutorProfile.fulfilled.match(response)) 
+    {
+      toast("Profile Updated Successfully", "success");
+      const updated = { ...tutor, first_name, last_name: lastName, phoneNum: mobile }
+      localStorage.setItem("user", JSON.stringify(updated));
+    }
+    else
+    {
+      toast("Error Updating Profile", "error");
+    }
+  }
 
   const sharedStyles = {
     fontSize: "md",

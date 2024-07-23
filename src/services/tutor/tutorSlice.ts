@@ -75,7 +75,7 @@ const tutorSlice = createSlice({
                 state.isSuccess = true;
                 state.personnalAssessment = action.payload;
             })
-            .addCase(createPersonnalAssessment.rejected, (state, action) => {
+            .addCase(createPersonnalAssessment.rejected, (state, action:PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
