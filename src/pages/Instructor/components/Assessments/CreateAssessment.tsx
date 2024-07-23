@@ -29,11 +29,12 @@ export const CreateAssessment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(attachment);
     const assessment: IAssessmentData = {
       type,
-      content
+      content,
+      document: attachment
     }
+    
     if (type === "" && content === "") {
       showToast("Please select assessment type", "error");
     } else if (content === "") {
