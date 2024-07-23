@@ -15,14 +15,6 @@ import useCustomToast from "../../../../hooks/useCustomToast";
 import { createGeneralAssessments } from "../../../../services/tutor/tutorThunk";
 import { IAssessmentData } from "../../../../typings/tutor";
 
-// function truncateString(str, maxLength) {
-//   if (str.length > maxLength) {
-//     return str.substring(0, maxLength) + "...";
-//   } else {
-//     return str;
-//   }
-// }
-
 export const CreateAssessment = () => {
   const dispatch = useAppDispatch();
   const showToast = useCustomToast();

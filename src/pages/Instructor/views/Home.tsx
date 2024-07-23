@@ -3,7 +3,9 @@ import "react-day-picker/dist/style.css";
 import DashBoard from "../views/Dashboard";
 import PDFicon from "../../../assets/icons/PDFicon.svg";
 import { NOT_PROFILE } from "../../../constants/image";
-import { useAppSelector } from "../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { useEffect } from "react";
+import { getMyStudents } from "../../../services/tutor/tutorThunk";
 
 const homeCourses = [
   {
@@ -49,6 +51,13 @@ const modifiersStyles = {
 };
 
 export const Home = () => {
+  const dispatch = useAppDispatch();
+  const { myStudents } = useAppSelector((store) => store.tutor);
+  
+  useEffect(()=> {
+    !myStudents && dispatch(getMyStudents());
+  },[myStudents, dispatch]);
+
   const { data } = useAppSelector((store) => store.auth);
   return (
     <div className="w-full flex gap-6 text-white text-[14px] font-['Inter']">
