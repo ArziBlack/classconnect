@@ -21,7 +21,7 @@ import TutorProfile from "./pages/Instructor/views/Profile";
 import { Billing } from "./pages/Student/views/Billing";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
-import { Assessment as TutorAssessment } from "./pages/Instructor/views/Assessments";
+import { Assessments as TutorAssessment } from "./pages/Instructor/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
 import { Home as TutorHome } from "./pages/Instructor/views/Home";
 import { Students } from "./pages/Instructor/views/Students";
@@ -50,6 +50,8 @@ import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
 import { Curriculum } from "./pages/Instructor/views/Curriculum";
 import StudentDetail from "./pages/Instructor/views/Studentdetail";
+import { CreateAssessment } from "./pages/Instructor/components/Assessments/CreateAssessment";
+import { CreateReport } from "./pages/Instructor/components/Assessments/CreateReport";
 
 function AppContent() {
   const location = useLocation();
@@ -157,7 +159,10 @@ function AppContent() {
             <Route path="details" element={<Details />} />
           </Route>
           <Route path="profile" element={<TutorProfile />}></Route>
-          <Route path="assessments" element={<TutorAssessment />}></Route>
+          <Route path="assessments" element={<TutorAssessment />}>
+            <Route index element={<CreateAssessment/>}/>
+            <Route path="report" element={<CreateReport/>}/>
+          </Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="billing" element={<Billing />} />
         </Route>
