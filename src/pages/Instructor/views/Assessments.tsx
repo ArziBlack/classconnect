@@ -35,15 +35,20 @@ export const Assessment = () => {
       type,
       content
     }
-
-    const result = await dispatch(createGeneralAssessments({ assessment }));
-    if (result.meta.requestStatus === "fulfilled") {
-      showToast( "Assessment created successfully", "success");
-    } else if (result.meta.requestStatus === "rejected") {
-      showToast( "Error creating assessment", "error");
+    if (type === "" && content === "") {
+      showToast("Please select assessment type", "error");
+    } else if (content === "") {
+      showToast("Please enter assessment content", "error");
+    } else if (type === "") {
+      showToast("Please select assessment type and enter assessment content", "error");
+    } else {
+      const result = await dispatch(createGeneralAssessments({ assessment }));
+      if (result.meta.requestStatus === "fulfilled") {
+        showToast("The assessment has been sent to all students.", "success");
+      } else if (result.meta.requestStatus === "rejected") {
+        showToast("Error creating assessment", "error");
+      }
     }
-
-    showToast("The assessment has been sent to all students.", "success");
 
     setType("");
     setContent("");
