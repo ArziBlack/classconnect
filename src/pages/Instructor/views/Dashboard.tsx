@@ -1,26 +1,8 @@
 import Vector from "../../../assets/icons/Vector.svg";
 import checkbox from "../../../assets/icons/checkbok.svg";
 import { ACADEMIC_LIGHT } from "../../../constants/icon";
-import { NOT_PROFILE } from "../../../constants/image";
 import { useAppSelector } from "../../../hooks/reactReduxHooks";
-
-// const HeaderProp = [
-//   {
-//     title: "Students",
-//     icon: <img src={ACADEMIC_LIGHT} alt="Academic Cap" />,
-//     text: "50",
-//   },
-//   {
-//     title: "Courses",
-//     icon: <img src={Vector} alt="Book" />,
-//     text: "4",
-//   },
-//   {
-//     title: "Classes",
-//     icon: <img src={checkbox} alt="Checkbox" />,
-//     text: "24",
-//   },
-// ];
+import { truncateString } from "../../../utils/utility";
 
 const HeaderComponent = () => {
   const { data } = useAppSelector(store => store.auth);
@@ -51,23 +33,11 @@ const HeaderComponent = () => {
           <h2 className="text-sm font-medium">{"Students"}</h2>
           <div><img src={ACADEMIC_LIGHT} alt="Academic Cap" /></div>
         </div>
-        <span className="text-2xl font-bold">{data.student_count}</span>
+        <span className="text-2xl font-bold">{data?.student_count}</span>
       </div>
     </div>
   )
 };
-
-const students = [
-  {
-    name: "Miss Favour Ogechi",
-    score: 80,
-    imageUrl: <img src={NOT_PROFILE} />,
-  },
-  { name: "Miss Theresa", score: 40, imageUrl: <img src={NOT_PROFILE} /> },
-  { name: "Mr John", score: 80, imageUrl: <img src={NOT_PROFILE} /> },
-  { name: "MisBrenda", score: 55, imageUrl: <img src={NOT_PROFILE} /> },
-  { name: "Mr Godfrey", score: 20, imageUrl: <img src={NOT_PROFILE} /> },
-];
 
 const getScoreColor = (score) => {
   if (score >= 50) return "bg-green-200 text-green-800";
@@ -89,7 +59,7 @@ const StudentPerformance = () => {
       {myStudents ? myStudents?.data?.map((student, index) => (
         <div
           key={student.name}
-          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
+          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== myStudents?.data?.length - 1 ? "border-b" : ""}`}
         >
           <div className={`flex justify-between items-center px-6 py-3`}>
             <div className="flex items-center">
@@ -122,7 +92,7 @@ const TopCourses = () => {
       {home?.courses?.map((course, index) => (
         <div
           key={course?.title}
-          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== students.length - 1 ? "border-b" : ""}`}
+          className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== home?.courses?.length - 1 ? "border-b" : ""}`}
         >
           <div className={`flex justify-between items-center px-6 py-3`}>
             <div className="flex items-center">
@@ -133,7 +103,7 @@ const TopCourses = () => {
                 <span className="text-white text-md ">{course?.title}</span>
                 <br />
                 <span className="text-gray-400 text-sm">
-                  {course.description}
+                  {truncateString(course?.description, 30)}
                 </span>
               </div>
             </div>

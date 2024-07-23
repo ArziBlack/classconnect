@@ -35,9 +35,10 @@ export interface IAssessmentResponse {
 }
 
 export interface IAssessmentData {
-    type: string;
+    type?: string;
     title?: string;
     content: string;
+    document?: File;
 }
 
 export interface IClassData {
