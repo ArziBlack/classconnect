@@ -104,4 +104,4 @@ export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateT
         const error = err.response?.data?.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
-})
+});
