@@ -1,9 +1,16 @@
-import CButton from "../Button";
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { Box, Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import CButton from "../Button";
+import InputField from "../Input";
 import { states } from "../../typings/states";
 import { IStudentProps } from "../../typings/home";
-import InputField from "../Input";
+
+const validationSchema = Yup.object({
+  country: Yup.string().required("Country is required"),
+  state: Yup.string().required("State is required"),
+});
 
 const StudentD: React.FC<IStudentProps> = ({
   data,
@@ -21,88 +28,132 @@ const StudentD: React.FC<IStudentProps> = ({
       .then((response) => response.json())
       .then((data) => {
         setCountries(data.countries);
-        console.log("Data Country: ", data.countries);
       });
   }, []);
 
   return (
-    <>
-      <Box w="100%" mb={3}>
-        <FormControl>
-          <FormLabel fontWeight="bold" fontSize="15px">
-            Country
-          </FormLabel>
-          <Select
-            name="country"
-            onChange={(e) => {
-              setFormData((prevState) => ({
-                ...prevState,
-                state: "",
-              }));
-              onChange(e);
-            }}
-            placeholder="Select a country"
-            value={data.country}
-          >
-            {/* <option>{selectedCountry}</option> */}
-            <option>{selectedCountry?.userCountryCode}</option>
-            {countries &&
-              countries?.map((country, idx) => (
-                <option key={idx} value={country.label.split(" ")[1]}>
-                  {country.label}
-                </option>
-              ))}
-          </Select>
-        </FormControl>
-      </Box>
-      <Box w="100%" mb={3}>
-        <FormControl>
-          {data.country === "Nigeria" ? (
-            <>
+    <Formik
+      initialValues={data}
+      validationSchema={validationSchema}
+      onSubmit={() => {
+        onClick("pagefive");
+      }}
+    >
+      {({ isValid }) => (
+        <Form>
+          <Box w="100%" mb={3}>
+            <FormControl>
               <FormLabel fontWeight="bold" fontSize="15px">
-                State
+                Country
               </FormLabel>
-              <Select
-                name="state"
-                onChange={onChange}
-                placeholder="Select a state"
-                value={data.state}
-              >
-                {states.map((item, idx) => (
-                  <option value={item.value} key={idx}>
-                    {item.label}
-                  </option>
-                ))}
-              </Select>
-            </>
-          ) : (
-            <InputField
-              id="state"
-              name="state"
-              label="State"
-              type="text"
-              onChange={onChange}
-              value={data.state}
-              placeholder="Enter state"
+              <Field name="country">
+                {({ field }) => (
+                  <Select
+                    {...field}
+                    onChange={(e) => {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        state: "",
+                      }));
+                      field.onChange(e);
+                      onChange(e);
+                    }}
+                    placeholder="Select a country"
+                    value={data.country}
+                  >
+                    <option>{selectedCountry?.userCountryCode}</option>
+                    {countries &&
+                      countries?.map((country, idx) => (
+                        <option key={idx} value={country.label.split(" ")[1]}>
+                          {country.label}
+                        </option>
+                      ))}
+                  </Select>
+                )}
+              </Field>
+              <ErrorMessage
+                className="!text-[#e53e3e] !text-xs mt-1"
+                name="country"
+                component="div"
+              />
+            </FormControl>
+          </Box>
+          <Box w="100%" mb={3}>
+            <FormControl>
+              {data.country === "Nigeria" ? (
+                <>
+                  <FormLabel fontWeight="bold" fontSize="15px">
+                    State
+                  </FormLabel>
+                  <Field name="state">
+                    {({ field }) => (
+                      <Select
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          onChange(e);
+                        }}
+                        placeholder="Select a state"
+                        value={data.state}
+                      >
+                        {states.map((item, idx) => (
+                          <option value={item.value} key={idx}>
+                            {item.label}
+                          </option>
+                        ))}
+                      </Select>
+                    )}
+                  </Field>
+                  <ErrorMessage
+                    className="!text-[#e53e3e] !text-xs mt-1"
+                    name="state"
+                    component="div"
+                  />
+                </>
+              ) : (
+                <Field name="state">
+                  {({ field, form }) => (
+                    <InputField
+                      {...field}
+                      id="state"
+                      name="state"
+                      label="State"
+                      type="text"
+                      onChange={(e) => {
+                        field.onChange(e);
+                        onChange(e);
+                      }}
+                      value={data.state}
+                      placeholder="Enter state"
+                      error={
+                        form.errors.state && form.touched.state
+                          ? form.errors.state
+                          : null
+                      }
+                    />
+                  )}
+                </Field>
+              )}
+            </FormControl>
+          </Box>
+          <Flex gap={5}>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Back"
+              onClick={() => onClick("pagethree")}
             />
-          )}
-        </FormControl>
-      </Box>
-      <Flex gap={5}>
-        <CButton
-          my={3}
-          w={"full"}
-          text="Back"
-          onClick={() => onClick("pagethree")}
-        />
-        <CButton
-          my={3}
-          w={"full"}
-          text="Next"
-          onClick={() => onClick("pagefive")}
-        />
-      </Flex>
-    </>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Next"
+              type="submit"
+              isDisabled={!isValid}
+            />
+          </Flex>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

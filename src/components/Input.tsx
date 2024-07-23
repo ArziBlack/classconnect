@@ -79,7 +79,7 @@ const InputField: React.FC<InputFieldProps> = ({
       </InputGroup>
 
       {error && (
-        <Text color="red.500" mt={2}>
+        <Text color="red.500" mt={1} fontSize={"xs"}>
           {error}
         </Text>
       )}
