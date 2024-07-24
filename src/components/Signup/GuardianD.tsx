@@ -114,13 +114,25 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
                 <FormLabel fontWeight="bold" fontSize="15px">
                   State
                 </FormLabel>
-                <Select name="state" onChange={onChange} placeholder="Select a state">
-                  {states.map((item, idx) => (
-                    <option value={item.value} key={idx}>
-                      {item.label}
-                    </option>
-                  ))}
-                </Select>
+                <Field name="state">
+                  {({ field }) => (
+                    <Select
+                      name="state"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        onChange(e);
+                      }}
+                      placeholder="Select a state"
+                      value={data.state}>
+                      {states.map((item, idx) => (
+                        <option value={item.value} key={idx}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
+                </Field>
                 <ErrorMessage
                   className="!text-[#e53e3e] !text-xs mt-1"
                   name="state"
