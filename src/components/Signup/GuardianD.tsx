@@ -16,7 +16,7 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
   ];
 
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -25,9 +25,6 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
       .then((response) => response.json())
       .then((data) => {
         setCountries(data.countries);
-        console.log(data.countries);
-        setSelectedCountry(data.userSelectValue);
-        console.log(data.userSelectValue);
       });
   }, []);
 
@@ -51,23 +48,36 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
     >
       {({ isValid }) => (
         <Form>
-
           <Box w="100%" mb={3}>
             <FormLabel fontWeight="bold" fontSize="15px">
               Gender
             </FormLabel>
-            <Select
-              onChange={onChange}
-              mb="1px"
-              name="gender"
-              placeholder="Select a Gender"
-            >
-              {gender.map((item, idx) => (
-                <option key={idx} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </Select>
+            <Field name="sex">
+              {({ field, form }) => (
+                <Select
+                  {...field}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  mb="1px"
+                  name="sex"
+                  placeholder="Select a Gender"
+                  value={data.sex}
+                  error={
+                    form.errors.sex && form.touched.sex
+                      ? form.errors.sex
+                      : null
+                  }
+                >
+                  {gender.map((item, idx) => (
+                    <option key={idx} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
           </Box>
           <Box w="100%" mb={3}>
             <FormControl>
@@ -90,7 +100,6 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
                     placeholder="Select a country"
                     value={data?.country}
                   >
-                    {/* <option>{selectedCountry}</option> */}
                     <option>{selectedCountry?.userCountryCode}</option>
                     {countries &&
                       countries?.map((country, idx) => (
@@ -117,7 +126,6 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
                 <Field name="state">
                   {({ field }) => (
                     <Select
-                      name="state"
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);

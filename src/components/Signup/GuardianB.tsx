@@ -129,11 +129,9 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  id="Password2"
-                  name="confirm_password"
+                  name="confirmPassword"
                   label="Confirm Password"
                   type="password"
-                  onChange={onChange}
                   showPasswordToggle
                   value={field.value}
                   icon={IoLockClosedOutline}
