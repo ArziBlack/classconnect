@@ -69,6 +69,7 @@ const PasswordStrengthBar = ({ password }) => {
 const validationSchema = Yup.object({
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
+    .matches(/^\S*$/, "Password must not contain spaces")
     .required("Password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -98,9 +99,8 @@ const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
       {({ isValid }) => (
         <Form>
           <Box w="100%" mb={3}>
-            <Field
-              name="password"
-              render={({ field, form }) => (
+            <Field name="password">
+              {({ field, form }) => (
                 <>
                   <InputField
                     {...field}
@@ -123,12 +123,11 @@ const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
                   <PasswordStrengthBar password={field.value} />
                 </>
               )}
-            />
+            </Field>
           </Box>
           <Box w="100%" mb={6}>
-            <Field
-              name="confirmPassword"
-              render={({ field, form }) => (
+            <Field name="confirmPassword">
+              {({ field, form }) => (
                 <InputField
                   {...field}
                   type="password"
@@ -144,7 +143,7 @@ const StudentB = ({ data, onChange, onClick }: IStudentProps) => {
                   }
                 />
               )}
-            />
+            </Field>
           </Box>
           <Flex gap={5}>
             <CButton

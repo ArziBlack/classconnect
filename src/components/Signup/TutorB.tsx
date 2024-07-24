@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import { ITutorProps } from "../../typings/home";
 import CButton from "../Button";
 import InputField from "../Input";
 import { Box, Flex } from "@chakra-ui/react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import zxcvbn from "zxcvbn";
-import useCustomToast from "../../hooks/useCustomToast";
 
 const PasswordStrengthBar = ({ password }) => {
   const testResult = zxcvbn(password);
@@ -27,14 +27,6 @@ const PasswordStrengthBar = ({ password }) => {
         return "";
     }
   };
-
-  //  function checkTestRes(){
-  //     if (createPassLabel() !== "Strong"){
-  //       return false;
-  //     } else {
-  //       return createPassLabel()
-  //     }
-  //   }
 
   const progressColor = () => {
     switch (testResult.score) {
@@ -73,64 +65,103 @@ const PasswordStrengthBar = ({ password }) => {
     </div>
   );
 };
+const validationSchema = Yup.object({
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .matches(/^\S*$/, "Password must not contain spaces")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
+});
 
 const TutorB = ({ data, onChange, onClick }: ITutorProps) => {
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const { password } = data;
-  const toast = useCustomToast();
-  const checkPassword = () => {
-    if (password === "" || confirmPassword === "") {
-      toast("Please enter password and confirm password", "error");
-      return false;
-    } else if (password !== confirmPassword) {
-      toast("Passwords do not Match", "error");
-      return false;
-    } else {
-      onClick("pagethree");
-    }
+  const handlePasswordChange = (password: string) => {
+    const syntheticEvent = {
+      target: {
+        name: "password",
+        value: password,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    onChange(syntheticEvent);
   };
   return (
-    <>
-      <Box w="100%" mb={3}>
-        <InputField
-          id="Password"
-          name="password"
-          label="Password"
-          type="password"
-          onChange={onChange}
-          showPasswordToggle
-          value={data.password}
-          icon={IoLockClosedOutline}
-          placeholder="************"
-        />
-        <PasswordStrengthBar password={data.password} />
-      </Box>
-      <Box w="100%" mb={6}>
-        <InputField
-          id="Password2"
-          label="Confirm Password"
-          type="password"
-          showPasswordToggle
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          icon={IoLockClosedOutline}
-          placeholder="************"
-        />
-        <Flex gap={5}>
-          <CButton
-            my={3}
-            w={"full"}
-            text="Back"
-            onClick={() => onClick("pageone")}
-          />
-          <CButton
-            my={3}
-            w={"full"}
-            text="Next"
-            onClick={() => checkPassword()}
-          />
-        </Flex>
-      </Box>
-    </>
+    <Formik
+      initialValues={{ password: data.password, confirmPassword: "" }}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        handlePasswordChange(values.password);
+        onClick("pagethree");
+      }}
+    >
+      {({ isValid }) => (
+        <Form>
+          <Box w="100%" mb={3}>
+            <Field name="password">
+              {({ field, form }) => (
+                <>
+                  <InputField
+                    {...field}
+                    type="password"
+                    icon={IoLockClosedOutline}
+                    placeholder="************"
+                    label="Password"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      onChange(e);
+                    }}
+                    showPasswordToggle
+                    value={field.value}
+                    error={
+                      form.errors.password && form.touched.password
+                        ? form.errors.password
+                        : null
+                    }
+                  />
+                  <PasswordStrengthBar password={field.value} />
+                </>
+              )}
+            </Field>
+          </Box>
+          <Box w="100%" mb={6}>
+            <Field name="confirmPassword">
+              {({ field, form }) => (
+                <InputField
+                  {...field}
+                  type="password"
+                  icon={IoLockClosedOutline}
+                  placeholder="************"
+                  label="Confirm Password"
+                  showPasswordToggle
+                  value={field.value}
+                  error={
+                    form.errors.confirmPassword && form.touched.confirmPassword
+                      ? form.errors.confirmPassword
+                      : null
+                  }
+                />
+              )}
+            </Field>
+          </Box>
+          <Flex gap={5}>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Back"
+              onClick={() => onClick("pageone")}
+            />
+            <CButton
+              my={3}
+              w={"full"}
+              text="Next"
+              type="submit"
+              isDisabled={!isValid}
+            />
+          </Flex>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

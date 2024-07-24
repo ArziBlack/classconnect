@@ -1,3 +1,5 @@
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { Box, Flex } from "@chakra-ui/layout";
 import { ITutorProps } from "../../typings/home";
 import InputField from "../Input";
@@ -5,78 +7,148 @@ import CButton from "../Button";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { IGender } from "../../typings/signup";
 import { CiPhone } from "react-icons/ci";
-import Input from "../Input";
+
+const genderOptions: IGender[] = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+];
+
+const dateOfBirthSchema = Yup.string()
+  .required("Date of Birth is required")
+  .test("future-date", "Date of birth cannot be in the future", (value) => {
+    if (!value) return true;
+
+    const [year, month, day] = value.split("-");
+    const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
+    return birthDate <= new Date();
+  })
+  .test("min-age", "You must be at least 18 years old", (value) => {
+    if (!value) return true;
+
+    const [year, month, day] = value.split("-");
+    const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
+    const eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+    return birthDate <= eighteenYearsAgo;
+  });
+
+const validationSchema = Yup.object({
+  dateOfBirth: dateOfBirthSchema,
+  sex: Yup.string()
+    .oneOf(["Male", "Female"], "Gender is required")
+    .required("Gender is required"),
+  phoneNum: Yup.string()
+    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Phone number is not valid")
+    .required("Phone number is required"),
+});
 
 const TutorC = ({ data, onChange, onClick }: ITutorProps) => {
-  const gender: IGender[] = [
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-  ];
   return (
-    <>
-      {" "}
-      <FormControl mt={4}>
-        <FormLabel fontWeight="bold" fontSize="15px">
-          Date of Birth
-        </FormLabel>
-        <Input
-          type="date"
-          name="dateOfBirth"
-          value={
-            data.dateOfBirth
-              ? new Date(data.dateOfBirth).toISOString().split("T")[0]
-              : ""
-          }
-          onChange={onChange}
-        />
-      </FormControl>
-      <Box w="100%" py={3}>
-        <FormControl>
-          <FormLabel fontWeight="bold" fontSize="15px">
-            Gender
-          </FormLabel>
-          <Select
-            onChange={onChange}
-            mb="1px"
-            name="sex"
-            placeholder="Select a Gender"
-            value={data.sex}
-          >
-            {gender.map((item, idx) => (
-              <option key={idx} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
-      <Box w="100%" mb={3}>
-        <InputField
-          required
-          type="number"
-          name="phoneNum"
-          label="Phone number"
-          onChange={onChange}
-          value={data.phoneNum}
-          icon={CiPhone}
-          placeholder="+234 123 456 789"
-        />
-      </Box>
-      <Flex gap={5}>
-        <CButton
-          my={3}
-          w={"full"}
-          text="Back"
-          onClick={() => onClick("pagetwo")}
-        />
-        <CButton
-          my={3}
-          w={"full"}
-          text="Next"
-          onClick={() => onClick("pagefour")}
-        />
-      </Flex>
-    </>
+    <Formik
+      initialValues={data}
+      validationSchema={validationSchema}
+      onSubmit={() => {
+        onClick("pagefour");
+      }}
+    >
+      {({ isValid }) => (
+        <Form>
+          <FormControl mt={4}>
+            <FormLabel fontWeight="bold" fontSize="15px">
+              Date of Birth
+            </FormLabel>
+            <Field name="dateOfBirth">
+              {({ field, form }) => (
+                <InputField
+                  {...field}
+                  type="date"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  value={data.dateOfBirth}
+                  error={
+                    form.errors.dateOfBirth && form.touched.dateOfBirth
+                      ? form.errors.dateOfBirth
+                      : null
+                  }
+                />
+              )}
+            </Field>
+          </FormControl>
+          <Box w="100%" py={3}>
+            <FormControl>
+              <FormLabel fontWeight="bold" fontSize="15px">
+                Gender
+              </FormLabel>
+              <Field name="sex">
+                {({ field }) => (
+                  <Select
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      onChange(e);
+                    }}
+                    value={data.sex}
+                    placeholder="Select a Gender"
+                  >
+                    {genderOptions.map((item, idx) => (
+                      <option key={idx} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </Select>
+                )}
+              </Field>
+              <ErrorMessage
+                className="!text-[#e53e3e] !text-xs mt-1"
+                name="sex"
+                component="div"
+              />
+            </FormControl>
+          </Box>
+          <Box w="100%" mb={3}>
+            <Field name="phoneNum">
+              {({ field, form }) => (
+                <InputField
+                  {...field}
+                  type="text"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  value={data.phoneNum}
+                  label="Phone number"
+                  placeholder="+234123456789"
+                  icon={CiPhone}
+                  error={
+                    form.errors.phoneNum && form.touched.phoneNum
+                      ? form.errors.phoneNum
+                      : null
+                  }
+                />
+              )}
+            </Field>
+          </Box>
+          <Flex gap={5}>
+            <CButton
+              my={3}
+              w={"full"}
+              text="Back"
+              onClick={() => onClick("pagetwo")}
+            />
+            <CButton
+              my={3}
+              w={"full"}
+              text="Next"
+              type="submit"
+              isDisabled={!isValid}
+            />
+          </Flex>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
