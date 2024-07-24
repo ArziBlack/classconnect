@@ -6,3 +6,11 @@ export function truncateString(str: string, maxLength: number) {
     return str;
   }
 }
+
+export const truncateOverflow = (sentence: string) => {
+  if (sentence.length > 13) {
+    return sentence.substring(0, 13) + "...";
+  } else {
+    return sentence;
+  }
+};

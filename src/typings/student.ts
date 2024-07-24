@@ -84,3 +84,24 @@ export interface IUpdateStudentData {
   student_phoneNum: number;
   student_email?: string;
 }
+
+export interface IScheduleResponse {
+  statusCode: number;
+  message: string;
+  upcomingClass: Date;
+}
+
+export interface ICurriculumItem {
+  topic: string;
+  content: string;
+}
+
+export interface ICurriculumResponse {
+  statusCode: number;
+  message: string;
+  data: {
+    course: string;
+    description: string;
+    curriculum: ICurriculumItem[];
+  };
+}

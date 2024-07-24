@@ -5,8 +5,10 @@ import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
   ICoursesResponse,
+  ICurriculumResponse,
   IMyTutorsResponse,
   IRecommendationResponse,
+  IScheduleResponse,
   IStudentTrxAPIResponse,
   ITuitionFee,
   ITutorApiResponse,
@@ -101,9 +103,11 @@ export const chooseTutor = createAsyncThunk<
     const response = await axios.post(
       `${url}`,
       {},
-      {headers: {
-        Authorization: `Bearer ${token}`,
-      },}
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     return response.data;
@@ -294,7 +298,29 @@ export const RegisterForACourse = createAsyncThunk<any, { newCourse: string }, {
     const error = err.response ? err.response.data : err.message;
     return thunkAPI.rejectWithValue(error);
   }
-})
+});
+
+// Get Class Schedule
+export const getClassSchedule = createAsyncThunk<IScheduleResponse, void, { rejectValue: string }>("student/get-schedule", async (_, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get("/student/getUpcomingClass");
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Get Curriculum
+export const getCurriculum = createAsyncThunk<ICurriculumResponse, void, { rejectValue: string }>("student/curriculum", async (_, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get("/student/getCurriculum");
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 // Logout Student...
 export const LogoutStudent = createAsyncThunk<
