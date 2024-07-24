@@ -129,7 +129,7 @@ const StudentC = ({ data, onChange, onClick }: IStudentProps) => {
                   icon={CiPhone}
                   error={
                     form.errors.student_phoneNum &&
-                    form.touched.student_phoneNum
+                      form.touched.student_phoneNum
                       ? form.errors.student_phoneNum
                       : null
                   }

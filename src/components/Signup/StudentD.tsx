@@ -50,6 +50,7 @@ const StudentD: React.FC<IStudentProps> = ({
                 {({ field }) => (
                   <Select
                     {...field}
+                    name="country"
                     onChange={(e) => {
                       setFormData((prevState) => ({
                         ...prevState,
