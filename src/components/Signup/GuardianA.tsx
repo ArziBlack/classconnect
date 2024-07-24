@@ -9,7 +9,9 @@ import { IGuardianProps } from "../../typings/home";
 
 const validationSchema = Yup.object({
   parent_name: Yup.string().required("Guardian Full Name is Required!"),
-  parent_phoneNum: Yup.number().required("Guardian Phone Number is Required!"),
+  parent_phoneNum: Yup.string()
+    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Phone number is not valid")
+    .required("Phone number is required"),
   parent_email: Yup.string()
     .email("Invalid email address")
     .matches(
@@ -28,7 +30,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
       onSubmit={() => onClick("pagetwo")}>
       {({ isValid }) => (
         <Form>
-
           <Box w="100%" mb={3}>
             <Field name="parent_name">
               {({ field, form }) => (
@@ -57,7 +58,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                 <InputField
                   {...field}
                   required
-                  type="number"
+                  type="text"
                   name="parent_phoneNum"
                   icon={FaRegUser}
                   label="Guardian Phone No"
@@ -77,20 +78,20 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
             <Field name="parent_email">
               {({ field, form }) => {
                 <InputField
-                {...field}
-                required
-                type="email"
-                name="parent_email"
-                label="Guardian Email"
-                onChange={(e) => { field.onChange(e); onChange(e); }}
-                value={student_email}
-                icon={IoMailOutline}
-                placeholder="guardian@email.com"
-                error={
-                  form.errors.parent_email && form.touched.parent_email
-                    ? form.errors.parent_email
-                    : null
-                }
+                  {...field}
+                  required
+                  type="email"
+                  name="parent_email"
+                  label="Guardian Email"
+                  onChange={(e) => { field.onChange(e); onChange(e); }}
+                  value={student_email}
+                  icon={IoMailOutline}
+                  placeholder="guardian@email.com"
+                  error={
+                    form.errors.parent_email && form.touched.parent_email
+                      ? form.errors.parent_email
+                      : null
+                  }
                 />
               }}
             </Field>
