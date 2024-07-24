@@ -37,6 +37,7 @@ const StudentDetail = () => {
     const { home } = useAppSelector(from => from.other);
     const { myStudents } = useAppSelector(state => state.tutor);
     const student = myStudents?.data?.find(item => item?.name?.replace(" ", "") === studentId);
+    console.log(student)
     const { assessmentFormActionUrl, sessionReportFormActionUrl } = student;
     const [type, setType] = useState("");
     const [content, setContent] = useState("");
@@ -63,26 +64,26 @@ const StudentDetail = () => {
             toast("Please select assessment type", "error");
             return;
         }
-    
+
         if (!content) {
             toast("Please enter assessment content", "error");
             return;
         }
-    
+
         const assessment: IAssessmentData = {
             type,
             content,
             document: attachment
         };
-    
+
         const result = await dispatch(createPersonnalAssessment({ assessmentFormActionUrl, assessment }));
-    
+
         if (result.meta.requestStatus === "fulfilled") {
             toast("Assessment created successfully", "success");
         } else if (result.meta.requestStatus === "rejected") {
             toast("Assessment creation failed", "error");
         }
-    
+
         setType("");
         setContent("");
         setAttachment(null);
@@ -94,27 +95,27 @@ const StudentDetail = () => {
             toast("Please select a course", "error");
             return;
         }
-    
+
         if (!todays_topic) {
             toast("Please enter today's topic", "error");
             return;
         }
-    
+
         if (!homework_status) {
             toast("Please enter homework status", "error");
             return;
         }
-    
+
         if (!next_session_topic) {
             toast("Please enter next session's topic", "error");
             return;
         }
-    
+
         if (!class_performance) {
             toast("Please enter class performance", "error");
             return;
         }
-    
+
         const report: IClassData = {
             course,
             todays_topic,
@@ -122,15 +123,15 @@ const StudentDetail = () => {
             next_session_topic,
             class_performance
         };
-    
+
         const result = await dispatch(createStudentReport({ sessionReportFormActionUrl, report }));
-    
+
         if (result.meta.requestStatus === "fulfilled") {
             toast("Report created successfully", "success");
         } else if (result.meta.requestStatus === "rejected") {
             toast("Report creation failed", "error");
         }
-    
+
         setCourse("");
         setTopic("");
         setHomeworkStatus("");
@@ -202,8 +203,9 @@ const StudentDetail = () => {
                             <Image
                                 borderRadius="xl"
                                 boxSize={{ sm: "250px", md: "300px" }}
-                                src={NOT_PROFILE}
+                                src={student?.profileImage}
                                 alt="Dan Abramov"
+                                objectFit={"cover"}
                             />
                         </Skeleton>
                     </Box>
@@ -229,15 +231,17 @@ const StudentDetail = () => {
                                         placeholder={student?.name}
                                         _placeholder={{ color: "white" }}
                                         mt="5px"
+                                        isDisabled
                                     />
                                 </Skeleton>
                                 <Skeleton my="15px" borderRadius="10px" isLoaded={Loaded}>
                                     <Input
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         type="name"
-                                        placeholder={student?.course}
+                                        placeholder={student?.courses[0]}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
+                                        isDisabled
                                     />
                                 </Skeleton>
                                 <Skeleton borderRadius="10px" isLoaded={Loaded}>
@@ -245,7 +249,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="email"
-                                        placeholder={student?.nationality}
+                                        placeholder={student?.country}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -255,7 +259,7 @@ const StudentDetail = () => {
                                         fontSize={{ sm: "xs", md: "sm" }}
                                         isDisabled
                                         type="text"
-                                        placeholder={student?.age?.toString()}
+                                        placeholder={student?.Age?.toString()}
                                         _placeholder={{ color: "white" }}
                                         mt="15px"
                                     />
@@ -409,7 +413,6 @@ const StudentDetail = () => {
                                                 <FormLabel>Topic</FormLabel>
                                                 <Input
                                                     fontSize={{ sm: "xs", md: "sm" }}
-                                                    isDisabled
                                                     type="text"
                                                     name="todays_topic"
                                                     value={todays_topic}
@@ -422,7 +425,6 @@ const StudentDetail = () => {
                                                 <FormLabel>Home Work Status</FormLabel>
                                                 <Input
                                                     fontSize={{ sm: "xs", md: "sm" }}
-                                                    isDisabled
                                                     type="text"
                                                     name="homework_status"
                                                     value={homework_status}
@@ -435,7 +437,6 @@ const StudentDetail = () => {
                                                 <FormLabel>Student Class Performance</FormLabel>
                                                 <Input
                                                     fontSize={{ sm: "xs", md: "sm" }}
-                                                    isDisabled
                                                     type="text"
                                                     name="class_performance"
                                                     value={class_performance}
@@ -448,7 +449,6 @@ const StudentDetail = () => {
                                                 <FormLabel>Next Session Topic</FormLabel>
                                                 <Input
                                                     fontSize={{ sm: "xs", md: "sm" }}
-                                                    isDisabled
                                                     type="text"
                                                     name="next_session_topic"
                                                     value={next_session_topic}
@@ -465,22 +465,17 @@ const StudentDetail = () => {
                     </Modal>
 
                     <Box my="10px">
-                        <Input
-                            fontSize={{ sm: "xs", md: "sm" }}
-                            _placeholder={{ color: "white" }}
-                            placeholder={"user"}
-                            value={"organization"}
-                            isDisabled
-                            my="10px"
-                        />
-                        <Input
-                            fontSize={{ sm: "xs", md: "sm" }}
-                            placeholder={"user"}
-                            _placeholder={{ color: "white" }}
-                            value={"organization"}
-                            isDisabled
-                            my="10px"
-                        />
+                        {student?.classTime_options?.map((classTime, id) => (
+                            <Input
+                                fontSize={{ sm: "xs", md: "sm" }}
+                                _placeholder={{ color: "white" }}
+                                placeholder={"user"}
+                                value={classTime}
+                                isDisabled
+                                my="10px"
+                                key={id}
+                            />
+                        ))}
                     </Box>
                 </Box>
             </Box>

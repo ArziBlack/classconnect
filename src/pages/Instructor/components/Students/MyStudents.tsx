@@ -61,11 +61,11 @@ export const MyStudents = () => {
                       {student.status}
                     </span>
                   </td>
-                  <td className="py-2 px-4">{student?.course}</td>
-                  <td className="py-2 px-4">{student?.age}</td>
+                  <td className="py-2 px-4">{student?.courses[0]}</td>
+                  <td className="py-2 px-4">{student?.Age}</td>
                   <td className="py-2 px-4">{student?.sex}</td>
-                  <td className="py-2 px-4">{student?.nationality}</td>
-                  <td className="py-2 px-4">{student?.nationality}</td>
+                  <td className="py-2 px-4">{student?.country}</td>
+                  <td className="py-2 px-4">{student?.country}</td>
                 </tr>
               ))}
             </tbody>
