@@ -6,6 +6,7 @@ import { NOT_PROFILE } from "../../../constants/image";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import { getMyStudents } from "../../../services/tutor/tutorThunk";
+import moment from "moment";
 
 const homeCourses = [
   {
@@ -16,11 +17,9 @@ const homeCourses = [
   },
 ]; 
 
-const schedule = [
-  { course: "UI/UX Design" },
-  { time: "10:00-10:30 (30 mins)" },
-  { meet: "Google meet" },
-];
+const classSchedule = localStorage.getItem("nextclass");
+const futureDate = moment(classSchedule);
+const formattedDate = futureDate.format('YYYY-MM-DD');
 
 const highlightedDates = [
   new Date(2024, 6, 2),
@@ -113,21 +112,19 @@ export const Home = () => {
             <span className="font-light text-[#00ff84]">See All</span>
           </div>
           <div className="">
-            {!schedule ? schedule.map((item, id) => (
+            {!formattedDate ? (
               <div
-                className="flex w-full items-center my-2 p-1 rounded justify-between"
-                key={id}
-              >
+                className="flex w-full items-center my-2 p-1 rounded justify-between">
                 <div className="w-2/4 flex items-center text-[9px]">
                   <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
-                    <h2 className="font-semibold">{item.course}</h2>
-                    <h2 className="font-[100]">{item.time}</h2>
-                    <h2 className="font-semibold">{item.meet}</h2>
+                    <h2 className="font-semibold">{/**item.course*/}</h2>
+                    <h2 className="font-[100]">{/**item.time*/}</h2>
+                    <h2 className="font-semibold">{formattedDate}</h2>
                   </div>
                 </div>
               </div>
-            )): <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">You Dont Have any Upcoming Classes</div>}
+            ): <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">You Dont Have any Upcoming Classes</div>}
           </div>
         </div>
       </div>

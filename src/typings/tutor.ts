@@ -68,6 +68,7 @@ export interface INoticeResponse {
     statusCode: number;
     message: string;
     summary: string;
+    upcomingClass?: string;
 }
 
 interface ICurriculumMessage {
