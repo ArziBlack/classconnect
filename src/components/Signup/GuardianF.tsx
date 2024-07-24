@@ -44,19 +44,27 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Class Type
             </FormLabel>
-            <Select
-              name="class_type"
-              onChange={(e) => { onChange(e), handleClassChange(e) }}
-              mb="1px"
-              placeholder="Select a Class Type"
-              className="capitalize"
-            >
-              {classKeys?.map((item, idx) => (
-                <option key={idx} value={item}>
-                  {item.replace(/_/g, ' ')}
-                </option>
-              ))}
-            </Select>
+            <Field name="classType" as="select">
+              {({ field }) => (
+                <Select
+                  name="class_type"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e), handleClassChange(e);
+                  }}
+                  mb="1px"
+                  placeholder="Select a Class Type"
+                  className="capitalize"
+                  value={data?.class_type}
+                >
+                  {classKeys?.map((item, idx) => (
+                    <option key={idx} value={item}>
+                      {item.replace(/_/g, ' ')}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
           </Box>
           <Box w="100%" mb={3}>
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
