@@ -22,7 +22,6 @@ const validationSchema = Yup.object({
 })
 
 const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
-  const { parent_name, parent_phoneNum, student_email } = data;
   return (
     <Formik
       initialValues={data}
@@ -42,7 +41,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   placeholder="John"
                   label="Guardian Full Name"
                   onChange={(e) => { field.onChange(e); onChange(e); }}
-                  value={parent_name}
+                  value={data.parent_name}
                   error={
                     form.errors.parent_name && form.touched.parent_name
                       ? form.errors.parent_name
@@ -64,7 +63,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   label="Guardian Phone No"
                   placeholder="+2349037289192"
                   onChange={(e) => { field.onChange(e); onChange(e); }}
-                  value={parent_phoneNum}
+                  value={data.parent_phoneNum}
                   error={
                     form.errors.parent_phoneNum && form.touched.parent_phoneNum
                       ? form.errors.parent_phoneNum
@@ -76,7 +75,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
           </Box>
           <Box w="100%" mb={3}>
             <Field name="parent_email">
-              {({ field, form }) => {
+              {({ field, form }) => (
                 <InputField
                   {...field}
                   required
@@ -84,7 +83,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   name="parent_email"
                   label="Guardian Email"
                   onChange={(e) => { field.onChange(e); onChange(e); }}
-                  value={student_email}
+                  value={data.parent_email}
                   icon={IoMailOutline}
                   placeholder="guardian@email.com"
                   error={
@@ -93,7 +92,8 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                       : null
                   }
                 />
-              }}
+
+              )}
             </Field>
           </Box>
           <Flex gap={5}>

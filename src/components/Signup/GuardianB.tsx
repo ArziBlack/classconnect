@@ -75,7 +75,7 @@ const validationSchema = Yup.object({
 });
 
 const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
-  const { password, confirm_password } = data;
+  const { password } = data;
   const handlePasswordChange = (password: string) => {
     const syntheticEvent = {
       target: {
@@ -146,7 +146,6 @@ const GuardianB = ({ data, onChange, onClick }: IGuardianProps) => {
                 />
               )}
             </Field>
-            <PasswordStrengthBar password={confirm_password} />
             <Flex gap={5}>
               <CButton
                 my={3}
