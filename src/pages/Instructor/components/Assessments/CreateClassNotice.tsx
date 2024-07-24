@@ -79,15 +79,15 @@ const CreateClassNotice = () => {
                     <VStack spacing={4} align="stretch">
                         <FormControl id="type" isRequired>
                             <FormLabel>Time Option One</FormLabel>
-                            <Input type="DateTime" placeholder="General Report Title..." value={time1} onChange={handleChange} />
+                            <Input type="text" name="time1" placeholder="General Report Title..." value={time1} onChange={handleChange} />
                         </FormControl>
                         <FormControl id="type" isRequired>
                             <FormLabel>Time Option Two</FormLabel>
-                            <Input type="DateTime" placeholder="General Report Title..." value={time2} onChange={handleChange} />
+                            <Input type="text" name="time2" placeholder="General Report Title..." value={time2} onChange={handleChange} />
                         </FormControl>
                         <FormControl id="content" isRequired>
                             <FormLabel>Class Meeting Link</FormLabel>
-                            <Input type="text" placeholder="Class Meeting Link..." value={class_link} onChange={handleChange} />
+                            <Input type="text" name="class_link" placeholder="Class Meeting Link..." value={class_link} onChange={handleChange} />
                         </FormControl>
                         <Button type="submit" text="Send Class Notice" ml={"auto"} isLoading={isLoading}></Button>
                     </VStack>
