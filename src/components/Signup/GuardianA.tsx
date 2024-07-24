@@ -1,16 +1,26 @@
 import CButton from "../Button";
 import InputField from "../Input";
 import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
-import { Box, Flex } from "@chakra-ui/react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Box, Flex, Select } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
+import { ISalutation } from "../../typings/signup";
+
+
+const salutation: ISalutation[] = [
+  { value: "Mr", label: "Mr" },
+  { value: "Mrs", label: "Mrs" },
+  { value: "Ms", label: "Ms" },
+  { value: "Dr", label: "Dr" },
+];
 
 const validationSchema = Yup.object({
+  salutation: Yup.string().oneOf(["Mr", "Mrs", "Ms", "Dr"], "Salutation is Required!"),
   parent_name: Yup.string().required("Guardian Full Name is Required!"),
   parent_phoneNum: Yup.string()
-    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Phone number is not valid")
+    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Guardian Phone number is not valid")
     .required("Phone number is required"),
   parent_email: Yup.string()
     .email("Invalid email address")
@@ -18,7 +28,7 @@ const validationSchema = Yup.object({
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Invalid email address"
     )
-    .required("Email is required"),
+    .required("Guardian Email is required"),
 })
 
 const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
@@ -29,12 +39,66 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
       onSubmit={() => onClick("pagetwo")}>
       {({ isValid }) => (
         <Form>
+                 <Box w="100%" mb={3}>
+            <Field name="salutation">
+              {({ field, form }) => (
+                <Select
+                  {...field}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  mb="1px"
+                  name="salutation"
+                  value={data?.salutation}
+                  error={
+                    form.errors.salutation && form.touched.salutation
+                      ? form.errors.salutation
+                      : null
+                  }>
+                  <option>Select Salutation</option>
+                  {salutation.map((item, idx) => (
+                    <option key={idx} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+            <ErrorMessage
+              className="!text-[#e53e3e] !text-xs mt-1"
+              name="salutation"
+              component="div"
+            />
+            <Field name="first_name">
+              {({ field, form }) => (
+                <InputField
+                  {...field}
+                  type="text"
+                  name="first_name"
+                  icon={FaRegUser}
+                  placeholder="John"
+                  label="Student First Name"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  value={data.first_name}
+                  error={
+                    form.errors.first_name &&
+                      form.touched.first_name
+                      ? form.errors.first_name
+                      : null
+                  }
+                />
+              )}
+            </Field>
+          </Box>
           <Box w="100%" mb={3}>
             <Field name="parent_name">
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  required
                   type="text"
                   name="parent_name"
                   icon={FaRegUser}
@@ -56,7 +120,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  required
                   type="text"
                   name="parent_phoneNum"
                   icon={FaRegUser}
@@ -78,7 +141,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  required
                   type="email"
                   name="parent_email"
                   label="Guardian Email"

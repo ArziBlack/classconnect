@@ -158,11 +158,11 @@ const MainView: FC = () => {
           <Image
             w={"40px"}
             h={"40px"}
-            src={data.profileImage}
+            src={data?.profileImage}
             borderRadius={"50%"}
           />
           <Text fontSize={"12px"} color="#ffffff">
-            {data.first_name + " " + data.last_name}
+            {data?.first_name + " " + data?.last_name}
           </Text>
           <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
         </Flex>

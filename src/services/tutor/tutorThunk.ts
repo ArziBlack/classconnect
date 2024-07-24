@@ -7,7 +7,7 @@ import { IResponse } from "../auth/authSlice";
 // Get all My students
 export const getMyStudents = createAsyncThunk<IMyStudentsResponse, void, { rejectValue: string }>("tutor/myStudents", async (_, thunkAPI) => {
     try {
-        const response = await axiosInstance.get<IMyStudentsResponse>("/tutor/myStudents");
+        const response = await axiosInstance.get<IMyStudentsResponse>("/tutor/connectedStudents");
         return response.data;
     } catch (err) {
         const error = err.response ? err.response.data : err.message || "An unknown error occurred";

@@ -29,6 +29,7 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
     >
       {({ isValid }) => (
         <Form>
+      
           <Box w="100%" mb={3}>
             <Field name="first_name">
               {({ field, form }) => (

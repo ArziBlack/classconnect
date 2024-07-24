@@ -1,15 +1,13 @@
 import CButton from "../Button";
 import InputField from "../Input";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Box, Select, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
-import { ISalutation } from "../../typings/signup";
 
 const validationSchema = Yup.object({
-  salutation: Yup.string().oneOf(["Mr", "Mrs", "Ms", "Dr"], "Salutation is Required!").required("Gender is Required"),
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
   student_email: Yup.string()
@@ -22,12 +20,6 @@ const validationSchema = Yup.object({
 })
 
 const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
-  const salutation: ISalutation[] = [
-    { value: "Mr", label: "Mr" },
-    { value: "Mrs", label: "Mrs" },
-    { value: "Ms", label: "Ms" },
-    { value: "Dr", label: "Dr" },
-  ];
 
   return (
     <Formik
@@ -37,68 +29,12 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
     >
       {({ isValid }) => (
         <Form>
-          <Box w="100%" mb={3}>
-            <Field name="salutation">
-              {({ field, form }) => (
-                <Select
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    onChange(e);
-                  }}
-                  mb="1px"
-                  name="salutation"
-                  value={data?.salutation}
-                  error={
-                    form.errors.salutation && form.touched.salutation
-                      ? form.errors.salutation
-                      : null
-                  }>
-                  <option>Select Salutation</option>
-                  {salutation.map((item, idx) => (
-                    <option key={idx} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-                </Select>
-              )}
-            </Field>
-            <ErrorMessage
-              className="!text-[#e53e3e] !text-xs mt-1"
-              name="salutation"
-              component="div"
-            />
-            <Field name="first_name">
-              {({ field, form }) => (
-                <InputField
-                  required
-                  {...field}
-                  type="text"
-                  name="first_name"
-                  icon={FaRegUser}
-                  placeholder="John"
-                  label="Student First Name"
-                  onChange={(e) => {
-                    field.onChange(e);
-                    onChange(e);
-                  }}
-                  value={data.first_name}
-                  error={
-                    form.errors.first_name &&
-                      form.touched.first_name
-                      ? form.errors.first_name
-                      : null
-                  }
-                />
-              )}
-            </Field>
-          </Box>
+       
           <Box w="100%" mb={3}>
             <Field name="last_name">
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  required
                   type="text"
                   name="last_name"
                   icon={FaRegUser}
@@ -123,7 +59,6 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
             <Field name="student_email">
               {({ field, form }) => (
                 <InputField
-                  required
                   {...field}
                   type="email"
                   name="student_email"

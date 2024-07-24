@@ -47,6 +47,7 @@ const getScoreColor = (score) => {
 
 const StudentPerformance = () => {
   const { myStudents } = useAppSelector(state => state.tutor);
+  console.log(myStudents)
   return (
   <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
     <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px] px-6">
