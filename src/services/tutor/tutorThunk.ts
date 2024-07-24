@@ -10,7 +10,7 @@ export const getMyStudents = createAsyncThunk<IMyStudentsResponse, void, { rejec
         const response = await axiosInstance.get<IMyStudentsResponse>("/tutor/myStudents");
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
@@ -21,7 +21,7 @@ export const createGeneralAssessments = createAsyncThunk<IAssessmentResponse, { 
         const response = await axiosInstance.post<IAssessmentResponse>("/tutor/createGeneralAssessment", assessment);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
@@ -32,24 +32,24 @@ export const createPersonnalAssessment = createAsyncThunk<IAssessmentResponse, {
         const token = localStorage.getItem("token");
         const params = {
             headers: {
-              Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
-          };
+        };
         const response = await axios.post<IAssessmentResponse>(`${assessmentFormActionUrl}`, assessment, params);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
 
 // Create General Report
-export const createGeneralReport = createAsyncThunk<IAssessmentResponse, { report: IAssessmentData }, { rejectValue: string }>("tutor/general-report", async (report, thunkAPI) => {
+export const createGeneralReport = createAsyncThunk<IAssessmentResponse, { report: IAssessmentData }, { rejectValue: string }>("tutor/general-report", async ({ report }, thunkAPI) => {
     try {
         const response = await axiosInstance.post<IAssessmentResponse>("/tutor/generalReport", report);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
@@ -60,25 +60,25 @@ export const createStudentReport = createAsyncThunk<IReportResponse, { sessionRe
         const token = localStorage.getItem("token");
         const params = {
             headers: {
-              Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
-          };
+        };
         const response = await axios.post<IReportResponse>(`${sessionReportFormActionUrl}`,
             report, params);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
 
 // Send Class Notice
-export const sendClassNotice = createAsyncThunk<INoticeResponse, { notice: IClassSchedule }, { rejectValue: string }>("tutor/send-class-notice", async (notice, thunkAPI) => {
+export const sendClassNotice = createAsyncThunk<INoticeResponse, { notice: IClassSchedule }, { rejectValue: string }>("tutor/send-class-notice", async ({ notice }, thunkAPI) => {
     try {
         const response = await axiosInstance.post<INoticeResponse>("/tutor/sendClassNotice", notice);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
@@ -90,7 +90,7 @@ export const getMyCurriculum = createAsyncThunk<ICurriculumResponse, void, { rej
         const response = await axiosInstance.get<ICurriculumResponse>(`/tutor/getMyCourseCurriculum`);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });
@@ -101,7 +101,7 @@ export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateT
         const response = await axiosInstance.post<IResponse>("/tutor/updateTutorProfile", update);
         return response.data;
     } catch (err) {
-        const error = err.response?.data?.message || "An unknown error occurred";
+        const error = err.response ? err.response.data : err.message || "An unknown error occurred";
         return thunkAPI.rejectWithValue(error);
     }
 });

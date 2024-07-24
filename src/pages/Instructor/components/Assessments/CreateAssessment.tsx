@@ -44,7 +44,7 @@ export const CreateAssessment = () => {
     } else {
       const result = await dispatch(createGeneralAssessments({ assessment }));
       if (result.meta.requestStatus === "fulfilled") {
-        showToast(message, "success");
+        showToast(message + error, "success");
       } else if (result.meta.requestStatus === "rejected") {
         showToast(error, "error");
       }

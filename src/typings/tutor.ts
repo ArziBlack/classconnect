@@ -37,7 +37,7 @@ export interface IAssessmentResponse {
 export interface IAssessmentData {
     type?: string;
     title?: string;
-    content: string;
+    content?: string;
     document?: File;
 }
 

@@ -8,9 +8,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Button from "../../../../components/Button";
-import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import useCustomToast from "../../../../hooks/useCustomToast";
+import { sendClassNotice } from "../../../../services/tutor/tutorThunk";
 
 const CreateClassNotice = () => {
+    const dispatch = useAppDispatch();
+    const toast = useCustomToast();
     const { isLoading } = useAppSelector(state => state.tutor);
     const [classNotice, setClassNotice] = useState({
         time1: "",
@@ -26,9 +30,32 @@ const CreateClassNotice = () => {
     }
 
     const { time1, time2, class_link } = classNotice;
-    const handleSubmit = () => {
-        console.log("Submitted");
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!time1) {
+            toast("Please include class time", "info");
+            return;
+        }
+        if (!time2) {
+            toast("Please include class time", "info");
+            return;
+        }
+        if (!class_link) {
+            toast("Please include class meeting link", "info");
+            return;
+        }
+        const notice = classNotice;
+        const res = await dispatch(sendClassNotice({ notice }));
+        if (sendClassNotice.fulfilled.match(res)) {
+            toast("Class Notice Sent Successfully", "success");
+        }
+        if (sendClassNotice.rejected.match(res)) {
+            toast("Error Sending Class Notice", "error");
+        }
+        setClassNotice({ time1: "", time2: "", class_link: "" });
     }
+
     return (
         <Box
             color="white"
@@ -42,7 +69,7 @@ const CreateClassNotice = () => {
         >
             <Box maxW="600px">
                 <Text fontSize="2xl" fontWeight="bold" mb={6}>
-                    Create A General Report
+                    Create Class Notice
                 </Text>
                 <form onSubmit={handleSubmit}>
                     <VStack spacing={4} align="stretch">
@@ -56,7 +83,7 @@ const CreateClassNotice = () => {
                         </FormControl>
                         <FormControl id="content" isRequired>
                             <FormLabel>Class Meeting Link</FormLabel>
-                            <Input type="text" placeholder="Class Meeting Link..." value={class_link} onChange={handleChange}  />
+                            <Input type="text" placeholder="Class Meeting Link..." value={class_link} onChange={handleChange} />
                         </FormControl>
                         <Button type="submit" text="Send Class Notice" ml={"auto"} isLoading={isLoading}></Button>
                     </VStack>
