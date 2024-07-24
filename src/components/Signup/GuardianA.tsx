@@ -95,7 +95,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
               }}
             </Field>
           </Box>
-
           <Flex gap={5}>
             <CButton my={3} w={"full"} text="Back" onClick={typeModal} />
             <CButton
