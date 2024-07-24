@@ -1,4 +1,3 @@
-import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box, Flex } from "@chakra-ui/layout";
@@ -9,13 +8,10 @@ import { CiPhone } from "react-icons/ci";
 import { IStudentProps } from "../../typings/home";
 import { IGender } from "../../typings/signup";
 
-// Gender options
 const genderOptions: IGender[] = [
   { value: "Male", label: "Male" },
   { value: "Female", label: "Female" },
 ];
-
-// Validation Schema using Yup
 
 const dateOfBirthSchema = Yup.string()
   .required("Date of Birth is required")
@@ -86,7 +82,7 @@ const StudentC = ({ data, onChange, onClick }: IStudentProps) => {
               <FormLabel fontWeight="bold" fontSize="15px">
                 Gender
               </FormLabel>
-              <Field name="sex" as="select">
+              <Field name="sex">
                 {({ field, form }) => (
                   <Select
                     {...field}

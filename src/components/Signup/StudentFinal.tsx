@@ -135,12 +135,12 @@ const StudentFinal = ({
               {({ field }) => (
                 <Checkbox
                   {...field}
-                  defaultChecked
                   onChange={(e) => {
                     onChange(e);
                     field.onChange(e);
                     setFieldValue("agreement_status", e.target.checked);
                   }}
+                  isChecked={data.agreement_status}
                   name="agreement_status"
                 ></Checkbox>
               )}

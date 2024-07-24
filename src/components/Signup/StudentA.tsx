@@ -30,9 +30,8 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
       {({ isValid }) => (
         <Form>
           <Box w="100%" mb={3}>
-            <Field
-              name="first_name"
-              render={({ field, form }) => (
+            <Field name="first_name">
+              {({ field, form }) => (
                 <InputField
                   {...field}
                   type="text"
@@ -51,12 +50,11 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
                   }
                 />
               )}
-            />
+            </Field>
           </Box>
           <Box w="100%" mb={3}>
-            <Field
-              name="last_name"
-              render={({ field, form }) => (
+            <Field name="last_name">
+              {({ field, form }) => (
                 <InputField
                   {...field}
                   type="text"
@@ -75,12 +73,11 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
                   }
                 />
               )}
-            />
+            </Field>
           </Box>
           <Box w="100%" mb={3}>
-            <Field
-              name="student_email"
-              render={({ field, form }) => (
+            <Field name="student_email">
+              {({ field, form }) => (
                 <InputField
                   {...field}
                   type="email"
@@ -93,13 +90,13 @@ const StudentA = ({ data, onChange, onClick, typeModal }: IStudentProps) => {
                   }}
                   value={data.student_email}
                   error={
-                    form.errors.student_email && form.touched.student_email
-                      ? form.errors.student_email
+                    form.errors.email && form.touched.email
+                      ? form.errors.email
                       : null
                   }
                 />
               )}
-            />
+            </Field>
           </Box>
           <Flex gap={5}>
             <CButton my={3} w={"full"} text="Back" onClick={typeModal} />

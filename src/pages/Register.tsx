@@ -45,8 +45,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading, fees } = useAppSelector((store) => store.other);
-  console.log(fees);
+  const { isLoading } = useAppSelector((store) => store.other);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 
@@ -168,7 +167,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
     const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? (checked ? "agreed" : null) : value,
     }));
   };
 
