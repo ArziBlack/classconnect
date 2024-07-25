@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
-import { IoMdNotificationsOutline } from "react-icons/io";
+// import { IoMdNotificationsOutline } from "react-icons/io";
 import { Box, Flex, Image, Input, Text, useMediaQuery } from "@chakra-ui/react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   ASSESSMENT,
   COURSES,
@@ -158,7 +158,7 @@ const MainView: FC = () => {
           />
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
-          <IoMdNotificationsOutline fontSize={"25px"} color="white" />
+          {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
           <Image
             w={"40px"}
             h={"40px"}
@@ -168,7 +168,7 @@ const MainView: FC = () => {
           <Text fontSize={"12px"} color="#ffffff">
             {data.first_name + " " + data.last_name}
           </Text>
-          <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
+          {/* <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" /> */}
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
