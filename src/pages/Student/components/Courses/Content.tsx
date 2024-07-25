@@ -14,15 +14,17 @@ import { getCurriculum } from "../../../../services/student/studentThunks";
 import Button from "../../../../components/Button";
 import Loader from "../../../../utils/Loader";
 import { useParams } from "react-router-dom";
+import { convertStringsToArray } from "../../../../utils/utility";
 
 export const Content = () => {
   const { courseId } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    // !curriculum && dispatch(getCurriculum({ courseId }));
+    !curriculum && dispatch(getCurriculum({ courseId }));
   }, []);
 
   const { curriculum, isLoading } = useAppSelector(state => state.student);
+  console.log(courseId);
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -74,7 +76,7 @@ export const Content = () => {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>{item?.content}</AccordionPanel>
+            {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={4} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
           </AccordionItem>
         ))}
       </Accordion>
