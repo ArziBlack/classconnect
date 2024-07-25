@@ -7,103 +7,78 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { useEffect } from "react";
+import jsPDF from "jspdf";
+import { getCurriculum } from "../../../../services/student/studentThunks";
+import Button from "../../../../components/Button";
+import Loader from "../../../../utils/Loader";
+import { useParams } from "react-router-dom";
 
 export const Content = () => {
+  const { courseId } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    // !curriculum && dispatch(getCurriculum({ courseId }));
+  }, []);
+
+  const { curriculum, isLoading } = useAppSelector(state => state.student);
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("HEP curriculum", 10, 10);
+
+    doc.setFontSize(12);
+    doc.text(
+      "View your enrolled curriculum. Track your progress, access curriculum materials, and stay updated with upcoming lessons and assignments.",
+      10,
+      20,
+      { maxWidth: 180 }
+    );
+
+    curriculum?.data?.curriculum?.forEach((item, index) => {
+      doc.setFontSize(14);
+      doc.text(item?.topic, 10, 30 + index * 30);
+      doc.setFontSize(12);
+      doc.text(item?.content, 10, 40 + index * 30, { maxWidth: 180 });
+    });
+    doc.save("curriculum.pdf");
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
-    <Flex color="white">
+    <Flex color="white" justify={"space-between"}>
       <Accordion
         allowMultiple
-        width={"700px"}
-        display={"flex"}
-        flexDir={"column"}
+        width="700px"
+        display="flex"
+        flexDir="column"
         gap={4}
       >
-        <AccordionItem border={"none"}>
-          <h2>
-            <AccordionButton
-              h={"50px"}
-              borderRadius={"8px"}
-              _hover={{ bg: "#37474f" }}
-              bg={"#37474F"}
-            >
-              <Box as="span" flex="1" textAlign="left">
-                Introduction
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem border={"none"}>
-          <h2>
-            <AccordionButton
-              h={"50px"}
-              borderRadius={"8px"}
-              _hover={{ bg: "#37474f" }}
-              bg={"#37474F"}
-            >
-              <Box as="span" flex="1" textAlign="left">
-                Indept HTML
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem border={"none"}>
-          <h2>
-            <AccordionButton
-              h={"50px"}
-              borderRadius={"8px"}
-              _hover={{ bg: "#37474f" }}
-              bg={"#37474F"}
-            >
-              <Box as="span" flex="1" textAlign="left">
-                CSS Basics
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem border={"none"}>
-          <h2>
-            <AccordionButton
-              h={"50px"}
-              borderRadius={"8px"}
-              _hover={{ bg: "#37474f" }}
-              bg={"#37474F"}
-            >
-              <Box as="span" flex="1" textAlign="left">
-                Introduction to Javascript
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
+        {curriculum?.data?.curriculum.map((item, index) => (
+          <AccordionItem key={index} border="none">
+            <h2>
+              <AccordionButton
+                h="50px"
+                borderRadius="8px"
+                _hover={{ bg: "#37474f" }}
+                bg="#37474F"
+              >
+                <Box as="span" flex="1" textAlign="left">
+                  {item?.topic}
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>{item?.content}</AccordionPanel>
+          </AccordionItem>
+        ))}
       </Accordion>
+      <Button text="Download Curriculum" onClick={generatePDF} />
     </Flex>
   );
 };

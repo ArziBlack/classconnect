@@ -315,10 +315,17 @@ export const getClassSchedule = createAsyncThunk<IScheduleResponse, void, { reje
   }
 });
 
-// Get Curriculum
-export const getCurriculum = createAsyncThunk<ICurriculumResponse, void, { rejectValue: string }>("student/curriculum", async (_, thunkAPI) => {
+// Get Curriculum 
+// Convert this request to a "Post or Put Request"
+export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: string }, { rejectValue: string }>("student/curriculum", async ({ courseId }, thunkAPI) => {
   try {
-    const response = await axiosInstance.get("/student/getCurriculum");
+    const token = sessionStorage.getItem("token");
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(`${API_BASE_URL}/student/getCurriculum`, courseId, params);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
