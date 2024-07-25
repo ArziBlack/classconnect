@@ -128,7 +128,8 @@ const newPassword = async ({ id, newPassword }) => {
 // logout
 export const logout = async () => {
   sessionStorage.removeItem("token");
-  sessionStorage.removeItem("data");
+  sessionStorage.removeItem("tutor");
+  sessionStorage.removeItem("user");
   setTimeout(() => {
     window.location.href = "/";
   }, 2000);
