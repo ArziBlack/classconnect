@@ -27,7 +27,7 @@ export interface IResponse {
 const data: IResponse | null = JSON.parse(
   sessionStorage.getItem("user") || sessionStorage.getItem("tutor") || "null"
 );
-const jwt: string | null = sessionStorage.getItem("token")?.trim();
+const jwt: string | null = sessionStorage.getItem("token")?.trim().toString();
 
 if (data) {
   console.log(data);

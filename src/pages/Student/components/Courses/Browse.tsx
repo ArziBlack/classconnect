@@ -6,6 +6,8 @@ export const Browse = () => {
   const { allCoursesResponse, isLoading } = useAppSelector(
     (state) => state.student
   );
+  console.log(allCoursesResponse);
+
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
       {allCoursesResponse && allCoursesResponse?.message?.map((item, idx) => (

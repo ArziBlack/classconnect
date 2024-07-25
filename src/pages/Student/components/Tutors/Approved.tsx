@@ -14,7 +14,6 @@ export const Approved = () => {
   const { approvedTutors, isLoading, error } = useAppSelector(
     (state) => state.student
   );
-  console.log(error);
 
  useEffect(() => {
     let isMounted = true;

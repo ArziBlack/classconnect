@@ -129,7 +129,7 @@ const newPassword = async ({ id, newPassword }) => {
 export const logout = async () => {
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("tutor");
-  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("user"); 
   setTimeout(() => {
     window.location.href = "/";
   }, 2000);

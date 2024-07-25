@@ -14,3 +14,8 @@ export const truncateOverflow = (sentence: string) => {
     return sentence;
   }
 };
+
+export function convertStringsToArray(string: string) {
+  const data = string.split(",");
+  return data;
+}

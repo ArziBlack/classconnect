@@ -14,6 +14,7 @@ export const Details = () => {
       setCourse(allCoursesResponse?.message?.find((item: ICourseData) => courseId === item.title.split(" ")[0]));
     }
   }, [allCoursesResponse, courseId]);
+
   return (
     <Flex color="white" width={"700px"}>
       <Box color="white">

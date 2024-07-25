@@ -22,7 +22,6 @@ export const Curriculum = () => {
   const dispatch = useAppDispatch();
   const { curriculumResponse, isLoading } = useAppSelector(state => state.tutor);
 
-  // console.log(curriculumResponse);
   React.useEffect(()=> {
     !curriculumResponse && dispatch(getCurriculum());
   },[]);

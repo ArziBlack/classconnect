@@ -47,7 +47,7 @@ export const getMyTuitionFee = createAsyncThunk<
   { rejectValue: string }
 >("student/getMyTuitionFee", async (_, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token")?.trim()?.toString();
+    const token = sessionStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getMyTuitionFee`, {
       headers: {
@@ -103,7 +103,7 @@ export const chooseTutor = createAsyncThunk<
   { rejectValue: string }
 >("student/chooseTutor", async ({ url }, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token")?.trim()?.toString();
+    const token = sessionStorage.getItem("token")?.trim()?.toString();
     const response = await axios.post(
       `${url}`,
       {},
@@ -158,7 +158,7 @@ export const requestRecommendation = createAsyncThunk<
   { rejectValue: string }
 >("student/requestRecommendation", async (_, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -183,7 +183,7 @@ export const acceptRecommendation = createAsyncThunk<
   { rejectValue: string }
 >("student/acceptRecommendation", async ({ tutorId, studentId }, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -208,7 +208,7 @@ export const rejectRecommendation = createAsyncThunk<
   { rejectValue: string }
 >("student/rejectRecommendation", async ({ tutorId, studentId }, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -263,7 +263,7 @@ export const getAllCourses = createAsyncThunk<
   { rejectValue: string }
 >("student/getAllCourses", async (_, thunkAPI) => {
   try {
-    const token = localStorage.getItem("token")?.trim()?.toString();
+    const token = sessionStorage.getItem("token")?.trim()?.toString();
 
     const response = await axios.get(`${API_BASE_URL}/getAllCourses`, {
       headers: {
