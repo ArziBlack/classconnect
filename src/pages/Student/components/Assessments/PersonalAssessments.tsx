@@ -69,7 +69,7 @@ const AssessmentList = () => {
       {!error ? (
         <div className="overflow-y-scroll h-[400px] no-scrollbar">
           {personalAssessment?.data?.map((assess, index) => (
-            <Skeleton borderRadius={20} isLoaded={isLoading}>
+            <Skeleton borderRadius={20} isLoaded={!isLoading}>
               <div onClick={() => handleNotificationClick(index)} key={index}>
                 <AssessmentItem
                   type={assess.type}
