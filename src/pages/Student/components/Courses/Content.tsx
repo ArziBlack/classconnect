@@ -12,9 +12,9 @@ import { useEffect } from "react";
 import jsPDF from "jspdf";
 import { getCurriculum } from "../../../../services/student/studentThunks";
 import Button from "../../../../components/Button";
-import Loader from "../../../../utils/Loader";
 import { useParams } from "react-router-dom";
 import { convertStringsToArray } from "../../../../utils/utility";
+import Loading from "../../../../utils/Loading";
 
 export const Content = () => {
   const { courseId } = useParams();
@@ -50,7 +50,7 @@ export const Content = () => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loading />;
   }
   return (
     <Flex color="white" justify={"space-between"}>

@@ -14,7 +14,8 @@ import Button from "../../../components/Button";
 import jsPDF from "jspdf";
 import { getCurriculum } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import Loader from "../../../utils/Loader";
+import { convertStringsToArray } from "../../../utils/utility";
+import Loading from "../../../utils/Loading";
 
 const links = [{ to: "", label: "My curriculum" }];
 
@@ -51,7 +52,7 @@ export const Curriculum = () => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loading />;
   }
 
   return (
@@ -85,7 +86,7 @@ export const Curriculum = () => {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>{item?.content}</AccordionPanel>
+              {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={4} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
             </AccordionItem>
           ))}
         </Accordion>

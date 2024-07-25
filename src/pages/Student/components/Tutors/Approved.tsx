@@ -33,9 +33,6 @@ export const Approved = () => {
     ],
   };
 
-  // const handleRecommendation = () => {
-  // }
-
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
