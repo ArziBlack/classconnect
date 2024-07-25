@@ -18,33 +18,11 @@ import Loader from "../../../utils/Loader";
 
 const links = [{ to: "", label: "My curriculum" }];
 
-const accordionItems = [
-  {
-    title: "Introduction",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    title: "In-depth HTML",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    title: "CSS Basics",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    title: "Introduction to Javascript",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
-
 export const Curriculum = () => {
   const dispatch = useAppDispatch();
   const { curriculumResponse, isLoading } = useAppSelector(state => state.tutor);
 
+  // console.log(curriculumResponse);
   React.useEffect(()=> {
     !curriculumResponse && dispatch(getCurriculum());
   },[]);
@@ -63,11 +41,11 @@ export const Curriculum = () => {
       { maxWidth: 180 }
     );
 
-    accordionItems.forEach((item, index) => {
+    curriculumResponse?.data?.curriculum?.forEach((item, index) => {
       doc.setFontSize(14);
-      doc.text(item.title, 10, 30 + index * 30);
+      doc.text(item?.topic, 10, 30 + index * 30);
       doc.setFontSize(12);
-      doc.text(item.content, 10, 40 + index * 30, { maxWidth: 180 });
+      doc.text(item?.content, 10, 40 + index * 30, { maxWidth: 180 });
     });
 
     doc.save("curriculum.pdf");
@@ -103,12 +81,12 @@ export const Curriculum = () => {
                   bg="#37474F"
                 >
                   <Box as="span" flex="1" textAlign="left">
-                    {item?.title}
+                    {item?.topic}
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>{item?.description} '/n' {item?.duration}</AccordionPanel>
+              <AccordionPanel pb={4}>{item?.content}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>

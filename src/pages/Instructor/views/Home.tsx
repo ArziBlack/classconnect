@@ -54,7 +54,7 @@ export const Home = () => {
   const { myStudents } = useAppSelector((store) => store.tutor);
   
   useEffect(()=> {
-    // !myStudents && dispatch(getMyStudents());
+    !myStudents && dispatch(getMyStudents());
   },[myStudents, dispatch]);
 
   const { data } = useAppSelector((store) => store.auth);
