@@ -81,12 +81,12 @@ export const Curriculum = () => {
                   bg="#37474F"
                 >
                   <Box as="span" flex="1" textAlign="left">
-                    {item?.topic}
+                    {item?.topic?.replace(":", "")}
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={4} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
+              {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={2} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
             </AccordionItem>
           ))}
         </Accordion>

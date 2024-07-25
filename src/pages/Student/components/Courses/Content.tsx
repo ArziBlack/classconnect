@@ -15,6 +15,12 @@ import Button from "../../../../components/Button";
 import { useParams } from "react-router-dom";
 import { convertStringsToArray } from "../../../../utils/utility";
 import Loading from "../../../../utils/Loading";
+import ViewHeader from "../ViewHeader";
+import { BreadCrumb } from "./BreadCrumb";
+
+const links = [
+  { to: "", label: "Contents" },
+];
 
 export const Content = () => {
   const { courseId } = useParams();
@@ -53,6 +59,12 @@ export const Content = () => {
     return <Loading />;
   }
   return (
+    <div>
+      <ViewHeader
+        title={curriculum?.data?.title}
+        subtext={curriculum?.data?.description}
+      />
+      <BreadCrumb links={links} />
     <Flex color="white" justify={"space-between"}>
       <Accordion
         allowMultiple
@@ -71,16 +83,17 @@ export const Content = () => {
                 bg="#37474F"
               >
                 <Box as="span" flex="1" textAlign="left">
-                  {item?.topic}
+                  {item?.topic?.replace(":", "")}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
             </h2>
-            {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={4} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
+            {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={2} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
           </AccordionItem>
         ))}
       </Accordion>
       <Button text="Download Curriculum" onClick={generatePDF} />
     </Flex>
+    </div>
   );
 };
