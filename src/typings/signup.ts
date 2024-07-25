@@ -116,7 +116,7 @@ export const tutorInit: ITutor = {
   password: "",
   profileImage: null,
   resume: null,
-  agreement_status: "",
+  agreement_status: null,
 };
 
 export const studentInit: IStudent = {
@@ -133,7 +133,7 @@ export const studentInit: IStudent = {
   class_type: null,
   password: "",
   profileImage: null,
-  agreement_status: "",
+  agreement_status: null,
   student_phoneNum: null,
 };
 
@@ -155,7 +155,7 @@ export const guardianInit: IGuardian = {
   parent_email: null,
   password: "",
   profileImage: null,
-  agreement_status: "",
+  agreement_status: null,
   student_phoneNum: null,
 };
 

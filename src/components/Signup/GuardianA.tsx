@@ -8,7 +8,6 @@ import { IoMailOutline } from "react-icons/io5";
 import { IGuardianProps } from "../../typings/home";
 import { ISalutation } from "../../typings/signup";
 
-
 const salutation: ISalutation[] = [
   { value: "Mr", label: "Mr" },
   { value: "Mrs", label: "Mrs" },
@@ -17,11 +16,17 @@ const salutation: ISalutation[] = [
 ];
 
 const validationSchema = Yup.object({
-  salutation: Yup.string().oneOf(["Mr", "Mrs", "Ms", "Dr"], "Salutation is Required!"),
+  salutation: Yup.string().oneOf(
+    ["Mr", "Mrs", "Ms", "Dr"],
+    "Salutation is Required!"
+  ),
   parent_name: Yup.string().required("Guardian Full Name is Required!"),
   parent_phoneNum: Yup.string()
-    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Guardian Phone number is not valid")
-    .required("Phone number is required"),
+    .matches(
+      /^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/,
+      "Guardian Phone number is not valid"
+    )
+    .required("Guardian Phone number is required"),
   parent_email: Yup.string()
     .email("Invalid email address")
     .matches(
@@ -29,19 +34,20 @@ const validationSchema = Yup.object({
       "Invalid email address"
     )
     .required("Guardian Email is required"),
-})
+});
 
 const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
   return (
     <Formik
       initialValues={data}
       validationSchema={validationSchema}
-      onSubmit={() => onClick("pagetwo")}>
+      onSubmit={() => onClick("pagetwo")}
+    >
       {({ isValid }) => (
         <Form>
-                 <Box w="100%" mb={3}>
+          <Box w="100%" mb={3}>
             <Field name="salutation">
-              {({ field, form }) => (
+              {({ field }) => (
                 <Select
                   {...field}
                   onChange={(e) => {
@@ -51,11 +57,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   mb="1px"
                   name="salutation"
                   value={data?.salutation}
-                  error={
-                    form.errors.salutation && form.touched.salutation
-                      ? form.errors.salutation
-                      : null
-                  }>
+                >
                   <option>Select Salutation</option>
                   {salutation.map((item, idx) => (
                     <option key={idx} value={item.value}>
@@ -70,29 +72,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
               name="salutation"
               component="div"
             />
-            <Field name="first_name">
-              {({ field, form }) => (
-                <InputField
-                  {...field}
-                  type="text"
-                  name="first_name"
-                  icon={FaRegUser}
-                  placeholder="John"
-                  label="Student First Name"
-                  onChange={(e) => {
-                    field.onChange(e);
-                    onChange(e);
-                  }}
-                  value={data.first_name}
-                  error={
-                    form.errors.first_name &&
-                      form.touched.first_name
-                      ? form.errors.first_name
-                      : null
-                  }
-                />
-              )}
-            </Field>
           </Box>
           <Box w="100%" mb={3}>
             <Field name="parent_name">
@@ -104,7 +83,10 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   icon={FaRegUser}
                   placeholder="John"
                   label="Guardian Full Name"
-                  onChange={(e) => { field.onChange(e); onChange(e); }}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
                   value={data.parent_name}
                   error={
                     form.errors.parent_name && form.touched.parent_name
@@ -125,7 +107,10 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   icon={FaRegUser}
                   label="Guardian Phone No"
                   placeholder="+2349037289192"
-                  onChange={(e) => { field.onChange(e); onChange(e); }}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
                   value={data.parent_phoneNum}
                   error={
                     form.errors.parent_phoneNum && form.touched.parent_phoneNum
@@ -144,7 +129,10 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   type="email"
                   name="parent_email"
                   label="Guardian Email"
-                  onChange={(e) => { field.onChange(e); onChange(e); }}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
                   value={data.parent_email}
                   icon={IoMailOutline}
                   placeholder="guardian@email.com"
@@ -154,7 +142,6 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                       : null
                   }
                 />
-
               )}
             </Field>
           </Box>
