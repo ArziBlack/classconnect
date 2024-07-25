@@ -44,8 +44,8 @@ const login = async (formData: ILoginParams) => {
 
   if (response.data) {
     authLogger("Logged in", "User Signin", formData.email);
-    localStorage.setItem("user", JSON.stringify(response.data));
-    localStorage.setItem("token", response.data.token);
+    sessionStorage.setItem("user", JSON.stringify(response.data));
+    sessionStorage.setItem("token", response.data.token);
   }
 
   return response.data;
@@ -62,8 +62,8 @@ const loginTutor = async (tutorData: ILoginParams) => {
 
   if (response.data) {
     authLogger("Logged in", "User Signin", tutorData.email);
-    localStorage.setItem("tutor", JSON.stringify(response.data));
-    localStorage.setItem("token", response.data.token);
+    sessionStorage.setItem("tutor", JSON.stringify(response.data));
+    sessionStorage.setItem("token", response.data.token);
   }
 
   return response.data;

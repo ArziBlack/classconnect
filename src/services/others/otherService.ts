@@ -14,6 +14,9 @@ const getHomeResponse = async () => {
 // Get Tuition Fees Packages
 const getTuitionFees = async () => {
   const response = await axios.get(`${API_BASE_URL}/getAllTuitionFees`);
+  if (response.data) {
+    sessionStorage.setItem("tution-fees", JSON.stringify(response?.data?.tuition_fees));
+  }
   return response.data;
 };
 
@@ -26,6 +29,10 @@ const getTnC_Policy = async () => {
 // Endpoint to Get Signup URL based on if the admission is open or not.
 const getSignupPage = async () => {
   const response = await axios.get(`${API_BASE_URL}/student/openSignupPage`);
+  if (response.data) {
+    sessionStorage.setItem("courseTitles", JSON.stringify(response?.data?.courseTitles));
+    sessionStorage.setItem("signupFormURL-student", JSON.stringify(response?.data?.signupFormURL));
+  }
   return response.data;
 };
 

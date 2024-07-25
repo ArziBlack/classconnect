@@ -55,6 +55,9 @@ export const getMyTuitionFee = createAsyncThunk<
       },
     });
 
+    if (response?.data) {
+      sessionStorage.setItem("tution-fee", JSON.stringify(response?.data?.message))
+    }
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
