@@ -74,7 +74,7 @@ const ApplyModal = ({ isOpen, onClose }: RegisterModalProps) => {
     const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? (checked ? "agreed" : null) : value,
     }));
   };
 
