@@ -12,10 +12,11 @@ const validationSchema = Yup.object({
 });
 
 const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
-  const { fees } = useAppSelector(from => from.other);
-  const [paymentPlan, setPaymentPlan] = useState<{ key: string, value: string }[]>([]);
-  const [selectedClass, setSelectedClass] = useState('');
-  console.log(fees?.tuition_fees[data.class_type]);
+  const { fees } = useAppSelector((from) => from.other);
+  const [paymentPlan, setPaymentPlan] = useState<
+    { key: string; value: string }[]
+  >([]);
+  const [selectedClass, setSelectedClass] = useState("");
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
@@ -24,12 +25,23 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
   };
 
   const classKeys = getClassKeys(fees);
+
   const handleClassChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selected = event.target.value;
     setSelectedClass(selected);
-    const selectedClassPlans = fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
-    setPaymentPlan(Object.entries(selectedClassPlans).map(([key, value]) => ({ key, value })));
+
+    const selectedClassPlans =
+      fees?.tuition_fees[selected as keyof typeof fees.tuition_fees];
+    const formatKey = (key: string) => key.replace("_payment", "");
+
+    setPaymentPlan(
+      Object.entries(selectedClassPlans).map(([key, value]) => ({
+        key: formatKey(key.toString()),
+        value: value.toString(),
+      }))
+    );
   };
+
   return (
     <Formik
       initialValues={data}
@@ -44,7 +56,7 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Class Type
             </FormLabel>
-            <Field name="classType" as="select">
+            <Field name="classType">
               {({ field }) => (
                 <Select
                   name="class_type"
@@ -59,7 +71,7 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
                 >
                   {classKeys?.map((item, idx) => (
                     <option key={idx} value={item}>
-                      {item.replace(/_/g, ' ')}
+                      {item.replace(/_/g, " ")}
                     </option>
                   ))}
                 </Select>
@@ -70,7 +82,7 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Payment Plan
             </FormLabel>
-            <Field name="paymentPlan" as="select">
+            <Field name="paymentPlan">
               {({ field }) => (
                 <Select
                   name="payment_plan"
@@ -87,7 +99,7 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
                   {selectedClass &&
                     paymentPlan.map((plan, idx) => (
                       <option key={idx} value={plan?.key?.toString()?.trim()}>
-                        {`${plan.key.replace(/_/g, ' ')}: ${plan.value}`}
+                        {`${plan.key.replace(/_/g, " ")}: ${plan.value}`}
                       </option>
                     ))}
                 </Select>

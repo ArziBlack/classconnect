@@ -67,7 +67,6 @@ const StudentFinal = ({
         "success"
       );
       navigate("/");
-      navigate("/signin");
       onClick("pageone");
       dispatch(reset());
       setFormData(studentInit);
@@ -129,6 +128,11 @@ const StudentFinal = ({
                 accept="image/png, image/jpg, image/jpeg"
               />
             </div>
+            <ErrorMessage
+              name="profileImage"
+              component="div"
+              className="!text-[#e53e3e] !text-xs mt-1"
+            />
           </div>
           <Box display="flex" mb={6} gap={2}>
             <Field name="agreement_status">
@@ -137,12 +141,10 @@ const StudentFinal = ({
                   {...field}
                   onChange={(e) => {
                     onChange(e);
-                    field.onChange(e);
                     setFieldValue("agreement_status", e.target.checked);
                   }}
-                  isChecked={data.agreement_status}
                   name="agreement_status"
-                ></Checkbox>
+                />
               )}
             </Field>
             <Text fontSize="14px">

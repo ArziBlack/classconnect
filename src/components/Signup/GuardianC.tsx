@@ -14,13 +14,12 @@ const validationSchema = Yup.object({
     .email("Invalid email address")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Invalid email address"
+      "Invalid student email address"
     )
-    .required("Email is required"),
-})
+    .required("Student Email is required"),
+});
 
 const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
-
   return (
     <Formik
       initialValues={data}
@@ -29,7 +28,28 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
     >
       {({ isValid }) => (
         <Form>
-       
+          <Field name="first_name">
+            {({ field, form }) => (
+              <InputField
+                {...field}
+                type="text"
+                name="first_name"
+                icon={FaRegUser}
+                placeholder="John"
+                label="Student First Name"
+                onChange={(e) => {
+                  field.onChange(e);
+                  onChange(e);
+                }}
+                value={data.first_name}
+                error={
+                  form.errors.first_name && form.touched.first_name
+                    ? form.errors.first_name
+                    : null
+                }
+              />
+            )}
+          </Field>
           <Box w="100%" mb={3}>
             <Field name="last_name">
               {({ field, form }) => (
@@ -46,8 +66,7 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
                   }}
                   value={data.last_name}
                   error={
-                    form.errors.last_name &&
-                      form.touched.last_name
+                    form.errors.last_name && form.touched.last_name
                       ? form.errors.last_name
                       : null
                   }
@@ -69,10 +88,9 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
                   }}
                   value={data.student_email}
                   icon={IoMailOutline}
-                  placeholder="guardian@email.com"
+                  placeholder="student@email.com"
                   error={
-                    form.errors.student_email &&
-                    form.touched.student_email
+                    form.errors.student_email && form.touched.student_email
                       ? form.errors.student_email
                       : null
                   }

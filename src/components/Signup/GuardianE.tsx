@@ -1,18 +1,12 @@
 import { useState } from "react";
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Select, Flex } from "@chakra-ui/react";
 import CButton from "../Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import MultipleSelectDropdown from "../Dropdown";
 import { IGuardianProps } from "../../typings/home";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
+import InputField from "../Input";
 
 const dateOfBirthSchema = Yup.string()
   .required("Date of Birth is required")
@@ -23,7 +17,7 @@ const dateOfBirthSchema = Yup.string()
     const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
     return birthDate <= new Date();
   })
-  .test("min-age", "You must be at least 10 years old", (value) => {
+  .test("min-age", "Student must be at least 10 years old", (value) => {
     if (!value) return true;
 
     const [year, month, day] = value.split("-");
@@ -49,7 +43,7 @@ const GuardianE = ({
   onClick,
   handleClassTimeOptionsChange,
 }: IGuardianProps) => {
-  const { home } = useAppSelector(from => from.other);
+  const { home } = useAppSelector((from) => from.other);
   const maxSelections = 4;
   const times: string[] = [
     "Wednesday 5:00pm - 7:00pm WAT",
@@ -105,22 +99,18 @@ const GuardianE = ({
             </FormLabel>
             <Field name="dateOfBirth">
               {({ field, form }) => (
-                <Input
+                <InputField
                   {...field}
                   type="date"
-                  name="dateOfBirth"
-                  value={
-                    data.dateOfBirth
-                      ? new Date(data.dateOfBirth).toISOString().split("T")[0]
-                      : ""
-                  }
                   onChange={(e) => {
                     field.onChange(e);
                     onChange(e);
                   }}
+                  name="dateOfBirth"
+                  value={data.dateOfBirth}
                   error={
-                    form.errors.dateOfBirth.toISOString() && form.touched.dateOfBirth.toISOString()
-                      ? form.errors.dateOfBirth.toISOString()
+                    form.errors.dateOfBirth && form.touched.dateOfBirth
+                      ? form.errors.dateOfBirth
                       : null
                   }
                 />
@@ -131,7 +121,7 @@ const GuardianE = ({
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Course
             </FormLabel>
-            <Field name="course" as="select">
+            <Field name="course">
               {({ field }) => (
                 <Select
                   {...field}

@@ -1,16 +1,55 @@
 import CButton from "../Button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AVATAR } from "../../constants/icon";
-import { IGuardian } from "../../typings/signup";
+import { guardianInit, IGuardian } from "../../typings/signup";
 import { IGuardianProps } from "../../typings/home";
-import { register } from "../../services/auth/authSlice";
-import { Box, Checkbox, Text, useToast, Flex } from "@chakra-ui/react";
+import { IResponse, register, reset } from "../../services/auth/authSlice";
+import { Box, Checkbox, Text, Flex } from "@chakra-ui/react";
+import useCustomToast from "../../hooks/useCustomToast";
+
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
+  salutation: Yup.string().oneOf(
+    ["Mr", "Mrs", "Ms", "Dr"],
+    "Salutation is Required!"
+  ),
+  parent_name: Yup.string().required("Guardian Full Name is Required!"),
+  parent_phoneNum: Yup.string()
+    .matches(
+      /^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/,
+      "Guardian Phone number is not valid"
+    )
+    .required("Guardian Phone number is required"),
+  parent_email: Yup.string()
+    .email("Invalid email address")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email address"
+    )
+    .required("Guardian Email is required"),
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  student_email: Yup.string()
+    .email("Invalid email")
+    .required("Student Email is required"),
+  sex: Yup.string().required("Sex is required"),
+  country: Yup.string().required("Country is required"),
+  state: Yup.string().required("State is required"),
+  course: Yup.string().required("Course is required"),
+  dateOfBirth: Yup.date().required("Date of Birth is required"),
+  classTime_options: Yup.array().min(
+    1,
+    "At least one Class Time Option is required"
+  ),
+  payment_plan: Yup.string().required("Payment Plan is required"),
+  class_type: Yup.string().required("Class Type is required"),
+  password: Yup.string().required("Password is required"),
   profileImage: Yup.mixed().required("Profile Image is required"),
+  student_phoneNum: Yup.string().required("Student Phone Number is required"),
   agreement_status: Yup.boolean().oneOf(
     [true],
     "Agreement status must be true"
@@ -19,107 +58,50 @@ const validationSchema = Yup.object({
 
 const GuardianG = ({
   setGuardianData,
-  // isGuardian,
   onChange,
   onClick,
   data,
 }: IGuardianProps) => {
-  const toast = useToast();
+  const navigate = useNavigate();
   const { URL: URI } = useAppSelector((store) => store.other);
-  const { isLoading, isError, message, isSuccess } = useAppSelector(
-    (state) => state.auth
-  );
-  const [isChecked, setIsChecked] = useState<boolean>(true);
+  const { isLoading } = useAppSelector((state) => state.auth);
+  const showToast = useCustomToast();
   const dispatch = useAppDispatch();
   const [imgUrl, setImgUrl] = useState(AVATAR);
 
-  const handleCheckBoxToggle = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const validateGuardianData = (data: IGuardian): boolean => {
-    const fieldNames: { [key: string]: string } = {
-      first_name: "First Name",
-      last_name: "Last Name",
-      student_email: "Student Email",
-      sex: "Sex",
-      country: "Country",
-      state: "State",
-      course: "Course",
-      dateOfBirth: "Date of Birth",
-      classTime_options: "Class Time Options",
-      payment_plan: "Payment Plan",
-      class_type: "Class Type",
-      salutation: "Salutation",
-      parent_name: "Parent Name",
-      parent_phoneNum: "Parent Phone Number",
-      parent_email: "Parent Email",
-      password: "Password",
-      profileImage: "Profile Image",
-      student_phoneNum: "Student Phone Number",
-    };
-
-    for (const key in fieldNames) {
-      if (data[key as keyof IGuardian] === null) {
-        toast({
-          title: "Error",
-          description: `${fieldNames[key]} cannot be null.`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-        return false;
-      }
+  useEffect(() => {
+    if (data?.profileImage) {
+      setImgUrl(URL.createObjectURL(data?.profileImage));
     }
+  }, [data?.profileImage]);
 
-    if (!data.agreement_status) {
-      toast({
-        title: "Error",
-        description: "Agreement status must be true.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      return false;
-    }
+  const handleSubmit = async (values: IGuardian) => {
+    const resultAction = await dispatch(register({ URI, data: values }));
 
-    return true;
-  };
-
-  const handleSubmit = async () => {
-    if (validateGuardianData(data)) {
-      await dispatch(register({ URI, data }));
-      isSuccess &&
-        toast({
-          title: "Account created successfully",
-          description: "Please check your child's email for more details",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-
-      isError &&
-        toast({
-          title: "Error Signing You Up",
-          description: message,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-    } else {
-      toast({
-        title: "Error Signing You Up",
-        description: "No Field can be left blank!",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    if (register.fulfilled.match(resultAction)) {
+      showToast(
+        resultAction.payload.message ||
+          "Please check your email for more details",
+        "success"
+      );
+      navigate("/");
+      onClick("pageone");
+      dispatch(reset());
+      setGuardianData(guardianInit);
+    } else if (register.rejected.match(resultAction)) {
+      showToast(
+        (resultAction.payload as IResponse).message || "Registration failed",
+        "error"
+      );
     }
   };
 
   const imgRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, setFieldValue) => {
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFieldValue
+  ) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImgUrl(URL.createObjectURL(file));
@@ -165,17 +147,19 @@ const GuardianG = ({
                 accept="image/png, image/jpg, image/jpeg"
               />
             </div>
+            <ErrorMessage
+              name="profileImage"
+              component="div"
+              className="!text-[#e53e3e] !text-xs mt-1"
+            />
           </div>
-          <Box display="flex" mb={6} gap={2} onClick={handleCheckBoxToggle}>
+          <Box display="flex" mb={6} gap={2}>
             <Field name="agreement_status">
               {({ field }) => (
                 <Checkbox
                   {...field}
-                  // isChecked={isChecked}
-                  isChecked={data.agreement_status}
                   onChange={(e) => {
                     onChange(e);
-                    field.onChange(e);
                     setFieldValue("agreement_status", e.target.checked);
                   }}
                   name="agreement_status"

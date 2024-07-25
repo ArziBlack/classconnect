@@ -161,8 +161,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   const [formData, setFormData] = useState<IStudent>(studentInit);
-
   const [guardianData, setGuardianData] = useState<IGuardian>(guardianInit);
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
     setFormData((prevState) => ({
@@ -172,13 +172,10 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   const onChangeGuardian = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = e.target;
-    const newValue = type === "date" ? new Date(value) : value;
-
+    const { name, value, checked, type } = e.target;
     setGuardianData((prevState) => ({
       ...prevState,
-      [name]: newValue,
-      // profileImage: url,
+      [name]: type === "checkbox" ? (checked ? "agreed" : null) : value,
     }));
   };
 
@@ -199,7 +196,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
 
-  console.log(formData);
+  console.log(guardianData);
 
   return (
     <>
@@ -330,6 +327,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onClick={nextPage}
                                 onChange={onChangeGuardian}
                                 data={guardianData}
+                                setGuardianData={setGuardianData}
                               />
                             ),
                             pagefive: (
@@ -355,6 +353,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                                 onChange={onChangeGuardian}
                                 setGuardianData={setGuardianData}
                                 submit={submit}
+                                data={guardianData}
                                 isGuardian={signUpAsGuardian}
                               />
                             ),

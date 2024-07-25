@@ -9,7 +9,12 @@ import { useEffect, useState } from "react";
 import InputField from "../Input";
 import { FaRegUser } from "react-icons/fa6";
 
-const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps) => {
+const GuardianD = ({
+  data,
+  onChange,
+  onClick,
+  setGuardianData,
+}: IGuardianProps) => {
   const gender: IGender[] = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
@@ -29,7 +34,8 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
   }, []);
 
   const validationSchema = Yup.object({
-    sex: Yup.string().oneOf(["Male", "Female"], "Gender is required")
+    sex: Yup.string()
+      .oneOf(["Male", "Female"], "Gender is required")
       .required("Gender is required"),
     country: Yup.string().required("Country is required"),
     state: Yup.string().required("State is required"),
@@ -65,9 +71,7 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
                   placeholder="Select a Gender"
                   value={data.sex}
                   error={
-                    form.errors.sex && form.touched.sex
-                      ? form.errors.sex
-                      : null
+                    form.errors.sex && form.touched.sex ? form.errors.sex : null
                   }
                 >
                   {gender.map((item, idx) => (
@@ -132,7 +136,8 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
                         onChange(e);
                       }}
                       placeholder="Select a state"
-                      value={data.state}>
+                      value={data.state}
+                    >
                       {states.map((item, idx) => (
                         <option value={item.value} key={idx}>
                           {item.label}
@@ -177,19 +182,19 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
               {({ field, form }) => (
                 <InputField
                   {...field}
-                  required
-                  type="number"
+                  type="text"
                   name="student_phoneNum"
                   icon={FaRegUser}
-                  placeholder="+234 9037289192"
+                  placeholder="+2349037289192"
                   label="Student Phone Number"
                   onChange={(e) => {
                     field.onChange(e);
                     onChange(e);
                   }}
-                  value={data.student_phoneNum}
+                  value={data?.student_phoneNum}
                   error={
-                    form.errors.student_phoneNum && form.touched.student_phoneNum
+                    form.errors.student_phoneNum &&
+                    form.touched.student_phoneNum
                       ? form.errors.student_phoneNum
                       : null
                   }
@@ -212,7 +217,8 @@ const GuardianD = ({ data, onChange, onClick, setGuardianData }: IGuardianProps)
               isDisabled={!isValid}
             />
           </Flex>
-        </Form>)}
+        </Form>
+      )}
     </Formik>
   );
 };

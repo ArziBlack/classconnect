@@ -28,12 +28,8 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
   profileImage: Yup.mixed().required("Profile Image is required"),
   phoneNum: Yup.string().required("Student Phone Number is required"),
-  agreement_statuse: Yup.boolean().oneOf(
+  agreement_status: Yup.boolean().oneOf(
     [true],
-    "Agreement status must be true"
-  ),
-  agreement_status: Yup.string().oneOf(
-    ["agreed"],
     "Agreement status must be true"
   ),
 });
@@ -140,14 +136,10 @@ const TutorFinal = ({ onChange, setFormData, data, onClick }: ITutorProps) => {
                   {...field}
                   onChange={(e) => {
                     onChange(e);
-                    setFieldValue(
-                      "agreement_status",
-                      e.target.checked ? "agreed" : ""
-                    );
+                    setFieldValue("agreement_status", e.target.checked);
                   }}
-                  isChecked={data.agreement_status}
                   name="agreement_status"
-                ></Checkbox>
+                />
               )}
             </Field>
             <Text fontSize="14px">
