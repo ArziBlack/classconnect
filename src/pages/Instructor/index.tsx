@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
-import { IoMdNotificationsOutline } from "react-icons/io";
+// import { IoMdNotificationsOutline } from "react-icons/io";
 import { Box, Flex, Image, Input, Text, useMediaQuery } from "@chakra-ui/react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   COURSES,
   HOME,
@@ -101,7 +101,7 @@ const SideBarNav: FC = () => {
         <Nav text="Students" to="students" icon={ACADEMIC_CAP} />
         <Nav text="Curriculum" to="curriculum" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={TUTORS} />
-        <Nav text="Assessments" to="assessments" icon={_ASSESSMENT} />
+        <Nav text="Evaluation" to="assessments" icon={_ASSESSMENT} />
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
@@ -154,7 +154,7 @@ const MainView: FC = () => {
           />
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
-          <IoMdNotificationsOutline fontSize={"25px"} color="white" />
+          {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
           <Image
             w={"40px"}
             h={"40px"}
@@ -164,7 +164,7 @@ const MainView: FC = () => {
           <Text fontSize={"12px"} color="#ffffff">
             {data?.first_name + " " + data?.last_name}
           </Text>
-          <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" />
+          {/* <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" /> */}
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
