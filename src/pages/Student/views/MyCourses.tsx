@@ -8,7 +8,7 @@ import {
 } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "", label: "All Courses" },
+  { to: "", label: "Available Courses" },
   { to: "started", label: "Ongoing" },
 ];
 

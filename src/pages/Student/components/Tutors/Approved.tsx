@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, SimpleGrid, Skeleton, Text, Flex } from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
@@ -11,19 +11,29 @@ import useCustomToast from "../../../../hooks/useCustomToast";
 export const Approved = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
-  const { approvedTutors, isLoading, error } = useAppSelector(
+  const { approvedTutors, isLoading, error, recommendResponse } = useAppSelector(
     (state) => state.student
   );
 
- useEffect(() => {
-    let isMounted = true;
-    if (error && isMounted) {
-      toast(error.message, "error");
+  console.log(recommendResponse);
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (error && isMounted) {
+  //     toast(error.message, "error");
+  //   }
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [error, isLoading]);
+
+  const handleRecommendation = async () => {
+    const result = await dispatch(requestRecommendation());
+    if (result.meta.requestStatus === "fulfilled") {
+        toast(recommendResponse?.message, "success");
+    } else if (result.meta.requestStatus === "rejected") {
+      toast(error?.message, "error");
     }
-    return () => {
-      isMounted = false;
-    };
-  }, [error, isLoading]);
+  }
 
   const home = {
     courses: [
@@ -90,7 +100,7 @@ export const Approved = () => {
               ))}
             </Flex>
           )}
-          <Button text="Recommend a tutor" onClick={() => dispatch(requestRecommendation())} isLoading={isLoading} />
+          <Button text="Get Recommendation" onClick={handleRecommendation} isLoading={isLoading} />
         </Flex>
       </Flex>
 

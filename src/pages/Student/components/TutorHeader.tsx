@@ -50,7 +50,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   const getTutorStatus = () => {
     return status === "Not engaged yet"
       ? "This Tutor is open to accept a student"
-      : "This tutor is no longer open to accept students";
+      : "This tutor is no longer open to accept students"; 
   };
 
   return (

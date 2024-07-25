@@ -26,7 +26,7 @@ export const Content = () => {
   const { courseId } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    !curriculum && dispatch(getCurriculum({ courseId }));
+    dispatch(getCurriculum({ courseId }));
   }, []);
 
   const { curriculum, isLoading } = useAppSelector(state => state.student);

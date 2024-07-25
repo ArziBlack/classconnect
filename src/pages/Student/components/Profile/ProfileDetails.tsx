@@ -37,7 +37,7 @@ export const ProfileDetails = () => {
     }
   };
 
-  const user: IResponse = JSON.parse(localStorage.getItem("user"));
+  const user: IResponse = JSON.parse(sessionStorage.getItem("user"));
 
   const handleSave = async () => {
     const update: IUpdateStudentData = {
@@ -56,7 +56,8 @@ export const ProfileDetails = () => {
         position: "top"
       });
       const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
-      localStorage.setItem("user", JSON.stringify(updated));
+      console.log(updated)
+      sessionStorage.setItem("user", JSON.stringify(updated));
     } else {
       toast({
         title: "Error Updating Profile",
@@ -115,6 +116,7 @@ export const ProfileDetails = () => {
                 height={55}
                 width="full"
                 display={`flex`}
+                name="first_name"
               />
             </Box>
             <Box display={`flex`} flexDir={`column`} w="full">
@@ -128,6 +130,7 @@ export const ProfileDetails = () => {
                 height={55}
                 width="full"
                 display={`flex`}
+                name="last_name"
               />
             </Box>
           </HStack>
@@ -144,6 +147,7 @@ export const ProfileDetails = () => {
                 width="full"
                 display={`flex`}
                 disabled
+                name="email"
               />
             </Box>
             <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
@@ -157,6 +161,7 @@ export const ProfileDetails = () => {
                 height={55}
                 width="full"
                 display={`flex`}
+                name="student_phoneNum"
               />
             </Box>
           </HStack>
