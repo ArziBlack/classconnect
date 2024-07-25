@@ -15,13 +15,13 @@ import { sendClassNotice } from "../../../../services/tutor/tutorThunk";
 const CreateClassNotice = () => {
     const dispatch = useAppDispatch();
     const toast = useCustomToast();
-    const { isLoading, noticeResponse } = useAppSelector(state => state.tutor);
+    const { isLoading, noticeResponse, error } = useAppSelector(state => state.tutor);
     const [classNotice, setClassNotice] = useState({
         time1: "",
         time2: "",
         class_link: ""
     });
-
+    console.log("error", error);
     const handleChange = (e) => {
         setClassNotice({
             ...classNotice,
@@ -48,8 +48,8 @@ const CreateClassNotice = () => {
         const notice = classNotice;
         const res = await dispatch(sendClassNotice({ notice }));
         if (sendClassNotice.fulfilled.match(res)) {
-            toast("Class Notice Sent Successfully", "success");
-            noticeResponse?.upcomingClass && localStorage.setItem("nextclass", noticeResponse?.upcomingClass);
+            toast(noticeResponse?.message || "Class Notice Sent Successfully", "success");
+            noticeResponse?.upcomingClassDate && localStorage.setItem("nextclass", noticeResponse?.upcomingClassDate);
             setTimeout(()=> {
                 toast("Class Notice Saved Successfully", "success");
             }, 3000);

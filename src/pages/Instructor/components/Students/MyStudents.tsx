@@ -6,14 +6,15 @@ import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 export const MyStudents = () => {
   const navigate = useNavigate();
 
-  const { myStudents, isLoading } = useAppSelector(state => state.tutor);
+  const { myStudents, isLoading, error } = useAppSelector(state => state.tutor);
   function handleClick(input: string) {
     navigate(input);
   }
+  console.log("error", error);
 
   if (isLoading) {
     return (
-      <div className="w-full flex h-full items-center justify-center">
+      <div className="w-full flex h-full items-center justify-center bg-primary-dark">
         <Spinner size={`30px`} />
       </div>
     )

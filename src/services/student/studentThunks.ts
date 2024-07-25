@@ -30,6 +30,7 @@ export const getApprovedTutors = createAsyncThunk<
 
     if (response.data) {
       logger("Approved Tutors", response?.data?.data, "Tutors");
+      sessionStorage.setItem("approvedTutors", JSON.stringify(response?.data?.data));
     }
     return response.data;
   } catch (err) {

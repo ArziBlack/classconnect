@@ -124,7 +124,7 @@ export const Home = () => {
               <div className="w-2/4 flex items-center text-[9px]">
                 <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                 <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="font-bold">{truncateOverflow(mySchedule?.message)}</h2>
+                  <h2 className="font-bold">{mySchedule && truncateOverflow(mySchedule?.message)}</h2>
                   <h2 className="font-[100]">
                     {formattedDate}
                   </h2>

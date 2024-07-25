@@ -5,6 +5,9 @@ const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 // get welcome data for homepage or server health
 const getHomeResponse = async () => {
   const response = await axios.get(API_BASE_URL);
+  if (response.data) {
+    sessionStorage.setItem("courses", JSON.stringify(response?.data?.courses));
+  }
   return response.data;
 };
 
