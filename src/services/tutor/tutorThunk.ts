@@ -29,7 +29,7 @@ export const createGeneralAssessments = createAsyncThunk<IAssessmentResponse, { 
 // Post a Personnal Assessment
 export const createPersonnalAssessment = createAsyncThunk<IAssessmentResponse, { assessmentFormActionUrl: string, assessment: IAssessmentData }, { rejectValue: string }>("tutor/personnal-assessment", async ({ assessmentFormActionUrl, assessment }, thunkAPI) => {
     try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const params = {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ export const createGeneralReport = createAsyncThunk<IAssessmentResponse, { repor
 // create a student report
 export const createStudentReport = createAsyncThunk<IReportResponse, { sessionReportFormActionUrl: string, report: IClassData }, { rejectValue: string }>("tutor/student-report", async ({ sessionReportFormActionUrl, report }, thunkAPI) => {
     try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const params = {
             headers: {
                 Authorization: `Bearer ${token}`,
