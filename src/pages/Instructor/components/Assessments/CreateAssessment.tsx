@@ -21,13 +21,14 @@ export const CreateAssessment = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const { error, isLoading, message } = useAppSelector(state => state.tutor);
+  const { error, isLoading, message, generalAssessment } = useAppSelector(state => state.tutor);
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
   const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
   console.log("error", error);
   console.log("message", message);
+  console.log("generalAssessment", generalAssessment);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const assessment: IAssessmentData = {
@@ -45,7 +46,12 @@ export const CreateAssessment = () => {
     } else {
       const result = await dispatch(createGeneralAssessments({ assessment }));
       if (result.meta.requestStatus === "fulfilled") {
-        showToast(message + error, "success");
+        if (generalAssessment?.statusCode === 403) {
+          showToast(message, "error");
+          return;
+        } else if (generalAssessment?.statusCode === 200) {
+          showToast(message, "success");
+        }
       } else if (result.meta.requestStatus === "rejected") {
         showToast(error, "error");
       }

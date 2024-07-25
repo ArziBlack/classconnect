@@ -54,11 +54,13 @@ const tutorSlice = createSlice({
                 state.isLoading = true;
                 state.error = "";
                 state.isSuccess = false;
+                state.message = "";
             })
             .addCase(createGeneralAssessments.fulfilled, (state, action: PayloadAction<IAssessmentResponse>) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.generalAssessment = action.payload;
+                state.message = action.payload.message;
             })
             .addCase(createGeneralAssessments.rejected, (state, action) => {
                 state.isLoading = false;
@@ -114,11 +116,13 @@ const tutorSlice = createSlice({
                 state.isLoading = true;
                 state.error = "";
                 state.isSuccess = false;
+                state.message = "";
             })
             .addCase(sendClassNotice.fulfilled, (state, action: PayloadAction<INoticeResponse>) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.noticeResponse = action.payload;
+                state.message = action.payload.message;
             })
             .addCase(sendClassNotice.rejected, (state, action: PayloadAction<string>) => {
                 state.isLoading = false;

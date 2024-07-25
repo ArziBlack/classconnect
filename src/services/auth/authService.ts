@@ -127,11 +127,11 @@ const newPassword = async ({ id, newPassword }) => {
 
 // logout
 export const logout = async () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("data");
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("data");
   setTimeout(() => {
-    window.location.href = "/signin";
-  }, 1000);
+    window.location.href = "/";
+  }, 2000);
 };
 
 const authService = {

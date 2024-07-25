@@ -15,7 +15,7 @@ import { sendClassNotice } from "../../../../services/tutor/tutorThunk";
 const CreateClassNotice = () => {
     const dispatch = useAppDispatch();
     const toast = useCustomToast();
-    const { isLoading, noticeResponse, error } = useAppSelector(state => state.tutor);
+    const { isLoading, noticeResponse, error, message } = useAppSelector(state => state.tutor);
     const [classNotice, setClassNotice] = useState({
         time1: "",
         time2: "",
@@ -48,11 +48,15 @@ const CreateClassNotice = () => {
         const notice = classNotice;
         const res = await dispatch(sendClassNotice({ notice }));
         if (sendClassNotice.fulfilled.match(res)) {
-            toast(noticeResponse?.message || "Class Notice Sent Successfully", "success");
-            noticeResponse?.upcomingClassDate && localStorage.setItem("nextclass", noticeResponse?.upcomingClassDate);
-            setTimeout(()=> {
-                toast("Class Notice Saved Successfully", "success");
-            }, 3000);
+            if (noticeResponse?.statusCode === 200) {
+                toast(noticeResponse?.message || "Class Notice Sent Successfully", "success");
+                noticeResponse?.upcomingClassDate && localStorage.setItem("nextclass", noticeResponse?.upcomingClassDate);
+                setTimeout(()=> {
+                    toast("Class Notice Saved Successfully", "success");
+                }, 3000);
+            } else if (noticeResponse?.statusCode === 403) {
+                toast(message, "error");
+            }
         }
         if (sendClassNotice.rejected.match(res)) {
             toast("Error Sending Class Notice", "error");
