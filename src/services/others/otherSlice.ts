@@ -11,11 +11,29 @@ import {
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
+const home: IHomeResponse | null = JSON.parse(sessionStorage.getItem("home") || "null");
+
+const fees: IFees | null = JSON.parse(sessionStorage.getItem("tution-fees") || "null");
+
+const URL: string | null = JSON.parse(sessionStorage.getItem("signupFormURL-student") || "null");
+
+if (home) {
+  console.log(home);
+}
+
+if (fees) {
+  console.log(fees);
+}
+
+if (URL) {
+  console.log(URL);
+}
+
 const initialState: OtherState = {
-  home: null,
-  fees: null,
+  home: null || home,
+  fees: null || fees,
   tnc: "",
-  URL: null,
+  URL: null || URL,
   error: null,
   message: "",
   isLoading: false,

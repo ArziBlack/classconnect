@@ -45,7 +45,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks.ts";
 
 const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((store) => store.other);
+  const { isLoading, URL } = useAppSelector((store) => store.other);
   const [signUpAsGuardian, setSignUpAsGuardian] = useState<boolean>(false);
   const [signTypeModal, setSignTypeModal] = useState<boolean>(true);
 
@@ -59,7 +59,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   useEffect(() => {
-    dispatch(getSignupPage());
+    !URL && dispatch(getSignupPage());
   }, []);
 
   const SignUpType = () => {

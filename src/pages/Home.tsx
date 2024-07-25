@@ -6,13 +6,14 @@ import Career from "../components/Career";
 import HeroMaster from "../components/HeroMaster";
 import GoodPricing from "../components/GoodPricing";
 import { getHomeResponse, getTuitionFees } from "../services/others/otherSlice";
-import { useAppDispatch } from "../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const { home, fees } = useAppSelector(state => state.other)
   React.useEffect(()=> {
-    dispatch(getHomeResponse());
-    dispatch(getTuitionFees());
+    !home && dispatch(getHomeResponse());
+    !fees && dispatch(getTuitionFees());
   },[])
 
   return (

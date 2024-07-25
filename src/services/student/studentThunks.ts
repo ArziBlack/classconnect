@@ -35,7 +35,7 @@ export const getApprovedTutors = createAsyncThunk<
     return response.data;
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
-    const error = err.response?.data?.message || "An unknown error occurred";
+    const error = err.response ? err.response.data : err.message || "An unknown error occurred";
     return thunkAPI.rejectWithValue(error);
   }
 });

@@ -7,6 +7,7 @@ const getHomeResponse = async () => {
   const response = await axios.get(API_BASE_URL);
   if (response.data) {
     sessionStorage.setItem("courses", JSON.stringify(response?.data?.courses));
+    sessionStorage.setItem("home", JSON.stringify(response?.data));
   }
   return response.data;
 };
@@ -15,7 +16,7 @@ const getHomeResponse = async () => {
 const getTuitionFees = async () => {
   const response = await axios.get(`${API_BASE_URL}/getAllTuitionFees`);
   if (response.data) {
-    sessionStorage.setItem("tution-fees", JSON.stringify(response?.data?.tuition_fees));
+    sessionStorage.setItem("tution-fees", JSON.stringify(response?.data));
   }
   return response.data;
 };

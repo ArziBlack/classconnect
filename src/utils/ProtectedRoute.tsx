@@ -4,7 +4,7 @@ import { useAppSelector } from '../hooks/reactReduxHooks';
 export default function PrivateRoute() {
     const location = useLocation();
     const { data } = useAppSelector((store) => store.auth);
-    const isUserLoggedIn = localStorage.getItem('token') !== null || data;
+    const isUserLoggedIn = sessionStorage.getItem('token') !== null || data;
 
     return isUserLoggedIn ? (
         <Outlet />

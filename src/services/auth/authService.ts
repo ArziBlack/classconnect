@@ -42,10 +42,10 @@ const login = async (formData: ILoginParams) => {
     withCredentials: true,
   });
 
-  if (response.data) {
+  if (response?.data) {
     authLogger("Logged in", "User Signin", formData.email);
-    sessionStorage.setItem("user", JSON.stringify(response.data));
-    sessionStorage.setItem("token", response.data.token);
+    sessionStorage.setItem("user", JSON.stringify(response?.data));
+    sessionStorage.setItem("token", response?.data?.token);
   }
 
   return response.data;
@@ -60,10 +60,10 @@ const loginTutor = async (tutorData: ILoginParams) => {
     headers,
   });
 
-  if (response.data) {
+  if (response?.data) {
     authLogger("Logged in", "User Signin", tutorData.email);
-    sessionStorage.setItem("tutor", JSON.stringify(response.data));
-    sessionStorage.setItem("token", response.data.token);
+    sessionStorage.setItem("tutor", JSON.stringify(response?.data));
+    sessionStorage.setItem("token", response?.data?.token);
   }
 
   return response.data;
