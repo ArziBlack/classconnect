@@ -102,4 +102,21 @@ export interface IUpdateTutorData {
     last_name?: string;
     student_phoneNum?: number;
     student_email?: string;
-  }
+}
+
+export interface ICurriculumContent {
+    topic: string;
+    content: string;
+}
+
+export interface ICurriculumRes {
+    statusCode: number;
+    message: string;
+    data: {
+        title: string;
+        description: string;
+        duration: string;
+        curriculumFile: string;
+        curriculum: ICurriculumContent[];
+    };
+}

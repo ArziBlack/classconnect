@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IAssessmentResponse, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
-import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getMyCurriculum, getMyStudents, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
+import { IAssessmentResponse, ICurriculumRes, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
+import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getCurriculum, getMyCurriculum, getMyStudents, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
 
 const initialState = {
     myStudents: null,
@@ -140,6 +140,21 @@ const tutorSlice = createSlice({
                 state.curriculumResponse = action.payload;
             })
             .addCase(getMyCurriculum.rejected, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
+            .addCase(getCurriculum.pending, (state)=> {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(getCurriculum.fulfilled, (state, action: PayloadAction<ICurriculumRes>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.curriculumResponse = action.payload;
+            })
+            .addCase(getCurriculum.rejected, (state, action: PayloadAction<string>)=> {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";

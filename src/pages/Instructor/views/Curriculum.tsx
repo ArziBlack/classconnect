@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import Button from "../../../components/Button";
 import jsPDF from "jspdf";
+import { getCurriculum } from "../../../services/tutor/tutorThunk";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import Loader from "../../../utils/Loader";
 
 const links = [{ to: "", label: "My curriculum" }];
 
@@ -39,6 +42,13 @@ const accordionItems = [
 ];
 
 export const Curriculum = () => {
+  const dispatch = useAppDispatch();
+  const { curriculumResponse, isLoading } = useAppSelector(state => state.tutor);
+
+  React.useEffect(()=> {
+    !curriculumResponse && dispatch(getCurriculum());
+  },[]);
+
   const generatePDF = () => {
     const doc = new jsPDF();
 
@@ -63,6 +73,10 @@ export const Curriculum = () => {
     doc.save("curriculum.pdf");
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <ViewHeader
@@ -79,7 +93,7 @@ export const Curriculum = () => {
           flexDir="column"
           gap={4}
         >
-          {accordionItems.map((item, index) => (
+          {curriculumResponse?.data?.curriculum.map((item, index) => (
             <AccordionItem key={index} border="none">
               <h2>
                 <AccordionButton
@@ -89,12 +103,12 @@ export const Curriculum = () => {
                   bg="#37474F"
                 >
                   <Box as="span" flex="1" textAlign="left">
-                    {item.title}
+                    {item?.title}
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>{item.content}</AccordionPanel>
+              <AccordionPanel pb={4}>{item?.description} '/n' {item?.duration}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>

@@ -45,6 +45,7 @@ const CreateClassNotice = () => {
             toast("Please include class meeting link", "info");
             return;
         }
+        
         const notice = classNotice;
         const res = await dispatch(sendClassNotice({ notice }));
         if (sendClassNotice.fulfilled.match(res)) {
