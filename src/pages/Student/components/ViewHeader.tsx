@@ -1,19 +1,25 @@
 import React from "react";
 import { Text, Box, SkeletonText } from "@chakra-ui/react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ViewHeaderProps {
   title: string;
   subtext: string;
   loading?: boolean;
+  preNav?: string;
 }
 
-const ViewHeader: React.FC<ViewHeaderProps> = ({ title, subtext, loading }) => {
+const ViewHeader: React.FC<ViewHeaderProps> = ({
+  title,
+  subtext,
+  loading,
+  preNav,
+}) => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1);
+    navigate(preNav);
   };
 
   return (
@@ -29,7 +35,9 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({ title, subtext, loading }) => {
           cursor="pointer"
           onClick={goBack}
         >
-          <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
+          <Link to={preNav}>
+            <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
+          </Link>
           {title}
         </Text>
       </SkeletonText>

@@ -8,13 +8,15 @@ import {
 } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "started", label: "Ongoing" },
-  { to: "", label: "Available Courses" },
+  { to: "", label: "Ongoing" },
+  { to: "available", label: "Available Courses" },
 ];
 
 export const MyCourses = () => {
   const dispatch = useAppDispatch();
-  const { allCoursesResponse, myCoursesRes } = useAppSelector(state => state.student);
+  const { allCoursesResponse, myCoursesRes } = useAppSelector(
+    (state) => state.student
+  );
   useEffect(() => {
     document.title = "HEP My Courses - Student";
     if (!allCoursesResponse || !myCoursesRes) {
@@ -26,6 +28,7 @@ export const MyCourses = () => {
     <>
       <ViewHeader
         title="Courses"
+        preNav="/student"
         subtext=" View and manage your enrolled courses. Track your progress, access
         course materials, and stay updated with upcoming lessons and
         assignments."

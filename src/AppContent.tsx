@@ -29,19 +29,13 @@ import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
 import { Notification } from "./pages/Student/components/Profile/Notification";
-import { TuitionFee } from "./pages/Student/components/Profile/TuitionFee";
 import { Invite } from "./pages/Student/components/Profile/Invite";
 import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
 import { MyTutors } from "./pages/Student/components/Tutors/MyTutors";
 import { Approved } from "./pages/Student/components/Tutors/Approved";
-import { Recommended } from "./pages/Student/components/Tutors/Recommended";
 import { PersonalAssessments } from "./pages/Student/components/Assessments/PersonalAssessments";
 import { GeneralAssessments } from "./pages/Student/components/Assessments/GeneralAssessments";
-import { CourseDetails } from "./pages/Student/components/Courses/CourseDetails";
 import { Content } from "./pages/Student/components/Courses/Content";
-import { Details } from "./pages/Student/components/Courses/Details";
-import { OnGoing } from "./pages/Student/components/Courses/OnGoing";
-import { Completed } from "./pages/Student/components/Courses/Completed";
 import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
 import AboutMe from "./pages/Student/components/Tutors/AboutMe";
 import EmailV from "./pages/EmailV";
@@ -102,29 +96,23 @@ function AppContent() {
         <Route element={<StudentLayout />}>
           <Route index element={<StudentHome />} />
           <Route path="tutors" element={<Tutors />}>
-            <Route index element={<Approved />} />
-            <Route path="my-tutors" element={<MyTutors />} />
-            <Route path="recommended" element={<Recommended />} />
-            <Route path="completed" element={<Started />} />
+            <Route index element={<MyTutors />} />
+            <Route path="available" element={<Approved />} />
           </Route>
           <Route path="tutors/:tutorId" element={<TutorDetails />}>
             <Route index element={<AboutMe />} />
           </Route>
-          <Route path="courses/:courseId" element={<Content />}/>
+          <Route path="courses/:courseId" element={<Content />} />
           <Route path="courses" element={<MyCourses />}>
-            <Route index element={<Browse />} />
-            <Route path="started" element={<Started />} />
-            <Route path="ongoing" element={<OnGoing />} />
-            <Route path="completed" element={<Completed />} />
+            <Route index element={<Started />} />
+            <Route path="available" element={<Browse />} />
           </Route>
-          <Route path="detailed" element={<CourseDetails />}>
+          <Route path="detailed" element={<Content />}>
             <Route index element={<Content />} />
-            <Route path="details" element={<Details />} />
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileDetails />} />
             <Route path="notification" element={<Notification />} />
-            <Route path="tuition-fee" element={<TuitionFee />} />
             <Route path="invite" element={<Invite />} />
             <Route path="become-a-tutor" element={<BecomeTutor />} />
           </Route>
@@ -147,20 +135,15 @@ function AppContent() {
             <Route index element={<MyStudents />} />
           </Route>
           <Route path="students/:studentId" element={<StudentDetail />} />
-          <Route path="courses/:courseId" element={<CourseDetails />}>
-            <Route index element={<Content />} />
-            <Route path="description" element={<Details />} />
-          </Route>
           <Route path="curriculum" element={<Curriculum />}></Route>
-          <Route path="detailed" element={<CourseDetails />}>
+          <Route path="detailed" element={<Content />}>
             <Route index element={<Content />} />
-            <Route path="details" element={<Details />} />
           </Route>
           <Route path="profile" element={<TutorProfile />}></Route>
           <Route path="assessments" element={<TutorAssessment />}>
-            <Route index element={<CreateAssessment/>}/>
-            <Route path="report" element={<CreateReport/>}/>
-            <Route path="class-notice" element={<CreateClassNotice/>}/>
+            <Route index element={<CreateAssessment />} />
+            <Route path="report" element={<CreateReport />} />
+            <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="billing" element={<Billing />} />

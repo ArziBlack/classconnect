@@ -7,7 +7,10 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import jsPDF from "jspdf";
 import { getCurriculum } from "../../../../services/student/studentThunks";
@@ -18,9 +21,7 @@ import Loading from "../../../../utils/Loading";
 import ViewHeader from "../ViewHeader";
 import { BreadCrumb } from "./BreadCrumb";
 
-const links = [
-  { to: "", label: "Contents" },
-];
+const links = [{ to: "", label: "Contents" }];
 
 export const Content = () => {
   const { courseId } = useParams();
@@ -29,7 +30,7 @@ export const Content = () => {
     dispatch(getCurriculum({ courseId }));
   }, []);
 
-  const { curriculum, isLoading } = useAppSelector(state => state.student);
+  const { curriculum, isLoading } = useAppSelector((state) => state.student);
   console.log(courseId);
 
   const generatePDF = () => {
@@ -61,39 +62,44 @@ export const Content = () => {
   return (
     <div>
       <ViewHeader
+        preNav="/student/courses"
         title={curriculum?.data?.title}
         subtext={curriculum?.data?.description}
       />
       <BreadCrumb links={links} />
-    <Flex color="white" justify={"space-between"}>
-      <Accordion
-        allowMultiple
-        width="700px"
-        display="flex"
-        flexDir="column"
-        gap={4}
-      >
-        {curriculum?.data?.curriculum.map((item, index) => (
-          <AccordionItem key={index} border="none">
-            <h2>
-              <AccordionButton
-                h="50px"
-                borderRadius="8px"
-                _hover={{ bg: "#37474f" }}
-                bg="#37474F"
-              >
-                <Box as="span" flex="1" textAlign="left">
-                  {item?.topic?.replace(":", "")}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={2} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
-          </AccordionItem>
-        ))}
-      </Accordion>
-      <Button text="Download Curriculum" onClick={generatePDF} />
-    </Flex>
+      <Flex color="white" justify={"space-between"}>
+        <Accordion
+          allowMultiple
+          width="700px"
+          display="flex"
+          flexDir="column"
+          gap={4}
+        >
+          {curriculum?.data?.curriculum.map((item, index) => (
+            <AccordionItem key={index} border="none">
+              <h2>
+                <AccordionButton
+                  h="50px"
+                  borderRadius="8px"
+                  _hover={{ bg: "#37474f" }}
+                  bg="#37474F"
+                >
+                  <Box as="span" flex="1" textAlign="left">
+                    {item?.topic?.replace(":", "")}
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              {convertStringsToArray(item?.content).map((it, id) => (
+                <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
+                  • {it}
+                </AccordionPanel>
+              ))}
+            </AccordionItem>
+          ))}
+        </Accordion>
+        <Button text="Download Curriculum" onClick={generatePDF} />
+      </Flex>
     </div>
   );
 };
