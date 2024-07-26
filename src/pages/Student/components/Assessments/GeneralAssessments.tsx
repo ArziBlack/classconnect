@@ -24,7 +24,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
   return (
     <Box
       className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
-      w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
+      w={{ base: "100%", md: "80%", lg: "100%" }}
       p={{ base: "2", md: "4" }}
       tabIndex={0}
     >
@@ -40,7 +40,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
         fontWeight="500"
         color="#B3F8DA"
       >
-        {truncateString(type, 45)}
+        {truncateString(type?.replace("-", " "), 45)}
       </Text>
       <Flex alignItems="center" justifyContent="space-between" paddingTop="5px">
         <Text
@@ -62,7 +62,7 @@ const AssessmentList = () => {
   );
   const [selectedId, setSelectedId] = useState(null);
 
-  const handleNotificationClick = (index) => {
+  const handleNotificationClick = (index:number) => {
     setSelectedId(index === selectedId ? null : index);
   };
 
@@ -70,7 +70,7 @@ const AssessmentList = () => {
     <div className="w-full grid grid-cols-2">
       {!error ? (
         <div className="overflow-y-scroll h-[400px] no-scrollbar">
-          {generalAssessment?.data?.map((assess, index) => (
+          {generalAssessment?.data?.map((assess, index:number) => (
             <Skeleton borderRadius={20} isLoaded={!isLoading}>
               <div onClick={() => handleNotificationClick(index)} key={index}>
                 <AssessmentItem

@@ -40,7 +40,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
         fontWeight="500"
         color="#B3F8DA"
       >
-        {truncateString(type, 45)}
+        {truncateString(type?.replace("-", " "), 45)}
       </Text>
       <Flex alignItems="center" justifyContent="space-between" paddingTop="5px">
         <Text
@@ -60,9 +60,9 @@ const AssessmentList = () => {
   const { personalAssessment, isLoading, error } = useAppSelector(
     (state) => state.student
   );
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<number>(null);
 
-  const handleNotificationClick = (index) => {
+  const handleNotificationClick = (index:number) => {
     setSelectedId(index === selectedId ? null : index);
   };
 
@@ -70,7 +70,7 @@ const AssessmentList = () => {
     <div className="w-full grid grid-cols-2">
       {!error ? (
         <div className="overflow-y-scroll h-[400px] no-scrollbar">
-          {personalAssessment?.data?.map((assess, index) => (
+          {personalAssessment?.data?.map((assess, index:number) => (
             <Skeleton borderRadius={20} isLoaded={!isLoading}>
               <div onClick={() => handleNotificationClick(index)} key={index}>
                 <AssessmentItem
