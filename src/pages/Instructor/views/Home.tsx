@@ -15,17 +15,13 @@ const homeCourses = [
     tutor: "Download the file to do your assignment",
     download: <img src={PDFicon} />,
   },
-]; 
+];
 
 const classSchedule = localStorage.getItem("nextclass");
 const futureDate = moment(classSchedule);
-const formattedDate = futureDate.format('YYYY-MM-DD');
+const formattedDate = futureDate.format("YYYY-MM-DD");
 
-const highlightedDates = [
-  new Date(2024, 6, 2),
-  new Date(2024, 6, 4),
-  new Date(2024, 6, 6),
-];
+const highlightedDates = [new Date(futureDate.toISOString())];
 
 const active = new Date();
 
@@ -52,10 +48,10 @@ const modifiersStyles = {
 export const Home = () => {
   const dispatch = useAppDispatch();
   const { myStudents } = useAppSelector((store) => store.tutor);
-  
-  useEffect(()=> {
+
+  useEffect(() => {
     !myStudents && dispatch(getMyStudents());
-  },[myStudents, dispatch]);
+  }, [myStudents, dispatch]);
 
   const { data } = useAppSelector((store) => store.auth);
   return (
@@ -71,23 +67,29 @@ export const Home = () => {
             <h2 className="w-2/4">Assessment</h2>
             <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2>
           </div>
-          {!homeCourses ? homeCourses.map((item, id) => (
-            <div className="flex w-full items-center my-1 p-1 " key={id}>
-              <div className="w-2/4 flex items-center">
-                <div className=" h-9 w-9 mb-11 ml-1">{item.image} </div>
-                <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="text-md">{item.course}</h2>
-                  <h2 className="font-[100] text-xs ">{item.tutor}</h2>
-                  <div className="cursor-pointer h-9 w-9 p-1 ml-1">
-                    {item.download}
+          {!homeCourses ? (
+            homeCourses.map((item, id) => (
+              <div className="flex w-full items-center my-1 p-1 " key={id}>
+                <div className="w-2/4 flex items-center">
+                  <div className=" h-9 w-9 mb-11 ml-1">{item.image} </div>
+                  <div className="flex flex-col h-full justify-between  ml-2">
+                    <h2 className="text-md">{item.course}</h2>
+                    <h2 className="font-[100] text-xs ">{item.tutor}</h2>
+                    <div className="cursor-pointer h-9 w-9 p-1 ml-1">
+                      {item.download}
+                    </div>
                   </div>
                 </div>
+                <button className="w-2/4 justify-end -mt-10 py-2 px-1 text-xs text-right rounded text-[#00ff84]">
+                  13/07/2024 <span>9:27pm</span>
+                </button>
               </div>
-              <button className="w-2/4 justify-end -mt-10 py-2 px-1 text-xs text-right rounded text-[#00ff84]">
-                13/07/2024 <span>9:27pm</span>
-              </button>
+            ))
+          ) : (
+            <div className="flex w-full items-center my-1 p-1 justify-center text-center">
+              You Haven't Sent any Assessments yet.
             </div>
-          )) : <div className="flex w-full items-center my-1 p-1 justify-center text-center">You Haven't Sent any Assessments yet.</div> }
+          )}
         </div>
       </div>
       <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-[calc(100vh-90px)] border border-gray-500 rounded-lg mr-2 font-light mb-5 sticky top-0">
@@ -113,8 +115,7 @@ export const Home = () => {
           </div>
           <div className="">
             {!formattedDate ? (
-              <div
-                className="flex w-full items-center my-2 p-1 rounded justify-between">
+              <div className="flex w-full items-center my-2 p-1 rounded justify-between">
                 <div className="w-2/4 flex items-center text-[9px]">
                   <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
@@ -124,7 +125,11 @@ export const Home = () => {
                   </div>
                 </div>
               </div>
-            ): <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">You Dont Have any Upcoming Classes</div>}
+            ) : (
+              <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">
+                You Dont Have any Upcoming Classes
+              </div>
+            )}
           </div>
         </div>
       </div>

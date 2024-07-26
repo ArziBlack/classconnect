@@ -32,11 +32,13 @@ export const Home = () => {
   const iframeHeight = containerWidth * (300 / 560);
   const class_time = mySchedule?.upcomingClass;
   const futureDate = moment(class_time);
-  const formattedDate = futureDate.format('YYYY-MM-DD');
+  const formattedDate = futureDate.format("YYYY-MM-DD");
 
-  const highlightedDates = [
-    new Date(futureDate.toISOString()),
-  ];
+  const highlightedDates = [new Date(futureDate.toISOString())];
+
+  const cells = {
+    margin: "0.2rem",
+  };
 
   const modifiers = {
     highlighted: highlightedDates,
@@ -64,7 +66,7 @@ export const Home = () => {
   const videoId = "pBv7igaxfQE-I?si=yEOannHhgq2uXG0j";
   return (
     <div className="w-full flex gap-6 text-white text-[14px]">
-      <div className="w-2/3 flex flex-col justify-center items-center">
+      <div className="w-2/3 flex flex-col justify-center ">
         <div className="mb-8">
           <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name}</h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
@@ -80,36 +82,52 @@ export const Home = () => {
           <div className="flex w-full py-1">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4">Status</h2>
-            <Link to={`/student/courses/started`} className="w-1/4 text-right text-[#00ff84]">
+            <Link
+              to={`/student/courses/started`}
+              className="w-1/4 text-right text-[#00ff84]"
+            >
               All Courses
             </Link>
           </div>
-          {!myCoursesRes || myCoursesRes?.message?.length === 0 ? (<div className="text-center my-2 border border-gray-400 p-1 rounded">You Dont Have any Courses Yet...</div>) : myCoursesRes?.message?.slice(0, 2).map((item, id) => (
-            <div
-              className="flex w-full items-center my-1 border border-gray-400 p-1 rounded"
-              key={id}
-            >
-              <div className="w-2/4 flex items-center">
-                <div className="bg-red-400 rounded-full h-9 w-9 p-1 ml-1"></div>
-                <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="text-xs">{item?.title}</h2>
-                  {/* <h2 className="font-[100] text-xs">{item?.tutor}</h2> */}
-                </div>
-              </div>
-              <h2 className="w-1/4 font-[100] text-xs">Started</h2>
-              <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
-                View Courses
-              </button>
+          {!myCoursesRes || myCoursesRes?.message?.length === 0 ? (
+            <div className="text-center my-2 border border-gray-400 p-1 rounded">
+              You Dont Have any Courses Yet...
             </div>
-          ))}
+          ) : (
+            myCoursesRes?.message?.slice(0, 2).map((item, id) => (
+              <div
+                className="flex w-full items-center my-1 border border-gray-400 p-1 rounded"
+                key={id}
+              >
+                <div className="w-2/4 flex items-center">
+                  <div className="bg-red-400 rounded-full h-9 w-9 p-1 ml-1"></div>
+                  <div className="flex flex-col h-full justify-between  ml-2">
+                    <h2 className="text-xs">{item?.title}</h2>
+                    {/* <h2 className="font-[100] text-xs">{item?.tutor}</h2> */}
+                  </div>
+                </div>
+                <h2 className="w-1/4 font-[100] text-xs">Started</h2>
+                <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
+                  View Courses
+                </button>
+              </div>
+            ))
+          )}
         </div>
       </div>
-      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-full border border-gray-500 p-2 rounded mr-2 mt-4 font-light mb-5 sticky top-8">
+      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-[calc(100vh-90px)] border border-gray-500 rounded-lg mr-2 font-light mb-5 sticky top-0">
         <DayPicker
           fromYear={2010}
           toYear={2024}
+          styles={{
+            day: cells,
+            months: {
+              fontWeight: 200,
+            },
+          }}
           showOutsideDays
           modifiers={modifiers}
+          className="custom-day-picker"
           modifiersStyles={modifiersStyles}
         />
         <div className="w-full border-b border-gray-500 my-2 mb-6 mx-4"></div>
@@ -119,15 +137,14 @@ export const Home = () => {
             <span className="font-light text-[#00ff84]">{/**See All*/}</span>
           </div>
           <div className="">
-            <div
-              className="flex w-full items-center my-2 p-1 rounded justify-between bg-[#143543]">
+            <div className="flex w-full items-center my-2 p-1 rounded justify-between bg-[#143543]">
               <div className="w-2/4 flex items-center text-[9px]">
                 <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                 <div className="flex flex-col h-full justify-between  ml-2">
-                  <h2 className="font-bold">{mySchedule && truncateOverflow(mySchedule?.message)}</h2>
-                  <h2 className="font-[100]">
-                    {formattedDate}
+                  <h2 className="font-bold">
+                    {mySchedule && truncateOverflow(mySchedule?.message)}
                   </h2>
+                  <h2 className="font-[100]">{formattedDate}</h2>
                 </div>
               </div>
               <FaCaretRight />

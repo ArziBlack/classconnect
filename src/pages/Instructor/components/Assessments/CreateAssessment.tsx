@@ -3,17 +3,20 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Input,
   Textarea,
   VStack,
   Select,
   Text,
 } from "@chakra-ui/react";
 import Button from "../../../../components/Button";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import useCustomToast from "../../../../hooks/useCustomToast";
 import { createGeneralAssessments } from "../../../../services/tutor/tutorThunk";
 import { IAssessmentData } from "../../../../typings/tutor";
+import Input from "../../../../components/Input";
 
 export const CreateAssessment = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +24,9 @@ export const CreateAssessment = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const { error, isLoading, message, generalAssessment } = useAppSelector(state => state.tutor);
+  const { error, isLoading, message, generalAssessment } = useAppSelector(
+    (state) => state.tutor
+  );
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -34,15 +39,18 @@ export const CreateAssessment = () => {
     const assessment: IAssessmentData = {
       type,
       content,
-      document: attachment
-    }
+      document: attachment,
+    };
 
     if (type === "" && content === "") {
       showToast("Please select assessment type", "error");
     } else if (content === "") {
       showToast("Please enter assessment content", "error");
     } else if (type === "") {
-      showToast("Please select assessment type and enter assessment content", "error");
+      showToast(
+        "Please select assessment type and enter assessment content",
+        "error"
+      );
     } else {
       const result = await dispatch(createGeneralAssessments({ assessment }));
       if (result.meta.requestStatus === "fulfilled") {
@@ -110,11 +118,17 @@ export const CreateAssessment = () => {
               <FormLabel>Attachment (optional)</FormLabel>
               <Input
                 type="file"
+                isFileInput
                 onChange={handleAttachmentChange}
                 accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
               />
             </FormControl>
-            <Button type="submit" text="Send Assessment" ml={"auto"} isLoading={isLoading}></Button>
+            <Button
+              type="submit"
+              text="Send Assessment"
+              ml={"auto"}
+              isLoading={isLoading}
+            ></Button>
           </VStack>
         </form>
       </Box>

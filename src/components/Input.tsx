@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from "react";
+import React, { InputHTMLAttributes, useRef, useState } from "react";
 import {
   Text,
   Icon,
@@ -8,9 +8,11 @@ import {
   InputLeftElement,
   InputRightElement,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import { type IconType } from "react-icons";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FaFileUpload } from "react-icons/fa";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -18,6 +20,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   icon?: IconType;
   showPasswordToggle?: boolean;
+  isFileInput?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -26,12 +29,27 @@ const InputField: React.FC<InputFieldProps> = ({
   type = "text",
   icon: IconComponent,
   showPasswordToggle = false,
+  isFileInput = false,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const bgColor = useColorModeValue("white", "gray.800");
 
   const handleTogglePasswordVisibility = () => setShowPassword(!showPassword);
+
+  const handleFileClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFileName(event.target.files[0].name);
+    }
+  };
 
   return (
     <div>
@@ -44,19 +62,48 @@ const InputField: React.FC<InputFieldProps> = ({
             <Icon as={IconComponent} color="gray.500" />
           </InputLeftElement>
         )}
-        <Input
-          {...rest}
-          size={"md"}
-          bg={bgColor}
-          variant="filled"
-          borderRadius="md"
-          borderWidth={"1px"}
-          isInvalid={!!error}
-          borderColor={"#DEDDE4"}
-          focusBorderColor="purple.500"
-          type={showPassword ? "text" : type}
-          _placeholder={{ color: "gray.500" }}
-        />
+        {isFileInput ? (
+          <>
+            <Input
+              ref={inputRef}
+              type="file"
+              hidden
+              onChange={handleFileChange}
+            />
+            <Button
+              onClick={handleFileClick}
+              bg={bgColor}
+              variant="filled"
+              borderRadius="md"
+              borderWidth={"1px"}
+              borderColor={"#DEDDE4"}
+              _hover={{ bg: bgColor }}
+              color={"black"}
+              leftIcon={<FaFileUpload />}
+            >
+              Upload File
+            </Button>
+            {fileName && (
+              <Box ml={3} mt={2} color="gray.500" fontSize="sm">
+                {fileName}
+              </Box>
+            )}
+          </>
+        ) : (
+          <Input
+            {...rest}
+            size={"md"}
+            bg={bgColor}
+            variant="filled"
+            borderRadius="md"
+            borderWidth={"1px"}
+            isInvalid={!!error}
+            borderColor={"#DEDDE4"}
+            focusBorderColor="purple.500"
+            type={showPassword ? "text" : type}
+            _placeholder={{ color: "gray.500" }}
+          />
+        )}
         {showPasswordToggle && type === "password" && (
           <InputRightElement width="4.5rem" bg={"transparent"}>
             <Button
