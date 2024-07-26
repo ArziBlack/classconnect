@@ -1,8 +1,12 @@
 import { FC } from "react";
-import { IoIosSearch } from "react-icons/io";
+// import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
 // import { IoMdNotificationsOutline } from "react-icons/io";
-import { Box, Flex, Image, Input, Text, useMediaQuery } from "@chakra-ui/react";
+import { 
+  Box, Flex, 
+  Image, 
+  // Input, 
+  Text, useMediaQuery } from "@chakra-ui/react";
 // import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   COURSES,
@@ -138,11 +142,11 @@ const MainView: FC = () => {
           borderRadius={"8px"}
           alignItems={"center"}
           background={"transparent"}
-          border={"1px solid #5E7079"}
+          // border={"1px solid #5E7079"}
           display={isSmallerThan900 ? "none" : "flex"}
         >
-          <IoIosSearch fontSize={"30px"} color="#CED1DD" />
-          <Input
+          {/* <IoIosSearch fontSize={"30px"} color="#CED1DD" /> */}
+          {/* <Input
             type="text"
             width={"100%"}
             height={"100%"}
@@ -151,7 +155,7 @@ const MainView: FC = () => {
             placeholder="Search"
             _focusVisible={"none"}
             background="transparent"
-          />
+          /> */}
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
           {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
