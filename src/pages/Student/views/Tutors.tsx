@@ -5,16 +5,16 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "my-tutors", label: "My Tutors" },
-  { to: "", label: "Available Tutors" },
+  { to: "", label: "My Tutors" },
+  { to: "available", label: "Available Tutors" },
 ];
 
 export const Tutors = () => {
   const dispatch = useAppDispatch();
-  const { approvedTutors } = useAppSelector(state => state.student);
+  const { approvedTutors } = useAppSelector((state) => state.student);
   useEffect(() => {
     document.title = "HEP Tutors - Student";
-   !approvedTutors && dispatch(getApprovedTutors());
+    !approvedTutors && dispatch(getApprovedTutors());
   }, [dispatch]);
 
   return (

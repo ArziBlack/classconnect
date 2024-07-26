@@ -16,10 +16,10 @@ export const MyTutors = () => {
 
   const { myTutors, isLoading } = useAppSelector((state) => state.student);
   return (
-    <Box className="text-white" textAlign="center">
+    <Box className="text-white">
       {myTutors?.data?.length ? (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-          {myTutors.data.map((tutor:IMyTutor, index:number) => (
+          {myTutors.data.map((tutor: IMyTutor, index: number) => (
             <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>
               <TutorCard
                 name={tutor?.name}

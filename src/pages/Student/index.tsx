@@ -3,9 +3,12 @@ import { FC, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 // import { IoMdNotificationsOutline } from "react-icons/io";
 import {
-  Box, Flex, Image,
-  // Input, 
-  Text, useMediaQuery
+  Box,
+  Flex,
+  Image,
+  // Input,
+  Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 // import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
@@ -138,11 +141,9 @@ const MainView: FC = () => {
         justifyContent={"space-between"}
       >
         <Flex
-          right={4}
           h={"45px"}
           color={"white"}
           width={"400px"}
-          paddingLeft={"10px"}
           borderRadius={"8px"}
           alignItems={"center"}
           background={"transparent"}
@@ -161,6 +162,9 @@ const MainView: FC = () => {
             background="transparent"
             readOnly
           /> */}
+          <Text fontSize={"26px"} fontWeight={600}>
+            Student LMS
+          </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
           {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
@@ -169,6 +173,7 @@ const MainView: FC = () => {
             h={"40px"}
             src={data.profileImage}
             borderRadius={"50%"}
+            objectFit={"cover"}
           />
           <Text fontSize={"12px"} color="#ffffff">
             {data.first_name + " " + data.last_name}
