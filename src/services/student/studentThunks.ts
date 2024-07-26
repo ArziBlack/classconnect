@@ -288,7 +288,7 @@ export const getAllCourses = createAsyncThunk<
 });
 
 // Update the Student Profile Data
-export const UpdateStudentProfile = createAsyncThunk<IResponse, { update: IUpdateStudentData }, { rejectValue: string }>("student/update-profile", async (update, thunkAPI) => {
+export const UpdateStudentProfile = createAsyncThunk<IResponse, { update: IUpdateStudentData }, { rejectValue: string }>("student/update-profile", async ({ update }, thunkAPI) => {
   try {
     const response = await axiosInstance.post('/student/updateStudentProfile', update);
     return response.data;

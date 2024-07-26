@@ -96,7 +96,7 @@ export const getMyCurriculum = createAsyncThunk<ICurriculumResponse, void, { rej
 });
 
 // Get Curriculum
-export const getCurriculum = createAsyncThunk<ICurriculumRes, void, {rejectValue: string}>("tutor/curriculum", async(_, thunkAPI)=> {
+export const getCurriculum = createAsyncThunk<ICurriculumRes, void, { rejectValue: string }>("tutor/curriculum", async (_, thunkAPI) => {
     try {
         const response = await axiosInstance.get<ICurriculumRes>("/tutor/getCurriculum");
         return response.data;
@@ -107,7 +107,7 @@ export const getCurriculum = createAsyncThunk<ICurriculumRes, void, {rejectValue
 })
 
 // Update Tutor Profile Details
-export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateTutorData }, { rejectValue: string }>("tutor/update-tutor", async (update, thunkAPI) => {
+export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateTutorData }, { rejectValue: string }>("tutor/update-tutor", async ({ update }, thunkAPI) => {
     try {
         const response = await axiosInstance.post<IResponse>("/tutor/updateTutorProfile", update);
         return response.data;
