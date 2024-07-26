@@ -23,7 +23,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
     <Box
       className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
       w={{ base: "100%", md: "80%", lg: "100%" }} // Responsive width
-      p={{ base: "2", md: "4" }} // Responsive padding
+      p={{ base: "2", md: "4" }}
       tabIndex={0}
     >
       <Text

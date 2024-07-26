@@ -6,7 +6,6 @@ import {
   Avatar,
   VStack,
   HStack,
-  useToast,
 } from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
@@ -14,11 +13,12 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHook
 import { UpdateStudentProfile } from "../../../../services/student/studentThunks";
 import { IUpdateStudentData } from "../../../../typings/student";
 import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
+import useCustomToast from "../../../../hooks/useCustomToast";
 
 export const ProfileDetails = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector(sam => sam.auth);
-  const { message, isLoading } = useAppSelector(sam => sam.student);
+  const { isLoading } = useAppSelector(sam => sam.student);
   const [first_name, setFirstName] = useState(data?.first_name);
   const [last_name, setLastName] = useState(data?.last_name);
   const [email,] = useState(data?.email);
@@ -28,7 +28,7 @@ export const ProfileDetails = () => {
   const [country, setCountry] = useState<string>("");
   const [state, setState] = useState<string>("");
   const [profileImage, setProfileImage] = useState(null);
-  const toast = useToast();
+  const toast = useCustomToast();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -53,27 +53,13 @@ export const ProfileDetails = () => {
     console.log(update)
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
-      toast({
-        title: "Profile updated.",
-        description: "Your changes have been saved.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top"
-      });
+      toast(response.payload, "success");
       const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
       console.log(updated);
       sessionStorage.setItem("user", JSON.stringify(updated));
       dispatch(updateAuthData(updated));
     } else {
-      toast({
-        title: "Error Updating Profile",
-        description: message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top"
-      });
+      toast("Error Updating Profile", "error");
     }
   };
 

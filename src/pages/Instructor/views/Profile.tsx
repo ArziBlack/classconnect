@@ -25,6 +25,7 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const { data } = useAppSelector(state => state.auth);
+  const {  message } = useAppSelector(state => state.tutor);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     first_name: data?.first_name,
@@ -65,7 +66,7 @@ const Profile = () => {
     const response = await dispatch(UpdateTutorProfile({ update }));
     if (UpdateTutorProfile.fulfilled.match(response)) 
     {
-      toast("Profile Updated Successfully", "success");
+      toast("Updated Successfully", "success");
       const updated = { ...tutor, first_name, last_name: lastName, phoneNum: mobile }
       sessionStorage.setItem("tutor", JSON.stringify(updated));
       dispatch(updateAuthData(updated));
