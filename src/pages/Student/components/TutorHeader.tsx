@@ -38,17 +38,16 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   const dispatch = useAppDispatch();
   const showToast = useCustomToast();
   const [confirmation, setConfirmation] = useState(false);
-  const terror = "This tutor specialization does not match your course of study. Choose another tutor.";
-  const { isLoading, error, chooseResponse, approvedTutors } = useAppSelector(
+  const [showError, setShowError] = useState<string | null>(null);
+  const { isLoading, chooseResponse, approvedTutors } = useAppSelector(
     (sammy) => sammy.student
   );
 
-  React.useEffect(()=> {
-    console.log(approvedTutors);
+  React.useEffect(() => {
     !approvedTutors && dispatch(getApprovedTutors());
-  },[]);
+  }, []);
 
-  const handleChooseTutor = async() => {
+  const handleChooseTutor = async () => {
     const result = await dispatch(chooseTutor({ url }));
     if (result.meta.requestStatus === "fulfilled") {
       if (chooseResponse?.statusCode === 403) {
@@ -60,6 +59,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
         showToast(chooseResponse?.error, "error");
       }
     } else if (result.meta.requestStatus === "rejected") {
+      setShowError(result.payload as string);
       showToast(result.payload, "error");
     }
   };
@@ -71,7 +71,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   const getTutorStatus = () => {
     return status === "Not engaged yet"
       ? "This Tutor is open to accept a student"
-      : "This tutor is no longer open to accept students"; 
+      : "This tutor is no longer open to accept students";
   };
 
   return (
@@ -163,17 +163,17 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
           ) : (
             <>
               <Text color={"white"}>
-                {!chooseResponse?.message
-                  ? "Are you sure about choosing this tutor"
-                  : error?.error || error?.message || error}
+                {showError ? showError : "Are you sure about choosing this tutor?"}
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
-                {!error ? (
-                  <Button onClick={handleChooseTutor}>Yes </Button>
-                ) : <Button onClick={() => setConfirmation(false)}>Ok</Button>}
-                {!chooseResponse && <Button onClick={() => setConfirmation(false)}>
-                  {chooseResponse ? "Ok" : "No"}
-                </Button>}
+                {showError ? (
+                  <Button onClick={() => setConfirmation(false)}>Ok</Button>
+                ) : (
+                  <>
+                    <Button onClick={handleChooseTutor}>Yes</Button>
+                    <Button onClick={() => setConfirmation(false)}>No</Button>
+                  </>
+                )}
               </Flex>
             </>
           )}
