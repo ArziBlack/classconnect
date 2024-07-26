@@ -19,7 +19,7 @@ export interface IResponse {
   message: string;
   greeting?: string;
   student_count?: number;
-  classNoticeUrl? : string;
+  classNoticeUrl?: string;
   error?: string;
   token?: string;
 }
@@ -38,6 +38,7 @@ if (jwt) {
 
 interface AuthState {
   data: IResponse | null;
+  update: IResponse | null;
   response: string;
   isLoading: boolean;
   isError: boolean;
@@ -50,6 +51,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   data: null || data,
+  update: null || data,
   response: "",
   isLoading: false,
   isError: false,
@@ -225,8 +227,13 @@ const authSlice = createSlice({
       state.isStudentLogged = false;
       state.message = "";
       state.token = "";
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("token");
+    },
+    updateAuthData(state, action: PayloadAction<Partial<IResponse>>) {
+      if (state.data) {
+        state.data = { ...state.data, ...action.payload };
+      }
     },
   },
   extraReducers: (builder) => {
@@ -384,5 +391,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { reset, logout } = authSlice.actions;
+export const { reset, logout, updateAuthData } = authSlice.actions;
 export default authSlice.reducer;

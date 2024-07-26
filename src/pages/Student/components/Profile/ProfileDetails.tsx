@@ -13,7 +13,7 @@ import CButton from "../../../../components/Button";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
 import { UpdateStudentProfile } from "../../../../services/student/studentThunks";
 import { IUpdateStudentData } from "../../../../typings/student";
-import { IResponse } from "../../../../services/auth/authSlice";
+import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
 
 export const ProfileDetails = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +23,10 @@ export const ProfileDetails = () => {
   const [last_name, setLastName] = useState(data?.last_name);
   const [email,] = useState(data?.email);
   const [student_phoneNum, setPhone] = useState<number>(parseInt(data?.phoneNum));
+  const [sex, setSex] = useState("");
+  const [age, setAge] = useState<number>(null);
+  const [country, setCountry] = useState<string>("");
+  const [state, setState] = useState<string>("");
   const [profileImage, setProfileImage] = useState(null);
   const toast = useToast();
 
@@ -58,6 +62,7 @@ export const ProfileDetails = () => {
       const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
       console.log(updated)
       sessionStorage.setItem("user", JSON.stringify(updated));
+      dispatch(updateAuthData(updated));
     } else {
       toast({
         title: "Error Updating Profile",
@@ -162,6 +167,66 @@ export const ProfileDetails = () => {
                 width="full"
                 display={`flex`}
                 name="student_phoneNum"
+              />
+            </Box>
+          </HStack>
+          <HStack marginTop={`10px`} gap={5}>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                Sex
+              </label>
+              <Input
+                value={sex}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
+                onChange={(e) => setSex(e.target.value)}
+                name="sex"
+              />
+            </Box>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                Age
+              </label>
+              <Input
+                value={age}
+                onChange={(e) => setAge(Number(e.target.value))}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
+                name="age"
+              />
+            </Box>
+          </HStack>
+          <HStack marginTop={`10px`} gap={5}>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                State
+              </label>
+              <Input
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
+                name="state"
+              />
+            </Box>
+            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+              <label className="block text-sm font-medium text-green-500 mb-2">
+                Country
+              </label>
+              <Input
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className="p-2 border border-gray-700 bg-gray-800 text-white"
+                height={55}
+                width="full"
+                display={`flex`}
+                name="country"
               />
             </Box>
           </HStack>
