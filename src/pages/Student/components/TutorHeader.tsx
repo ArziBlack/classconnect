@@ -11,7 +11,7 @@ import {
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import ChakraModal from "../../../components/ChakraModal";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { chooseTutor } from "../../../services/student/studentThunks";
+import { chooseTutor, getApprovedTutors } from "../../../services/student/studentThunks";
 import CButton from "../../../components/Button";
 import { PiWarningCircle } from "react-icons/pi";
 import useCustomToast from "../../../hooks/useCustomToast";
@@ -38,9 +38,15 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   const dispatch = useAppDispatch();
   const showToast = useCustomToast();
   const [confirmation, setConfirmation] = useState(false);
-  const { isLoading, error, chooseResponse } = useAppSelector(
+  const terror = "This tutor specialization does not match your course of study. Choose another tutor.";
+  const { isLoading, error, chooseResponse, approvedTutors } = useAppSelector(
     (sammy) => sammy.student
   );
+
+  React.useEffect(()=> {
+    console.log(approvedTutors);
+    !approvedTutors && dispatch(getApprovedTutors());
+  },[]);
 
   const handleChooseTutor = async() => {
     const result = await dispatch(chooseTutor({ url }));
@@ -50,9 +56,11 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
         return;
       } else if (chooseResponse?.statusCode === 200) {
         showToast(chooseResponse?.message, "success");
+      } else if (chooseResponse?.statusCode === 400) {
+        showToast(chooseResponse?.error, "error");
       }
     } else if (result.meta.requestStatus === "rejected") {
-      showToast(error || error?.error, "error");
+      showToast(result.payload, "error");
     }
   };
 

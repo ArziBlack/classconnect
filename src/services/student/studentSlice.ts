@@ -34,6 +34,8 @@ import {
   ITutorApiResponse,
 } from "../../typings/student";
 
+const approvedTutors: ITutorApiResponse | null = JSON.parse(sessionStorage.getItem("approvedTutors") || "null");
+
 interface IState {
   approvedTutors: ITutorApiResponse | null;
   myTutors: IMyTutorsResponse | null;
@@ -56,7 +58,7 @@ interface IState {
 }
 
 const initialState = {
-  approvedTutors: null,
+  approvedTutors: approvedTutors ? { ...approvedTutors } : null,
   myTutors: null,
   generalAssessment: null,
   personalAssessment: null,
@@ -180,7 +182,7 @@ const studentSlice = createSlice({
       .addCase(chooseTutor.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
-        state.error = null;
+        state.error = "";
         state.message = "";
       })
       .addCase(

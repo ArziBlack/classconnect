@@ -30,7 +30,7 @@ export const getApprovedTutors = createAsyncThunk<
 
     if (response.data) {
       logger("Approved Tutors", response?.data?.data, "Tutors");
-      sessionStorage.setItem("approvedTutors", JSON.stringify(response?.data?.data));
+      sessionStorage.setItem("approvedTutors", JSON.stringify(response?.data));
     }
     return response.data;
   } catch (err) {
@@ -116,8 +116,14 @@ export const chooseTutor = createAsyncThunk<
 
     return response.data;
   } catch (err) {
-    const error = err.response ? err.response.data : err.message;
-    return thunkAPI.rejectWithValue(error);
+    console.log(err.response.data.error);
+    if (err?.response?.data) {
+      return thunkAPI.rejectWithValue(err.response.data.error);
+    } else if (err?.message) {
+      return thunkAPI.rejectWithValue(err.message);
+    } else {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
   }
 });
 
