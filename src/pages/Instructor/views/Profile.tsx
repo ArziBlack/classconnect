@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { IResponse } from "../../../services/auth/authSlice";
+import { IResponse, updateAuthData } from "../../../services/auth/authSlice";
 import { UpdateTutorProfile } from "../../../services/tutor/tutorThunk";
 import useCustomToast from "../../../hooks/useCustomToast";
 
@@ -54,7 +54,7 @@ const Profile = () => {
     }));
   };
 
-  const tutor: IResponse = JSON.parse(localStorage.getItem("tutor"));
+  const tutor: IResponse = JSON.parse(sessionStorage.getItem("tutor"));
 
   const handleSave = async() => {
     const update = {
@@ -67,7 +67,8 @@ const Profile = () => {
     {
       toast("Profile Updated Successfully", "success");
       const updated = { ...tutor, first_name, last_name: lastName, phoneNum: mobile }
-      localStorage.setItem("user", JSON.stringify(updated));
+      sessionStorage.setItem("tutor", JSON.stringify(updated));
+      dispatch(updateAuthData(updated));
     }
     else
     {
