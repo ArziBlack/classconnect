@@ -43,23 +43,20 @@ export const ProfileDetails = () => {
 
   const user: IResponse = JSON.parse(sessionStorage.getItem("user"));
 
-  console.log(first_name, last_name, email, student_phoneNum)
   const handleSave = async () => {
     const update: IUpdateStudentData = {
       first_name,
       last_name,
       student_phoneNum,
     }
-    console.log(update)
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
-      toast(response.payload, "success");
+      toast("Updated Successfully", "success");
       const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
-      console.log(updated);
       sessionStorage.setItem("user", JSON.stringify(updated));
       dispatch(updateAuthData(updated));
     } else {
-      toast("Error Updating Profile", "error");
+      toast("Error Updating", "success");
     }
   };
 

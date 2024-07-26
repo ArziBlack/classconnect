@@ -25,7 +25,7 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const { data } = useAppSelector(state => state.auth);
-  const {  message } = useAppSelector(state => state.tutor);
+  // const {  message } = useAppSelector(state => state.tutor);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     first_name: data?.first_name,
