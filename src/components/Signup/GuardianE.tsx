@@ -17,13 +17,13 @@ const dateOfBirthSchema = Yup.string()
     const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
     return birthDate <= new Date();
   })
-  .test("min-age", "Student must be at least 10 years old", (value) => {
+  .test("min-age", "Student must be at least 5 years old", (value) => {
     if (!value) return true;
 
     const [year, month, day] = value.split("-");
     const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
     const tenYearsAgo = new Date();
-    tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
+    tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 5);
 
     return birthDate <= tenYearsAgo;
   });

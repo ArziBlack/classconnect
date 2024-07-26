@@ -29,7 +29,6 @@ const validationSchema = Yup.object({
   payment_plan: Yup.string().required("Payment Plan is required"),
   class_type: Yup.string().required("Class Type is required"),
   password: Yup.string().required("Password is required"),
-  profileImage: Yup.mixed().required("Profile Image is required"),
   student_phoneNum: Yup.string().required("Student Phone Number is required"),
   agreement_status: Yup.boolean().oneOf(
     [true],
@@ -80,14 +79,10 @@ const StudentFinal = ({
 
   const imgRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue
-  ) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImgUrl(URL.createObjectURL(file));
-      setFieldValue("profileImage", file);
       setFormData((prevState) => ({
         ...prevState,
         profileImage: file,
@@ -124,15 +119,10 @@ const StudentFinal = ({
                 type="file"
                 ref={imgRef}
                 className="hidden"
-                onChange={(e) => handleFileChange(e, setFieldValue)}
+                onChange={(e) => handleFileChange(e)}
                 accept="image/png, image/jpg, image/jpeg"
               />
             </div>
-            <ErrorMessage
-              name="profileImage"
-              component="div"
-              className="!text-[#e53e3e] !text-xs mt-1"
-            />
           </div>
           <Box display="flex" mb={6} gap={2}>
             <Field name="agreement_status">

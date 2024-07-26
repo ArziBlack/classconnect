@@ -48,7 +48,6 @@ const validationSchema = Yup.object({
   payment_plan: Yup.string().required("Payment Plan is required"),
   class_type: Yup.string().required("Class Type is required"),
   password: Yup.string().required("Password is required"),
-  profileImage: Yup.mixed().required("Profile Image is required"),
   student_phoneNum: Yup.string().required("Student Phone Number is required"),
   agreement_status: Yup.boolean().oneOf(
     [true],
@@ -98,14 +97,10 @@ const GuardianG = ({
 
   const imgRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue
-  ) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImgUrl(URL.createObjectURL(file));
-      setFieldValue("profileImage", file);
       setGuardianData((prevState) => ({
         ...prevState,
         profileImage: file,
@@ -143,7 +138,7 @@ const GuardianG = ({
                 ref={imgRef}
                 max={1000}
                 className="hidden"
-                onChange={(e) => handleFileChange(e, setFieldValue)}
+                onChange={(e) => handleFileChange(e)}
                 accept="image/png, image/jpg, image/jpeg"
               />
             </div>
