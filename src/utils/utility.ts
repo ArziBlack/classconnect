@@ -19,3 +19,15 @@ export function convertStringsToArray(string: string) {
   const data = string.split(",");
   return data;
 }
+
+export function toObject(arr: Array<string | object>) {
+  const rv = {};
+  for (let i = 0; i < arr.length; ++i)
+    rv[i] = arr[i];
+  return rv;
+}
+
+export function covert2Object(arr: Array<string | object>) {
+  const obj = Object.assign({}, arr);
+  return obj;
+}

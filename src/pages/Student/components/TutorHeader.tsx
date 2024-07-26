@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { chooseTutor } from "../../../services/student/studentThunks";
 import CButton from "../../../components/Button";
 import { PiWarningCircle } from "react-icons/pi";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 interface TutorHeaderProps {
   title: string;
@@ -35,12 +36,24 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   status,
 }) => {
   const dispatch = useAppDispatch();
+  const showToast = useCustomToast();
   const [confirmation, setConfirmation] = useState(false);
-  const { recommendResponse, isLoading, error } = useAppSelector(
+  const { isLoading, error, chooseResponse } = useAppSelector(
     (sammy) => sammy.student
   );
-  const handleChooseTutor = () => {
-    dispatch(chooseTutor({ url }));
+
+  const handleChooseTutor = async() => {
+    const result = await dispatch(chooseTutor({ url }));
+    if (result.meta.requestStatus === "fulfilled") {
+      if (chooseResponse?.statusCode === 403) {
+        showToast(chooseResponse?.message, "error");
+        return;
+      } else if (chooseResponse?.statusCode === 200) {
+        showToast(chooseResponse?.message, "success");
+      }
+    } else if (result.meta.requestStatus === "rejected") {
+      showToast(error || error?.error, "error");
+    }
   };
 
   const getButtonColor = () => {
@@ -142,16 +155,16 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
           ) : (
             <>
               <Text color={"white"}>
-                {error ? error.message : !recommendResponse?.message
+                {!chooseResponse?.message
                   ? "Are you sure about choosing this tutor"
-                  : error}
+                  : error?.error || error?.message || error}
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
                 {!error ? (
                   <Button onClick={handleChooseTutor}>Yes </Button>
                 ) : <Button onClick={() => setConfirmation(false)}>Ok</Button>}
-                {!error && <Button onClick={() => setConfirmation(false)}>
-                  {recommendResponse ? "Ok" : "No"}
+                {!chooseResponse && <Button onClick={() => setConfirmation(false)}>
+                  {chooseResponse ? "Ok" : "No"}
                 </Button>}
               </Flex>
             </>

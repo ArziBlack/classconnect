@@ -23,6 +23,7 @@ import {
 import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
+  IChooseResponse,
   ICoursesResponse,
   ICurriculumResponse,
   IMyTutorsResponse,
@@ -39,6 +40,7 @@ interface IState {
   generalAssessment: IAssessmentResponse | null;
   personalAssessment: IAssessmentResponse | null;
   recommendResponse: IRecommendationResponse | null;
+  chooseResponse: IChooseResponse;
   trxResponse: IStudentTrxAPIResponse | null;
   tuitionFeeResponse: null;
   allCoursesResponse: ICoursesResponse;
@@ -46,6 +48,7 @@ interface IState {
   mySchedule: IScheduleResponse;
   curriculum: ICurriculumResponse;
   isLoading: boolean;
+  recommendLoading: boolean;
   error: string | null;
   isSuccess: boolean | null;
   isError: boolean;
@@ -58,6 +61,7 @@ const initialState = {
   generalAssessment: null,
   personalAssessment: null,
   recommendResponse: null,
+  chooseResponse: null,
   trxResponse: null,
   tuitionFeeResponse: null,
   allCoursesResponse: null,
@@ -65,6 +69,7 @@ const initialState = {
   mySchedule: null,
   curriculum: null,
   isLoading: null,
+  recommendLoading: null,
   error: null,
   isSuccess: false || null,
   isError: null,
@@ -182,7 +187,7 @@ const studentSlice = createSlice({
         chooseTutor.fulfilled,
         (state, action: PayloadAction<IRecommendationResponse>) => {
           state.isLoading = false;
-          state.recommendResponse = action.payload;
+          state.chooseResponse = action.payload;
           state.isSuccess = true;
         }
       )
@@ -236,18 +241,18 @@ const studentSlice = createSlice({
         }
       )
       .addCase(requestRecommendation.pending, (state) => {
-        state.isLoading = true;
+        state.recommendLoading = true;
         state.error = null;
         state.message = "";
       })
       .addCase(requestRecommendation.fulfilled, (state, action: PayloadAction<IRecommendationResponse>) => {
-        state.isLoading = false;
+        state.recommendLoading = false;
         state.recommendResponse = action.payload;
         state.isSuccess = true;
         state.message = action.payload.message;
       })
       .addCase(requestRecommendation.rejected, (state, action: PayloadAction<string>) => {
-        state.isLoading = false;
+        state.recommendLoading = false;
         state.isSuccess = false;
         state.isError = true;
         state.error = action.payload;

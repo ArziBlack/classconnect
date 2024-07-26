@@ -62,6 +62,12 @@ export interface IRecommendationResponse {
   message: string;
 }
 
+export interface IChooseResponse {
+  statusCode: number;
+  status?: string;
+  message?: string;
+}
+
 export interface IAcceptnRejectResponse {
   statusCode: number;
   message: string;

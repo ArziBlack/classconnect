@@ -7,13 +7,16 @@ import Button from "../../../../components/Button";
 import { IoFilter } from "react-icons/io5";
 import { requestRecommendation } from "../../../../services/student/studentThunks";
 import useCustomToast from "../../../../hooks/useCustomToast";
+import { toObject } from "../../../../utils/utility";
 
 export const Approved = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
-  const { approvedTutors, isLoading, error, recommendResponse } = useAppSelector(
+  const { approvedTutors, isLoading, recommendLoading, error, recommendResponse } = useAppSelector(
     (state) => state.student
   );
+  const titles = JSON.parse(sessionStorage.getItem("courseTitles"));
+  const courseTitles = toObject(titles);
 
   console.log(recommendResponse);
   // useEffect(() => {
@@ -35,13 +38,7 @@ export const Approved = () => {
     }
   }
 
-  const home = {
-    courses: [
-      { title: "FRONTEND DEVELOPEMENT" },
-      { title: "BACKEND DEVELOPEMENT" },
-      { title: "CLOUD ENGINEERING" },
-    ],
-  };
+  console.log(courseTitles);
 
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -84,23 +81,23 @@ export const Approved = () => {
               mt={2}
               zIndex={1}
             >
-              {home?.courses?.map((course) => (
+              {titles?.map((course) => (
                 <Box
-                  key={course?.title}
+                  key={course}
                   fontSize={"sm"}
                   py={2}
                   px={4}
                   borderRadius="md"
                   _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
                   cursor="pointer"
-                  onClick={() => handleSpecializationChange(course?.title)}
+                  onClick={() => handleSpecializationChange(course)}
                 >
-                  {course?.title}
+                  {course}
                 </Box>
               ))}
             </Flex>
           )}
-          <Button text="Get Recommendation" onClick={handleRecommendation} isLoading={isLoading} />
+          <Button text="Get Recommendation" onClick={handleRecommendation} isLoading={recommendLoading} />
         </Flex>
       </Flex>
 
