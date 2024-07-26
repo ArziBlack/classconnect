@@ -19,6 +19,8 @@ function formatRawDate(rawDate) {
 }
 
 export const AssessmentItem = ({ type, date, isSelected }) => {
+  const { myTutors } = useAppSelector(state => state.student);
+  const tutorName = myTutors?.data[0]?.name;
   return (
     <Box
       className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
@@ -31,7 +33,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
         fontWeight="semibold"
         paddingBottom={`5px`}
       >
-        Mr Samuel Oghechi
+        {tutorName}
       </Text>
       <Text
         fontSize={{ base: "xs", md: "sm" }}
@@ -59,8 +61,6 @@ const AssessmentList = () => {
     (state) => state.student
   );
   const [selectedId, setSelectedId] = useState(null);
-
-  console.log(error?.message);
 
   const handleNotificationClick = (index) => {
     setSelectedId(index === selectedId ? null : index);
@@ -94,7 +94,7 @@ const AssessmentList = () => {
           <div className="flex flex-col max-h-[400px] w-full overflow-y-scroll no-scrollbar px-10">
             <div className="flex flex-col py-[5px]">
               <h2 className="text-3xl font-[700] py-[10px]">
-                Exercise {selectedId + 1}
+                Assessment {selectedId + 1}
               </h2>
               <div className="flex items-center py-[15px]">
                 <img
@@ -112,7 +112,7 @@ const AssessmentList = () => {
                 <b>To:</b> Favourogechi2019@gmail.com
               </span>
               <p className="py-5 font-[300] text-justify text-sm leading-6">
-                {generalAssessment?.data[selectedId]?.Question}
+                {generalAssessment?.data[selectedId]?.question}
               </p>
             </div>
           </div>

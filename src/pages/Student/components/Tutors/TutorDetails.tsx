@@ -17,8 +17,8 @@ export const TutorDetails = () => {
     if (approvedTutors) {
       setTutor(
         approvedTutors?.data?.find(
-          (item: IMyTutor) => tutorId === item.name.split(" ")[0]
-        )
+          (item) => tutorId === item.name.split(" ")[0] 
+        ) as IMyTutor
       );
     }
   }, [approvedTutors, tutorId]);
