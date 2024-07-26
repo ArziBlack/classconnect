@@ -18,7 +18,7 @@ import FireBaseUpload from "./pages/FireBaseUpload";
 import { Tutors } from "./pages/Student/views/Tutors";
 import Profile from "./pages/Student/views/Profile";
 import TutorProfile from "./pages/Instructor/views/Profile";
-import { Billing } from "./pages/Student/views/Billing";
+import { MakePayment } from "./pages/Student/components/Billing/MakePayment";
 import { MyCourses } from "./pages/Student/views/MyCourses";
 import { Assessment } from "./pages/Student/views/Assessments";
 import { Assessments as TutorAssessment } from "./pages/Instructor/views/Assessments";
@@ -47,6 +47,8 @@ import StudentDetail from "./pages/Instructor/views/Studentdetail";
 import { CreateAssessment } from "./pages/Instructor/components/Assessments/CreateAssessment";
 import { CreateReport } from "./pages/Instructor/components/Assessments/CreateReport";
 import CreateClassNotice from "./pages/Instructor/components/Assessments/CreateClassNotice";
+import { Billing } from "./pages/Student/views/Billing";
+import { PaymentHistory } from "./pages/Student/components/Billing/PaymentHistory";
 
 function AppContent() {
   const location = useLocation();
@@ -124,7 +126,10 @@ function AppContent() {
             />
           </Route>
           <Route path="assessment" element={<Assessment />} />
-          <Route path="billing" element={<Billing />} />
+          <Route path="billing" element={<Billing />}>
+            <Route index element={<MakePayment />} />
+            <Route path="payment-history" element={<PaymentHistory />} />
+          </Route>
         </Route>
       </Route>
 
@@ -146,7 +151,6 @@ function AppContent() {
             <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="assessment" element={<Assessment />} />
-          <Route path="billing" element={<Billing />} />
         </Route>
       </Route>
 

@@ -68,7 +68,7 @@ export const Home = () => {
     <div className="w-full flex gap-6 text-white text-[14px]">
       <div className="w-2/3 flex flex-col justify-center ">
         <div className="mb-8">
-          <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name}</h2>
+          <h2 className="font-[600] text-2xl pb-3">Hi {data?.first_name}</h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <div
