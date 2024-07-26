@@ -362,6 +362,7 @@ const authSlice = createSlice({
       .addCase(emailVerify.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
+        state.isSuccess = false;
       })
       .addCase(emailVerify.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -375,6 +376,7 @@ const authSlice = createSlice({
       })
       .addCase(tutorEmailVerify.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
         state.isError = false;
         state.message = "";
       })

@@ -71,7 +71,7 @@ const loginTutor = async (tutorData: ILoginParams) => {
 
 // Login Tutor Verification
 const verifyTutor = async ({ tutorId, uniqueString }: IVerify) => {
-  const response = await axios.post(
+  const response = await axios.get(
     `${API_BASE_URL}/tutor/verify/${tutorId}/${uniqueString}`
   );
   return response.data;
@@ -79,7 +79,7 @@ const verifyTutor = async ({ tutorId, uniqueString }: IVerify) => {
 
 // Verify Student or Guardian
 const verify = async ({ studentId, uniqueString }: IVerify) => {
-  const response = await axios.post(
+  const response = await axios.get(
     `${API_BASE_URL}/student/verify/${studentId}/${uniqueString}`
   );
   if (response.data) {

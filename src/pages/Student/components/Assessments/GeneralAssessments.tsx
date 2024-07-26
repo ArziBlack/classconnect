@@ -60,7 +60,7 @@ const AssessmentList = () => {
   const { generalAssessment, isLoading, error } = useAppSelector(
     (state) => state.student
   );
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<number>(null);
 
   const handleNotificationClick = (index:number) => {
     setSelectedId(index === selectedId ? null : index);

@@ -16,7 +16,7 @@ const EmailV = () => {
     const { studentId, uniqueString } = useParams();
     const navigate = useNavigate();
     const { message, isSuccess, isError } = useAppSelector(star => star.auth);
-    console.log(message, isSuccess);
+    console.log(message, isSuccess, studentId, uniqueString);
     useEffect(() => {
         dispatch(emailVerify({ studentId, uniqueString }));
         if (isSuccess) {
@@ -25,7 +25,8 @@ const EmailV = () => {
         if (isError) {
             console.log(message, isSuccess);
         }
-    }, [dispatch, studentId, uniqueString, isSuccess, navigate, isError, message]);
+    }, [dispatch, isSuccess]);
+
     return (
         <>
             <Container maxW={"3xl"}>
