@@ -8,8 +8,8 @@ import {
 } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "", label: "Available Courses" },
   { to: "started", label: "Ongoing" },
+  { to: "", label: "Available Courses" },
 ];
 
 export const MyCourses = () => {

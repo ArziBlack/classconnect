@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "", label: "All Tutors" },
   { to: "my-tutors", label: "My Tutors" },
+  { to: "", label: "Available Tutors" },
 ];
 
 export const Tutors = () => {
