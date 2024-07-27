@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Box, Flex, Text, Icon, Image, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, Text, Icon, Image, Skeleton, Button } from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import moment from "moment";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
 import { useAppSelector } from "../../../../hooks/reactReduxHooks";
+import { FaRegFilePdf } from "react-icons/fa6";
 
 function truncateString(str, maxLength) {
   if (str.length > maxLength) {
@@ -62,15 +63,22 @@ const AssessmentList = () => {
   );
   const [selectedId, setSelectedId] = useState<number>(null);
 
-  const handleNotificationClick = (index:number) => {
+  const handleNotificationClick = (index: number) => {
     setSelectedId(index === selectedId ? null : index);
   };
+
+  const handleFileClick = (string) => {
+    if (string) {
+      console.log(string);
+      window.open(string, '_blank');
+    }
+  }
 
   return (
     <div className="w-full grid grid-cols-2">
       {!error ? (
         <div className="overflow-y-scroll h-[400px] no-scrollbar">
-          {personalAssessment?.data?.map((assess, index:number) => (
+          {personalAssessment?.data?.map((assess, index: number) => (
             <Skeleton borderRadius={20} isLoaded={!isLoading}>
               <div onClick={() => handleNotificationClick(index)} key={index}>
                 <AssessmentItem
@@ -114,6 +122,22 @@ const AssessmentList = () => {
               <p className="py-5 font-[300] text-justify text-sm leading-6">
                 {personalAssessment?.data[selectedId]?.question}
               </p>
+              {personalAssessment?.data[selectedId]?.document &&
+                (<div>
+                  <Button
+                    onClick={() => handleFileClick(personalAssessment?.data[selectedId]?.document)}
+                    bg={"white"}
+                    variant="filled"
+                    borderRadius="md"
+                    borderWidth={"1px"}
+                    borderColor={"#DEDDE4"}
+                    _hover={{ bg: "yellow" }}
+                    color={"black"}
+                    leftIcon={<FaRegFilePdf />}
+                  >
+                    View Attachment
+                  </Button>
+                </div>)}
             </div>
           </div>
         ) : (
