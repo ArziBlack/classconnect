@@ -120,7 +120,7 @@ const AssessmentList = () => {
               <span className="py-2 text-xs font-[100] text-white/25">
                 <b>To:</b> Favourogechi2019@gmail.com
               </span>
-              <p className="py-5 font-[300] text-justify text-sm leading-6">
+              <p className="py-5 font-[300] text-justify text-lg leading-6">
                 {generalAssessment?.data[selectedId]?.question}
               </p>
               {generalAssessment?.data[selectedId]?.document &&

@@ -13,7 +13,7 @@ export const TutorDetails = () => {
   const [tutor, setTutor] = useState<IMyTutor>(null);
   useEffect(()=> {
     if (approvedTutors) {
-      setTutor(approvedTutors?.data?.find((item:IMyTutor) => tutorId === item.name.split(" ")[0]));
+      setTutor(approvedTutors?.data?.find((item) => tutorId === item.name.split(" ")[0]) as IMyTutor);
     }
   },[approvedTutors, tutorId]);
   return (
