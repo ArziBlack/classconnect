@@ -1,15 +1,11 @@
 import { useState } from "react";
-import {
-  Box,
-  Img,
-  Input,
-  Avatar,
-  VStack,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Img, Input, Avatar, VStack, HStack } from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import { UpdateStudentProfile } from "../../../../services/student/studentThunks";
 import { IUpdateStudentData } from "../../../../typings/student";
 import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
@@ -17,12 +13,14 @@ import useCustomToast from "../../../../hooks/useCustomToast";
 
 export const ProfileDetails = () => {
   const dispatch = useAppDispatch();
-  const { data } = useAppSelector(sam => sam.auth);
-  const { isLoading } = useAppSelector(sam => sam.student);
+  const { data } = useAppSelector((sam) => sam.auth);
+  const { isLoading } = useAppSelector((sam) => sam.student);
   const [first_name, setFirstName] = useState(data?.first_name);
   const [last_name, setLastName] = useState(data?.last_name);
-  const [email,] = useState(data?.email);
-  const [student_phoneNum, setPhone] = useState<number>(parseInt(data?.phoneNum));
+  const [email] = useState(data?.email);
+  const [student_phoneNum, setPhone] = useState<number>(
+    parseInt(data?.phoneNum)
+  );
   const [sex, setSex] = useState("");
   const [age, setAge] = useState<number>(null);
   const [country, setCountry] = useState<string>("");
@@ -48,11 +46,16 @@ export const ProfileDetails = () => {
       first_name,
       last_name,
       student_phoneNum,
-    }
+    };
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
       toast("Updated Successfully", "success");
-      const updated = { ...user, first_name, last_name, phoneNum: student_phoneNum }
+      const updated = {
+        ...user,
+        first_name,
+        last_name,
+        phoneNum: student_phoneNum,
+      };
       sessionStorage.setItem("user", JSON.stringify(updated));
       dispatch(updateAuthData(updated));
     } else {
@@ -61,13 +64,17 @@ export const ProfileDetails = () => {
   };
 
   return (
-    <Box className="text-white flex flex-col">
+    <Box className="text-white flex flex-col" maxW={"800px"}>
       <VStack spacing={6}>
         <Box className=" bg-gray-500 h-[250px] w-full relative">
           <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
             <Box className="relative">
               <Avatar
-                src={data?.profileImage || "https://via.placeholder.com/150" || profileImage}
+                src={
+                  data?.profileImage ||
+                  "https://via.placeholder.com/150" ||
+                  profileImage
+                }
                 size="2xl"
                 h={"165px"}
                 w={"165px"}
@@ -125,7 +132,12 @@ export const ProfileDetails = () => {
             </Box>
           </HStack>
           <HStack marginTop={`10px`} gap={5}>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 Email
               </label>
@@ -140,7 +152,12 @@ export const ProfileDetails = () => {
                 name="email"
               />
             </Box>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 Phone
               </label>
@@ -156,7 +173,12 @@ export const ProfileDetails = () => {
             </Box>
           </HStack>
           <HStack marginTop={`10px`} gap={5}>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 Sex
               </label>
@@ -170,7 +192,12 @@ export const ProfileDetails = () => {
                 name="sex"
               />
             </Box>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 Age
               </label>
@@ -186,7 +213,12 @@ export const ProfileDetails = () => {
             </Box>
           </HStack>
           <HStack marginTop={`10px`} gap={5}>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 State
               </label>
@@ -200,7 +232,12 @@ export const ProfileDetails = () => {
                 name="state"
               />
             </Box>
-            <Box display={`flex`} flexDir={`column`} w="100%" marginRight={`3px`}>
+            <Box
+              display={`flex`}
+              flexDir={`column`}
+              w="100%"
+              marginRight={`3px`}
+            >
               <label className="block text-sm font-medium text-green-500 mb-2">
                 Country
               </label>

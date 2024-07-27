@@ -65,10 +65,12 @@ const StudentFinal = ({
           "Please check your email for more details",
         "success"
       );
-      navigate("/");
       onClick("pageone");
       dispatch(reset());
       setFormData(studentInit);
+      setTimeout(() => {
+        navigate("/verify");
+      }, 3000);
     } else if (register.rejected.match(resultAction)) {
       showToast(
         (resultAction.payload as IResponse).message || "Registration failed",

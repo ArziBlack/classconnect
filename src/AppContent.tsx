@@ -38,7 +38,7 @@ import { GeneralAssessments } from "./pages/Student/components/Assessments/Gener
 import { Content } from "./pages/Student/components/Courses/Content";
 import { TutorDetails } from "./pages/Student/components/Tutors/TutorDetails";
 import AboutMe from "./pages/Student/components/Tutors/AboutMe";
-import EmailV from "./pages/EmailV";
+import StudentEmailV from "./pages/StudentEmailV";
 import PrivateRoute from "./utils/ProtectedRoute";
 import Loader from "./utils/Loader";
 import { MyStudents } from "./pages/Instructor/components/Students/MyStudents";
@@ -49,6 +49,7 @@ import { CreateReport } from "./pages/Instructor/components/Assessments/CreateRe
 import CreateClassNotice from "./pages/Instructor/components/Assessments/CreateClassNotice";
 import { Billing } from "./pages/Student/views/Billing";
 import { PaymentHistory } from "./pages/Student/components/Billing/PaymentHistory";
+import TutorEmailV from "./pages/TutorEmailV";
 
 function AppContent() {
   const location = useLocation();
@@ -157,8 +158,12 @@ function AppContent() {
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
       <Route
-        path="email-verify/:studentId/:uniqueString"
-        element={<EmailV />}
+        path="/email-verify/student/:studentId/:uniqueString"
+        element={<StudentEmailV />}
+      />
+      <Route
+        path="/email-verify/tutor/:studentId/:uniqueString"
+        element={<TutorEmailV />}
       />
       <Route path="reset-check" element={<CheckReset />} />
       <Route path="/*" element={<NotFound />} />

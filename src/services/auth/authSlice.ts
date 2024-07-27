@@ -50,8 +50,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  data: null || data,
-  update: null || data,
+  data: data,
+  update: data,
   response: "",
   isLoading: false,
   isError: false,
@@ -59,7 +59,7 @@ const initialState: AuthState = {
   Loaded: false,
   isStudentLogged: false,
   message: "",
-  token: "" || jwt,
+  token: jwt,
 };
 
 // Student Sign-up
