@@ -1,3 +1,5 @@
+import { INotification } from "./student";
+
 interface Student {
     name: string;
     status: string;
@@ -90,6 +92,7 @@ export interface ITutor {
     classSchedule: IClassSchedule | null;
     noticeResponse: INoticeResponse | null;
     curriculumResponse: ICurriculumResponse | null;
+    notificationTutor: |INotification;
     isLoading: boolean;
     isError: boolean;
     error: string;

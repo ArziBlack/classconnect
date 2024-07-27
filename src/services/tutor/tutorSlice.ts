@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IAssessmentResponse, ICurriculumRes, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
-import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getCurriculum, getMyCurriculum, getMyStudents, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
+import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getCurriculum, getMyCurriculum, getMyStudents, getNotificationsTutor, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
+import { INotification } from "../../typings/student";
 
 const initialState = {
     myStudents: null,
@@ -10,6 +11,7 @@ const initialState = {
     classSchedule: null,
     noticeResponse: null,
     curriculumResponse: null,
+    notificationTutor: null,
     isLoading: false || null,
     isError: false || null,
     isSuccess: false || null,
@@ -170,6 +172,21 @@ const tutorSlice = createSlice({
                 state.message = action.payload.message;
             })
             .addCase(UpdateTutorProfile.rejected, (state, action)=> {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            })
+            .addCase(getNotificationsTutor.pending, (state)=> {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(getNotificationsTutor.fulfilled, (state, action: PayloadAction<INotification>) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.notificationTutor = action.payload;   
+            })
+            .addCase(getNotificationsTutor.rejected, (state, action: PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";

@@ -3,6 +3,7 @@ import axiosInstance from "../../app/axios";
 import axios from "axios";
 import { IAssessmentData, IAssessmentResponse, IClassData, IClassSchedule, ICurriculumRes, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, IUpdateTutorData } from "../../typings/tutor";
 import { IResponse } from "../auth/authSlice";
+import { INotification } from "../../typings/student";
 
 // Get all My students
 export const getMyStudents = createAsyncThunk<IMyStudentsResponse, void, { rejectValue: string }>("tutor/myStudents", async (_, thunkAPI) => {
@@ -116,3 +117,14 @@ export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateT
         return thunkAPI.rejectWithValue(error);
     }
 });
+
+// Get Notifications for Tutor
+export const getNotificationsTutor = createAsyncThunk<INotification, void, { rejectValue: string }>("tutor/notifications", async (_, thunkAPI)=> {
+    try {
+      const response = await axiosInstance.get('/student/getNotifications');
+      return response.data;
+    } catch (err) {
+      const error = err.response ? err.response.data : err.message;
+      return thunkAPI.rejectWithValue(error);
+    }
+  });

@@ -8,6 +8,7 @@ import {
   ICoursesResponse,
   ICurriculumResponse,
   IMyTutorsResponse,
+  INotification,
   IRecommendationResponse,
   IScheduleResponse,
   IStudentTrxAPIResponse,
@@ -343,7 +344,18 @@ export const updateProfileImage = createAsyncThunk<IAPIResponse, { profileImage:
     const error = err.response ? err.response.data : err.message;
     return thunkAPI.rejectWithValue(error);
   }
-})
+});
+
+// Get Notifications for Student
+export const getNotifications = createAsyncThunk<INotification, void, { rejectValue: string }>("student/notifications", async (_, thunkAPI)=> {
+  try {
+    const response = await axiosInstance.get('/student/getNotifications');
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 // Logout Student...
 export const LogoutStudent = createAsyncThunk<

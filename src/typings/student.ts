@@ -118,3 +118,8 @@ export interface IAPIResponse {
   statusCode: number;
   message: string;
 }
+
+export interface INotification {
+  statusCode: number;
+  data: string[];
+}

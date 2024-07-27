@@ -14,6 +14,7 @@ import {
   getMyCourses,
   getMyTuitionFee,
   getMyTutors,
+  getNotifications,
   getPersonalAssessment,
   getTrxState,
   initiateTrx,
@@ -28,6 +29,7 @@ import {
   ICoursesResponse,
   ICurriculumResponse,
   IMyTutorsResponse,
+  INotification,
   IRecommendationResponse,
   IScheduleResponse,
   IStudentTrxAPIResponse,
@@ -50,6 +52,7 @@ interface IState {
   myCoursesRes: ICoursesResponse;
   mySchedule: IScheduleResponse;
   curriculum: ICurriculumResponse;
+  notifications: INotification;
   isLoading: boolean;
   recommendLoading: boolean;
   error: string | null;
@@ -71,6 +74,7 @@ const initialState = {
   myCoursesRes: null,
   mySchedule: null,
   curriculum: null,
+  notifications: null,
   isLoading: null,
   recommendLoading: null,
   error: null,
@@ -427,10 +431,25 @@ const studentSlice = createSlice({
         state.isSuccess = true;
         state.message = "Profile Successfully updated";
       })
-      .addCase(updateProfileImage.rejected, (state)=> {
+      .addCase(updateProfileImage.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.message = "Error Updating profile Image!!"
+      })
+      .addCase(getNotifications.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+        state.isError = false;
+      })
+      .addCase(getNotifications.fulfilled, (state, action: PayloadAction<INotification>) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.notifications = action.payload;
+      })
+      .addCase(getNotifications.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
       })
       .addCase(LogoutStudent.pending, (state) => {
         state.isLoading = true;
