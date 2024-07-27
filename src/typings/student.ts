@@ -111,3 +111,8 @@ export interface ICurriculumResponse {
     curriculum: ICurriculumItem[];
   };
 }
+
+export interface IAPIResponse {
+  statusCode: number;
+  message: string;
+}

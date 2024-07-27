@@ -19,6 +19,7 @@ import {
   initiateTrx,
   rejectRecommendation,
   requestRecommendation,
+  updateProfileImage,
 } from "./studentThunks";
 import {
   IAcceptnRejectResponse,
@@ -415,6 +416,21 @@ const studentSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
+      })
+      .addCase(updateProfileImage.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+        state.isError = false;
+      })
+      .addCase(updateProfileImage.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = "Profile Successfully updated";
+      })
+      .addCase(updateProfileImage.rejected, (state)=> {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "Error Updating profile Image!!"
       })
       .addCase(LogoutStudent.pending, (state) => {
         state.isLoading = true;

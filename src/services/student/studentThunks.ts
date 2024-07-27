@@ -3,6 +3,7 @@ import axios from "axios";
 // import { IRootState } from "../../app/store";
 import {
   IAcceptnRejectResponse,
+  IAPIResponse,
   IAssessmentResponse,
   ICoursesResponse,
   ICurriculumResponse,
@@ -332,6 +333,17 @@ export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: s
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+// Update Profile Image
+export const updateProfileImage = createAsyncThunk<IAPIResponse, { profileImage: File }, { rejectValue: string }>("student/update-profile-image", async ({ profileImage }, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post('/student/updateProfileImage', profileImage);
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+})
 
 // Logout Student...
 export const LogoutStudent = createAsyncThunk<

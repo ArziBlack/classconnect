@@ -6,10 +6,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
-import { UpdateStudentProfile } from "../../../../services/student/studentThunks";
+import { updateProfileImage, UpdateStudentProfile } from "../../../../services/student/studentThunks";
 import { IUpdateStudentData } from "../../../../typings/student";
 import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
 import useCustomToast from "../../../../hooks/useCustomToast";
+import { FaUpload } from "react-icons/fa6";
 
 export const ProfileDetails = () => {
   const dispatch = useAppDispatch();
@@ -63,6 +64,16 @@ export const ProfileDetails = () => {
     }
   };
 
+  const handleImageSave = () => {
+    const result = dispatch(updateProfileImage({ profileImage }));
+    if (updateProfileImage.fulfilled.match(result)) {
+      toast("Image Updated Successfully", "success");
+    }
+    if (updateProfileImage.rejected.match(result)) {
+      toast("Error Updating Image", "error");
+    }
+  }
+
   return (
     <Box className="text-white flex flex-col" maxW={"800px"}>
       <VStack spacing={6}>
@@ -71,25 +82,28 @@ export const ProfileDetails = () => {
             <Box className="relative">
               <Avatar
                 src={
+                  profileImage ||
                   data?.profileImage ||
-                  "https://via.placeholder.com/150" ||
-                  profileImage
+                  "https://via.placeholder.com/150"
                 }
                 size="2xl"
                 h={"165px"}
                 w={"165px"}
               />
-              <Img
-                src={CAMERA}
-                zIndex={5}
-                position="absolute"
-                bottom="0"
-                right="5"
-                aria-label="Upload Image"
-                onClick={() => document.getElementById("imageUpload").click()}
-                cursor={"pointer"}
-                w={30}
-              />
+              {!profileImage ?
+                <Img
+                  src={CAMERA}
+                  zIndex={5}
+                  position="absolute"
+                  bottom="0"
+                  right="5"
+                  aria-label="Upload Image"
+                  onClick={() => document.getElementById("imageUpload").click()}
+                  cursor={"pointer"}
+                  w={30}
+                /> : <span className="absolute z-5 bottom-0 right-5 cursor-pointer w-12 h-12 rounded-full bg-white flex items-center justify-center" onClick={handleImageSave}>
+                  <FaUpload color="black" />
+                </span>}
               <Input
                 type="file"
                 id="imageUpload"
