@@ -2,11 +2,14 @@ import { FC } from "react";
 // import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
 // import { IoMdNotificationsOutline } from "react-icons/io";
-import { 
-  Box, Flex, 
-  Image, 
-  // Input, 
-  Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  // Input,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 // import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   COURSES,
@@ -138,7 +141,6 @@ const MainView: FC = () => {
           h={"45px"}
           color={"white"}
           width={"400px"}
-          paddingLeft={"10px"}
           borderRadius={"8px"}
           alignItems={"center"}
           background={"transparent"}
@@ -156,6 +158,9 @@ const MainView: FC = () => {
             _focusVisible={"none"}
             background="transparent"
           /> */}
+          <Text fontSize={"26px"} fontWeight={600}>
+            Tutor Dashboard
+          </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
           {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}

@@ -57,15 +57,15 @@ export const Home = () => {
   return (
     <div className="w-full flex gap-6 text-white text-[14px] font-['Inter']">
       <div className="w-2/3 flex flex-col justify-center items-start">
-        <div className="my-8">
+        <div className="mb-8">
           <h2 className="font-[600] text-3xl pb-3">Hi {data?.first_name} </h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <DashBoard />
-        <div className="flex flex-col w-full justify-between h-full bg-[#023248] border border-gray-500 pt-4 pb-1 px-2 rounded-lg">
-          <div className="flex w-full py-1 border-b border-[#5E7079] ">
-            <h2 className="w-2/4">Assessment</h2>
-            <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2>
+        <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
+          <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px]  rounded-[8px, 0px] px-6">
+            <h2 className="text-white text-lg font-semibold">Assessments</h2>
+            {/* <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2> */}
           </div>
           {!homeCourses ? (
             homeCourses.map((item, id) => (
@@ -86,7 +86,7 @@ export const Home = () => {
               </div>
             ))
           ) : (
-            <div className="flex w-full items-center my-1 p-1 justify-center text-center">
+            <div className="flex w-full items-center my-1 p-4 justify-center  border-[#8e8f9058] border-t text-center">
               You Haven't Sent any Assessments yet.
             </div>
           )}

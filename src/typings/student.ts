@@ -1,4 +1,5 @@
 export interface IApprovedTutor {
+  id: string;
   name: string;
   specialization: string;
   introduction: string;
@@ -16,6 +17,7 @@ export interface IAssessment {
 }
 
 export interface IMyTutor {
+  id: string;
   name: string;
   specialization: string;
   introduction: string;
