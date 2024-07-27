@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Box, SimpleGrid, Skeleton, Text, Flex } from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import { IMyTutor } from "../../../../typings/student";
 import Button from "../../../../components/Button";
 import { IoFilter } from "react-icons/io5";
@@ -12,9 +15,13 @@ import { toObject } from "../../../../utils/utility";
 export const Approved = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
-  const { approvedTutors, isLoading, recommendLoading, error, recommendResponse } = useAppSelector(
-    (state) => state.student
-  );
+  const {
+    approvedTutors,
+    isLoading,
+    recommendLoading,
+    error,
+    recommendResponse,
+  } = useAppSelector((state) => state.student);
   const titles = JSON.parse(sessionStorage.getItem("courseTitles"));
   const courseTitles = toObject(titles);
 
@@ -32,11 +39,11 @@ export const Approved = () => {
   const handleRecommendation = async () => {
     const result = await dispatch(requestRecommendation());
     if (result.meta.requestStatus === "fulfilled") {
-        toast(recommendResponse?.message, "success");
+      toast(recommendResponse?.message, "success");
     } else if (result.meta.requestStatus === "rejected") {
       toast(error?.message, "error");
     }
-  }
+  };
 
   console.log(courseTitles);
 
@@ -97,7 +104,11 @@ export const Approved = () => {
               ))}
             </Flex>
           )}
-          <Button text="Get Recommendation" onClick={handleRecommendation} isLoading={recommendLoading} />
+          <Button
+            text="Get Recommendation"
+            onClick={handleRecommendation}
+            isLoading={recommendLoading}
+          />
         </Flex>
       </Flex>
 
@@ -110,7 +121,7 @@ export const Approved = () => {
               course={tutor?.specialization}
               gender={tutor?.sex}
               imageUrl={tutor?.profileImage}
-              link={tutor?.name.split(" ")[0]}
+              link={tutor?.id}
             />
           </Skeleton>
         ))}

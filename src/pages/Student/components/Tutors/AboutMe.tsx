@@ -18,11 +18,15 @@ import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 const AboutMe: React.FC = () => {
   const { tutorId } = useParams();
-  const { approvedTutors, isLoading } = useAppSelector((state) => state.student);
+  const { approvedTutors, isLoading } = useAppSelector(
+    (state) => state.student
+  );
   const [tutor, setTutor] = useState<IMyTutor>(null);
   useEffect(() => {
     if (approvedTutors) {
-      setTutor(approvedTutors?.data?.find((item) => tutorId === item.name.split(" ")[0]) as IMyTutor);
+      setTutor(
+        approvedTutors?.data?.find((item) => tutorId === item?.id) as IMyTutor
+      );
     }
   }, [approvedTutors, tutorId]);
 
