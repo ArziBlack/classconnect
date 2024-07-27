@@ -5,7 +5,7 @@ import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { Link } from "react-router-dom";
-import { getClassSchedule } from "../../../services/student/studentThunks";
+import { getClassSchedule, getMyCourses } from "../../../services/student/studentThunks";
 import moment from "moment";
 import { truncateOverflow } from "../../../utils/utility";
 
@@ -46,8 +46,9 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (!hasFetchedSchedule.current && !mySchedule) {
-      dispatch(getClassSchedule());
+    if (!hasFetchedSchedule.current) {
+      !mySchedule && dispatch(getClassSchedule());
+      dispatch(getMyCourses())
       hasFetchedSchedule.current = true;
     }
   }, [mySchedule, dispatch]);
