@@ -62,6 +62,7 @@ const AssessmentList = () => {
   const { generalAssessment, isLoading, error } = useAppSelector(
     (state) => state.student
   );
+  const { data } = useAppSelector(state => state.auth);
   const [selectedId, setSelectedId] = useState<number>(null);
 
   const handleNotificationClick = (index: number) => {
@@ -118,9 +119,9 @@ const AssessmentList = () => {
                 </div>
               </div>
               <span className="py-2 text-xs font-[100] text-white/25">
-                <b>To:</b> Favourogechi2019@gmail.com
+                <b>To:</b> {data?.email}
               </span>
-              <p className="py-5 font-[300] text-justify text-lg leading-6">
+              <p className="py-5 font-[300] text-justify text-xl leading-6">
                 {generalAssessment?.data[selectedId]?.question}
               </p>
               {generalAssessment?.data[selectedId]?.document &&

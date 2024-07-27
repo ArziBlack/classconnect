@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import {
   getGeneralAssessment,
+  getMyTutors,
   getPersonalAssessment,
 } from "../../../services/student/studentThunks";
 
@@ -14,11 +15,12 @@ const links = [
 
 export const Assessment = () => {
   const dispatch = useAppDispatch();
-  const { generalAssessment, personalAssessment } = useAppSelector(state => state.student);
+  const { generalAssessment, personalAssessment, myTutors } = useAppSelector(state => state.student);
   useEffect(() => {
     document.title = "HEP My Assessment - Student";
     !personalAssessment && dispatch(getPersonalAssessment());
     !generalAssessment && dispatch(getGeneralAssessment());
+    !myTutors && dispatch(getMyTutors());
   }, [dispatch]);
   return (
     <>
