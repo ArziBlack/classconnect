@@ -8,7 +8,8 @@ import {
   Input,
   Text,
   VStack,
-  Img
+  Img,
+  CircularProgress
 } from "@chakra-ui/react";
 import { FaUpload } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
@@ -23,7 +24,8 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const { data } = useAppSelector(state => state.auth);
-  // const {  message } = useAppSelector(state => state.tutor);
+  const {  isLoading } = useAppSelector(state => state.tutor);
+  let success = false;
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     first_name: data?.first_name,
@@ -93,9 +95,14 @@ const Profile = () => {
     const pImage: IProfileImage = {
       profileImage: Image,
     }
+    if (success === true) {
+      toast("You Cannot Re-Upload your profile now", "error");
+      return;
+    } 
     const result = await dispatch(updateTutorProfileImage({ pImage }));
     if (updateTutorProfileImage.fulfilled.match(result)) {
       toast("Image Updated Successfully", "success");
+      success = true;
     }
     if (updateTutorProfileImage.rejected.match(result)) {
       toast("Error Updating Image", "error");
@@ -127,12 +134,18 @@ const Profile = () => {
           borderWidth="1px"
           borderRadius="lg"
           borderColor="gray"
+          className="flex flex-col items-center justify-center"
         >
-          <Box className="relative">
+          <Box className="relative w-[200px] h-[200px] rounded-full flex items-center justify-center">
             <Avatar
               size="2xl"
               name="John Michael Drake"
-              src={data?.profileImage}
+              src={profilImage ||
+                data?.profileImage ||
+                "https://via.placeholder.com/150"
+              }
+              h={"165px"}
+              w={"165px"}
             />
             {!profilImage ?
               <Img
@@ -146,7 +159,7 @@ const Profile = () => {
                 cursor={"pointer"}
                 w={30}
               /> : <span className="absolute z-5 bottom-0 right-5 cursor-pointer w-12 h-12 rounded-full bg-white flex items-center justify-center" onClick={handleImageSave}>
-                <FaUpload color="black" />
+                {isLoading ? <CircularProgress size={`25px`}/> : <FaUpload color="black" />}
               </span>}
             <Input
               type="file"
@@ -157,7 +170,7 @@ const Profile = () => {
             />
           </Box>
           <Text fontSize="2xl" fontWeight="bold" mt={4}>
-            {data?.first_name}{" "}{data?.last_name}
+            {data?.first_name}{" "}{data?.last_name} {success? "true" : "false"}
           </Text>
           <Text fontSize="md" fontWeight={200} mt={2}>
             {data?.greeting}...

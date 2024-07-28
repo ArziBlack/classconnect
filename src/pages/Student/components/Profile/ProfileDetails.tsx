@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Img, Input, Avatar, VStack, HStack } from "@chakra-ui/react";
+import { Box, Img, Input, Avatar, VStack, HStack, CircularProgress } from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
 import {
@@ -13,6 +13,7 @@ import useCustomToast from "../../../../hooks/useCustomToast";
 import { FaUpload } from "react-icons/fa6";
 
 export const ProfileDetails = () => {
+  let success = false;
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((sam) => sam.auth);
   const { isLoading } = useAppSelector((sam) => sam.student);
@@ -73,9 +74,14 @@ export const ProfileDetails = () => {
     const pImage:IProfileImage = {
       profileImage: Image,
     }
+    if (success === true) {
+      toast("You Cannot Re-Upload your profile now", "error");
+      return;
+    }
     const result = await dispatch(updateProfileImage({ pImage }));
     if (updateProfileImage.fulfilled.match(result)) {
       toast("Image Updated Successfully", "success");
+      success = true;
     }
     if (updateProfileImage.rejected.match(result)) {
       toast("Error Updating Image", "error");
@@ -110,7 +116,7 @@ export const ProfileDetails = () => {
                   cursor={"pointer"}
                   w={30}
                 /> : <span className="absolute z-5 bottom-0 right-5 cursor-pointer w-12 h-12 rounded-full bg-white flex items-center justify-center" onClick={handleImageSave}>
-                  <FaUpload color="black" />
+                   {isLoading ? <CircularProgress size={`25px`}/> : <FaUpload color="black" />}
                 </span>}
               <Input
                 type="file"
