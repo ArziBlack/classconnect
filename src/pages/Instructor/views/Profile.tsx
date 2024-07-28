@@ -6,20 +6,18 @@ import {
   Flex,
   HStack,
   Input,
-  keyframes,
   Text,
   VStack,
+  Img
 } from "@chakra-ui/react";
+import { FaUpload } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { IResponse, updateAuthData } from "../../../services/auth/authSlice";
-import { UpdateTutorProfile } from "../../../services/tutor/tutorThunk";
+import { UpdateTutorProfile, updateTutorProfileImage } from "../../../services/tutor/tutorThunk";
 import useCustomToast from "../../../hooks/useCustomToast";
-
-const fadeAnimation = keyframes`
-  0% { opacity: 0.2; }
-  50% { opacity: 0.9; }
-  100% { opacity: 0.2; }
-`;
+import { CAMERA } from "../../../constants/icon";
+import { IProfileImage } from "../../../typings/student";
+import { fadeAnimation } from "../../../styles/keyframes";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -32,13 +30,15 @@ const Profile = () => {
     lastName: data?.last_name,
     email: data?.email,
     mobile: data?.phoneNum,
-    dob: "Unknown",
-    sex: "Unknown",
-    state: "Unknown",
+    dob: data?.dateOfBirth,
+    sex: data?.sex,
+    state: data?.state,
     student_count: data?.student_count,
     class_type: data?.class_type,
   });
-  const { first_name, lastName, mobile } = profile;
+  const [profilImage, setProfilImage] = useState(null);
+  const [Image, setImage] = useState<File>(null);
+  const { first_name, lastName, mobile, sex, state } = profile;
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -55,25 +55,50 @@ const Profile = () => {
     }));
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(file);
+        setProfilImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const tutor: IResponse = JSON.parse(sessionStorage.getItem("tutor"));
 
-  const handleSave = async() => {
+  const handleSave = async () => {
     const update = {
       first_name,
       last_name: lastName,
-      phoneNum: mobile
+      phoneNum: mobile,
+      sex,
+      state
     }
     const response = await dispatch(UpdateTutorProfile({ update }));
-    if (UpdateTutorProfile.fulfilled.match(response)) 
-    {
+    if (UpdateTutorProfile.fulfilled.match(response)) {
       toast("Updated Successfully", "success");
       const updated = { ...tutor, first_name, last_name: lastName, phoneNum: mobile }
       sessionStorage.setItem("tutor", JSON.stringify(updated));
       dispatch(updateAuthData(updated));
     }
-    else
-    {
+    else {
       toast("Error Updating Profile", "error");
+    }
+  }
+
+  const handleImageSave = async () => {
+    const pImage: IProfileImage = {
+      profileImage: Image,
+    }
+    const result = await dispatch(updateTutorProfileImage({ pImage }));
+    if (updateTutorProfileImage.fulfilled.match(result)) {
+      toast("Image Updated Successfully", "success");
+    }
+    if (updateTutorProfileImage.rejected.match(result)) {
+      toast("Error Updating Image", "error");
     }
   }
 
@@ -103,11 +128,34 @@ const Profile = () => {
           borderRadius="lg"
           borderColor="gray"
         >
-          <Avatar
-            size="2xl"
-            name="John Michael Drake"
-            src="/path/to/image.jpg"
-          />
+          <Box className="relative">
+            <Avatar
+              size="2xl"
+              name="John Michael Drake"
+              src={data?.profileImage}
+            />
+            {!profilImage ?
+              <Img
+                src={CAMERA}
+                zIndex={5}
+                position="absolute"
+                bottom="0"
+                right="5"
+                aria-label="Upload Image"
+                onClick={() => document.getElementById("imageUpload").click()}
+                cursor={"pointer"}
+                w={30}
+              /> : <span className="absolute z-5 bottom-0 right-5 cursor-pointer w-12 h-12 rounded-full bg-white flex items-center justify-center" onClick={handleImageSave}>
+                <FaUpload color="black" />
+              </span>}
+            <Input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+          </Box>
           <Text fontSize="2xl" fontWeight="bold" mt={4}>
             {data?.first_name}{" "}{data?.last_name}
           </Text>

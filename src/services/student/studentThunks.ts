@@ -339,7 +339,6 @@ export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: s
 // Update Profile Image
 export const updateProfileImage = createAsyncThunk<IAPIResponse, { pImage: IProfileImage }, { rejectValue: string }>("student/update-profile-image", async ({ pImage }, thunkAPI) => {
   try {
-    console.log(pImage)
     const token = sessionStorage.getItem("token");
     const params = {
       headers: {

@@ -91,6 +91,9 @@ export interface IUpdateStudentData {
   last_name: string;
   student_phoneNum: number;
   student_email?: string;
+  sex?: string;
+  state?: string;
+  country?: string;
 }
 
 export interface IScheduleResponse {

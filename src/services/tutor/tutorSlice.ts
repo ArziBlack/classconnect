@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IAssessmentResponse, ICurriculumRes, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, ITutor } from "../../typings/tutor";
-import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getCurriculum, getMyCurriculum, getMyStudents, getNotificationsTutor, sendClassNotice, UpdateTutorProfile } from "./tutorThunk";
+import { createGeneralAssessments, createGeneralReport, createPersonnalAssessment, createStudentReport, getCurriculum, getMyCurriculum, getMyStudents, getNotificationsTutor, sendClassNotice, UpdateTutorProfile, updateTutorProfileImage } from "./tutorThunk";
 import { INotification } from "../../typings/student";
 
 const initialState = {
@@ -79,7 +79,7 @@ const tutorSlice = createSlice({
                 state.isSuccess = true;
                 state.personnalAssessment = action.payload;
             })
-            .addCase(createPersonnalAssessment.rejected, (state, action:PayloadAction<string>) => {
+            .addCase(createPersonnalAssessment.rejected, (state, action: PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
@@ -146,7 +146,7 @@ const tutorSlice = createSlice({
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
             })
-            .addCase(getCurriculum.pending, (state)=> {
+            .addCase(getCurriculum.pending, (state) => {
                 state.isLoading = true;
                 state.error = "";
                 state.isSuccess = false;
@@ -156,27 +156,27 @@ const tutorSlice = createSlice({
                 state.isSuccess = true;
                 state.curriculumResponse = action.payload;
             })
-            .addCase(getCurriculum.rejected, (state, action: PayloadAction<string>)=> {
+            .addCase(getCurriculum.rejected, (state, action: PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
             })
-            .addCase(UpdateTutorProfile.pending, (state)=> {
+            .addCase(UpdateTutorProfile.pending, (state) => {
                 state.isLoading = true;
                 state.error = "";
                 state.isSuccess = false;
             })
-            .addCase(UpdateTutorProfile.fulfilled, (state, action)=> {
+            .addCase(UpdateTutorProfile.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.message = action.payload.message;
             })
-            .addCase(UpdateTutorProfile.rejected, (state, action)=> {
+            .addCase(UpdateTutorProfile.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
             })
-            .addCase(getNotificationsTutor.pending, (state)=> {
+            .addCase(getNotificationsTutor.pending, (state) => {
                 state.isLoading = true;
                 state.error = "";
                 state.isSuccess = false;
@@ -184,13 +184,28 @@ const tutorSlice = createSlice({
             .addCase(getNotificationsTutor.fulfilled, (state, action: PayloadAction<INotification>) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.notificationTutor = action.payload;   
+                state.notificationTutor = action.payload;
             })
             .addCase(getNotificationsTutor.rejected, (state, action: PayloadAction<string>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload || "Something went wrong";
             })
+            .addCase(updateTutorProfileImage.pending, (state) => {
+                state.isLoading = true;
+                state.error = "";
+                state.isSuccess = false;
+            })
+            .addCase(updateTutorProfileImage.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.message = action.payload.message;
+            })
+            .addCase(updateTutorProfileImage.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.payload || "Something went wrong";
+            });
     },
 })
 

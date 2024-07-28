@@ -49,6 +49,9 @@ export const ProfileDetails = () => {
       first_name,
       last_name,
       student_phoneNum,
+      sex,
+      state,
+      country
     };
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
@@ -81,7 +84,7 @@ export const ProfileDetails = () => {
 
   return (
     <Box className="text-white flex flex-col items-center">
-      <VStack spacing={6} w={"full"} maxW={"900px"}>
+      <VStack spacing={6} w={"full"} maxW={"1080px"}>
         <Box className=" bg-gray-500 h-[250px] w-full relative">
           <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
             <Box className="relative">
