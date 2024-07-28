@@ -4,6 +4,7 @@ import axios from "axios";
 import { IAssessmentData, IAssessmentResponse, IClassData, IClassSchedule, ICurriculumRes, ICurriculumResponse, IMyStudentsResponse, INoticeResponse, IReportResponse, IUpdateTutorData } from "../../typings/tutor";
 import { IResponse } from "../auth/authSlice";
 import { INotification } from "../../typings/student";
+import { API_BASE_URL } from "../student/studentThunks";
 
 // Get all My students
 export const getMyStudents = createAsyncThunk<IMyStudentsResponse, void, { rejectValue: string }>("tutor/myStudents", async (_, thunkAPI) => {
@@ -110,7 +111,13 @@ export const getCurriculum = createAsyncThunk<ICurriculumRes, void, { rejectValu
 // Update Tutor Profile Details
 export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateTutorData }, { rejectValue: string }>("tutor/update-tutor", async ({ update }, thunkAPI) => {
     try {
-        const response = await axiosInstance.post<IResponse>("/tutor/updateTutorProfile", update);
+        const token = sessionStorage.getItem("token");
+        const params = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post<IResponse>(`${API_BASE_URL}/tutor/updateTutorProfile`, update, params);
         return response.data;
     } catch (err) {
         const error = err.response ? err.response.data : err.message || "An unknown error occurred";
@@ -119,12 +126,12 @@ export const UpdateTutorProfile = createAsyncThunk<IResponse, { update: IUpdateT
 });
 
 // Get Notifications for Tutor
-export const getNotificationsTutor = createAsyncThunk<INotification, void, { rejectValue: string }>("tutor/notifications", async (_, thunkAPI)=> {
+export const getNotificationsTutor = createAsyncThunk<INotification, void, { rejectValue: string }>("tutor/notifications", async (_, thunkAPI) => {
     try {
-      const response = await axiosInstance.get('/student/getNotifications');
-      return response.data;
+        const response = await axiosInstance.get('/student/getNotifications');
+        return response.data;
     } catch (err) {
-      const error = err.response ? err.response.data : err.message;
-      return thunkAPI.rejectWithValue(error);
+        const error = err.response ? err.response.data : err.message;
+        return thunkAPI.rejectWithValue(error);
     }
-  });
+});

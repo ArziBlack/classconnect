@@ -20,7 +20,7 @@ import axiosInstance from "../../app/axios";
 import { logger } from "../../utils/logger";
 import { IResponse } from "../auth/authSlice";
 
-const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
+export const API_BASE_URL = "https://hep-coding.onrender.com/v1/student";
 
 export const getApprovedTutors = createAsyncThunk<
   ITutorApiResponse,
@@ -338,7 +338,13 @@ export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: s
 // Update Profile Image
 export const updateProfileImage = createAsyncThunk<IAPIResponse, { profileImage: File }, { rejectValue: string }>("student/update-profile-image", async ({ profileImage }, thunkAPI) => {
   try {
-    const response = await axiosInstance.post('/student/updateProfileImage', profileImage);
+    const token = sessionStorage.getItem("token");
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post(`${API_BASE_URL}/student/updateProfileImage`, profileImage, params);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
