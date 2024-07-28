@@ -16,6 +16,10 @@ export interface IResponse {
   phoneNum: string;
   classType: string;
   class_type?: string;
+  country?: string;
+  state?: string;
+  sex?: string;
+  dateOfBirth?: string;
   message: string;
   greeting?: string;
   student_count?: number;

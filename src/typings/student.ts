@@ -123,3 +123,7 @@ export interface INotification {
   statusCode: number;
   data: string[];
 }
+
+export interface IProfileImage {
+  profileImage: File;
+}

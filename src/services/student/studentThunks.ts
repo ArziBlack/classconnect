@@ -9,6 +9,7 @@ import {
   ICurriculumResponse,
   IMyTutorsResponse,
   INotification,
+  IProfileImage,
   IRecommendationResponse,
   IScheduleResponse,
   IStudentTrxAPIResponse,
@@ -336,15 +337,18 @@ export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: s
 });
 
 // Update Profile Image
-export const updateProfileImage = createAsyncThunk<IAPIResponse, { profileImage: File }, { rejectValue: string }>("student/update-profile-image", async ({ profileImage }, thunkAPI) => {
+export const updateProfileImage = createAsyncThunk<IAPIResponse, { pImage: IProfileImage }, { rejectValue: string }>("student/update-profile-image", async ({ pImage }, thunkAPI) => {
   try {
+    console.log(pImage)
     const token = sessionStorage.getItem("token");
     const params = {
       headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "*/*",
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.post(`${API_BASE_URL}/student/updateProfileImage`, profileImage, params);
+    const response = await axios.post(`${API_BASE_URL}/updateProfileImage`, pImage, params);
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -353,7 +357,7 @@ export const updateProfileImage = createAsyncThunk<IAPIResponse, { profileImage:
 });
 
 // Get Notifications for Student
-export const getNotifications = createAsyncThunk<INotification, void, { rejectValue: string }>("student/notifications", async (_, thunkAPI)=> {
+export const getNotifications = createAsyncThunk<INotification, void, { rejectValue: string }>("student/notifications", async (_, thunkAPI) => {
   try {
     const response = await axiosInstance.get('/student/getNotifications');
     return response.data;

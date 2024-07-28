@@ -7,7 +7,7 @@ import {
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
 import { updateProfileImage, UpdateStudentProfile } from "../../../../services/student/studentThunks";
-import { IUpdateStudentData } from "../../../../typings/student";
+import { IProfileImage, IUpdateStudentData } from "../../../../typings/student";
 import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
 import useCustomToast from "../../../../hooks/useCustomToast";
 import { FaUpload } from "react-icons/fa6";
@@ -22,11 +22,12 @@ export const ProfileDetails = () => {
   const [student_phoneNum, setPhone] = useState<number>(
     parseInt(data?.phoneNum)
   );
-  const [sex, setSex] = useState("");
-  const [age, setAge] = useState<number>(null);
-  const [country, setCountry] = useState<string>("");
-  const [state, setState] = useState<string>("");
-  const [profileImage, setProfileImage] = useState(null);
+  const [sex, setSex] = useState(data?.sex);
+  const [age, setAge] = useState<number | string>(data?.dateOfBirth);
+  const [country, setCountry] = useState<string>(data?.country);
+  const [state, setState] = useState<string>(data?.state);
+  const [profilImage, setProfilImage] = useState(null);
+  const [Image, setImage] = useState<File>(null);
   const toast = useCustomToast();
 
   const handleImageUpload = (event) => {
@@ -34,7 +35,8 @@ export const ProfileDetails = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result);
+        setImage(file);
+        setProfilImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -64,8 +66,11 @@ export const ProfileDetails = () => {
     }
   };
 
-  const handleImageSave = () => {
-    const result = dispatch(updateProfileImage({ profileImage }));
+  const handleImageSave = async () => {
+    const pImage:IProfileImage = {
+      profileImage: Image,
+    }
+    const result = await dispatch(updateProfileImage({ pImage }));
     if (updateProfileImage.fulfilled.match(result)) {
       toast("Image Updated Successfully", "success");
     }
@@ -82,7 +87,7 @@ export const ProfileDetails = () => {
             <Box className="relative">
               <Avatar
                 src={
-                  profileImage ||
+                  profilImage ||
                   data?.profileImage ||
                   "https://via.placeholder.com/150"
                 }
@@ -90,7 +95,7 @@ export const ProfileDetails = () => {
                 h={"165px"}
                 w={"165px"}
               />
-              {!profileImage ?
+              {!profilImage ?
                 <Img
                   src={CAMERA}
                   zIndex={5}
@@ -157,7 +162,6 @@ export const ProfileDetails = () => {
               </label>
               <Input
                 value={email}
-                // onChange={(e) => setLastName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}
                 width="full"
@@ -223,6 +227,7 @@ export const ProfileDetails = () => {
                 width="full"
                 display={`flex`}
                 name="age"
+                disabled
               />
             </Box>
           </HStack>
