@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IRegister, IReset, IVerify } from "../../typings/signup";
-import { authLogger, resetLogger } from "../../utils/logger";
+import { resetLogger } from "../../utils/logger";
 
 const API_BASE_URL = "https://hep-coding.onrender.com/v1";
 const token = "";
@@ -43,7 +43,7 @@ const login = async (formData: ILoginParams) => {
   });
 
   if (response?.data) {
-    authLogger("Logged in", "User Signin", formData.email);
+    // authLogger("Logged in", "User Signin", formData.email);
     sessionStorage.setItem("user", JSON.stringify(response?.data));
     sessionStorage.setItem("token", response?.data?.token);
   }
@@ -61,7 +61,7 @@ const loginTutor = async (tutorData: ILoginParams) => {
   });
 
   if (response?.data) {
-    authLogger("Logged in", "User Signin", tutorData.email);
+    // authLogger("Logged in", "User Signin", tutorData.email);
     sessionStorage.setItem("tutor", JSON.stringify(response?.data));
     sessionStorage.setItem("token", response?.data?.token);
   }
