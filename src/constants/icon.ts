@@ -41,6 +41,7 @@ import Camera from "../assets/icons/Camera.svg";
 import Academic from "../assets/icons/academic-cap.svg";
 import Assessment from "../assets/icons/assessment.svg";
 import AcademicLight from "../assets/icons/academic-cap-light.svg";
+import Notification from "../assets/icons/notifcation.svg";
 
 export const _A = A;
 export const ONE = one;
@@ -85,3 +86,4 @@ export const CAMERA = Camera;
 export const ACADEMIC_CAP = Academic;
 export const ACADEMIC_LIGHT = AcademicLight;
 export const _ASSESSMENT = Assessment;
+export const NOTIFICATION = Notification;

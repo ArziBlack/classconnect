@@ -19,6 +19,7 @@ import {
   _ASSESSMENT,
   TUTORS,
   ACADEMIC_CAP,
+  NOTIFICATION,
 } from "../../constants/icon";
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
@@ -28,9 +29,10 @@ type NavProps = {
   to: string;
   text: string;
   icon: string;
+  w?: string;
 };
 
-const Nav: FC<NavProps> = ({ text, to, icon }) => {
+const Nav: FC<NavProps> = ({ text, to, icon, w = "20px" }) => {
   return (
     <NavLink
       to={to}
@@ -62,7 +64,7 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
           >
-            <Image width={"20px"} src={icon} />
+            <Image width={w} src={icon} />
           </Flex>
           <Text
             fontSize={"14px"}
@@ -109,7 +111,12 @@ const SideBarNav: FC = () => {
         <Nav text="Curriculum" to="curriculum" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={TUTORS} />
         <Nav text="Evaluation" to="assessments" icon={_ASSESSMENT} />
-        <Nav text="Notification" to="notification" icon={_ASSESSMENT} />
+        <Nav
+          text="Notification"
+          to="notification"
+          icon={NOTIFICATION}
+          w="14px"
+        />
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
