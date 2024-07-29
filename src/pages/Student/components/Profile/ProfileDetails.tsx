@@ -1,12 +1,23 @@
 import { useState } from "react";
-import { Box, Img, Input, Avatar, VStack, HStack, CircularProgress } from "@chakra-ui/react";
+import {
+  Box,
+  Img,
+  Input,
+  Avatar,
+  VStack,
+  HStack,
+  CircularProgress,
+} from "@chakra-ui/react";
 import { CAMERA } from "../../../../constants/icon";
 import CButton from "../../../../components/Button";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
-import { updateProfileImage, UpdateStudentProfile } from "../../../../services/student/studentThunks";
+import {
+  updateProfileImage,
+  UpdateStudentProfile,
+} from "../../../../services/student/studentThunks";
 import { IProfileImage, IUpdateStudentData } from "../../../../typings/student";
 import { IResponse, updateAuthData } from "../../../../services/auth/authSlice";
 import useCustomToast from "../../../../hooks/useCustomToast";
@@ -52,7 +63,7 @@ export const ProfileDetails = () => {
       student_phoneNum,
       sex,
       state,
-      country
+      country,
     };
     const response = await dispatch(UpdateStudentProfile({ update }));
     if (UpdateStudentProfile.fulfilled.match(response)) {
@@ -71,22 +82,29 @@ export const ProfileDetails = () => {
   };
 
   const handleImageSave = async () => {
-    const pImage:IProfileImage = {
+    const ImageURL = URL.createObjectURL(Image);
+    const pImage: IProfileImage = {
       profileImage: Image,
-    }
+    };
     if (success === true) {
       toast("You Cannot Re-Upload your profile now", "error");
       return;
     }
     const result = await dispatch(updateProfileImage({ pImage }));
     if (updateProfileImage.fulfilled.match(result)) {
+      const updated = {
+        ...user,
+        profileImage: ImageURL,
+      };
+      sessionStorage.setItem("user", JSON.stringify(updated));
+      dispatch(updateAuthData(updated));
       toast("Image Updated Successfully", "success");
       success = true;
     }
     if (updateProfileImage.rejected.match(result)) {
       toast("Error Updating Image", "error");
     }
-  }
+  };
 
   return (
     <Box className="text-white flex flex-col items-center">
@@ -104,7 +122,7 @@ export const ProfileDetails = () => {
                 h={"165px"}
                 w={"165px"}
               />
-              {!profilImage ?
+              {!profilImage ? (
                 <Img
                   src={CAMERA}
                   zIndex={5}
@@ -115,9 +133,19 @@ export const ProfileDetails = () => {
                   onClick={() => document.getElementById("imageUpload").click()}
                   cursor={"pointer"}
                   w={30}
-                /> : <span className="absolute z-5 bottom-0 right-5 cursor-pointer w-12 h-12 rounded-full bg-white flex items-center justify-center" onClick={handleImageSave}>
-                   {isLoading ? <CircularProgress size={`25px`}/> : <FaUpload color="black" />}
-                </span>}
+                />
+              ) : (
+                <span
+                  className="absolute z-5 bottom-0 right-5 cursor-pointer w-[30px] h-[30px] rounded-full bg-[#3ee478] flex items-center justify-center"
+                  onClick={handleImageSave}
+                >
+                  {isLoading ? (
+                    <CircularProgress size={`25px`} />
+                  ) : (
+                    <FaUpload color="white" />
+                  )}
+                </span>
+              )}
               <Input
                 type="file"
                 id="imageUpload"
