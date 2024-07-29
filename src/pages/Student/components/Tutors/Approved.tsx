@@ -113,18 +113,19 @@ export const Approved = () => {
       </Flex>
 
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
-        {filteredTutors?.map((tutor: IMyTutor, index: number) => (
-          <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>
-            <TutorCard
-              name={tutor?.name}
-              bio={tutor?.introduction}
-              course={tutor?.specialization}
-              gender={tutor?.sex}
-              imageUrl={tutor?.profileImage}
-              link={tutor?.id}
-            />
-          </Skeleton>
-        ))}
+        {approvedTutors &&
+          filteredTutors?.map((tutor: IMyTutor, index: number) => (
+            <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>
+              <TutorCard
+                name={tutor?.name}
+                bio={tutor?.introduction}
+                course={tutor?.specialization}
+                gender={tutor?.sex}
+                imageUrl={tutor?.profileImage}
+                link={tutor?.id}
+              />
+            </Skeleton>
+          ))}
       </SimpleGrid>
     </Box>
   );

@@ -50,6 +50,7 @@ import CreateClassNotice from "./pages/Instructor/components/Assessments/CreateC
 import { Billing } from "./pages/Student/views/Billing";
 import { PaymentHistory } from "./pages/Student/components/Billing/PaymentHistory";
 import TutorEmailV from "./pages/TutorEmailV";
+import NotificationTutor from "./pages/Instructor/views/NotificationTutor";
 
 function AppContent() {
   const location = useLocation();
@@ -151,6 +152,7 @@ function AppContent() {
             <Route path="report" element={<CreateReport />} />
             <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
+          <Route path="notification" element={<NotificationTutor />} />
           <Route path="assessment" element={<Assessment />} />
         </Route>
       </Route>

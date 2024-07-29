@@ -109,6 +109,7 @@ const SideBarNav: FC = () => {
         <Nav text="Curriculum" to="curriculum" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={TUTORS} />
         <Nav text="Evaluation" to="assessments" icon={_ASSESSMENT} />
+        <Nav text="Notification" to="notification" icon={_ASSESSMENT} />
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
