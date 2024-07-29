@@ -7,16 +7,29 @@ import {
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
 import { IMyTutor } from "../../../../typings/student";
+import useCustomToast from "../../../../hooks/useCustomToast";
+import Refresh from "../../../../components/Refresh";
 
 export const MyTutors = () => {
   const dispatch = useAppDispatch();
+  const toast = useCustomToast();
+  const { myTutors, isLoading } = useAppSelector((state) => state.student);
   useEffect(() => {
-    dispatch(getMyTutors());
+    !myTutors && dispatch(getMyTutors());
   }, [dispatch]);
 
-  const { myTutors, isLoading } = useAppSelector((state) => state.student);
+  const handleRefresh = async () => {
+    const response = await dispatch(getMyTutors());
+    if (getMyTutors.fulfilled.match(response)) {
+      toast("Refreshed", "info");
+    } else if (getMyTutors.rejected.match(response)) {
+      toast(response?.payload, "warning");
+    }
+  }
+
   return (
     <Box className="text-white">
+      <Refresh handleRefresh={handleRefresh} />
       {myTutors?.data?.length ? (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
           {myTutors.data.map((tutor: IMyTutor, index: number) => (
