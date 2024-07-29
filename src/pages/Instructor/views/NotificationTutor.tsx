@@ -39,11 +39,21 @@ const NotificationList = () => {
   return (
     <div className="w-full grid grid-cols-1">
       <div className="overflow-y-scroll h-[400px] no-scrollbar">
-        {notificationTutor?.data?.map((notification, index) => (
-          <div onClick={() => handleNotificationClick(index)} key={index}>
-            <NotificationItem data={notification} />
-          </div>
-        ))}
+        {notificationTutor?.data?.length ? (
+          notificationTutor?.data?.map((notification, index) => (
+            <div onClick={() => handleNotificationClick(index)} key={index}>
+              <NotificationItem data={notification} />
+            </div>
+          ))
+        ) : (
+          <Box className=" flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white max-h-[700px]">
+            <Box p={8}>
+              <Text fontWeight="bold">
+                Your notifications will appear here...
+              </Text>
+            </Box>
+          </Box>
+        )}
       </div>
     </div>
   );

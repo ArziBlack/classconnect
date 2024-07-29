@@ -6,7 +6,9 @@ import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 export const MyStudents = () => {
   const navigate = useNavigate();
 
-  const { myStudents, isLoading, error } = useAppSelector(state => state.tutor);
+  const { myStudents, isLoading, error } = useAppSelector(
+    (state) => state.tutor
+  );
   function handleClick(input: string) {
     navigate(input);
   }
@@ -14,10 +16,10 @@ export const MyStudents = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full flex h-full items-center justify-center bg-primary-dark">
-        <Spinner size={`30px`} />
+      <div className="w-full flex h-full items-center justify-center mt-10 bg-primary-dark">
+        <Spinner color={"white"} w={`30px`} h={`30px`} />
       </div>
-    )
+    );
   }
 
   return (
@@ -33,7 +35,6 @@ export const MyStudents = () => {
                 <th className="py-2 px-4">Age</th>
                 <th className="py-2 px-4">Sex</th>
                 <th className="py-2 px-4">Nationality</th>
-                <th className="py-2 px-4">Time option</th>
               </tr>
             </thead>
             <tbody>
@@ -53,10 +54,11 @@ export const MyStudents = () => {
                   </td>
                   <td>
                     <span
-                      className={`flex justify-around px-2 py-2 rounded-full text-sm ${student.status === "Active"
+                      className={`flex justify-around px-2 py-2 rounded-full text-sm ${
+                        student.status === "Active"
                           ? "bg-green-500"
                           : "bg-red-500"
-                        }`}
+                      }`}
                     >
                       <span className="w-4 h-4 flex py-2  px-2 justify-center items-center rounded-full bg-[#023248] shadow-lg"></span>
                       {student.status}
@@ -65,7 +67,6 @@ export const MyStudents = () => {
                   <td className="py-2 px-4">{student?.courses[0]}</td>
                   <td className="py-2 px-4">{student?.Age}</td>
                   <td className="py-2 px-4">{student?.sex}</td>
-                  <td className="py-2 px-4">{student?.country}</td>
                   <td className="py-2 px-4">{student?.country}</td>
                 </tr>
               ))}

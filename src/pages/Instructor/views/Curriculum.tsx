@@ -9,23 +9,25 @@ import {
   AccordionPanel,
   Flex,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 import Button from "../../../components/Button";
 import jsPDF from "jspdf";
 import { getCurriculum } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { convertStringsToArray } from "../../../utils/utility";
-import Loading from "../../../utils/Loading";
 
 const links = [{ to: "", label: "My curriculum" }];
 
 export const Curriculum = () => {
   const dispatch = useAppDispatch();
-  const { curriculumResponse, isLoading } = useAppSelector(state => state.tutor);
+  const { curriculumResponse, isLoading } = useAppSelector(
+    (state) => state.tutor
+  );
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     !curriculumResponse && dispatch(getCurriculum());
-  },[]);
+  }, []);
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -52,7 +54,11 @@ export const Curriculum = () => {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="w-full flex h-full items-center justify-center mt-10 bg-primary-dark">
+        <Spinner color={"white"} w={`30px`} h={`30px`} />
+      </div>
+    );
   }
 
   return (
@@ -86,7 +92,11 @@ export const Curriculum = () => {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              {convertStringsToArray(item?.content).map((it, id) => (<AccordionPanel pb={2} textTransform={"capitalize"} key={id}>• {it}</AccordionPanel>))}
+              {convertStringsToArray(item?.content).map((it, id) => (
+                <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
+                  • {it}
+                </AccordionPanel>
+              ))}
             </AccordionItem>
           ))}
         </Accordion>
