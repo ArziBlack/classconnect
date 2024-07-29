@@ -48,7 +48,7 @@ const NotificationList = () => {
         ) : (
           <Box className=" flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white max-h-[700px]">
             <Box p={8}>
-              <Text fontWeight="bold">
+              <Text fontWeight="bold" textAlign={"center"}>
                 Your notifications will appear here...
               </Text>
             </Box>
