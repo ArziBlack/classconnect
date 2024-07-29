@@ -1,4 +1,9 @@
-import React, { InputHTMLAttributes, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  InputHTMLAttributes,
+  useRef,
+  useState,
+} from "react";
 import {
   Text,
   Icon,
@@ -21,6 +26,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: IconType;
   showPasswordToggle?: boolean;
   isFileInput?: boolean;
+  fileChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -28,6 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
   error,
   type = "text",
   icon: IconComponent,
+  fileChange,
   showPasswordToggle = false,
   isFileInput = false,
   ...rest
@@ -68,7 +75,10 @@ const InputField: React.FC<InputFieldProps> = ({
               ref={inputRef}
               type="file"
               hidden
-              onChange={handleFileChange}
+              onChange={(e) => {
+                handleFileChange(e);
+                fileChange(e);
+              }}
             />
             <Button
               onClick={handleFileClick}

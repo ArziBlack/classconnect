@@ -32,6 +32,7 @@ import {
   createPersonnalAssessment,
   createStudentReport,
 } from "../../../services/tutor/tutorThunk";
+import CInput from "../../../components/Input";
 
 const StudentDetail = () => {
   const toast = useCustomToast();
@@ -42,7 +43,6 @@ const StudentDetail = () => {
   const student = myStudents?.data?.find(
     (item) => item?.name?.replace(" ", "") === studentId
   );
-  console.log(student);
   const { assessmentFormActionUrl, sessionReportFormActionUrl } = student;
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
@@ -147,6 +147,8 @@ const StudentDetail = () => {
     setNextTopic("");
     setPerformance("");
   };
+
+  console.log(attachment);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -402,9 +404,11 @@ const StudentDetail = () => {
                       </FormControl>
                       <FormControl id="attachment">
                         <FormLabel>Attachment (optional)</FormLabel>
-                        <Input
+                        <CInput
                           type="file"
-                          onChange={handleAttachmentChange}
+                          isFileInput
+                          value={attachment}
+                          fileChange={handleAttachmentChange}
                           accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
                         />
                       </FormControl>

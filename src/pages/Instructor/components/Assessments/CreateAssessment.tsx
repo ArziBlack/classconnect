@@ -30,10 +30,10 @@ export const CreateAssessment = () => {
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
-  const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
-  console.log("error", error);
-  console.log("message", message);
-  console.log("generalAssessment", generalAssessment);
+  const handleAttachmentChange = (e) => {
+    setAttachment(e.target.files[0]);
+    console.log(attachment);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const assessment: IAssessmentData = {
@@ -41,7 +41,6 @@ export const CreateAssessment = () => {
       content,
       document: attachment,
     };
-
     if (type === "" && content === "") {
       showToast("Please select assessment type", "error");
     } else if (content === "") {
@@ -70,6 +69,7 @@ export const CreateAssessment = () => {
     setAttachment(null);
   };
 
+  console.log("attachment", attachment);
   return (
     <Box
       color="white"
@@ -119,7 +119,8 @@ export const CreateAssessment = () => {
               <Input
                 type="file"
                 isFileInput
-                onChange={handleAttachmentChange}
+                value={attachment}
+                fileChange={handleAttachmentChange}
                 accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
               />
             </FormControl>
