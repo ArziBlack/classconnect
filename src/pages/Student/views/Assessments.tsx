@@ -10,12 +10,14 @@ import {
 
 const links = [
   { to: "", label: "Personal Assessments" },
-  { to: "general-assessments", label: "General Assessments" },
+  { to: "class-assessments", label: "Class Assessments" },
 ];
 
 export const Assessment = () => {
   const dispatch = useAppDispatch();
-  const { generalAssessment, personalAssessment, myTutors } = useAppSelector(state => state.student);
+  const { generalAssessment, personalAssessment, myTutors } = useAppSelector(
+    (state) => state.student
+  );
   useEffect(() => {
     document.title = "HEP My Assessment - Student";
     !personalAssessment && dispatch(getPersonalAssessment());

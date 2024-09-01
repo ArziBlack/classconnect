@@ -89,8 +89,8 @@ const StudentFinal = ({
   return (
     <Formik
       initialValues={data}
-      validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      validationSchema={validationSchema}
     >
       {({ setFieldValue, isValid }) => (
         <Form>

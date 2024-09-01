@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // import { IRootState } from "../../app/store";
@@ -185,7 +186,9 @@ export const requestRecommendation = createAsyncThunk<
     );
     return response.data;
   } catch (err) {
-    const error = err.response ? err.response.data : err.message;
+    console.log("Na the error we day find be this", err.response.data.message);
+
+    const error = err.response ? err.response.data.message : err.message;
     return thunkAPI.rejectWithValue(error);
   }
 });

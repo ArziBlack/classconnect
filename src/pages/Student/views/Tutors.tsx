@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { getApprovedTutors } from "../../../services/student/studentThunks";
 
 const links = [
-  { to: "", label: "My Tutors" },
-  { to: "available", label: "Available Tutors" },
+  { to: "", label: "Available Tutors" },
+  { to: "my-tutors", label: "My Tutors" },
 ];
 
 export const Tutors = () => {
@@ -20,6 +20,7 @@ export const Tutors = () => {
   return (
     <>
       <ViewHeader
+        preNav="/"
         title="Tutors"
         subtext="Find and interact with your course tutors. Access their contact information, office hours, and schedule one-on-one sessions to enhance your learning experience."
       />

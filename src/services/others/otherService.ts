@@ -31,8 +31,14 @@ const getTnC_Policy = async () => {
 const getSignupPage = async () => {
   const response = await axios.get(`${API_BASE_URL}/student/openSignupPage`);
   if (response.data) {
-    sessionStorage.setItem("courseTitles", JSON.stringify(response?.data?.courseTitles));
-    sessionStorage.setItem("signupFormURL-student", JSON.stringify(response?.data?.signupFormURL));
+    sessionStorage.setItem(
+      "courseTitles",
+      JSON.stringify(response?.data?.courseTitles)
+    );
+    sessionStorage.setItem(
+      "signupFormURL-student",
+      JSON.stringify(response?.data?.signupFormURL)
+    );
   }
   return response.data;
 };
@@ -55,6 +61,18 @@ const getTutorForgotPasswordURL = async () => {
   return response.data;
 };
 
+// Endpoint to signup for a Newsletter (unfinished)
+const newsLetterRequest = async () => {
+  const response = await axios.post(`${API_BASE_URL}`);
+  return response.data;
+};
+
+// Endpoint to send a Memo (unfinished)
+const sendMemo = async () => {
+  const response = await axios.post(`${API_BASE_URL}`);
+  return response.data;
+};
+
 // Logout Tutor
 const LogoutTutor = async () => {
   const response = await axios.get(`${API_BASE_URL}/tutor/logout`);
@@ -69,6 +87,8 @@ const otherService = {
   getTutorSignupURL,
   getTutorLoginURL,
   getTutorForgotPasswordURL,
+  newsLetterRequest,
+  sendMemo,
   LogoutTutor,
 };
 

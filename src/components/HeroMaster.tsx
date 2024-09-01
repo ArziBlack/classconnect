@@ -15,6 +15,7 @@ import {
 } from "../constants/illustrations";
 import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
 
 const Hero2 = () => {
   const navigate = useNavigate();
@@ -81,14 +82,25 @@ const Hero2 = () => {
             Empower Your Learning Journey with Personalized Courses and Expert
             Guidance
           </p>
-          <CButton
-            text="Get started"
-            icon={GoArrowUpRight}
-            iconPosition="right"
-            onClick={() => {
-              navigate("/register");
-            }}
-          />
+          <Flex gap={4} align={"center"}>
+            <CButton
+              text="Enroll now"
+              // icon={GoArrowUpRight}
+              // iconPosition="right"
+              outlined
+              onClick={() => {
+                navigate("/register");
+              }}
+            />
+            <CButton
+              text="Start free trial"
+              icon={GoArrowUpRight}
+              iconPosition="right"
+              onClick={() => {
+                navigate("/register");
+              }}
+            />
+          </Flex>
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <Swiper

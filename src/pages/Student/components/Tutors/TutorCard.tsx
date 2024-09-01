@@ -51,7 +51,13 @@ export const TutorCard: React.FC<TutorCardProps> = ({
         <Text fontSize="xl" fontWeight="bold" mb={2}>
           {name}
         </Text>
-        <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
+        <Text
+          noOfLines={1}
+          opacity={0.8}
+          mb={4}
+          fontWeight={300}
+          fontFamily={"Work Sans"}
+        >
           {bio}
         </Text>
         <Flex
@@ -61,29 +67,33 @@ export const TutorCard: React.FC<TutorCardProps> = ({
           justifyContent={"space-between"}
           fontFamily={"Work Sans"}
         >
+          <Flex
+            alignItems="center"
+            justifyContent={"center"}
+            opacity={0.6}
+            gap={1}
+            color="brand.action"
+          >
+            <LiaBookOpenSolid fontSize={"18px"} className="mb-[2px]" />
+            <Text noOfLines={1} textTransform={"capitalize"}>
+              {course?.toLowerCase()}
+            </Text>
+          </Flex>
           <Flex align="center">
-            <Flex
-              alignItems="center"
-              justifyContent={"center"}
-              opacity={0.6}
-              gap={1}
-              color="brand.action"
-            >
-              <LiaBookOpenSolid fontSize={"18px"} className="mb-[2px]" />
-              <Text textTransform={"capitalize"}>{course?.toLowerCase()}</Text>
-            </Flex>
             <Flex align="center" ml={4}>
               {getGenderIcon(gender)}
               <Text>{gender}</Text>
             </Flex>
+            <Image
+              ml={4}
+              objectFit={"cover"}
+              borderRadius="full"
+              boxSize="40px"
+              minW={"40px"}
+              src={imageUrl}
+              alt="Avatar"
+            />
           </Flex>
-          <Image
-            objectFit={"cover"}
-            borderRadius="full"
-            boxSize="40px"
-            src={imageUrl}
-            alt="Avatar"
-          />
         </Flex>
       </Box>
     </Link>

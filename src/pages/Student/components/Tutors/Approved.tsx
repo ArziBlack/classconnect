@@ -8,35 +8,27 @@ import {
 import { IMyTutor } from "../../../../typings/student";
 import Button from "../../../../components/Button";
 import { IoFilter, IoRefreshCircleOutline } from "react-icons/io5";
-import { getApprovedTutors, requestRecommendation } from "../../../../services/student/studentThunks";
+import {
+  getApprovedTutors,
+  requestRecommendation,
+} from "../../../../services/student/studentThunks";
 import useCustomToast from "../../../../hooks/useCustomToast";
-import { toObject } from "../../../../utils/utility";
 
 export const Approved = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
-  const {
-    approvedTutors,
-    isLoading,
-    recommendLoading,
-    error,
-    recommendResponse,
-  } = useAppSelector((state) => state.student);
+  const { approvedTutors, isLoading, recommendLoading, recommendResponse } =
+    useAppSelector((state) => state.student);
   const titles = JSON.parse(sessionStorage.getItem("courseTitles"));
-  const courseTitles = toObject(titles);
-
-  console.log(recommendResponse);
 
   const handleRecommendation = async () => {
     const result = await dispatch(requestRecommendation());
     if (result.meta.requestStatus === "fulfilled") {
       toast(recommendResponse?.message, "success");
     } else if (result.meta.requestStatus === "rejected") {
-      toast(error?.message, "error");
+      toast(result.payload, "error");
     }
   };
-
-  console.log(courseTitles);
 
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -59,7 +51,7 @@ export const Approved = () => {
     } else if (getApprovedTutors.rejected.match(response)) {
       toast(response?.payload, "warning");
     }
-  }
+  };
 
   return (
     <Box className="text-white">
@@ -71,7 +63,10 @@ export const Approved = () => {
               : "Available Tutors:"}
           </Text>
           <Box ml={`15px`} className="">
-            <button className="h-10 w-14 rounded-full bg-white flex items-center justify-center hover:rotate-180 hover:scale-105 hover:bg-gray-200/25 mr-2" onClick={handleRefresh}>
+            <button
+              className="h-10 w-14 rounded-full bg-white flex items-center justify-center hover:rotate-180 hover:scale-105 hover:bg-gray-200/25 mr-2"
+              onClick={handleRefresh}
+            >
               <IoRefreshCircleOutline size={25} color="black" className="" />
             </button>
           </Box>
