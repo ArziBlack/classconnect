@@ -106,6 +106,7 @@ const GuardianA = ({ data, onChange, onClick, typeModal }: IGuardianProps) => {
                   name="parent_phoneNum"
                   icon={FaRegUser}
                   label="Guardian Phone No"
+                  info="Enter country code e.g +234"
                   placeholder="+2349037289192"
                   onChange={(e) => {
                     field.onChange(e);

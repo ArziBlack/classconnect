@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Box, FormControl, FormLabel, Select, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Select,
+  Flex,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+} from "@chakra-ui/react";
 import CButton from "../Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -60,9 +69,14 @@ const GuardianE = ({
     !data?.classTime_options ? [] : data?.classTime_options
   );
 
+  const initialValues = {
+    course: data.course || "",
+    dateOfBirth: data.dateOfBirth,
+    classTimeOptions: selectedOptions,
+  };
   return (
     <Formik
-      initialValues={data}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={() => onClick("pagesix")}
     >
@@ -74,17 +88,43 @@ const GuardianE = ({
             </FormLabel>
             <Field name="classTimeOptions">
               {() => (
-                <MultipleSelectDropdown
-                  options={times}
-                  maxSelections={maxSelections}
-                  onChange={(options) => {
-                    handleClassTimeOptionsChange(options);
-                    setSelectedOptions(options);
-                    setFieldValue("classTimeOptions", selectedOptions);
-                  }}
-                  selectedOptions={selectedOptions}
-                  setSelectedOptions={setSelectedOptions}
-                />
+                <>
+                  <MultipleSelectDropdown
+                    options={times}
+                    maxSelections={maxSelections}
+                    onChange={(options) => {
+                      handleClassTimeOptionsChange(options);
+                      setSelectedOptions(options);
+                      setFieldValue("classTimeOptions", selectedOptions);
+                    }}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
+                  />
+                  <Flex wrap="wrap" mt={2} gap={2}>
+                    {selectedOptions.map((option, index) => (
+                      <Tag
+                        key={index}
+                        size="md"
+                        borderRadius="full"
+                        variant="solid"
+                        colorScheme="blue"
+                        fontWeight={300}
+                      >
+                        <TagLabel>{option}</TagLabel>
+                        <TagCloseButton
+                          onClick={() => {
+                            const newOptions = selectedOptions.filter(
+                              (item) => item !== option
+                            );
+                            setFieldValue("classTimeOptions", newOptions);
+                            setSelectedOptions(newOptions);
+                            handleClassTimeOptionsChange(newOptions);
+                          }}
+                        />
+                      </Tag>
+                    ))}
+                  </Flex>
+                </>
               )}
             </Field>
             <ErrorMessage

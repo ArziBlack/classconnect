@@ -3,7 +3,7 @@ import { Box, Text, Checkbox, Flex } from "@chakra-ui/react";
 import CButton from "../Button";
 import { ITutorProps } from "../../typings/home";
 import { useAppDispatch, useAppSelector } from "../../hooks/reactReduxHooks";
-import { tutorInit } from "../../typings/signup";
+import { tutorInit, ITutor } from "../../typings/signup";
 import { useNavigate } from "react-router-dom";
 
 import { IResponse, registerTutor, reset } from "../../services/auth/authSlice";
@@ -13,21 +13,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Student Email is required"),
-  sex: Yup.string().required("Sex is required"),
-  country: Yup.string().required("Country is required"),
-  state: Yup.string().required("State is required"),
-  specialization: Yup.string().required("Specialization is required"),
-  dateOfBirth: Yup.date().required("Date of Birth is required"),
-  resume: Yup.mixed().required("Resume is required"),
-  introduction: Yup.string().required("Introduction is required"),
-  password: Yup.string().required("Password is required"),
   profileImage: Yup.mixed().required("Profile Image is required"),
-  phoneNum: Yup.string().required("Student Phone Number is required"),
   agreement_status: Yup.boolean().oneOf(
     [true],
     "Agreement status must be true"
@@ -48,10 +34,16 @@ const TutorFinal = ({ onChange, setFormData, data, onClick }: ITutorProps) => {
     }
   }, [data.profileImage]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values: ITutor) => {
+    const formattedValues = {
+      ...values,
+      country: values.country.split(" ").slice(1).join(" "),
+      agreement_status: values.agreement_status ? "agreed" : null,
+    };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-    const resultAction = await dispatch(registerTutor({ data }));
+    const resultAction = await dispatch(
+      registerTutor({ data: formattedValues })
+    );
 
     if (registerTutor.fulfilled.match(resultAction)) {
       showToast(

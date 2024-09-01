@@ -163,7 +163,7 @@ const MainView: FC = () => {
             readOnly
           /> */}
           <Text fontSize={"26px"} fontWeight={600}>
-            Student LMS
+            Student LRC
           </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>

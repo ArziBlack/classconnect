@@ -1,5 +1,5 @@
 import CButton from "../Button";
-import { FC, useState, ChangeEvent } from "react";
+import { FC, useState, useEffect, ChangeEvent } from "react";
 import { IStudentProps } from "../../typings/home";
 import * as Yup from "yup";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
@@ -16,7 +16,27 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
   const [paymentPlan, setPaymentPlan] = useState<
     { key: string; value: string }[]
   >([]);
-  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedClass, setSelectedClass] = useState<string>(
+    data?.class_type || ""
+  );
+
+  useEffect(() => {
+    if (data?.class_type) {
+      const selectedClassPlans =
+        fees?.tuition_fees[data.class_type as keyof typeof fees.tuition_fees];
+      const formatKey = (key: string) => key.replace("_payment", "");
+
+      if (selectedClassPlans) {
+        setPaymentPlan(
+          Object.entries(selectedClassPlans).map(([key, value]) => ({
+            key: formatKey(key.toString()),
+            value: value.toString(),
+          }))
+        );
+      }
+    }
+  }, [data, fees]);
+
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
@@ -44,30 +64,34 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
 
   return (
     <Formik
-      initialValues={data}
+      initialValues={{
+        class_type: selectedClass,
+        payment_plan: data?.payment_plan || "",
+      }}
       validationSchema={validationSchema}
       onSubmit={() => {
         onClick("pagefinal");
       }}
     >
-      {({ isValid }) => (
+      {({ isValid, values }) => (
         <Form>
           <Box w="100%" mb={3}>
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Class Type
             </FormLabel>
-            <Field name="classType" as="select">
+            <Field name="class_type" as="select">
               {({ field }) => (
                 <Select
-                  name="class_type"
+                  {...field}
                   onChange={(e) => {
                     field.onChange(e);
-                    onChange(e), handleClassChange(e);
+                    onChange(e);
+                    handleClassChange(e);
                   }}
                   mb="1px"
                   placeholder="Select a Class Type"
                   className="capitalize"
-                  value={data?.class_type}
+                  value={values.class_type || ""}
                 >
                   {classKeys?.map((item, idx) => (
                     <option key={idx} value={item?.toString()?.trim()}>
@@ -79,7 +103,7 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
             </Field>
             <ErrorMessage
               className="!text-[#e53e3e] !text-xs mt-1"
-              name="classType"
+              name="class_type"
               component="div"
             />
           </Box>
@@ -87,32 +111,31 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
             <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
               Payment Plan
             </FormLabel>
-            <Field name="paymentPlan" as="select">
+            <Field name="payment_plan" as="select">
               {({ field }) => (
                 <Select
-                  name="payment_plan"
+                  {...field}
                   onChange={(e) => {
                     field.onChange(e);
                     onChange(e);
                   }}
                   mb="1px"
-                  placeholder="Select a Payment plan"
+                  placeholder="Select a Payment Plan"
                   className="capitalize"
                   disabled={!selectedClass}
-                  value={selectedClass && data?.payment_plan}
+                  value={values.payment_plan || ""}
                 >
-                  {selectedClass &&
-                    paymentPlan.map((plan, idx) => (
-                      <option key={idx} value={plan?.key?.toString()?.trim()}>
-                        {`${plan.key.replace(/_/g, " ")}: ${plan.value}`}
-                      </option>
-                    ))}
+                  {paymentPlan.map((plan, idx) => (
+                    <option key={idx} value={plan?.key?.toString()?.trim()}>
+                      {`${plan.key.replace(/_/g, " ")}`}
+                    </option>
+                  ))}
                 </Select>
               )}
             </Field>
             <ErrorMessage
               className="!text-[#e53e3e] !text-xs mt-1"
-              name="paymentPlan"
+              name="payment_plan"
               component="div"
             />
           </Box>

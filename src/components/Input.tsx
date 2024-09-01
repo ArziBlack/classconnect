@@ -23,6 +23,8 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   type?: string;
   error?: string;
+  info?: string;
+  file?: File;
   icon?: IconType;
   showPasswordToggle?: boolean;
   isFileInput?: boolean;
@@ -32,6 +34,8 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 const InputField: React.FC<InputFieldProps> = ({
   label,
   error,
+  file,
+  info,
   type = "text",
   icon: IconComponent,
   fileChange,
@@ -40,7 +44,7 @@ const InputField: React.FC<InputFieldProps> = ({
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(file?.name);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const bgColor = useColorModeValue("white", "gray.800");
 
@@ -54,15 +58,26 @@ const InputField: React.FC<InputFieldProps> = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setFileName(event.target.files[0].name);
+      const file = event.target.files[0];
+      setFileName(file.name);
+
+      // Ensure fileChange prop is called after setting local state
+      if (fileChange) {
+        fileChange(event);
+      }
     }
   };
 
   return (
     <div>
-      <Text fontWeight="bold" fontSize="15px" mb={2}>
+      <Text fontWeight="bold" fontSize="15px" mb={!info && 2}>
         {label}
       </Text>
+      {info && (
+        <Text color="yellow.500" mt={1} fontSize={"xs"}>
+          {info}
+        </Text>
+      )}
       <InputGroup>
         {IconComponent && (
           <InputLeftElement pointerEvents="none">
@@ -77,8 +92,8 @@ const InputField: React.FC<InputFieldProps> = ({
               hidden
               onChange={(e) => {
                 handleFileChange(e);
-                fileChange(e);
               }}
+              accept="application/pdf"
             />
             <Button
               onClick={handleFileClick}

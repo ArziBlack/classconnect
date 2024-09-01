@@ -1,6 +1,6 @@
 import CButton from "../Button";
 import { Box, Select, Flex, FormLabel } from "@chakra-ui/react";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { IGuardianProps } from "../../typings/home";
@@ -16,7 +16,27 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
   const [paymentPlan, setPaymentPlan] = useState<
     { key: string; value: string }[]
   >([]);
-  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedClass, setSelectedClass] = useState<string>(
+    data?.class_type || ""
+  );
+
+  useEffect(() => {
+    if (data?.class_type) {
+      const selectedClassPlans =
+        fees?.tuition_fees[data.class_type as keyof typeof fees.tuition_fees];
+      const formatKey = (key: string) => key.replace("_payment", "");
+
+      if (selectedClassPlans) {
+        setPaymentPlan(
+          Object.entries(selectedClassPlans).map(([key, value]) => ({
+            key: formatKey(key.toString()),
+            value: value.toString(),
+          }))
+        );
+      }
+    }
+  }, [data, fees]);
+
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
@@ -44,7 +64,10 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
 
   return (
     <Formik
-      initialValues={data}
+      initialValues={{
+        class_type: selectedClass,
+        payment_plan: data?.payment_plan || "",
+      }}
       validationSchema={validationSchema}
       onSubmit={() => {
         onClick("pagefinal");
@@ -99,7 +122,7 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
                   {selectedClass &&
                     paymentPlan.map((plan, idx) => (
                       <option key={idx} value={plan?.key?.toString()?.trim()}>
-                        {`${plan.key.replace(/_/g, " ")}: ${plan.value}`}
+                        {`${plan.key.replace(/_/g, " ")}`}
                       </option>
                     ))}
                 </Select>

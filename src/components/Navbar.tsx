@@ -22,8 +22,8 @@ import {
   Link as ReactRouterLink,
 } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { setUserType } from "../services/others/otherSlice";
 import { useAppDispatch } from "../hooks/reactReduxHooks";
+import { setUserType } from "../services/others/otherSlice";
 
 type NavbarLinksProp = {
   onClick?: () => void;

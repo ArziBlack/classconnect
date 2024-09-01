@@ -28,28 +28,31 @@ const GuardianC = ({ data, onChange, onClick }: IGuardianProps) => {
     >
       {({ isValid }) => (
         <Form>
-          <Field name="first_name">
-            {({ field, form }) => (
-              <InputField
-                {...field}
-                type="text"
-                name="first_name"
-                icon={FaRegUser}
-                placeholder="John"
-                label="Student First Name"
-                onChange={(e) => {
-                  field.onChange(e);
-                  onChange(e);
-                }}
-                value={data.first_name}
-                error={
-                  form.errors.first_name && form.touched.first_name
-                    ? form.errors.first_name
-                    : null
-                }
-              />
-            )}
-          </Field>
+          <Box w="100%" mb={3}>
+            <Field name="first_name">
+              {({ field, form }) => (
+                <InputField
+                  {...field}
+                  type="text"
+                  name="first_name"
+                  icon={FaRegUser}
+                  placeholder="John"
+                  label="Student First Name"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    onChange(e);
+                  }}
+                  value={data.first_name}
+                  error={
+                    form.errors.first_name && form.touched.first_name
+                      ? form.errors.first_name
+                      : null
+                  }
+                />
+              )}
+            </Field>
+          </Box>
+
           <Box w="100%" mb={3}>
             <Field name="last_name">
               {({ field, form }) => (

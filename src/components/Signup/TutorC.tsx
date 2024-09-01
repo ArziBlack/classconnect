@@ -120,6 +120,7 @@ const TutorC = ({ data, onChange, onClick }: ITutorProps) => {
                   }}
                   value={data.phoneNum}
                   label="Phone number"
+                  info="Enter country code e.g +234"
                   placeholder="+234123456789"
                   icon={CiPhone}
                   error={

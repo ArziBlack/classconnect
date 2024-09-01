@@ -39,7 +39,10 @@ const validationSchema = Yup.object({
     .oneOf(["Male", "Female"], "Gender is required")
     .required("Gender is required"),
   student_phoneNum: Yup.string()
-    .matches(/^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/, "Phone number is not valid")
+    .matches(
+      /^\+\d{1,3}\d{1,3}\d{3}\d{3,4}$/,
+      "Phone number is not valid, enter country code"
+    )
     .required("Phone number is required"),
 });
 
@@ -116,24 +119,27 @@ const StudentC = ({ data, onChange, onClick }: IStudentProps) => {
           <Box w="100%" mb={3}>
             <Field name="student_phoneNum">
               {({ field, form }) => (
-                <InputField
-                  {...field}
-                  type="text"
-                  onChange={(e) => {
-                    field.onChange(e);
-                    onChange(e);
-                  }}
-                  value={data.student_phoneNum}
-                  label="Phone number"
-                  placeholder="+234123456789"
-                  icon={CiPhone}
-                  error={
-                    form.errors.student_phoneNum &&
-                    form.touched.student_phoneNum
-                      ? form.errors.student_phoneNum
-                      : null
-                  }
-                />
+                <Box>
+                  <InputField
+                    {...field}
+                    type="text"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      onChange(e);
+                    }}
+                    value={data.student_phoneNum}
+                    label="Phone number"
+                    info="Enter country code e.g +234"
+                    placeholder="+234123456789"
+                    icon={CiPhone}
+                    error={
+                      form.errors.student_phoneNum &&
+                      form.touched.student_phoneNum
+                        ? form.errors.student_phoneNum
+                        : null
+                    }
+                  />
+                </Box>
               )}
             </Field>
           </Box>

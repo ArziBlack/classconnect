@@ -12,24 +12,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
-  student_email: Yup.string()
-    .email("Invalid email")
-    .required("Student Email is required"),
-  sex: Yup.string().required("Sex is required"),
-  country: Yup.string().required("Country is required"),
-  state: Yup.string().required("State is required"),
-  course: Yup.string().required("Course is required"),
-  dateOfBirth: Yup.date().required("Date of Birth is required"),
-  classTime_options: Yup.array().min(
-    1,
-    "At least one Class Time Option is required"
-  ),
-  payment_plan: Yup.string().required("Payment Plan is required"),
-  class_type: Yup.string().required("Class Type is required"),
-  password: Yup.string().required("Password is required"),
-  student_phoneNum: Yup.string().required("Student Phone Number is required"),
   agreement_status: Yup.boolean().oneOf(
     [true],
     "Agreement status must be true"
@@ -57,7 +39,15 @@ const StudentFinal = ({
   }, [data.profileImage]);
 
   const handleSubmit = async (values: IStudent) => {
-    const resultAction = await dispatch(register({ URI, data: values }));
+    const formattedValues = {
+      ...values,
+      country: values.country.split(" ").slice(1).join(" "),
+      agreement_status: values.agreement_status ? "agreed" : null,
+    };
+
+    const resultAction = await dispatch(
+      register({ URI, data: formattedValues })
+    );
 
     if (register.fulfilled.match(resultAction)) {
       showToast(

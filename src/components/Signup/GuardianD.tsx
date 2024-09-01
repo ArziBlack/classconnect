@@ -1,13 +1,20 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import CButton from "../Button";
-import { Box, FormControl, FormLabel, Select, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Flex,
+  Select as CSelect,
+} from "@chakra-ui/react";
 import { IGuardianProps } from "../../typings/home";
 import { states } from "../../typings/states";
 import { IGender } from "../../typings/signup";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import InputField from "../Input";
 import { FaRegUser } from "react-icons/fa6";
+import Select from "react-select";
 
 const GuardianD = ({
   data,
@@ -21,7 +28,6 @@ const GuardianD = ({
   ];
 
   const [countries, setCountries] = useState([]);
-  const [selectedCountry] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -29,7 +35,12 @@ const GuardianD = ({
     )
       .then((response) => response.json())
       .then((data) => {
-        setCountries(data.countries);
+        setCountries(
+          data.countries.map((country) => ({
+            value: country.label,
+            label: country.label,
+          }))
+        );
       });
   }, []);
 
@@ -52,7 +63,7 @@ const GuardianD = ({
         onClick("pagefive");
       }}
     >
-      {({ isValid }) => (
+      {({ isValid, setFieldValue, values }) => (
         <Form>
           <Box w="100%" mb={3}>
             <FormLabel fontWeight="bold" fontSize="15px">
@@ -60,7 +71,7 @@ const GuardianD = ({
             </FormLabel>
             <Field name="sex">
               {({ field, form }) => (
-                <Select
+                <CSelect
                   {...field}
                   onChange={(e) => {
                     field.onChange(e);
@@ -79,7 +90,7 @@ const GuardianD = ({
                       {item.label}
                     </option>
                   ))}
-                </Select>
+                </CSelect>
               )}
             </Field>
           </Box>
@@ -89,29 +100,33 @@ const GuardianD = ({
                 Country
               </FormLabel>
               <Field name="country">
-                {({ field }) => (
+                {() => (
                   <Select
-                    {...field}
-                    name="country"
-                    onChange={(e) => {
+                    options={countries}
+                    onChange={(option) => {
+                      const syntheticEvent = {
+                        target: {
+                          name: "country",
+                          value: option.value,
+                        },
+                      };
+                      setFieldValue("country", option.value);
                       setGuardianData((prevState) => ({
                         ...prevState,
                         state: "",
                       }));
-                      field.onChange(e);
-                      onChange(e);
+                      onChange(
+                        syntheticEvent as ChangeEvent<
+                          HTMLInputElement | HTMLSelectElement
+                        >
+                      );
                     }}
                     placeholder="Select a country"
-                    value={data?.country}
-                  >
-                    <option>{selectedCountry?.userCountryCode}</option>
-                    {countries &&
-                      countries?.map((country, idx) => (
-                        <option key={idx} value={country.label.split(" ")[1]}>
-                          {country.label}
-                        </option>
-                      ))}
-                  </Select>
+                    value={countries.find(
+                      (country) => country.value === values.country
+                    )}
+                    isSearchable
+                  />
                 )}
               </Field>
               <ErrorMessage
@@ -129,7 +144,7 @@ const GuardianD = ({
                 </FormLabel>
                 <Field name="state">
                   {({ field }) => (
-                    <Select
+                    <CSelect
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
@@ -143,7 +158,7 @@ const GuardianD = ({
                           {item.label}
                         </option>
                       ))}
-                    </Select>
+                    </CSelect>
                   )}
                 </Field>
                 <ErrorMessage
@@ -185,6 +200,7 @@ const GuardianD = ({
                   type="text"
                   name="student_phoneNum"
                   icon={FaRegUser}
+                  info="Enter country code e.g +234"
                   placeholder="+2349037289192"
                   label="Student Phone Number"
                   onChange={(e) => {

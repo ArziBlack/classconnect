@@ -3,20 +3,31 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FC } from "react";
 import { ITutorProps } from "../../typings/home";
-import { Box, Flex, FormControl, FormLabel, Textarea } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Text,
+} from "@chakra-ui/react";
 import InputField from "../Input";
 
 const validationSchema = Yup.object({
-  file: Yup.mixed().required("Resume is required"),
+  resume: Yup.mixed().required("Resume is required"),
   introduction: Yup.string()
     .min(150, "Introduction must be at least 150 characters")
     .required("Introduction is required"),
 });
 
 const TutorF: FC<ITutorProps> = ({ data, onClick, onChange, setFormData }) => {
-  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleResumeChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFieldValue
+  ) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      setFieldValue("resutme", file);
       setFormData((prevState) => ({
         ...prevState,
         resume: file,
@@ -31,21 +42,23 @@ const TutorF: FC<ITutorProps> = ({ data, onClick, onChange, setFormData }) => {
         onClick("pagefinal");
       }}
     >
-      {({ isValid }) => (
+      {({ setFieldValue, isValid }) => (
         <Form>
           <Box w="100%" mb={3}>
             <FormControl>
-              <Field name="file">
+              <Field name="resume">
                 {({ field, form }) => (
                   <InputField
                     {...field}
                     type="file"
-                    name="file"
+                    name="resume"
+                    isFileInput
                     label="Resume"
+                    file={data.resume}
                     accept="application/pdf"
-                    onChange={(e) => {
+                    fileChange={(e) => {
                       field.onChange(e);
-                      handleResumeChange(e);
+                      handleResumeChange(e, setFieldValue);
                     }}
                     placeholder="Upload your updated resume"
                     error={
@@ -64,9 +77,12 @@ const TutorF: FC<ITutorProps> = ({ data, onClick, onChange, setFormData }) => {
             </FormControl>
           </Box>
           <Box w="100%" mb={3}>
-            <FormLabel fontWeight="bold" fontSize="15px" mt="2px">
+            <FormLabel fontWeight="bold" fontSize="15px" mb={0}>
               Introduction
             </FormLabel>
+            <Text color="yellow.500" mb={1} fontSize={"xs"}>
+              Describe yourself, in at least 150 letters...
+            </Text>
             <Field name="introduction">
               {({ field }) => (
                 <Textarea

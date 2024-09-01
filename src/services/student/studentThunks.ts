@@ -38,7 +38,9 @@ export const getApprovedTutors = createAsyncThunk<
     return response.data;
   } catch (err) {
     console.error("Error fetching approved tutors:", err);
-    const error = err.response ? err.response.data : err.message || "An unknown error occurred";
+    const error = err.response
+      ? err.response.data
+      : err.message || "An unknown error occurred";
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -59,7 +61,10 @@ export const getMyTuitionFee = createAsyncThunk<
     });
 
     if (response?.data) {
-      sessionStorage.setItem("tution-fee", JSON.stringify(response?.data?.message))
+      sessionStorage.setItem(
+        "tution-fee",
+        JSON.stringify(response?.data?.message)
+      );
     }
     return response.data;
   } catch (err) {
@@ -291,9 +296,16 @@ export const getAllCourses = createAsyncThunk<
 });
 
 // Update the Student Profile Data
-export const UpdateStudentProfile = createAsyncThunk<IResponse, { update: IUpdateStudentData }, { rejectValue: string }>("student/update-profile", async ({ update }, thunkAPI) => {
+export const UpdateStudentProfile = createAsyncThunk<
+  IResponse,
+  { update: IUpdateStudentData },
+  { rejectValue: string }
+>("student/update-profile", async ({ update }, thunkAPI) => {
   try {
-    const response = await axiosInstance.post('/student/updateStudentProfile', update);
+    const response = await axiosInstance.post(
+      "/student/updateStudentProfile",
+      update
+    );
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -303,9 +315,15 @@ export const UpdateStudentProfile = createAsyncThunk<IResponse, { update: IUpdat
 
 // Register For A New Course
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const RegisterForACourse = createAsyncThunk<any, { newCourse: string }, { rejectValue: string }>("student/register-course", async ({ newCourse }, thunkAPI) => {
+export const RegisterForACourse = createAsyncThunk<
+  any,
+  { newCourse: string },
+  { rejectValue: string }
+>("student/register-course", async ({ newCourse }, thunkAPI) => {
   try {
-    const response = await axiosInstance.post("/student/registerNewCourse", { newCourse });
+    const response = await axiosInstance.post("/student/registerNewCourse", {
+      newCourse,
+    });
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -314,7 +332,11 @@ export const RegisterForACourse = createAsyncThunk<any, { newCourse: string }, {
 });
 
 // Get Class Schedule
-export const getClassSchedule = createAsyncThunk<IScheduleResponse, void, { rejectValue: string }>("student/get-schedule", async (_, thunkAPI) => {
+export const getClassSchedule = createAsyncThunk<
+  IScheduleResponse,
+  void,
+  { rejectValue: string }
+>("student/get-schedule", async (_, thunkAPI) => {
   try {
     const response = await axiosInstance.get("/student/getUpcomingClass");
     return response.data;
@@ -324,11 +346,17 @@ export const getClassSchedule = createAsyncThunk<IScheduleResponse, void, { reje
   }
 });
 
-// Get Curriculum 
+// Get Curriculum
 // Convert this request to a "Post or Put Request"
-export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: string }, { rejectValue: string }>("student/curriculum", async ({ courseId }, thunkAPI) => {
+export const getCurriculum = createAsyncThunk<
+  ICurriculumResponse,
+  { courseId: string },
+  { rejectValue: string }
+>("student/curriculum", async ({ courseId }, thunkAPI) => {
   try {
-    const response = await axiosInstance.get(`/student/getCurriculum/${courseId}`);
+    const response = await axiosInstance.get(
+      `/student/getCurriculum/${courseId}`
+    );
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -337,7 +365,11 @@ export const getCurriculum = createAsyncThunk<ICurriculumResponse, { courseId: s
 });
 
 // Update Profile Image
-export const updateProfileImage = createAsyncThunk<IAPIResponse, { pImage: IProfileImage }, { rejectValue: string }>("student/update-profile-image", async ({ pImage }, thunkAPI) => {
+export const updateProfileImage = createAsyncThunk<
+  IAPIResponse,
+  { pImage: IProfileImage },
+  { rejectValue: string }
+>("student/update-profile-image", async ({ pImage }, thunkAPI) => {
   try {
     const token = sessionStorage.getItem("token");
     const params = {
@@ -347,7 +379,11 @@ export const updateProfileImage = createAsyncThunk<IAPIResponse, { pImage: IProf
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.post(`${API_BASE_URL}/updateProfileImage`, pImage, params);
+    const response = await axios.post(
+      `${API_BASE_URL}/updateProfileImage`,
+      pImage,
+      params
+    );
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -356,9 +392,13 @@ export const updateProfileImage = createAsyncThunk<IAPIResponse, { pImage: IProf
 });
 
 // Get Notifications for Student
-export const getNotifications = createAsyncThunk<INotification, void, { rejectValue: string }>("student/notifications", async (_, thunkAPI) => {
+export const getNotifications = createAsyncThunk<
+  INotification,
+  void,
+  { rejectValue: string }
+>("student/notifications", async (_, thunkAPI) => {
   try {
-    const response = await axiosInstance.get('/student/getNotifications');
+    const response = await axiosInstance.get("/student/getNotifications");
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;
@@ -390,6 +430,7 @@ const studentService = {
   getPersonalAssessment,
   acceptRecommendation,
   rejectRecommendation,
+  RegisterForACourse,
   getMyTutors,
   getMyCourses,
   LogoutStudent,

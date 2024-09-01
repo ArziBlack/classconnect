@@ -1,11 +1,12 @@
 import CButton from "../Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Box, Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { states } from "../../typings/states";
 import { ITutorProps } from "../../typings/home";
 import InputField from "../Input";
+import Select from "react-select"; // Importing react-select
 
 const validationSchema = Yup.object({
   country: Yup.string().required("Country is required"),
@@ -19,7 +20,6 @@ const TutorD: React.FC<ITutorProps> = ({
   setFormData,
 }) => {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -27,8 +27,12 @@ const TutorD: React.FC<ITutorProps> = ({
     )
       .then((response) => response.json())
       .then((data) => {
-        setCountries(data.countries);
-        console.log("Data Country: ", data.countries);
+        setCountries(
+          data.countries.map((country) => ({
+            value: country.label,
+            label: country.label,
+          }))
+        );
       });
   }, []);
 
@@ -40,7 +44,7 @@ const TutorD: React.FC<ITutorProps> = ({
         onClick("pagefive");
       }}
     >
-      {({ isValid }) => (
+      {({ isValid, setFieldValue, values }) => (
         <Form>
           <Box w="100%" mb={3}>
             <FormControl>
@@ -48,28 +52,33 @@ const TutorD: React.FC<ITutorProps> = ({
                 Country
               </FormLabel>
               <Field name="country">
-                {({ field }) => (
+                {() => (
                   <Select
-                    {...field}
-                    onChange={(e) => {
+                    options={countries}
+                    onChange={(option) => {
+                      const syntheticEvent = {
+                        target: {
+                          name: "country",
+                          value: option.value,
+                        },
+                      };
+                      setFieldValue("country", option.value);
                       setFormData((prevState) => ({
                         ...prevState,
                         state: "",
                       }));
-                      field.onChange(e);
-                      onChange(e);
+                      onChange(
+                        syntheticEvent as ChangeEvent<
+                          HTMLInputElement | HTMLSelectElement
+                        >
+                      );
                     }}
                     placeholder="Select a country"
-                    value={data.country}
-                  >
-                    <option>{selectedCountry?.userCountryCode}</option>
-                    {countries &&
-                      countries?.map((country, idx) => (
-                        <option key={idx} value={country.label.split(" ")[1]}>
-                          {country.label}
-                        </option>
-                      ))}
-                  </Select>
+                    value={countries.find(
+                      (country) => country.value === values.country
+                    )}
+                    isSearchable
+                  />
                 )}
               </Field>
               <ErrorMessage
@@ -81,7 +90,7 @@ const TutorD: React.FC<ITutorProps> = ({
           </Box>
           <Box w="100%" mb={3}>
             <FormControl>
-              {data.country === "Nigeria" ? (
+              {values.country === "Nigeria" ? (
                 <>
                   <FormLabel fontWeight="bold" fontSize="15px">
                     State
@@ -90,19 +99,32 @@ const TutorD: React.FC<ITutorProps> = ({
                     {({ field }) => (
                       <Select
                         {...field}
-                        onChange={(e) => {
-                          field.onChange(e);
-                          onChange(e);
+                        options={states.map((item) => ({
+                          value: item.value,
+                          label: item.label,
+                        }))}
+                        onChange={(
+                          option: { value: string; label: string } | null
+                        ) => {
+                          const syntheticEvent = {
+                            target: {
+                              name: "state",
+                              value: option?.value || "",
+                            },
+                          };
+                          setFieldValue("state", option?.value || "");
+                          onChange(
+                            syntheticEvent as ChangeEvent<
+                              HTMLInputElement | HTMLSelectElement
+                            >
+                          );
                         }}
                         placeholder="Select a state"
-                        value={data.state}
-                      >
-                        {states.map((item, idx) => (
-                          <option value={item.value} key={idx}>
-                            {item.label}
-                          </option>
-                        ))}
-                      </Select>
+                        value={states.find(
+                          (state) => state.value === values.state
+                        )}
+                        isSearchable
+                      />
                     )}
                   </Field>
                   <ErrorMessage
@@ -124,7 +146,7 @@ const TutorD: React.FC<ITutorProps> = ({
                         field.onChange(e);
                         onChange(e);
                       }}
-                      value={data.state}
+                      value={values.state}
                       placeholder="Enter state"
                       error={
                         form.errors.state && form.touched.state

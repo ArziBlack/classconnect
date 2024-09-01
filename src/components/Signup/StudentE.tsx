@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Box, Flex, FormLabel, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormLabel,
+  Select,
+  Text,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+} from "@chakra-ui/react";
 import CButton from "../Button";
 import MultipleSelectDropdown from "../Dropdown";
 import { IStudentProps } from "../../typings/home";
@@ -36,36 +45,71 @@ const StudentE = ({
 
   const maxSelections = 4;
   const [selectedOptions, setSelectedOptions] = useState<string[]>(
-    !data?.classTime_options ? [] : data?.classTime_options
+    data?.classTime_options || []
   );
+
+  const initialValues = {
+    course: data.course || "",
+    classTimeOptions: selectedOptions,
+  };
 
   return (
     <Formik
-      initialValues={data}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={() => {
         onClick("pagesix");
       }}
     >
-      {({ isValid, setFieldValue }) => (
+      {({ isValid, setFieldValue, values }) => (
         <Form>
           <Box w="100%" mb={3}>
-            <FormLabel fontWeight="bold" fontSize="15px">
+            <FormLabel fontWeight="bold" fontSize="15px" mb={0}>
               Class Time Options
             </FormLabel>
+            <Text color="yellow.500" mb={1} fontSize={"xs"}>
+              Select at most four (4) time options
+            </Text>
             <Field name="classTimeOptions">
               {() => (
-                <MultipleSelectDropdown
-                  options={times}
-                  maxSelections={maxSelections}
-                  onChange={(options) => {
-                    handleClassTimeOptionsChange(options);
-                    setSelectedOptions(options);
-                    setFieldValue("classTimeOptions", selectedOptions);
-                  }}
-                  selectedOptions={selectedOptions}
-                  setSelectedOptions={setSelectedOptions}
-                />
+                <>
+                  <MultipleSelectDropdown
+                    options={times}
+                    maxSelections={maxSelections}
+                    onChange={(options) => {
+                      setFieldValue("classTimeOptions", options);
+                      setSelectedOptions(options);
+                      handleClassTimeOptionsChange(options);
+                    }}
+                    selectedOptions={values.classTimeOptions}
+                    setSelectedOptions={setSelectedOptions}
+                  />
+                  {/* Display selected options as pills */}
+                  <Flex wrap="wrap" mt={2} gap={2}>
+                    {selectedOptions.map((option, index) => (
+                      <Tag
+                        key={index}
+                        size="md"
+                        borderRadius="full"
+                        variant="solid"
+                        colorScheme="blue"
+                        fontWeight={300}
+                      >
+                        <TagLabel>{option}</TagLabel>
+                        <TagCloseButton
+                          onClick={() => {
+                            const newOptions = selectedOptions.filter(
+                              (item) => item !== option
+                            );
+                            setFieldValue("classTimeOptions", newOptions);
+                            setSelectedOptions(newOptions);
+                            handleClassTimeOptionsChange(newOptions);
+                          }}
+                        />
+                      </Tag>
+                    ))}
+                  </Flex>
+                </>
               )}
             </Field>
             <ErrorMessage
@@ -90,7 +134,7 @@ const StudentE = ({
                   name="course"
                   placeholder="Select a Course"
                   className="capitalize"
-                  value={data.course}
+                  value={values.course}
                 >
                   {home?.courses?.map((item, idx) => (
                     <option key={idx} value={item?.title?.toString()?.trim()}>

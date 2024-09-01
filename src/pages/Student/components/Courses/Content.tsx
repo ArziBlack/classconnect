@@ -6,32 +6,49 @@ import {
   AccordionPanel,
   Flex,
   Box,
+  Text,
+  Button as CButton,
+  CircularProgress,
 } from "@chakra-ui/react";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
-import { getCurriculum } from "../../../../services/student/studentThunks";
+import {
+  getCurriculum,
+  getMyCourses,
+  RegisterForACourse,
+} from "../../../../services/student/studentThunks";
 import Button from "../../../../components/Button";
 import { useParams } from "react-router-dom";
 import { convertStringsToArray } from "../../../../utils/utility";
 import Loading from "../../../../utils/Loading";
 import ViewHeader from "../ViewHeader";
 import { BreadCrumb } from "./BreadCrumb";
+import ChakraModal from "../../../../components/ChakraModal";
+import useCustomToast from "../../../../hooks/useCustomToast";
 
 const links = [{ to: "", label: "Contents" }];
 
 export const Content = () => {
+  const showToast = useCustomToast();
+  const [confirmation, setConfirmation] = useState(false);
+  const [showError, setShowError] = useState<string | null>(null);
   const { courseId } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getCurriculum({ courseId }));
+    dispatch(getMyCourses());
   }, []);
 
-  const { curriculum, isLoading } = useAppSelector((state) => state.student);
-  console.log(courseId);
+  const { curriculum, isLoading, myCoursesRes } = useAppSelector(
+    (state) => state.student
+  );
+  const isEnrolled = myCoursesRes?.message?.some(
+    (course) => course?.courseId === courseId
+  );
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -59,13 +76,35 @@ export const Content = () => {
   if (isLoading) {
     return <Loading />;
   }
+
+  const handleCourseRegistration = async () => {
+    const result = await dispatch(RegisterForACourse(curriculum?.data?.title));
+    if (result.meta.requestStatus === "fulfilled") {
+      if (result.payload?.statusCode === 403) {
+        showToast(result.payload?.message, "error");
+        return;
+      } else if (result.payload?.statusCode === 200) {
+        showToast(result.payload?.message, "success");
+      } else if (result.payload?.statusCode === 400) {
+        showToast(result.payload?.error, "error");
+      }
+    } else if (result.meta.requestStatus === "rejected") {
+      setShowError(result.payload as string);
+      showToast(result.payload, "error");
+    }
+  };
   return (
     <div>
-      <ViewHeader
-        preNav="/student/courses"
-        title={curriculum?.data?.title}
-        subtext={curriculum?.data?.description}
-      />
+      <Flex flexDir={"column"} gap={3}>
+        <ViewHeader
+          preNav="/student/courses"
+          title={curriculum?.data?.title}
+          subtext={curriculum?.data?.description}
+        />
+        {!isEnrolled && (
+          <Button text="Enroll" onClick={() => setConfirmation(true)} />
+        )}
+      </Flex>
       <BreadCrumb links={links} />
       <Flex color="white" justify={"space-between"}>
         <Accordion
@@ -100,6 +139,36 @@ export const Content = () => {
         </Accordion>
         <Button text="Download Curriculum" onClick={generatePDF} />
       </Flex>
+      <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
+        <Flex
+          bg={"#023248"}
+          flexDirection={"column"}
+          borderRadius={"12px"}
+          padding={10}
+        >
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Text color={"white"}>
+                {showError
+                  ? showError
+                  : "Are you sure about enrolling for this course?"}
+              </Text>
+              <Flex gap={8} justify={"center"} mt={4}>
+                {showError ? (
+                  <CButton onClick={() => setConfirmation(false)}>Ok</CButton>
+                ) : (
+                  <>
+                    <CButton onClick={handleCourseRegistration}>Yes</CButton>
+                    <CButton onClick={() => setConfirmation(false)}>No</CButton>
+                  </>
+                )}
+              </Flex>
+            </>
+          )}
+        </Flex>
+      </ChakraModal>
     </div>
   );
 };
