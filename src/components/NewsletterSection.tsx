@@ -12,7 +12,6 @@ const NewsletterSection: React.FC = () => {
     <Box w="full" bg={"brand.dark"}>
       <Box
         mx="auto"
-        h={{ base: "auto", md: "320px" }}
         py={{ base: 6, md: 10 }}
         color={"brand.page"}
         textAlign="center"
@@ -88,23 +87,36 @@ const NewsletterSection: React.FC = () => {
           </Text>
         </Box>
         <Flex justify="center" mt={6}>
-          <Box as="form" display="flex" maxW="md" w="100%">
-            <Input
-              placeholder="enter your email"
-              type="email"
-              variant="filled"
-              bg={"brand.grey"}
-              color="black"
-              _placeholder={{ color: "brand.offwhite" }}
-              borderRightRadius="0"
-              _focusVisible={{ outline: "brand.action" }}
-              flex="1"
-            />
+          <Box as="form" maxW="md" w="100%" justifyContent={"center"}>
+            <Flex flexDir={"column"} gap={2}>
+              <Input
+                placeholder="Name"
+                type="text"
+                variant="filled"
+                bg={"brand.grey"}
+                color="black"
+                py={4}
+                _placeholder={{ color: "brand.offwhite" }}
+                _focusVisible={{ outline: "brand.action" }}
+                flex="1"
+              />
+              <Input
+                placeholder="Email"
+                type="email"
+                variant="filled"
+                bg={"brand.grey"}
+                py={4}
+                color="black"
+                _placeholder={{ color: "brand.offwhite" }}
+                _focusVisible={{ outline: "brand.action" }}
+                flex="1"
+              />
+            </Flex>
             <Button
+              mt={4}
               colorScheme={"brand.action"}
               color={"rgba(0, 0, 0, 0.87)"}
               bg={"brand.action"}
-              borderLeftRadius="0"
               px={{ base: 4, md: 8 }}
             >
               Subscribe

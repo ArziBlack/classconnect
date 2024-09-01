@@ -61,15 +61,20 @@ const getTutorForgotPasswordURL = async () => {
   return response.data;
 };
 
-// Endpoint to signup for a Newsletter (unfinished)
-const newsLetterRequest = async () => {
-  const response = await axios.post(`${API_BASE_URL}`);
+// Endpoint to signup for a Newsletter
+const newsLetterRequest = async ({ userName, email }) => {
+  const response = await axios.post(`${API_BASE_URL}/subscribeToNewsLetter`, {
+    userName,
+    email,
+  });
   return response.data;
 };
 
-// Endpoint to send a Memo (unfinished)
-const sendMemo = async () => {
-  const response = await axios.post(`${API_BASE_URL}`);
+// Endpoint to send a Memo
+const sendMemo = async (email: string) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/unsubscribeToNewsLetter/${email}`
+  );
   return response.data;
 };
 

@@ -27,6 +27,7 @@ export const Assessment = () => {
   return (
     <>
       <ViewHeader
+        preNav="/"
         title="Assessments"
         subtext="Access your assessments, view grades, and track your academic progress. Get detailed feedback on your performance to identify areas for improvement."
       />

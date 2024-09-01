@@ -11,29 +11,28 @@ import {
 
 const API_BASE_URL = `https://hep-coding.onrender.com/v1`;
 
-const home: IHomeResponse | null = JSON.parse(sessionStorage.getItem("home") || "null");
+const home: IHomeResponse | null = JSON.parse(
+  sessionStorage.getItem("home") || "null"
+);
 
-const fees: IFees | null = JSON.parse(sessionStorage.getItem("tution-fees") || "null");
+const fees: IFees | null = JSON.parse(
+  sessionStorage.getItem("tution-fees") || "null"
+);
 
-const URL: string | null = JSON.parse(sessionStorage.getItem("signupFormURL-student") || "null");
+const URL: string | null = JSON.parse(
+  sessionStorage.getItem("signupFormURL-student") || "null"
+);
 
-if (home) {
-  console.log(home);
-}
-
-if (fees) {
-  console.log(fees);
-}
-
-if (URL) {
-  console.log(URL);
+interface INewsletter {
+  userName: string;
+  email: string;
 }
 
 const initialState: OtherState = {
-  home: null || home,
-  fees: null || fees,
+  home: home,
+  fees: fees,
   tnc: "",
-  URL: null || URL,
+  URL: URL,
   error: null,
   message: "",
   isLoading: false,
@@ -118,6 +117,18 @@ export const getTutorForgotPasswordURL = createAsyncThunk(
     try {
       return await otherService.getTutorForgotPasswordURL();
     } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Newsletter
+export const newsLetter = createAsyncThunk(
+  "other/send-newsletter",
+  async ({ userName, email }: INewsletter, { rejectWithValue }) => {
+    try {
+      return await otherService.newsLetterRequest({ userName, email });
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -222,6 +233,18 @@ const otherSlice = createSlice({
       .addCase(getTutorForgotPasswordURL.rejected, (state) => {
         state.isLoading = false;
         state.message = "Something went wrong. Please try again later";
+      })
+      .addCase(newsLetter.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+      })
+      .addCase(newsLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message;
+      })
+      .addCase(newsLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
       })
       .addCase(logoutTutor.pending, (state) => {
         state.isLoading = true;

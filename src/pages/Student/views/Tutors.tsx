@@ -20,7 +20,7 @@ export const Tutors = () => {
   return (
     <>
       <ViewHeader
-        preNav="/"
+        preNav="/student"
         title="Tutors"
         subtext="Find and interact with your course tutors. Access their contact information, office hours, and schedule one-on-one sessions to enhance your learning experience."
       />

@@ -24,14 +24,18 @@ import {
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
+import { FaGoogleScholar, FaLink } from "react-icons/fa6";
+import { MdOutlineWorkHistory } from "react-icons/md";
 
 type NavProps = {
   to: string;
   text: string;
-  icon: string;
+  icon?: string;
+  isImage?: boolean;
+  children?: React.ReactNode;
 };
 
-const Nav: FC<NavProps> = ({ text, to, icon }) => {
+const Nav: FC<NavProps> = ({ text, to, icon, children, isImage = true }) => {
   return (
     <NavLink
       to={to}
@@ -58,11 +62,12 @@ const Nav: FC<NavProps> = ({ text, to, icon }) => {
             borderRadius={"50px"}
             alignItems={"center"}
             justifyContent={"center"}
-            color={"white"}
+            color={"002333"}
+            fontSize={"18px"}
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
           >
-            <Image width={"20px"} src={icon} />
+            {isImage ? <Image width={"20px"} src={icon} /> : children}
           </Flex>
           <Text
             fontSize={"14px"}
@@ -97,12 +102,7 @@ const SideBarNav: FC = () => {
       backgroundColor={"#023248"}
       justifyContent={"space-between"}
     >
-      <Flex
-        w={"full"}
-        //   gap={"1rem"}
-        // bgColor={"brand.dark"}
-        flexDirection={"column"}
-      >
+      <Flex w={"full"} flexDirection={"column"}>
         <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/student" icon={HOME} />
         <Nav text="Tutors" to="tutors" icon={TUTORS} />
@@ -110,6 +110,15 @@ const SideBarNav: FC = () => {
         <Nav text="Profile" to="profile" icon={PROFILE} />
         <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
+        <Nav text="Referral" to="referral" isImage={false}>
+          <FaLink />
+        </Nav>
+        <Nav text="Scholarship" to="scholarship" isImage={false}>
+          <FaGoogleScholar />
+        </Nav>
+        <Nav text="Internship" to="internship" isImage={false}>
+          <MdOutlineWorkHistory />
+        </Nav>
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />

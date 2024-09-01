@@ -51,6 +51,9 @@ import { Billing } from "./pages/Student/views/Billing";
 import { PaymentHistory } from "./pages/Student/components/Billing/PaymentHistory";
 import TutorEmailV from "./pages/TutorEmailV";
 import NotificationTutor from "./pages/Instructor/views/NotificationTutor";
+import { Referral } from "./pages/Student/views/Referral";
+import { Internship } from "./pages/Student/views/Internship";
+import { Scholarship } from "./pages/Student/views/Scholarship";
 
 function AppContent() {
   const location = useLocation();
@@ -125,6 +128,9 @@ function AppContent() {
             <Route path="class-assessments" element={<GeneralAssessments />} />
           </Route>
           <Route path="assessment" element={<Assessment />} />
+          <Route path="referral" element={<Referral />} />
+          <Route path="internship" element={<Internship />} />
+          <Route path="scholarship" element={<Scholarship />} />
           <Route path="billing" element={<Billing />}>
             <Route index element={<MakePayment />} />
             <Route path="payment-history" element={<PaymentHistory />} />

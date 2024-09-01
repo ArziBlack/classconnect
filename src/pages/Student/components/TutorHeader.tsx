@@ -11,10 +11,14 @@ import {
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import ChakraModal from "../../../components/ChakraModal";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { chooseTutor, getApprovedTutors } from "../../../services/student/studentThunks";
+import {
+  chooseTutor,
+  getApprovedTutors,
+} from "../../../services/student/studentThunks";
 import CButton from "../../../components/Button";
 import { PiWarningCircle } from "react-icons/pi";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { useNavigate } from "react-router-dom";
 
 interface TutorHeaderProps {
   title: string;
@@ -64,6 +68,8 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
     }
   };
 
+  const navigate = useNavigate();
+
   const getButtonColor = () => {
     return status === "Not engaged yet" ? "#00ff84" : "yellow";
   };
@@ -87,7 +93,12 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
               display={"inline-flex"}
               alignItems={"center"}
             >
-              <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
+              <MdOutlineKeyboardArrowLeft
+                fontSize={"25px"}
+                color="white"
+                onClick={() => navigate("/student/tutors")}
+                cursor={"pointer"}
+              />
               {title}
             </Text>
           </SkeletonText>
@@ -163,7 +174,9 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
           ) : (
             <>
               <Text color={"white"}>
-                {showError ? showError : "Are you sure about choosing this tutor?"}
+                {showError
+                  ? showError
+                  : "Are you sure about choosing this tutor?"}
               </Text>
               <Flex gap={8} justify={"center"} mt={4}>
                 {showError ? (
