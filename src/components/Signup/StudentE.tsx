@@ -33,14 +33,14 @@ const StudentE = ({
 }: IStudentProps) => {
   const { home } = useAppSelector((dat) => dat.other);
   const times: string[] = [
-    "Wednesday 5:00pm - 7:00pm WAT",
-    "Wednesday 8:00pm - 10:00pm WAT",
-    "Saturday 5:00pm - 7:00pm WAT",
-    "Saturday 8:00pm - 10:00pm WAT",
-    "Saturday 10:00am - 12:00noon WAT",
-    "Sunday 10:00am - 12:00noon WAT",
-    "Sunday 5:00pm - 7:00pm WAT",
-    "Sunday 8:00pm - 10:00pm WAT",
+    "Wednesday 5:00pm - 6:00pm WAT",
+    "Wednesday 8:00pm - 9:00pm WAT",
+    "Saturday 5:00pm - 6:00pm WAT",
+    "Saturday 8:00pm - 9:00pm WAT",
+    "Saturday 10:00am - 11:00noon WAT",
+    "Sunday 10:00am - 11:00noon WAT",
+    "Sunday 5:00pm - 6:00pm WAT",
+    "Sunday 8:00pm - 9:00pm WAT",
   ];
 
   const maxSelections = 4;
@@ -84,7 +84,6 @@ const StudentE = ({
                     selectedOptions={values.classTimeOptions}
                     setSelectedOptions={setSelectedOptions}
                   />
-                  {/* Display selected options as pills */}
                   <Flex wrap="wrap" mt={2} gap={2}>
                     {selectedOptions.map((option, index) => (
                       <Tag
