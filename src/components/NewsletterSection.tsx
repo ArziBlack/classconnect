@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 import photo1 from "../assets/icons/photo1.png";
 import photo2 from "../assets/icons/photo2.png";
@@ -6,8 +6,28 @@ import photo3 from "../assets/icons/photo3.png";
 import photo4 from "../assets/icons/photo4.png";
 import photo5 from "../assets/icons/photo5.png";
 import photo6 from "../assets/icons/photo6.png";
+import { newsLetter } from "../services/others/otherSlice";
+import useCustomToast from "../hooks/useCustomToast";
+import { useAppSelector } from "../hooks/reactReduxHooks";
 
 const NewsletterSection: React.FC = () => {
+  const toast = useCustomToast();
+  const { isLoading } = useAppSelector((state)=> state.other)
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const handleSendNewsLetter = async () => {
+    if (!userName && !email) {
+      toast("Fields cannot be empty", "error");
+      return;
+    }
+    const result = await newsLetter({ userName, email });
+    if (newsLetter.fulfilled.match(result)) {
+      toast("News letter sent successfully", "success");
+    } else if (newsLetter.rejected.match(result)) {
+      toast("Failed to send news letter", "error");
+    }
+  };
+
   return (
     <Box w="full" bg={"brand.dark"}>
       <Box
@@ -96,6 +116,8 @@ const NewsletterSection: React.FC = () => {
                 bg={"brand.grey"}
                 color="black"
                 py={4}
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
                 _placeholder={{ color: "brand.offwhite" }}
                 _focusVisible={{ outline: "brand.action" }}
                 flex="1"
@@ -106,6 +128,8 @@ const NewsletterSection: React.FC = () => {
                 variant="filled"
                 bg={"brand.grey"}
                 py={4}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 color="black"
                 _placeholder={{ color: "brand.offwhite" }}
                 _focusVisible={{ outline: "brand.action" }}
@@ -118,6 +142,8 @@ const NewsletterSection: React.FC = () => {
               color={"rgba(0, 0, 0, 0.87)"}
               bg={"brand.action"}
               px={{ base: 4, md: 8 }}
+              isLoading={isLoading}
+              onClick={handleSendNewsLetter}
             >
               Subscribe
             </Button>
