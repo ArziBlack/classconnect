@@ -1,23 +1,39 @@
 import { useEffect, useState } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import { getNotificationsTutor } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 
-export const NotificationItem = ({ data }) => {
-  console.log(data);
+export const NotificationItem = ({ data, number }) => {
+  // Split notification data into date, time, and message.
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const [date, time, message] = data?.split(": ");
+
   return (
     <Box
-      className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
+      className="gap-3 border-b border-gray-700 py-4 cursor-pointer hover:bg-[#B3F8DA]/25"
       w={{ base: "100%", md: "80%", lg: "100%" }}
       p={{ base: "2", md: "4" }}
       tabIndex={0}
     >
+      <Flex justifyContent="space-between" flexDir={"column"}>
+        <Text
+          fontSize={{ base: "xs", md: "sm" }}
+          color="gray.400"
+          fontWeight={500}
+        >
+          {number}. {date}
+        </Text>
+        <Text fontSize={{ base: "xs", md: "sm" }} color="gray.200">
+          {time}
+        </Text>
+      </Flex>
       <Text
-        fontSize={{ base: "xs", md: "sm" }}
+        fontSize={{ base: "sm", md: "lg" }}
         fontWeight="500"
         color="#B3F8DA"
+        mt={2}
       >
-        {data}
+        {message}
       </Text>
     </Box>
   );
@@ -34,21 +50,24 @@ const NotificationList = () => {
 
   useEffect(() => {
     dispatch(getNotificationsTutor());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="w-full grid grid-cols-1">
-      <div className="overflow-y-scroll h-[400px] no-scrollbar">
+      <div className="overflow-y-scroll h-full no-scrollbar">
         {notificationTutor?.data?.length ? (
-          notificationTutor?.data?.map((notification, index) => (
+          notificationTutor?.data?.slice().map((notification, index) => (
             <div onClick={() => handleNotificationClick(index)} key={index}>
-              <NotificationItem data={notification} />
+              <NotificationItem
+                data={notification}
+                number={index + 1} // Assign reverse number
+              />
             </div>
           ))
         ) : (
-          <Box className=" flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white max-h-[700px]">
+          <Box className="flex flex-col h-fit w-full justify-center rounded-lg bg-[#023248] border gap-[10px] border-[#5E7079] text-white max-h-[700px]">
             <Box p={8}>
-              <Text fontWeight="bold" textAlign={"center"}>
+              <Text fontWeight="bold" textAlign="center">
                 Your notifications will appear here...
               </Text>
             </Box>

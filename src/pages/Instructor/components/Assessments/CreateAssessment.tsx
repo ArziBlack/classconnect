@@ -32,7 +32,6 @@ export const CreateAssessment = () => {
   const handleContentChange = (e) => setContent(e.target.value);
   const handleAttachmentChange = (e) => {
     setAttachment(e.target.files[0]);
-    console.log(attachment);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +82,7 @@ export const CreateAssessment = () => {
     >
       <Box maxW="600px">
         <Text fontSize="2xl" fontWeight="bold" mb={6}>
-          Create Assessment
+          Create Class Assessment
         </Text>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="stretch">

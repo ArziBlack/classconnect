@@ -70,36 +70,43 @@ export const Curriculum = () => {
       <BreadCrumb links={links} />
 
       <Flex color="white" justify={"space-between"}>
-        <Accordion
-          allowMultiple
-          width="700px"
-          display="flex"
-          flexDir="column"
-          gap={4}
-        >
-          {curriculumResponse?.data?.curriculum.map((item, index) => (
-            <AccordionItem key={index} border="none">
-              <h2>
-                <AccordionButton
-                  h="50px"
-                  borderRadius="8px"
-                  _hover={{ bg: "#37474f" }}
-                  bg="#37474F"
-                >
-                  <Box as="span" flex="1" textAlign="left">
-                    {item?.topic?.replace(":", "")}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              {convertStringsToArray(item?.content).map((it, id) => (
-                <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
-                  • {it}
-                </AccordionPanel>
-              ))}
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {curriculumResponse?.data?.curriculum?.length > 0 ? (
+          <Accordion
+            allowMultiple
+            width="700px"
+            display="flex"
+            flexDir="column"
+            gap={4}
+          >
+            {curriculumResponse?.data?.curriculum.map((item, index) => (
+              <AccordionItem key={index} border="none">
+                <h2>
+                  <AccordionButton
+                    h="50px"
+                    borderRadius="8px"
+                    _hover={{ bg: "#37474f" }}
+                    bg="#37474F"
+                  >
+                    <Box as="span" flex="1" textAlign="left">
+                      {item?.topic?.replace(":", "")}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                {convertStringsToArray(item?.content).map((it, id) => (
+                  <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
+                    • {it}
+                  </AccordionPanel>
+                ))}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        ) : (
+          <Box width="700px" color="gray.200">
+            {curriculumResponse?.message ||
+              "No curriculum data available, please check back later..."}
+          </Box>
+        )}
         <Button text="Download Curriculum" onClick={generatePDF} />
       </Flex>
     </>

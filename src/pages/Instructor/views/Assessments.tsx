@@ -5,14 +5,14 @@ export const Assessments = () => {
   return (
     <>
       <ViewHeader
-        title="Assessments"
+        title="Evaluation"
         subtext="Access your student list and interact with your students. View their contact information, office hours, and schedule one-on-one sessions to support their learning experience."
       />
       <BreadCrumb
         links={[
-          { to: "", label: "General Assessment" },
-          { to: "report", label: "General Report" },
-          { to: "class-notice", label: "General Class Notice" },
+          { to: "", label: "Class Assessment" },
+          { to: "class-notice", label: "Class Notice" },
+          { to: "feedback", label: "Send Feedback" },
         ]}
       />
     </>

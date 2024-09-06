@@ -10,7 +10,7 @@ const HeaderComponent = () => {
     <div className="flex justify-between gap-4 mb-4">
       <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]">
         <div className="flex items-center justify-between w-full mb-2">
-          <h2 className="text-sm font-medium">{"Classes"}</h2>
+          <h2 className="text-sm font-medium">{"Monthly performance"}</h2>
           <div>
             <img src={checkbox} alt="Checkbox" />
           </div>
@@ -19,7 +19,7 @@ const HeaderComponent = () => {
       </div>
       <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]">
         <div className="flex items-center justify-between w-full mb-2">
-          <h2 className="text-sm font-medium">{"Courses"}</h2>
+          <h2 className="text-sm font-medium">{"Session performance"}</h2>
           <div>
             <img src={Vector} alt="Book" />
           </div>
@@ -47,7 +47,6 @@ const getScoreColor = (score) => {
 
 const StudentPerformance = () => {
   const { myStudents } = useAppSelector((state) => state.tutor);
-  console.log(myStudents);
   return (
     <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
       <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px] px-6">
@@ -58,7 +57,7 @@ const StudentPerformance = () => {
       </div>
       <div>
         {myStudents ? (
-          myStudents?.data?.map((student, index) => (
+          myStudents?.data?.slice(0, 5)?.map((student, index) => (
             <div
               key={student.name}
               className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== myStudents?.data?.length - 1 ? "border-b" : ""}`}
@@ -102,7 +101,7 @@ const TopCourses = () => {
         <span className="text-green-400">{/**View All*/}</span>
       </div>
       <div className="w-full h-full">
-        {home?.courses?.map((course, index) => (
+        {home?.courses?.slice(0, 5)?.map((course, index) => (
           <div
             key={course?.title}
             className={`border-[#8e8f9058] ${index === 0 ? "border-t" : ""} ${index !== home?.courses?.length - 1 ? "border-b" : ""}`}

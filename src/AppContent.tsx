@@ -152,7 +152,7 @@ function AppContent() {
           <Route path="profile" element={<TutorProfile />}></Route>
           <Route path="assessments" element={<TutorAssessment />}>
             <Route index element={<CreateAssessment />} />
-            <Route path="report" element={<CreateReport />} />
+            <Route path="feedback" element={<CreateReport />} />
             <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="notification" element={<NotificationTutor />} />
