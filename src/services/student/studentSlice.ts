@@ -26,6 +26,8 @@ import {
   IAcceptnRejectResponse,
   IAssessmentResponse,
   IChooseResponse,
+  ICourseError,
+  ICourseResponse,
   ICoursesResponse,
   ICurriculumResponse,
   IMyTutorsResponse,
@@ -48,7 +50,7 @@ interface IState {
   chooseResponse: IChooseResponse;
   trxResponse: IStudentTrxAPIResponse | null;
   tuitionFeeResponse: null;
-  allCoursesResponse: ICoursesResponse;
+  allCoursesResponse: ICourseResponse;
   myCoursesRes: ICoursesResponse;
   mySchedule: IScheduleResponse;
   curriculum: ICurriculumResponse;
@@ -333,14 +335,14 @@ const studentSlice = createSlice({
       })
       .addCase(
         getAllCourses.fulfilled,
-        (state, action: PayloadAction<ICoursesResponse>) => {
+        (state, action: PayloadAction<ICourseResponse>) => {
           state.isLoading = false;
           state.allCoursesResponse = action.payload;
         }
       )
       .addCase(
         getAllCourses.rejected,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<ICourseError>) => {
           state.isLoading = false;
           state.isError = true;
           state.error = action.payload;

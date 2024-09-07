@@ -6,6 +6,8 @@ import {
   IAcceptnRejectResponse,
   IAPIResponse,
   IAssessmentResponse,
+  ICourseError,
+  ICourseResponse,
   ICoursesResponse,
   ICurriculumResponse,
   IMyTutorsResponse,
@@ -275,9 +277,9 @@ export const getMyCourses = createAsyncThunk<
 
 // Get my Courses
 export const getAllCourses = createAsyncThunk<
-  ICoursesResponse,
+ICourseResponse,
   void,
-  { rejectValue: string }
+  { rejectValue: ICourseError }
 >("student/getAllCourses", async (_, thunkAPI) => {
   try {
     const token = sessionStorage.getItem("token")?.trim()?.toString();
@@ -292,9 +294,11 @@ export const getAllCourses = createAsyncThunk<
     }
     return response.data;
   } catch (err) {
-    console.error("Error fetching approved tutors:", err);
+    console.error(err);
     const error = err.response ? err.response.data : err.message;
-    return thunkAPI.rejectWithValue(error);
+    console.error(err.response.data);
+    console.error(error);
+    return thunkAPI.rejectWithValue(error.error);
   }
 });
 

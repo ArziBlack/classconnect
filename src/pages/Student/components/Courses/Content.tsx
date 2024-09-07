@@ -114,27 +114,44 @@ export const Content = () => {
           flexDir="column"
           gap={4}
         >
-          {curriculum?.data?.curriculum.map((item, index) => (
-            <AccordionItem key={index} border="none">
-              <h2>
-                <AccordionButton
-                  h="50px"
-                  borderRadius="8px"
-                  _hover={{ bg: "#37474f" }}
-                  bg="#37474F"
-                >
-                  <Box as="span" flex="1" textAlign="left">
-                    {item?.topic?.replace(":", "")}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              {convertStringsToArray(item?.content).map((it, id) => (
-                <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
-                  • {it}
-                </AccordionPanel>
+          {curriculum?.data?.curriculum.map((levelItems, levelIndex) => (
+            <Box key={levelIndex}>
+              <Text fontSize="xl" fontWeight="bold" mb={4}>
+                {levelItems[0]?.level || `Level ${levelIndex + 1}`}
+              </Text>
+
+              {levelItems.slice(1).map((topicItem, topicIndex) => (
+                <AccordionItem key={topicIndex} border="none" mb="2px">
+                  <h2>
+                    <AccordionButton
+                      h="50px"
+                      borderRadius="8px"
+                      _hover={{ bg: "#37474f" }}
+                      bg="#37474F"
+                    >
+                      <Box as="span" flex="1" textAlign="left">
+                        {topicItem?.topic?.replace(":", "")}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={2} textTransform={"capitalize"}>
+                    {Array.isArray(topicItem?.content) &&
+                    topicItem?.content.length > 0 ? (
+                      topicItem.content[0]
+                        ?.split(",")
+                        .map((contentItem, contentIndex) => (
+                          <Text key={contentIndex} mb={2}>
+                            • {contentItem.trim()}
+                          </Text>
+                        ))
+                    ) : (
+                      <Text>No content available</Text>
+                    )}
+                  </AccordionPanel>
+                </AccordionItem>
               ))}
-            </AccordionItem>
+            </Box>
           ))}
         </Accordion>
         <Button text="Download Curriculum" onClick={generatePDF} />

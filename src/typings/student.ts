@@ -86,6 +86,31 @@ export interface ICoursesResponse {
   message: ICourseData[];
 }
 
+export interface ICourseResponse  {
+  statusCode: number;
+  message: string;
+  data: CurriculumData;
+}
+
+export interface ICourseError {
+  statusCode: number;
+  error: string;
+}
+
+interface CurriculumData {
+  title: string;
+  description: string;
+  duration: string;
+  curriculumFile: string;
+  curriculum: Level[];
+}
+
+interface Level {
+  level: string;
+  topic: string;
+  content: string[];
+}
+
 export interface IUpdateStudentData {
   first_name: string;
   last_name: string;

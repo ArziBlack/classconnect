@@ -26,7 +26,7 @@ export const Browse = () => {
       <Refresh handleRefresh={handleRefresh}/>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
         {allCoursesResponse &&
-          allCoursesResponse?.message?.map((item, idx) => (
+          allCoursesResponse?.data?.map((item, idx) => (
             <Skeleton borderRadius={"md"} isLoaded={!isLoading} key={idx}>
               <CourseCard
                 title={item.title}
