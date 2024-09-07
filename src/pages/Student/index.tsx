@@ -1,12 +1,6 @@
 import { FC, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import {
   ASSESSMENT,
   COURSES,
@@ -16,7 +10,7 @@ import {
   PROFILE,
   SETTINGS,
   TUTORS,
-  NOTIFICATION
+  NOTIFICATION,
 } from "../../constants/icon";
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
@@ -33,7 +27,14 @@ type NavProps = {
   w?: string;
 };
 
-const Nav: FC<NavProps> = ({ text, to, icon, children, isImage = true, w = "20px" }) => {
+const Nav: FC<NavProps> = ({
+  text,
+  to,
+  icon,
+  children,
+  isImage = true,
+  w = "20px",
+}) => {
   return (
     <NavLink
       to={to}
@@ -108,7 +109,12 @@ const SideBarNav: FC = () => {
         <Nav text="Profile" to="profile" icon={PROFILE} />
         <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
-        <Nav text="Notification" to="notifications" icon={NOTIFICATION} w="14px" />
+        <Nav
+          text="Notification"
+          to="notifications"
+          icon={NOTIFICATION}
+          w="14px"
+        />
         <Nav text="Referral" to="referral" isImage={false}>
           <FaLink />
         </Nav>
@@ -127,6 +133,7 @@ const SideBarNav: FC = () => {
 };
 
 const MainView: FC = () => {
+  const navigate = useNavigate();
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
   useEffect(() => {
@@ -155,27 +162,28 @@ const MainView: FC = () => {
           borderRadius={"8px"}
           alignItems={"center"}
           background={"transparent"}
-          // border={"1px solid #5E7079"}
           display={isSmallerThan900 ? "none" : "flex"}
         >
-          {/* <IoIosSearch fontSize={"30px"} color="#CED1DD" /> */}
-          {/* <Input
-            type="text"
-            width={"100%"}
-            height={"100%"}
-            border={"none"}
-            paddingLeft={"5px"}
-            // placeholder="Search"
-            _focusVisible={"none"}
-            background="transparent"
-            readOnly
-          /> */}
           <Text fontSize={"26px"} fontWeight={600}>
             Student LRC
           </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
-          {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
+          <Flex
+            w={"30px"}
+            h={"30px"}
+            borderRadius={"50px"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            color={"#002333"}
+            fontSize={"18px"}
+            bgColor={"white"}
+            border={"1px solid brand.text"}
+            cursor={"pointer"}
+            onClick={()=> navigate("notification")}
+          >
+            <Image width={"15px"} src={NOTIFICATION} />
+          </Flex>
           <Image
             w={"40px"}
             h={"40px"}
@@ -186,7 +194,6 @@ const MainView: FC = () => {
           <Text fontSize={"12px"} color="#ffffff">
             {data.first_name + " " + data.last_name}
           </Text>
-          {/* <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" /> */}
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">

@@ -1,6 +1,6 @@
 import { FC } from "react";
 // import { IoIosSearch } from "react-icons/io";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 // import { IoMdNotificationsOutline } from "react-icons/io";
 import {
   Box,
@@ -126,6 +126,7 @@ const SideBarNav: FC = () => {
 };
 
 const MainView: FC = () => {
+  const navigate = useNavigate();
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
 
@@ -171,7 +172,21 @@ const MainView: FC = () => {
           </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
-          {/* <IoMdNotificationsOutline fontSize={"25px"} color="white" /> */}
+        <Flex
+            w={"30px"}
+            h={"30px"}
+            borderRadius={"50px"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            color={"#002333"}
+            fontSize={"18px"}
+            bgColor={"white"}
+            border={"1px solid brand.text"}
+            cursor={"pointer"}
+            onClick={()=> navigate("notification")}
+          >
+            <Image width={"15px"} src={NOTIFICATION} />
+          </Flex>
           <Image
             w={"40px"}
             h={"40px"}
