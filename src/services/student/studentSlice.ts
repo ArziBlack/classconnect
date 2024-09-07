@@ -49,7 +49,7 @@ interface IState {
   recommendResponse: IRecommendationResponse | null;
   chooseResponse: IChooseResponse;
   trxResponse: IStudentTrxAPIResponse | null;
-  tuitionFeeResponse: null;
+  tuitionFeeResponse: ITuitionFee | null;
   allCoursesResponse: ICourseResponse;
   myCoursesRes: ICoursesResponse;
   mySchedule: IScheduleResponse;

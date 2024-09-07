@@ -56,6 +56,7 @@ export interface IStudentTrxAPIResponse {
 export interface ITuitionFee {
   status: number;
   message: string;
+  tuition_fee_in_localCurrency: string;
 }
 
 export interface IRecommendationResponse {
