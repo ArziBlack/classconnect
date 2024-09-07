@@ -28,7 +28,7 @@ import { Students } from "./pages/Instructor/views/Students";
 import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
-import { Notification } from "./pages/Student/components/Profile/Notification";
+import { Notification } from "./pages/Student/views/Notification";
 import { Invite } from "./pages/Student/components/Profile/Invite";
 import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
 import { MyTutors } from "./pages/Student/components/Tutors/MyTutors";
@@ -135,6 +135,7 @@ function AppContent() {
             <Route index element={<MakePayment />} />
             <Route path="payment-history" element={<PaymentHistory />} />
           </Route>
+          <Route path="notification" element={<Notification />} />
         </Route>
       </Route>
 

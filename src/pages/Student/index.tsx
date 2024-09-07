@@ -1,16 +1,12 @@
 import { FC, useEffect } from "react";
-// import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet } from "react-router-dom";
-// import { IoMdNotificationsOutline } from "react-icons/io";
 import {
   Box,
   Flex,
   Image,
-  // Input,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import {
   ASSESSMENT,
   COURSES,
@@ -20,6 +16,7 @@ import {
   PROFILE,
   SETTINGS,
   TUTORS,
+  NOTIFICATION
 } from "../../constants/icon";
 import { logout } from "../../services/auth/authSlice";
 import { useAppDispatch } from "../../hooks/reactReduxHooks";
@@ -33,9 +30,10 @@ type NavProps = {
   icon?: string;
   isImage?: boolean;
   children?: React.ReactNode;
+  w?: string;
 };
 
-const Nav: FC<NavProps> = ({ text, to, icon, children, isImage = true }) => {
+const Nav: FC<NavProps> = ({ text, to, icon, children, isImage = true, w = "20px" }) => {
   return (
     <NavLink
       to={to}
@@ -67,7 +65,7 @@ const Nav: FC<NavProps> = ({ text, to, icon, children, isImage = true }) => {
             bgColor={"white"}
             border={isActive ? "none" : "1px solid brand.text"}
           >
-            {isImage ? <Image width={"20px"} src={icon} /> : children}
+            {isImage ? <Image width={w} src={icon} /> : children}
           </Flex>
           <Text
             fontSize={"14px"}
@@ -110,6 +108,7 @@ const SideBarNav: FC = () => {
         <Nav text="Profile" to="profile" icon={PROFILE} />
         <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
         <Nav text="Billing" to="billing" icon={SETTINGS} />
+        <Nav text="Notification" to="notifications" icon={NOTIFICATION} w="14px" />
         <Nav text="Referral" to="referral" isImage={false}>
           <FaLink />
         </Nav>

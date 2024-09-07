@@ -1,26 +1,9 @@
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
-import { getNotifications } from "../../../../services/student/studentThunks";
-
-// const formatDate = (date) => {
-//   const d = new Date(date);
-//   const day = d.getDate();
-//   const month = d.toLocaleString("default", { month: "long" });
-//   const year = d.getFullYear();
-//   return `${day} ${month} ${year}`;
-// };
-
-// function truncateString(str, maxLength) {
-//   if (str.length > maxLength) {
-//     return str.substring(0, maxLength) + "...";
-//   } else {
-//     return str;
-//   }
-// }
+import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
+import { getNotifications } from "../../../services/student/studentThunks";
 
 export const NotificationItem = ({ data }) => {
-  console.log(data);
   return (
     <Box
       className="gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25"
@@ -34,17 +17,7 @@ export const NotificationItem = ({ data }) => {
         color="#B3F8DA"
       >
         {data}
-      </Text>
-      {/* <Flex alignItems="center" justifyContent="space-between" paddingTop="5px">
-        <Text
-          fontSize={{ base: "xs", md: "sm" }}
-          fontWeight="100"
-          color="gray.400"
-        >
-          {formatDate(timestamp)}
-        </Text>
-        <Icon as={FaClock} color="green.500" />
-      </Flex> */}
+      </Text>|
     </Box>
   );
 };

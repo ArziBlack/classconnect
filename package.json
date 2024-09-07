@@ -18,7 +18,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@reduxjs/toolkit": "^2.2.5",
-    "axios": "^1.7.2",
+    "axios": "^1.7.7",
     "date-fns": "^3.6.0",
     "firebase": "^10.12.2",
     "formik": "^2.4.6",

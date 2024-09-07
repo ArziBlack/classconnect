@@ -4,8 +4,6 @@ import { getNotificationsTutor } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 
 export const NotificationItem = ({ data, number }) => {
-  // Split notification data into date, time, and message.
-  // eslint-disable-next-line no-unsafe-optional-chaining
   const [date, time, message] = data?.split(": ");
 
   return (

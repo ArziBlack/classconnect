@@ -6,7 +6,6 @@ import { getMyTuitionFee } from "../../../services/student/studentThunks";
 
 const links = [
   { to: "", label: "Details" },
-  { to: "notification", label: "Notification" },
   { to: "invite", label: "Invite" },
   { to: "become-a-tutor", label: "Become a Tutor" },
 ];
