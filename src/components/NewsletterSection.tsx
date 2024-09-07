@@ -6,25 +6,33 @@ import photo3 from "../assets/icons/photo3.png";
 import photo4 from "../assets/icons/photo4.png";
 import photo5 from "../assets/icons/photo5.png";
 import photo6 from "../assets/icons/photo6.png";
-import { newsLetter } from "../services/others/otherSlice";
+import { INewsLetterError, newsLetter } from "../services/others/otherSlice";
 import useCustomToast from "../hooks/useCustomToast";
-import { useAppSelector } from "../hooks/reactReduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
 
 const NewsletterSection: React.FC = () => {
+  const dispatch = useAppDispatch();
   const toast = useCustomToast();
-  const { isLoading } = useAppSelector((state)=> state.other)
+  const { isLoading } = useAppSelector((state) => state.other);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  console.log("newsletter");
   const handleSendNewsLetter = async () => {
+    console.log("newsletter is sending...");
     if (!userName && !email) {
       toast("Fields cannot be empty", "error");
       return;
     }
-    const result = await newsLetter({ userName, email });
+    const result = await dispatch(newsLetter({ userName, email }));
     if (newsLetter.fulfilled.match(result)) {
       toast("News letter sent successfully", "success");
     } else if (newsLetter.rejected.match(result)) {
-      toast("Failed to send news letter", "error");
+      const error = result.payload as INewsLetterError | undefined;
+      if (error) {
+        toast(error.message || error.error, "error")
+      } else {
+        toast("An unknown error occurred.", "error");
+      }
     }
   };
 

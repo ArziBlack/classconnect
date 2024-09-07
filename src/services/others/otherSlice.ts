@@ -122,6 +122,12 @@ export const getTutorForgotPasswordURL = createAsyncThunk(
   }
 );
 
+export interface INewsLetterError {
+  statusCode: number;
+  message?: string;
+  error?: string;
+}
+
 // Newsletter
 export const newsLetter = createAsyncThunk(
   "other/send-newsletter",
@@ -129,7 +135,8 @@ export const newsLetter = createAsyncThunk(
     try {
       return await otherService.newsLetterRequest({ userName, email });
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      const typedError: INewsLetterError = error.response.data as INewsLetterError;
+      return rejectWithValue(typedError);
     }
   }
 );
@@ -244,7 +251,12 @@ const otherSlice = createSlice({
       })
       .addCase(newsLetter.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        if (action.payload) {
+          const error = action.payload as INewsLetterError;
+          state.error = error.message;
+        } else {
+          state.error = "An unknown error occurred.";
+        }
       })
       .addCase(logoutTutor.pending, (state) => {
         state.isLoading = true;
