@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 import photo1 from "../assets/icons/photo1.png";
 import photo2 from "../assets/icons/photo2.png";
 import photo3 from "../assets/icons/photo3.png";
 import photo4 from "../assets/icons/photo4.png";
 import photo5 from "../assets/icons/photo5.png";
 import photo6 from "../assets/icons/photo6.png";
-import { INewsLetterError, newsLetter } from "../services/others/otherSlice";
 import useCustomToast from "../hooks/useCustomToast";
+import { Box, Button, Flex, Input, Text, Image } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
+import { INewsLetterError, newsLetter } from "../services/others/otherSlice";
 
 const NewsletterSection: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,20 +16,20 @@ const NewsletterSection: React.FC = () => {
   const { isLoading } = useAppSelector((state) => state.other);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  console.log("newsletter");
   const handleSendNewsLetter = async () => {
-    console.log("newsletter is sending...");
     if (!userName && !email) {
       toast("Fields cannot be empty", "error");
       return;
     }
     const result = await dispatch(newsLetter({ userName, email }));
     if (newsLetter.fulfilled.match(result)) {
+      setEmail("");
+      setUserName("");
       toast("News letter sent successfully", "success");
     } else if (newsLetter.rejected.match(result)) {
       const error = result.payload as INewsLetterError | undefined;
       if (error) {
-        toast(error.message || error.error, "error")
+        toast(error.message || error.error, "error");
       } else {
         toast("An unknown error occurred.", "error");
       }

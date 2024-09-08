@@ -111,7 +111,7 @@ const SideBarNav: FC = () => {
         <Nav text="Billing" to="billing" icon={SETTINGS} />
         <Nav
           text="Notification"
-          to="notifications"
+          to="notification"
           icon={NOTIFICATION}
           w="14px"
         />
@@ -180,7 +180,7 @@ const MainView: FC = () => {
             bgColor={"white"}
             border={"1px solid brand.text"}
             cursor={"pointer"}
-            onClick={()=> navigate("notification")}
+            onClick={() => navigate("notification")}
           >
             <Image width={"15px"} src={NOTIFICATION} />
           </Flex>

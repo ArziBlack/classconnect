@@ -41,6 +41,7 @@ const LessonCard: React.FC<ICardProps> = ({
           fontSize="lg"
           color={"white"}
           textTransform={"uppercase"}
+          noOfLines={1}
         >
           {title}
         </Text>
@@ -50,6 +51,7 @@ const LessonCard: React.FC<ICardProps> = ({
           opacity={0.9}
           fontWeight={200}
           textAlign="center"
+          noOfLines={3}
         >
           {description}
         </Text>

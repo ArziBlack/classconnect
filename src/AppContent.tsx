@@ -95,7 +95,7 @@ function AppContent() {
         <Route path="tutor" element={<Tutor />} />
         <Route path="about" element={<About />} />
         <Route path="upload" element={<FireBaseUpload />} />
-        <Route path="courses" element={<Courses />} />
+        <Route path="programs" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
 
@@ -113,9 +113,6 @@ function AppContent() {
           <Route path="courses" element={<MyCourses />}>
             <Route index element={<Started />} />
             <Route path="available" element={<Browse />} />
-          </Route>
-          <Route path="detailed" element={<Content />}>
-            <Route index element={<Content />} />
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileDetails />} />
@@ -168,7 +165,7 @@ function AppContent() {
         element={<StudentEmailV />}
       />
       <Route
-        path="/email-verify/tutor/:studentId/:uniqueString"
+        path="/email-verify/tutor/:tutorId/:uniqueString"
         element={<TutorEmailV />}
       />
       <Route path="reset-check" element={<CheckReset />} />

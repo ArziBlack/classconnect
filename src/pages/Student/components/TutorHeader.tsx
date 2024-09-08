@@ -44,7 +44,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   const [confirmation, setConfirmation] = useState(false);
   const [showError, setShowError] = useState<string | null>(null);
   const { isLoading, chooseResponse, approvedTutors } = useAppSelector(
-    (sammy) => sammy.student
+    (state) => state.student
   );
 
   React.useEffect(() => {

@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Flex, Text, Icon } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { TimeIcon } from "@chakra-ui/icons";
 import { SiLevelsdotfyi } from "react-icons/si";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Flex, Text, Icon } from "@chakra-ui/react";
 
 interface CardProps {
   title: string;
@@ -30,8 +30,6 @@ export const CourseCard: React.FC<CardProps> = ({
     }
   };
 
-  const navigate = useNavigate();
-
   const truncateDescription = (
     description: string,
     maxLength: number = 140
@@ -54,7 +52,6 @@ export const CourseCard: React.FC<CardProps> = ({
         bg="#254f62"
         color="white"
         cursor={"pointer"}
-        onClick={() => navigate("/student/detailed")}
         border={"1px solid #5E7079"}
       >
         <Text
@@ -88,7 +85,7 @@ export const CourseCard: React.FC<CardProps> = ({
             </Flex>
             <Flex align="center" ml={4}>
               <Icon as={TimeIcon} mr={2} />
-              <Text>{lessons}</Text>
+              <Text textTransform={"capitalize"}>{lessons?.toLowerCase()}</Text>
             </Flex>
           </Flex>
         </Flex>

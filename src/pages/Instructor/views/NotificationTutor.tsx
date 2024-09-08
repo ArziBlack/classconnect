@@ -4,6 +4,7 @@ import { getNotificationsTutor } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 
 export const NotificationItem = ({ data, number }) => {
+  // eslint-disable-next-line no-unsafe-optional-chaining
   const [date, time, message] = data?.split(": ");
 
   return (
@@ -84,8 +85,6 @@ const NotificationTutor = () => {
       justifyContent="center"
       alignItems="center"
       w="100%"
-      maxH="100vh"
-      overflow="hidden"
     >
       <NotificationList />
     </Box>

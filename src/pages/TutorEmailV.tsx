@@ -9,13 +9,15 @@ import Confetti from "react-confetti";
 import { setUserType } from "../services/others/otherSlice";
 import Button from "../components/Button";
 
-const StudentEmailV = () => {
+const TutorEmailV = () => {
   const { width, height } = useWindowSize();
   const dispatch = useAppDispatch();
   const { tutorId, uniqueString } = useParams();
   const navigate = useNavigate();
   const { message, isSuccess, isError } = useAppSelector((state) => state.auth);
   const hasRequested = useRef(false);
+
+  console.log(tutorId, uniqueString);
 
   useEffect(() => {
     if (!hasRequested.current) {
@@ -101,4 +103,4 @@ const StudentEmailV = () => {
   );
 };
 
-export default StudentEmailV;
+export default TutorEmailV;
