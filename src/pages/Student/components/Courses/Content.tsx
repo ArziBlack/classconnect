@@ -132,7 +132,9 @@ export const Content = () => {
                   </Text>
                   {projects?.[levelIndex]?.project && (
                     <Link href={projects?.[levelIndex]?.project}>
-                      <Text textDecor={"underline"}>View Project</Text>
+                      <Text fontSize={"14px"} textDecor={"underline"}>
+                        View Project
+                      </Text>
                     </Link>
                   )}
                 </Flex>
