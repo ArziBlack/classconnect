@@ -58,6 +58,12 @@ export const Content = () => {
     (course) => course?.courseId === courseId
   );
 
+  const projects = curriculum?.data?.curriculum?.map((level) =>
+    level.find((item) => item.project)
+  );
+
+  console.log(projects);
+
   const isNoCurriculumFile = !curriculum?.data?.curriculumFile;
 
   if (isLoading) {
@@ -120,9 +126,16 @@ export const Content = () => {
             )
             .map((levelItems, levelIndex) => (
               <Box key={levelIndex}>
-                <Text fontSize="xl" fontWeight="bold" mb={4}>
-                  {levelItems[0]?.level || `Level ${levelIndex + 1}`}
-                </Text>
+                <Flex justify={"space-between"}>
+                  <Text fontSize="xl" fontWeight="bold" mb={4}>
+                    {levelItems[0]?.level || `Level ${levelIndex + 1}`}
+                  </Text>
+                  {projects?.[levelIndex]?.project && (
+                    <Link href={projects?.[levelIndex]?.project}>
+                      <Text textDecor={"underline"}>View Project</Text>
+                    </Link>
+                  )}
+                </Flex>
 
                 {levelItems
                   .filter(
