@@ -277,7 +277,7 @@ export const getMyCourses = createAsyncThunk<
 
 // Get my Courses
 export const getAllCourses = createAsyncThunk<
-ICourseResponse,
+  ICourseResponse,
   void,
   { rejectValue: ICourseError }
 >("student/getAllCourses", async (_, thunkAPI) => {
@@ -333,7 +333,7 @@ export const RegisterForACourse = createAsyncThunk<
     });
     return response.data;
   } catch (err) {
-    const error = err.response ? err.response.data : err.message;
+    const error = err.response ? err.response.data.error : err.message;
     return thunkAPI.rejectWithValue(error);
   }
 });

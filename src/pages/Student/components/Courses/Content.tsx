@@ -62,8 +62,6 @@ export const Content = () => {
     level.find((item) => item.project)
   );
 
-  console.log(projects);
-
   const isNoCurriculumFile = !curriculum?.data?.curriculumFile;
 
   if (isLoading) {
@@ -72,9 +70,10 @@ export const Content = () => {
 
   if (errorMessage) {
     return (
-      <Flex justifyContent="center" alignItems="center" height="100vh">
-        <Text fontSize="2xl" color="red.500">
-          {errorMessage || "Curriculum not available for this course."}
+      <Flex justifyContent="center" alignItems="center">
+        <Text fontSize="xl" color="white">
+          {errorMessage ||
+            "Curriculum for this course has'nt not available for this course."}
         </Text>
       </Flex>
     );
@@ -90,10 +89,12 @@ export const Content = () => {
         showToast(result.payload?.message, "success");
       } else if (result.payload?.statusCode === 400) {
         showToast(result.payload?.error, "error");
+      } else if (result.payload?.statusCode === 500) {
+        showToast(result.payload?.error, "error");
       }
     } else if (result.meta.requestStatus === "rejected") {
-      setShowError(result.payload?.message as string);
-      showToast(result.payload?.message, "error");
+      setShowError(result.payload as string);
+      showToast(result.payload, "error");
     }
   };
   return (
