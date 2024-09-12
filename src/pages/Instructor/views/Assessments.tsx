@@ -12,6 +12,7 @@ export const Assessments = () => {
         links={[
           { to: "", label: "Class Assessment" },
           { to: "class-notice", label: "Class Notice" },
+          { to: "class-report", label: "Class Report" },
           { to: "feedback", label: "Send Feedback" },
         ]}
       />

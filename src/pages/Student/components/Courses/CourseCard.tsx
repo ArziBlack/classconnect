@@ -41,55 +41,54 @@ export const CourseCard: React.FC<CardProps> = ({
   };
 
   return (
-    <Link to={`/student/courses/${link}`}>
-      <Box
-        width={"100%"}
-        maxW="600px"
-        p={4}
-        fontSize={"14px"}
-        boxShadow="md"
-        borderRadius="md"
-        bg="#254f62"
-        color="white"
-        cursor={"pointer"}
-        border={"1px solid #5E7079"}
+    <Box
+      width={"100%"}
+      maxW="600px"
+      p={4}
+      fontSize={"14px"}
+      boxShadow="md"
+      borderRadius="md"
+      bg="#254f62"
+      color="white"
+      border={"1px solid #5E7079"}
+    >
+      <Text textTransform={"capitalize"} fontSize="xl" fontWeight="bold" mb={2}>
+        {title?.toLocaleLowerCase()}
+      </Text>
+      <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
+        {truncateDescription(description)}
+      </Text>
+      <Flex
+        pt={4}
+        w={"100%"}
+        align={"center"}
+        justifyContent={"space-between"}
+        fontFamily={"Work Sans"}
       >
-        <Text
-          textTransform={"capitalize"}
-          fontSize="xl"
-          fontWeight="bold"
-          mb={2}
-        >
-          {title?.toLocaleLowerCase()}
-        </Text>
-        <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
-          {truncateDescription(description)}
-        </Text>
-        <Flex
-          pt={4}
-          w={"100%"}
-          align={"center"}
-          justifyContent={"space-between"}
-          fontFamily={"Work Sans"}
-        >
-          <Flex align="center">
-            <Flex
-              alignItems="center"
-              justifyContent={"center"}
-              opacity={0.6}
-              gap={1}
-              color={getDifficultyColor(difficulty)}
-            >
-              <SiLevelsdotfyi className="mb-[4px]" />
-              <Text>{difficulty}</Text>
-            </Flex>
-            <Flex align="center" ml={4}>
-              <Icon as={TimeIcon} mr={2} />
-              <Text textTransform={"capitalize"}>{lessons?.toLowerCase()}</Text>
-            </Flex>
+        <Flex align="center">
+          <Flex
+            alignItems="center"
+            justifyContent={"center"}
+            opacity={0.6}
+            gap={1}
+            color={getDifficultyColor(difficulty)}
+          >
+            <SiLevelsdotfyi className="mb-[4px]" />
+            <Text>{difficulty}</Text>
+          </Flex>
+          <Flex align="center" ml={4}>
+            <Icon as={TimeIcon} mr={2} />
+            <Text textTransform={"capitalize"}>{lessons?.toLowerCase()}</Text>
           </Flex>
         </Flex>
-      </Box>
-    </Link>
+        <Flex align="center" ml={4} textDecor={"underline"}>
+          <Link to={`/student/courses/${link}`}>
+            <Text textTransform={"capitalize"} cursor={"pointer"}>
+              {"view curriculum"}
+            </Text>
+          </Link>
+        </Flex>
+      </Flex>
+    </Box>
   );
 };
