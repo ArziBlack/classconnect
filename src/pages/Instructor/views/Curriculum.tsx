@@ -9,49 +9,31 @@ import {
   AccordionPanel,
   Flex,
   Box,
+  Text,
   Spinner,
+  Link,
 } from "@chakra-ui/react";
 import Button from "../../../components/Button";
-import jsPDF from "jspdf";
 import { getCurriculum } from "../../../services/tutor/tutorThunk";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { convertStringsToArray } from "../../../utils/utility";
 
 const links = [{ to: "", label: "My curriculum" }];
 
 export const Curriculum = () => {
   const dispatch = useAppDispatch();
-  const { curriculumResponse, isLoading } = useAppSelector(
+  const { curriculumResponse, isLoading, isError } = useAppSelector(
     (state) => state.tutor
   );
+
+  const projects = curriculumResponse?.data?.curriculum?.map((level) =>
+    level.find((item) => item.project)
+  );
+
+  const isNoCurriculumFile = !curriculumResponse?.data?.curriculumFile;
 
   React.useEffect(() => {
     !curriculumResponse && dispatch(getCurriculum());
   }, []);
-
-  const generatePDF = () => {
-    const doc = new jsPDF();
-
-    doc.setFontSize(18);
-    doc.text("HEP curriculum", 10, 10);
-
-    doc.setFontSize(12);
-    doc.text(
-      "View your enrolled curriculum. Track your progress, access curriculum materials, and stay updated with upcoming lessons and assignments.",
-      10,
-      20,
-      { maxWidth: 180 }
-    );
-
-    curriculumResponse?.data?.curriculum?.forEach((item, index) => {
-      doc.setFontSize(14);
-      doc.text(item?.topic, 10, 30 + index * 30);
-      doc.setFontSize(12);
-      doc.text(item?.content, 10, 40 + index * 30, { maxWidth: 180 });
-    });
-
-    doc.save("curriculum.pdf");
-  };
 
   if (isLoading) {
     return (
@@ -61,6 +43,17 @@ export const Curriculum = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <Flex justifyContent="center" alignItems="center">
+        <Text fontSize="xl" color="white">
+          {
+            "Curriculum is not yet available for this course, check again later."
+          }
+        </Text>
+      </Flex>
+    );
+  }
   return (
     <>
       <ViewHeader
@@ -78,28 +71,66 @@ export const Curriculum = () => {
             flexDir="column"
             gap={4}
           >
-            {curriculumResponse?.data?.curriculum.map((item, index) => (
-              <AccordionItem key={index} border="none">
-                <h2>
-                  <AccordionButton
-                    h="50px"
-                    borderRadius="8px"
-                    _hover={{ bg: "#37474f" }}
-                    bg="#37474F"
-                  >
-                    <Box as="span" flex="1" textAlign="left">
-                      {item?.topic?.replace(":", "")}
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                {convertStringsToArray(item?.content).map((it, id) => (
-                  <AccordionPanel pb={2} textTransform={"capitalize"} key={id}>
-                    • {it}
-                  </AccordionPanel>
-                ))}
-              </AccordionItem>
-            ))}
+            {curriculumResponse?.data?.curriculum
+              .filter((levelItems) =>
+                levelItems.some(
+                  (topicItem) =>
+                    topicItem?.content && topicItem.content.length > 0
+                )
+              )
+              .map((levelItems, levelIndex) => (
+                <Box key={levelIndex}>
+                  <Flex justify={"space-between"}>
+                    <Text fontSize="xl" fontWeight="bold" mb={4}>
+                      {levelItems[0]?.level || `Level ${levelIndex + 1}`}
+                    </Text>
+                    {projects?.[levelIndex]?.project && (
+                      <Link href={projects?.[levelIndex]?.project}>
+                        <Text fontSize={"14px"} textDecor={"underline"}>
+                          View Project
+                        </Text>
+                      </Link>
+                    )}
+                  </Flex>
+
+                  {levelItems
+                    .filter(
+                      (topicItem) =>
+                        topicItem?.content && topicItem.content.length > 0
+                    )
+                    .map((topicItem, topicIndex) => (
+                      <AccordionItem key={topicIndex} border="none" mb="2px">
+                        <h2>
+                          <AccordionButton
+                            h="50px"
+                            borderRadius="8px"
+                            _hover={{ bg: "#37474f" }}
+                            bg="#37474F"
+                          >
+                            <Box as="span" flex="1" textAlign="left">
+                              {topicItem?.topic?.replace(":", "")}
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={2} textTransform={"capitalize"}>
+                          {Array.isArray(topicItem?.content) &&
+                          topicItem?.content.length > 0 ? (
+                            topicItem.content[0]
+                              ?.split(",")
+                              .map((contentItem, contentIndex) => (
+                                <Text key={contentIndex} mb={2}>
+                                  • {contentItem.trim()}
+                                </Text>
+                              ))
+                          ) : (
+                            <Text>No content available</Text>
+                          )}
+                        </AccordionPanel>
+                      </AccordionItem>
+                    ))}
+                </Box>
+              ))}
           </Accordion>
         ) : (
           <Box width="700px" color="gray.200">
@@ -107,7 +138,18 @@ export const Curriculum = () => {
               "No curriculum data available, please check back later..."}
           </Box>
         )}
-        <Button text="Download Curriculum" onClick={generatePDF} />
+        <Link
+          href={
+            isNoCurriculumFile
+              ? undefined
+              : curriculumResponse?.data?.curriculumFile
+          }
+          onClick={(e) => isNoCurriculumFile && e.preventDefault()}
+          style={{ pointerEvents: isNoCurriculumFile ? "none" : "auto" }}
+          opacity={isNoCurriculumFile ? 0.6 : 1}
+        >
+          <Button text=" Download Curriculum" />
+        </Link>
       </Flex>
     </>
   );

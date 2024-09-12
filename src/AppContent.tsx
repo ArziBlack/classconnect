@@ -54,6 +54,7 @@ import NotificationTutor from "./pages/Instructor/views/NotificationTutor";
 import { Referral } from "./pages/Student/views/Referral";
 import { Internship } from "./pages/Student/views/Internship";
 import { Scholarship } from "./pages/Student/views/Scholarship";
+import { ClassReport } from "./pages/Instructor/components/Assessments/ClassReport";
 
 function AppContent() {
   const location = useLocation();
@@ -148,9 +149,11 @@ function AppContent() {
             <Route index element={<Content />} />
           </Route>
           <Route path="profile" element={<TutorProfile />}></Route>
+          <Route path="feedback" element={<CreateReport />}></Route>
           <Route path="assessments" element={<TutorAssessment />}>
             <Route index element={<CreateAssessment />} />
             <Route path="feedback" element={<CreateReport />} />
+            <Route path="class-report" element={<ClassReport />} />
             <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="notification" element={<NotificationTutor />} />

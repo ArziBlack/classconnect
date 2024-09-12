@@ -9,15 +9,18 @@ import {
 } from "@chakra-ui/react";
 import Button from "../../../../components/Button";
 import { useState } from "react";
-import { IAssessmentData } from "../../../../typings/tutor";
+import {
+  IAssessmentData,
+  IAssessmentResponse,
+} from "../../../../typings/tutor";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
 import useCustomToast from "../../../../hooks/useCustomToast";
-import { createGeneralReport } from "../../../../services/tutor/tutorThunk";
+import { sendClassReport } from "../../../../services/tutor/tutorThunk";
 
-export const CreateReport = () => {
+export const ClassReport = () => {
   const dispatch = useAppDispatch();
   const showToast = useCustomToast();
   const [title, setTitle] = useState("");
@@ -42,23 +45,23 @@ export const CreateReport = () => {
         "error"
       );
     } else {
-      const result = await dispatch(createGeneralReport({ report }));
+      const result = await dispatch(sendClassReport({ report }));
       if (result.meta.requestStatus === "fulfilled") {
-        showToast("Feedback sent successfully", "success");
+        showToast("Report created successfully", "success");
+        setTitle("");
+        setContent("");
       } else if (result.meta.requestStatus === "rejected") {
-        showToast("Report creation failed", "error");
+        showToast((result.payload as IAssessmentResponse).message, "error");
         console.log("error", error);
       }
     }
-    setTitle("");
-    setContent("");
   };
 
   return (
     <Box color="white" w="100%" borderRadius="lg" fontFamily="Inter" mx="auto">
       <Box maxW="600px">
         <Text fontSize="2xl" fontWeight="bold" mb={6}>
-          Send us a feedback
+          Send class report
         </Text>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="stretch">

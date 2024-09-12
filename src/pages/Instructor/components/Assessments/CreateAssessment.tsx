@@ -15,7 +15,10 @@ import {
 } from "../../../../hooks/reactReduxHooks";
 import useCustomToast from "../../../../hooks/useCustomToast";
 import { createGeneralAssessments } from "../../../../services/tutor/tutorThunk";
-import { IAssessmentData } from "../../../../typings/tutor";
+import {
+  IAssessmentData,
+  IAssessmentResponse,
+} from "../../../../typings/tutor";
 import Input from "../../../../components/Input";
 
 export const CreateAssessment = () => {
@@ -24,9 +27,7 @@ export const CreateAssessment = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const { error, isLoading, message, generalAssessment } = useAppSelector(
-    (state) => state.tutor
-  );
+  const { isLoading } = useAppSelector((state) => state.tutor);
 
   const handleTypeChange = (e) => setType(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -52,20 +53,18 @@ export const CreateAssessment = () => {
     } else {
       const result = await dispatch(createGeneralAssessments({ assessment }));
       if (result.meta.requestStatus === "fulfilled") {
-        if (generalAssessment?.statusCode === 403) {
-          showToast(message, "error");
+        if ((result.payload as IAssessmentResponse).statusCode === 403) {
+          showToast((result.payload as IAssessmentResponse).message, "error");
           return;
-        } else if (generalAssessment?.statusCode === 200) {
-          showToast(message, "success");
         }
+        showToast((result.payload as IAssessmentResponse).message, "success");
+        setType("");
+        setContent("");
+        setAttachment(null);
       } else if (result.meta.requestStatus === "rejected") {
-        showToast(error, "error");
+        showToast((result.payload as IAssessmentResponse).message, "error");
       }
     }
-
-    setType("");
-    setContent("");
-    setAttachment(null);
   };
 
   console.log("attachment", attachment);
@@ -82,7 +81,7 @@ export const CreateAssessment = () => {
     >
       <Box maxW="600px">
         <Text fontSize="2xl" fontWeight="bold" mb={6}>
-          Create Class Assessment
+          Send Class Assessment
         </Text>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="stretch">

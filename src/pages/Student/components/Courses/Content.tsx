@@ -73,7 +73,7 @@ export const Content = () => {
       <Flex justifyContent="center" alignItems="center">
         <Text fontSize="xl" color="white">
           {errorMessage ||
-            "Curriculum for this course has'nt not available for this course."}
+            "Curriculum is not yet available for this course, check again later."}
         </Text>
       </Flex>
     );

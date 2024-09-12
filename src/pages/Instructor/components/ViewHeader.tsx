@@ -13,7 +13,7 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({ title, subtext, loading }) => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1);
+    navigate("/instructor");
   };
 
   return (
