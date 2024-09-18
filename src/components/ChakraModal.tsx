@@ -19,6 +19,7 @@ export interface ChakraModalInterface {
   closeOnOverlayClick?: boolean;
   children: React.ReactNode;
   bg?: string;
+  size?: string;
   padding?: string;
   autoFocus?: boolean;
   maxW?: string;
@@ -32,10 +33,12 @@ const ChakraModal: FC<ChakraModalInterface> = ({
   isOpen,
   onClose,
   children,
+  size,
 }) => {
   return (
     <>
       <Modal
+        size={size}
         isOpen={isOpen}
         onClose={onClose}
         isCentered={true}

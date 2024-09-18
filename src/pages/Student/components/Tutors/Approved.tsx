@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { Box, SimpleGrid, Skeleton, Text, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  SimpleGrid,
+  Skeleton,
+  Text,
+  Flex,
+  CircularProgress,
+  Button as CButton,
+} from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
-import { IMyTutor } from "../../../../typings/student";
+import { IMyTutor, IRecommendationResponse } from "../../../../typings/student";
 import Button from "../../../../components/Button";
 import { IoFilter, IoRefreshCircleOutline } from "react-icons/io5";
 import {
@@ -13,10 +21,14 @@ import {
   requestRecommendation,
 } from "../../../../services/student/studentThunks";
 import useCustomToast from "../../../../hooks/useCustomToast";
+import ChakraModal from "../../../../components/ChakraModal";
 
 export const Approved = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
+  const [confirmation, setConfirmation] = useState(false);
+  const [showError, setShowError] = useState<string | null>(null);
+
   const { approvedTutors, isLoading, recommendLoading, recommendResponse } =
     useAppSelector((state) => state.student);
   const titles = JSON.parse(sessionStorage.getItem("courseTitles"));
@@ -24,8 +36,13 @@ export const Approved = () => {
   const handleRecommendation = async () => {
     const result = await dispatch(requestRecommendation());
     if (result.meta.requestStatus === "fulfilled") {
+      setConfirmation(false);
       toast(recommendResponse?.message, "success");
     } else if (result.meta.requestStatus === "rejected") {
+      setShowError(
+        (result.payload as IRecommendationResponse)?.message as string
+      );
+      setConfirmation(false);
       toast(result.payload, "error");
     }
   };
@@ -73,11 +90,17 @@ export const Approved = () => {
         </div>
 
         <Flex gap={4} align={"center"} position="relative">
-          <IoFilter
+          <Flex
             aria-label="Filter Tutors"
             onClick={() => setShowDropdown(!showDropdown)}
             cursor="pointer"
-          />
+            flexWrap={"nowrap"}
+            align={"center"}
+            gap={2}
+          >
+            Sort by
+            <IoFilter />
+          </Flex>
           {showDropdown && (
             <Flex
               direction="column"
@@ -109,8 +132,7 @@ export const Approved = () => {
           )}
           <Button
             text="Get Recommendation"
-            onClick={handleRecommendation}
-            isLoading={recommendLoading}
+            onClick={() => setConfirmation(true)}
           />
         </Flex>
       </Flex>
@@ -130,6 +152,37 @@ export const Approved = () => {
             </Skeleton>
           ))}
       </SimpleGrid>
+
+      <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
+        <Flex
+          bg={"#023248"}
+          flexDirection={"column"}
+          borderRadius={"12px"}
+          padding={10}
+        >
+          {recommendLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Text color={"white"}>
+                {showError
+                  ? showError
+                  : "Are you sure about a tutor recommendation?"}
+              </Text>
+              <Flex gap={8} justify={"center"} mt={4}>
+                {showError ? (
+                  <CButton onClick={() => setConfirmation(false)}>Ok</CButton>
+                ) : (
+                  <>
+                    <CButton onClick={handleRecommendation}>Yes</CButton>
+                    <CButton onClick={() => setConfirmation(false)}>No</CButton>
+                  </>
+                )}
+              </Flex>
+            </>
+          )}
+        </Flex>
+      </ChakraModal>
     </Box>
   );
 };

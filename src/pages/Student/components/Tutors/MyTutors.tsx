@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { Box, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import { TutorCard } from "./TutorCard";
-import { getMyTutors } from "../../../../services/student/studentThunks";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
+import Refresh from "../../../../components/Refresh";
 import { IMyTutor } from "../../../../typings/student";
 import useCustomToast from "../../../../hooks/useCustomToast";
-import Refresh from "../../../../components/Refresh";
+import { Box, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { getMyTutors } from "../../../../services/student/studentThunks";
 
 export const MyTutors = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export const MyTutors = () => {
     } else if (getMyTutors.rejected.match(response)) {
       toast(response?.payload, "warning");
     }
-  }
+  };
 
   return (
     <Box className="text-white">

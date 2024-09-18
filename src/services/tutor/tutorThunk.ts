@@ -111,6 +111,26 @@ export const createGeneralReport = createAsyncThunk<
   }
 });
 
+// create a class report
+export const sendClassReport = createAsyncThunk<
+  IAssessmentResponse,
+  { report: IAssessmentData },
+  { rejectValue: string }
+>("tutor/class-report", async ({ report }, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post<IAssessmentResponse>(
+      "/tutor/sendClassReport",
+      report
+    );
+    return response.data;
+  } catch (err) {
+    const error = err.response
+      ? err.response.data
+      : err.message || "An unknown error occurred";
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
 // create a student report
 export const createStudentReport = createAsyncThunk<
   IReportResponse,

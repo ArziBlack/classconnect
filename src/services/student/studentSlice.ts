@@ -39,7 +39,9 @@ import {
   ITutorApiResponse,
 } from "../../typings/student";
 
-const approvedTutors: ITutorApiResponse | null = JSON.parse(sessionStorage.getItem("approvedTutors") || "null");
+const approvedTutors: ITutorApiResponse | null = JSON.parse(
+  sessionStorage.getItem("approvedTutors") || "null"
+);
 
 interface IState {
   approvedTutors: ITutorApiResponse | null;
@@ -56,6 +58,7 @@ interface IState {
   curriculum: ICurriculumResponse;
   notifications: INotification;
   isLoading: boolean;
+  enrollCourseLoading: boolean;
   recommendLoading: boolean;
   error: string | null;
   isSuccess: boolean | null;
@@ -78,11 +81,12 @@ const initialState = {
   curriculum: null,
   notifications: null,
   isLoading: null,
+  enrollCourseLoading: null,
   recommendLoading: null,
   error: null,
   isSuccess: false || null,
   isError: null,
-  message: ""
+  message: "",
 } satisfies IState;
 
 const studentSlice = createSlice({
@@ -254,18 +258,24 @@ const studentSlice = createSlice({
         state.error = null;
         state.message = "";
       })
-      .addCase(requestRecommendation.fulfilled, (state, action: PayloadAction<IRecommendationResponse>) => {
-        state.recommendLoading = false;
-        state.recommendResponse = action.payload;
-        state.isSuccess = true;
-        state.message = action.payload.message;
-      })
-      .addCase(requestRecommendation.rejected, (state, action: PayloadAction<string>) => {
-        state.recommendLoading = false;
-        state.isSuccess = false;
-        state.isError = true;
-        state.error = action.payload;
-      })
+      .addCase(
+        requestRecommendation.fulfilled,
+        (state, action: PayloadAction<IRecommendationResponse>) => {
+          state.recommendLoading = false;
+          state.recommendResponse = action.payload;
+          state.isSuccess = true;
+          state.message = action.payload.message;
+        }
+      )
+      .addCase(
+        requestRecommendation.rejected,
+        (state, action: PayloadAction<string>) => {
+          state.recommendLoading = false;
+          state.isSuccess = false;
+          state.isError = true;
+          state.error = action.payload;
+        }
+      )
       .addCase(acceptRecommendation.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
@@ -382,16 +392,16 @@ const studentSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(RegisterForACourse.pending, (state) => {
-        state.isLoading = true;
+        state.enrollCourseLoading = true;
         state.message = "";
       })
       .addCase(RegisterForACourse.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.enrollCourseLoading = false;
         state.isSuccess = true;
         state.message = action.payload.message;
       })
       .addCase(RegisterForACourse.rejected, (state, action) => {
-        state.isLoading = false;
+        state.enrollCourseLoading = false;
         state.isError = true;
         state.error = action.payload;
       })
@@ -399,11 +409,14 @@ const studentSlice = createSlice({
         state.isLoading = true;
         state.message = "";
       })
-      .addCase(getClassSchedule.fulfilled, (state, action: PayloadAction<IScheduleResponse>) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.mySchedule = action.payload;
-      })
+      .addCase(
+        getClassSchedule.fulfilled,
+        (state, action: PayloadAction<IScheduleResponse>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.mySchedule = action.payload;
+        }
+      )
       .addCase(getClassSchedule.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
@@ -413,11 +426,14 @@ const studentSlice = createSlice({
         state.isLoading = true;
         state.message = "";
       })
-      .addCase(getCurriculum.fulfilled, (state, action: PayloadAction<ICurriculumResponse>) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.curriculum = action.payload;
-      })
+      .addCase(
+        getCurriculum.fulfilled,
+        (state, action: PayloadAction<ICurriculumResponse>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.curriculum = action.payload;
+        }
+      )
       .addCase(getCurriculum.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
@@ -436,18 +452,21 @@ const studentSlice = createSlice({
       .addCase(updateProfileImage.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = "Error Updating profile Image!!"
+        state.message = "Error Updating profile Image!!";
       })
       .addCase(getNotifications.pending, (state) => {
         state.isLoading = true;
         state.message = "";
         state.isError = false;
       })
-      .addCase(getNotifications.fulfilled, (state, action: PayloadAction<INotification>) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.notifications = action.payload;
-      })
+      .addCase(
+        getNotifications.fulfilled,
+        (state, action: PayloadAction<INotification>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.notifications = action.payload;
+        }
+      )
       .addCase(getNotifications.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;

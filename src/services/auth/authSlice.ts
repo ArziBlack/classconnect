@@ -26,6 +26,10 @@ export interface IResponse {
   classNoticeUrl?: string;
   error?: string;
   token?: string;
+  monthly_performance_count?: number;
+  monthly_performance?: number;
+  yearly_performance?: number;
+  yearly_performance_count?: number;
 }
 
 const data: IResponse | null = JSON.parse(

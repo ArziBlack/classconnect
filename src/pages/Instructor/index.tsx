@@ -110,13 +110,14 @@ const SideBarNav: FC = () => {
         <Nav text="Students" to="students" icon={ACADEMIC_CAP} />
         <Nav text="Curriculum" to="curriculum" icon={COURSES} />
         <Nav text="Profile" to="profile" icon={TUTORS} />
-        <Nav text="Evaluation" to="assessments" icon={_ASSESSMENT} />
+        <Nav text="Communications" to="assessments" icon={_ASSESSMENT} />
         <Nav
           text="Notification"
           to="notification"
           icon={NOTIFICATION}
           w="14px"
         />
+        <Nav text="Send feedback" to="feedback" icon={_ASSESSMENT} />
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
@@ -167,12 +168,39 @@ const MainView: FC = () => {
             _focusVisible={"none"}
             background="transparent"
           /> */}
-          <Text fontSize={"26px"} fontWeight={600}>
+          <Flex alignItems={"center"} gap={"20px"}>
+            <Flex
+              w={"30px"}
+              h={"30px"}
+              borderRadius={"50px"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              color={"#002333"}
+              fontSize={"18px"}
+              bgColor={"white"}
+              border={"1px solid brand.text"}
+              cursor={"pointer"}
+              onClick={() => navigate("notification")}
+            >
+              <Image width={"15px"} src={NOTIFICATION} />
+            </Flex>
+            {/* <Image
+              w={"40px"}
+              h={"40px"}
+              src={data?.profileImage}
+              borderRadius={"50%"}
+            />
+            <Text fontSize={"12px"} color="#ffffff">
+              {data?.first_name + " " + data?.last_name}
+            </Text> */}
+            {/* <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" /> */}
+          </Flex>
+          {/* <Text fontSize={"26px"} fontWeight={600}>
             Tutor Dashboard
-          </Text>
+          </Text> */}
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
-        <Flex
+          {/* <Flex
             w={"30px"}
             h={"30px"}
             borderRadius={"50px"}
@@ -183,10 +211,10 @@ const MainView: FC = () => {
             bgColor={"white"}
             border={"1px solid brand.text"}
             cursor={"pointer"}
-            onClick={()=> navigate("notification")}
+            onClick={() => navigate("notification")}
           >
             <Image width={"15px"} src={NOTIFICATION} />
-          </Flex>
+          </Flex> */}
           <Image
             w={"40px"}
             h={"40px"}

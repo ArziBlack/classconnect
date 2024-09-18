@@ -87,7 +87,7 @@ export interface ICoursesResponse {
   message: ICourseData[];
 }
 
-export interface ICourseResponse  {
+export interface ICourseResponse {
   statusCode: number;
   message: string;
   data: CurriculumData;
@@ -98,7 +98,7 @@ export interface ICourseError {
   error: string;
 }
 
-interface CurriculumData {
+export interface CurriculumData {
   title: string;
   description: string;
   duration: string;
@@ -106,7 +106,7 @@ interface CurriculumData {
   curriculum: Level[];
 }
 
-interface Level {
+export interface Level {
   level: string;
   topic: string;
   content: string[];

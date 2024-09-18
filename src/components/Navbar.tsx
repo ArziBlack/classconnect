@@ -33,7 +33,7 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/tutor", label: "Tutor" },
-    { to: "/courses", label: "Courses" },
+    { to: "/programs", label: "Programs" },
     { to: "/pricing", label: "Pricing" },
     { to: "/about", label: "About" },
   ];

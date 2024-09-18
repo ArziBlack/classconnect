@@ -19,11 +19,12 @@ import {
 import useCustomToast from "../../../../hooks/useCustomToast";
 import { sendClassNotice } from "../../../../services/tutor/tutorThunk";
 import MultipleSelectDropdown from "../../../../components/Dropdown";
+import { INoticeResponse } from "../../../../typings/tutor";
 
 const CreateClassNotice = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
-  const { isLoading, noticeResponse, error, message } = useAppSelector(
+  const { isLoading, noticeResponse, error } = useAppSelector(
     (state) => state.tutor
   );
   const [classNotice, setClassNotice] = useState({
@@ -85,25 +86,18 @@ const CreateClassNotice = () => {
       date: new Date(classNotice.date).toISOString(),
     };
 
-    const res = await dispatch(sendClassNotice({ notice }));
-    if (sendClassNotice.fulfilled.match(res)) {
-      if (noticeResponse?.statusCode === 200) {
-        toast(
-          noticeResponse?.message || "Class Notice Sent Successfully",
-          "success"
-        );
-        noticeResponse?.upcomingClassDate &&
-          localStorage.setItem("nextclass", noticeResponse?.upcomingClassDate);
-        setTimeout(() => {
-          toast("Class Notice Saved Successfully", "success");
-        }, 3000);
-        setClassNotice({ time1: "", time2: "", class_link: "", date: "" });
-      } else if (noticeResponse?.statusCode === 403) {
-        toast(message, "error");
-      }
-    }
-    if (sendClassNotice.rejected.match(res)) {
-      toast("Error Sending Class Notice", "error");
+    const result = await dispatch(sendClassNotice({ notice }));
+    if (result.meta.requestStatus === "fulfilled") {
+      toast(
+        (result.payload as INoticeResponse).message ||
+          "Class Notice Sent Successfully",
+        "success"
+      );
+      noticeResponse?.upcomingClassDate &&
+        localStorage.setItem("nextclass", noticeResponse?.upcomingClassDate);
+      setClassNotice({ time1: "", time2: "", class_link: "", date: "" });
+    } else if (result.meta.requestStatus === "rejected") {
+      toast((result.payload as INoticeResponse).message, "error");
     }
   };
 
@@ -120,7 +114,7 @@ const CreateClassNotice = () => {
     >
       <Box maxW="600px" minH={"400px"}>
         <Text fontSize="2xl" fontWeight="bold" mb={6}>
-          Create Class Notice
+          Send Class Notice
         </Text>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="stretch">

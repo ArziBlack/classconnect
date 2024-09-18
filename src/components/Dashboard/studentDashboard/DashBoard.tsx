@@ -54,7 +54,6 @@ const CalendarWidget = () => {
         <Select width="auto" defaultValue="June">
           <option value="June">June</option>
           <option value="July">July</option>
-          {/* Add more months as needed */}
         </Select>
         <Text>2024</Text>
       </Box>
@@ -141,16 +140,12 @@ const PaymentHistory = () => {
   );
 };
 
-
 const DashBoard: React.FC = () => {
   return (
     <Box bg="gray.100" p={6} minH="100vh">
-      {/* Header Section */}
       <Header />
 
-      {/* Main Content Grid */}
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} mt={6}>
-        {/* Left Column: Learning Time Card and My Activity */}
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
           <Box>
             <LearningTimeCard />
@@ -160,7 +155,6 @@ const DashBoard: React.FC = () => {
           </Box>
         </SimpleGrid>
 
-        {/* Right Column: Calendar and Payment History */}
         <Box>
           <CalendarWidget />
           <Box mt={4}>
@@ -169,7 +163,6 @@ const DashBoard: React.FC = () => {
         </Box>
       </SimpleGrid>
 
-      {/* Courses Overview */}
       <Box mt={6}>
         <CoursesOverview />
       </Box>

@@ -4,8 +4,11 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { FaCaretRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { Link } from "react-router-dom";
-import { getClassSchedule, getMyCourses } from "../../../services/student/studentThunks";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getClassSchedule,
+  getMyCourses,
+} from "../../../services/student/studentThunks";
 import moment from "moment";
 import { truncateOverflow } from "../../../utils/utility";
 
@@ -23,6 +26,7 @@ const modifiersStyles = {
 };
 
 export const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.auth);
   const { myCoursesRes, mySchedule } = useAppSelector((state) => state.student);
@@ -48,7 +52,7 @@ export const Home = () => {
   useEffect(() => {
     if (!hasFetchedSchedule.current) {
       !mySchedule && dispatch(getClassSchedule());
-      dispatch(getMyCourses())
+      dispatch(getMyCourses());
       hasFetchedSchedule.current = true;
     }
   }, [mySchedule, dispatch]);
@@ -80,11 +84,11 @@ export const Home = () => {
           <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
         </div>
         <div className="flex flex-col w-full justify-between h-full mt-5 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
-          <div className="flex w-full py-1">
+          <div className="flex w-full p-2">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4">Status</h2>
             <Link
-              to={`/student/courses/started`}
+              to={`/student/courses/available`}
               className="w-1/4 text-right text-[#00ff84]"
             >
               All Courses
@@ -97,7 +101,7 @@ export const Home = () => {
           ) : (
             myCoursesRes?.message?.slice(0, 2).map((item, id) => (
               <div
-                className="flex w-full items-center my-1 border border-gray-400 p-1 rounded"
+                className={`flex w-full items-center my-1 p-1 border-t border-gray-400`}
                 key={id}
               >
                 <div className="w-2/4 flex items-center">
@@ -108,15 +112,20 @@ export const Home = () => {
                   </div>
                 </div>
                 <h2 className="w-1/4 font-[100] text-xs">Started</h2>
-                <button className="w-1/4 justify-end py-2 px-1 text-xs rounded text-[#00ff84]">
-                  View Courses
+                {/* <Link to={`student/courses/${item.id}`}> */}
+                <button
+                  className="w-1/4 justify-end text-end py-2 px-1 text-xs rounded underline"
+                  onClick={() => navigate(`courses/${item?.courseId}`)}
+                >
+                  View Course
                 </button>
+                {/* </Link> */}
               </div>
             ))
           )}
         </div>
       </div>
-      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-[calc(100vh-90px)] border border-gray-500 rounded-lg mr-2 font-light mb-5 sticky top-0">
+      <div className="w-1/3 flex flex-col self-center justify-center items-center max-h-[500px]  border border-gray-500 rounded-lg mr-2 font-light mb-5 mt-16 py-8">
         <DayPicker
           fromYear={2010}
           toYear={2024}

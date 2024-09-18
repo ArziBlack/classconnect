@@ -21,6 +21,12 @@ const getTuitionFees = async () => {
   return response.data;
 };
 
+// Get Curriculum
+const getCurriculum = async (id: string) => {
+  const response = await axios.get(`${API_BASE_URL}/curriculum/${id}`);
+  return response.data;
+};
+
 // Get Terms, Condition and Privacy Policy
 const getTnC_Policy = async () => {
   const response = await axios.get(`${API_BASE_URL}/agreement`);
@@ -94,6 +100,7 @@ const otherService = {
   getTutorForgotPasswordURL,
   newsLetterRequest,
   sendMemo,
+  getCurriculum,
   LogoutTutor,
 };
 

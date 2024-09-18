@@ -31,11 +31,13 @@ interface INewsletter {
 const initialState: OtherState = {
   home: home,
   fees: fees,
+  curriculum: null,
   tnc: "",
   URL: URL,
   error: null,
   message: "",
   isLoading: false,
+  isCurriculumLoading: false,
   isSuccess: false,
   userType: "student",
 };
@@ -80,6 +82,18 @@ export const getSignupPage = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await otherService.getSignupPage();
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// get Curriculum
+export const getCurriculum = createAsyncThunk(
+  "other/curriculum",
+  async (id: string, thunkAPI) => {
+    try {
+      return await otherService.getCurriculum(id);
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -135,7 +149,8 @@ export const newsLetter = createAsyncThunk(
     try {
       return await otherService.newsLetterRequest({ userName, email });
     } catch (error) {
-      const typedError: INewsLetterError = error.response.data as INewsLetterError;
+      const typedError: INewsLetterError = error.response
+        .data as INewsLetterError;
       return rejectWithValue(typedError);
     }
   }
@@ -166,6 +181,9 @@ const otherSlice = createSlice({
     },
     setUserType: (state, action: PayloadAction<string>) => {
       state.userType = action.payload;
+    },
+    RESET_CURRICULUM: (state) => {
+      state.curriculum = null;
     },
   },
   extraReducers: (builder) => {
@@ -267,9 +285,20 @@ const otherSlice = createSlice({
       .addCase(logoutTutor.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload.message;
+      })
+      .addCase(getCurriculum.pending, (state) => {
+        state.isCurriculumLoading = true;
+      })
+      .addCase(getCurriculum.fulfilled, (state, action) => {
+        state.isCurriculumLoading = false;
+        state.curriculum = action.payload;
+      })
+      .addCase(getCurriculum.rejected, (state, action: PayloadAction<any>) => {
+        state.isCurriculumLoading = false;
+        state.error = action.payload.message;
       });
   },
 });
 
-export const { reset, setUserType } = otherSlice.actions;
+export const { reset, setUserType, RESET_CURRICULUM } = otherSlice.actions;
 export default otherSlice.reducer;

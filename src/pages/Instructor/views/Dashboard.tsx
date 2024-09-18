@@ -7,33 +7,56 @@ import { truncateString } from "../../../utils/utility";
 const HeaderComponent = () => {
   const { data } = useAppSelector((store) => store.auth);
   return (
-    <div className="flex justify-between gap-4 mb-4">
-      <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]">
-        <div className="flex items-center justify-between w-full mb-2">
-          <h2 className="text-sm font-medium">{"Monthly performance"}</h2>
-          <div>
-            <img src={checkbox} alt="Checkbox" />
+    <div>
+      <div className="flex justify-between gap-4 mb-4 ">
+        <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
+          <div className="flex items-center justify-between w-full mb-2">
+            <h2 className="text-sm font-medium">{"Monthly performance"}</h2>
+            <div>
+              <img src={checkbox} alt="Checkbox" />
+            </div>
           </div>
+          <span className="text-2xl font-bold">
+            {data?.monthly_performance?.toFixed(2) + "%"}
+          </span>
         </div>
-        <span className="text-2xl font-bold">{"0"}</span>
+        <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
+          <div className="flex items-center justify-between w-full mb-2">
+            <h2 className="text-sm font-medium">{"Session performance"}</h2>
+            <div>
+              <img src={Vector} alt="Book" />
+            </div>
+          </div>
+          <span className="text-2xl font-bold">
+            {data?.yearly_performance?.toFixed(2) + "%"}
+          </span>
+        </div>
       </div>
-      <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]">
-        <div className="flex items-center justify-between w-full mb-2">
-          <h2 className="text-sm font-medium">{"Session performance"}</h2>
-          <div>
-            <img src={Vector} alt="Book" />
+      <div className="flex justify-between gap-4 ">
+        <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
+          <div className="flex items-center justify-between w-full mb-2">
+            <h2 className="text-sm font-medium">{"Monthly completion"}</h2>
+            <div>
+              <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
+            </div>
           </div>
+          <span className="text-2xl font-bold">
+            {data?.monthly_performance_count}
+          </span>
         </div>
-        <span className="text-2xl font-bold">{"0"}</span>
-      </div>
-      <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248]">
-        <div className="flex items-center justify-between w-full mb-2">
-          <h2 className="text-sm font-medium">{"Students"}</h2>
-          <div>
-            <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
+        <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
+          <div className="flex items-center justify-between w-full mb-2">
+            <h2 className="text-sm font-medium">
+              {"Session completion count"}
+            </h2>
+            <div>
+              <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
+            </div>
           </div>
+          <span className="text-2xl font-bold">
+            {data?.yearly_performance_count}
+          </span>
         </div>
-        <span className="text-2xl font-bold">{data?.student_count}</span>
       </div>
     </div>
   );

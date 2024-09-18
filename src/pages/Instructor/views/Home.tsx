@@ -1,21 +1,10 @@
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import DashBoard from "../views/Dashboard";
-import PDFicon from "../../../assets/icons/PDFicon.svg";
-import { NOT_PROFILE } from "../../../constants/image";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import { getMyStudents } from "../../../services/tutor/tutorThunk";
 import moment from "moment";
-
-const homeCourses = [
-  {
-    course: "Write all you understand about design",
-    image: <img src={NOT_PROFILE} />,
-    tutor: "Download the file to do your assignment",
-    download: <img src={PDFicon} />,
-  },
-];
 
 const classSchedule = localStorage.getItem("nextclass");
 const futureDate = moment(classSchedule);
@@ -62,37 +51,8 @@ export const Home = () => {
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
         </div>
         <DashBoard />
-        <div className="rounded-lg flex h-fit flex-col w-full bg-[#023248] border gap-[10px] border-[#5E7079] text-white ">
-          <div className="flex justify-between items-center mt-3 w-full h-fit p-[10px]  rounded-[8px, 0px] px-6">
-            <h2 className="text-white text-lg font-semibold">Assessments</h2>
-            {/* <h2 className="w-2/4 text-right text-[#00ff84]">View All</h2> */}
-          </div>
-          {!homeCourses ? (
-            homeCourses.map((item, id) => (
-              <div className="flex w-full items-center my-1 p-1 " key={id}>
-                <div className="w-2/4 flex items-center">
-                  <div className=" h-9 w-9 mb-11 ml-1">{item.image} </div>
-                  <div className="flex flex-col h-full justify-between  ml-2">
-                    <h2 className="text-md">{item.course}</h2>
-                    <h2 className="font-[100] text-xs ">{item.tutor}</h2>
-                    <div className="cursor-pointer h-9 w-9 p-1 ml-1">
-                      {item.download}
-                    </div>
-                  </div>
-                </div>
-                <button className="w-2/4 justify-end -mt-10 py-2 px-1 text-xs text-right rounded text-[#00ff84]">
-                  13/07/2024 <span>9:27pm</span>
-                </button>
-              </div>
-            ))
-          ) : (
-            <div className="flex w-full items-center my-1 p-4 justify-center  border-[#8e8f9058] border-t text-center">
-              You Haven't Sent any Assessments yet.
-            </div>
-          )}
-        </div>
       </div>
-      <div className="w-1/3 flex flex-col justify-center items-center min-h-[500px] h-[calc(100vh-90px)] border border-gray-500 rounded-lg mr-2 font-light mb-5 sticky top-0">
+      <div className="w-1/3 flex flex-col justify-center items-center max-h-[500px]  border border-gray-500 rounded-lg mr-2 font-light mb-5 mt-24 py-8">
         <DayPicker
           fromYear={2010}
           toYear={2024}
@@ -111,7 +71,6 @@ export const Home = () => {
         <div className="flex flex-col w-full px-4">
           <div className="flex items-center justify-between w-full">
             <h2 className="font-semibold">Upcoming classes</h2>
-            <span className="font-light text-[#00ff84]">See All</span>
           </div>
           <div className="">
             {!formattedDate ? (
@@ -119,8 +78,6 @@ export const Home = () => {
                 <div className="w-2/4 flex items-center text-[9px]">
                   <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
-                    <h2 className="font-semibold">{/**item.course*/}</h2>
-                    <h2 className="font-[100]">{/**item.time*/}</h2>
                     <h2 className="font-semibold">{formattedDate}</h2>
                   </div>
                 </div>

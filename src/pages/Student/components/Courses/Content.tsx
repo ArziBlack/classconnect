@@ -1,12 +1,13 @@
 import {
+  Box,
+  Flex,
+  Text,
+  Link,
   Accordion,
-  AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Flex,
-  Box,
-  Text,
+  AccordionButton,
   Button as CButton,
   CircularProgress,
 } from "@chakra-ui/react";
@@ -15,20 +16,19 @@ import {
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
 import { useEffect, useState } from "react";
-import jsPDF from "jspdf";
 import {
-  getCurriculum,
   getMyCourses,
+  getCurriculum,
   RegisterForACourse,
 } from "../../../../services/student/studentThunks";
-import Button from "../../../../components/Button";
-import { useParams } from "react-router-dom";
-import { convertStringsToArray } from "../../../../utils/utility";
-import Loading from "../../../../utils/Loading";
 import ViewHeader from "../ViewHeader";
 import { BreadCrumb } from "./BreadCrumb";
+import { useParams } from "react-router-dom";
+import Loading from "../../../../utils/Loading";
+import Button from "../../../../components/Button";
 import ChakraModal from "../../../../components/ChakraModal";
 import useCustomToast from "../../../../hooks/useCustomToast";
+import { ICurriculumResponse } from "../../../../typings/student";
 
 const links = [{ to: "", label: "Contents" }];
 
@@ -36,45 +36,47 @@ export const Content = () => {
   const showToast = useCustomToast();
   const [confirmation, setConfirmation] = useState(false);
   const [showError, setShowError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { courseId } = useParams();
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getCurriculum({ courseId }));
-    dispatch(getMyCourses());
-  }, []);
 
-  const { curriculum, isLoading, myCoursesRes } = useAppSelector(
-    (state) => state.student
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await dispatch(getCurriculum({ courseId }));
+      if ((result.payload as ICurriculumResponse)?.statusCode === 404) {
+        setErrorMessage("Curriculum not posted yet. Check later.");
+      }
+      dispatch(getMyCourses());
+      console.log(result.payload);
+    };
+    fetchData();
+  }, [courseId, dispatch]);
+
+  const { curriculum, isLoading, myCoursesRes, enrollCourseLoading } =
+    useAppSelector((state) => state.student);
   const isEnrolled = myCoursesRes?.message?.some(
     (course) => course?.courseId === courseId
   );
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
+  const projects = curriculum?.data?.curriculum?.map((level) =>
+    level.find((item) => item.project)
+  );
 
-    doc.setFontSize(18);
-    doc.text("HEP curriculum", 10, 10);
-
-    doc.setFontSize(12);
-    doc.text(
-      "View your enrolled curriculum. Track your progress, access curriculum materials, and stay updated with upcoming lessons and assignments.",
-      10,
-      20,
-      { maxWidth: 180 }
-    );
-
-    curriculum?.data?.curriculum?.forEach((item, index) => {
-      doc.setFontSize(14);
-      doc.text(item?.topic, 10, 30 + index * 30);
-      doc.setFontSize(12);
-      doc.text(item?.content, 10, 40 + index * 30, { maxWidth: 180 });
-    });
-    doc.save("curriculum.pdf");
-  };
+  const isNoCurriculumFile = !curriculum?.data?.curriculumFile;
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (errorMessage) {
+    return (
+      <Flex justifyContent="center" alignItems="center">
+        <Text fontSize="xl" color="white">
+          {errorMessage ||
+            "Curriculum is not yet available for this course, check again later."}
+        </Text>
+      </Flex>
+    );
   }
 
   const handleCourseRegistration = async () => {
@@ -86,6 +88,8 @@ export const Content = () => {
       } else if (result.payload?.statusCode === 200) {
         showToast(result.payload?.message, "success");
       } else if (result.payload?.statusCode === 400) {
+        showToast(result.payload?.error, "error");
+      } else if (result.payload?.statusCode === 500) {
         showToast(result.payload?.error, "error");
       }
     } else if (result.meta.requestStatus === "rejected") {
@@ -114,47 +118,78 @@ export const Content = () => {
           flexDir="column"
           gap={4}
         >
-          {curriculum?.data?.curriculum.map((levelItems, levelIndex) => (
-            <Box key={levelIndex}>
-              <Text fontSize="xl" fontWeight="bold" mb={4}>
-                {levelItems[0]?.level || `Level ${levelIndex + 1}`}
-              </Text>
+          {curriculum?.data?.curriculum
+            .filter((levelItems) =>
+              levelItems.some(
+                (topicItem) =>
+                  topicItem?.content && topicItem.content.length > 0
+              )
+            )
+            .map((levelItems, levelIndex) => (
+              <Box key={levelIndex}>
+                <Flex justify={"space-between"}>
+                  <Text fontSize="xl" fontWeight="bold" mb={4}>
+                    {levelItems[0]?.level || `Level ${levelIndex + 1}`}
+                  </Text>
+                  {projects?.[levelIndex]?.project && (
+                    <Link href={projects?.[levelIndex]?.project}>
+                      <Text fontSize={"14px"} textDecor={"underline"}>
+                        View Project
+                      </Text>
+                    </Link>
+                  )}
+                </Flex>
 
-              {levelItems.slice(1).map((topicItem, topicIndex) => (
-                <AccordionItem key={topicIndex} border="none" mb="2px">
-                  <h2>
-                    <AccordionButton
-                      h="50px"
-                      borderRadius="8px"
-                      _hover={{ bg: "#37474f" }}
-                      bg="#37474F"
-                    >
-                      <Box as="span" flex="1" textAlign="left">
-                        {topicItem?.topic?.replace(":", "")}
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={2} textTransform={"capitalize"}>
-                    {Array.isArray(topicItem?.content) &&
-                    topicItem?.content.length > 0 ? (
-                      topicItem.content[0]
-                        ?.split(",")
-                        .map((contentItem, contentIndex) => (
-                          <Text key={contentIndex} mb={2}>
-                            • {contentItem.trim()}
-                          </Text>
-                        ))
-                    ) : (
-                      <Text>No content available</Text>
-                    )}
-                  </AccordionPanel>
-                </AccordionItem>
-              ))}
-            </Box>
-          ))}
+                {levelItems
+                  .filter(
+                    (topicItem) =>
+                      topicItem?.content && topicItem.content.length > 0
+                  )
+                  .map((topicItem, topicIndex) => (
+                    <AccordionItem key={topicIndex} border="none" mb="2px">
+                      <h2>
+                        <AccordionButton
+                          h="50px"
+                          borderRadius="8px"
+                          _hover={{ bg: "#37474f" }}
+                          bg="#37474F"
+                        >
+                          <Box as="span" flex="1" textAlign="left">
+                            {topicItem?.topic?.replace(":", "")}
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel pb={2} textTransform={"capitalize"}>
+                        {Array.isArray(topicItem?.content) &&
+                        topicItem?.content.length > 0 ? (
+                          topicItem.content[0]
+                            ?.split(",")
+                            .map((contentItem, contentIndex) => (
+                              <Text key={contentIndex} mb={2}>
+                                • {contentItem.trim()}
+                              </Text>
+                            ))
+                        ) : (
+                          <Text>No content available</Text>
+                        )}
+                      </AccordionPanel>
+                    </AccordionItem>
+                  ))}
+              </Box>
+            ))}
         </Accordion>
-        <Button text="Download Curriculum" onClick={generatePDF} />
+
+        <Link
+          href={
+            isNoCurriculumFile ? undefined : curriculum?.data?.curriculumFile
+          }
+          onClick={(e) => isNoCurriculumFile && e.preventDefault()}
+          style={{ pointerEvents: isNoCurriculumFile ? "none" : "auto" }}
+          opacity={isNoCurriculumFile ? 0.6 : 1}
+        >
+          <Button text=" Download Curriculum" />
+        </Link>
       </Flex>
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
         <Flex
@@ -163,7 +198,7 @@ export const Content = () => {
           borderRadius={"12px"}
           padding={10}
         >
-          {isLoading ? (
+          {enrollCourseLoading ? (
             <CircularProgress />
           ) : (
             <>

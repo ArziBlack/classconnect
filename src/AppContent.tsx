@@ -54,6 +54,7 @@ import NotificationTutor from "./pages/Instructor/views/NotificationTutor";
 import { Referral } from "./pages/Student/views/Referral";
 import { Internship } from "./pages/Student/views/Internship";
 import { Scholarship } from "./pages/Student/views/Scholarship";
+import { ClassReport } from "./pages/Instructor/components/Assessments/ClassReport";
 import TutorNewPassword from "./pages/TutorNewPassword";
 import StudentNewPassword from "./pages/StudentNewPassword";
 import TutorPasswordV from "./pages/TutorPasswordV";
@@ -99,7 +100,7 @@ function AppContent() {
         <Route path="tutor" element={<Tutor />} />
         <Route path="about" element={<About />} />
         <Route path="upload" element={<FireBaseUpload />} />
-        <Route path="courses" element={<Courses />} />
+        <Route path="programs" element={<Courses />} />
         <Route path="privacy" element={<Privacy />} />
       </Route>
 
@@ -117,9 +118,6 @@ function AppContent() {
           <Route path="courses" element={<MyCourses />}>
             <Route index element={<Started />} />
             <Route path="available" element={<Browse />} />
-          </Route>
-          <Route path="detailed" element={<Content />}>
-            <Route index element={<Content />} />
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileDetails />} />
@@ -155,9 +153,11 @@ function AppContent() {
             <Route index element={<Content />} />
           </Route>
           <Route path="profile" element={<TutorProfile />}></Route>
+          <Route path="feedback" element={<CreateReport />}></Route>
           <Route path="assessments" element={<TutorAssessment />}>
             <Route index element={<CreateAssessment />} />
             <Route path="feedback" element={<CreateReport />} />
+            <Route path="class-report" element={<ClassReport />} />
             <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="notification" element={<NotificationTutor />} />
@@ -188,7 +188,7 @@ function AppContent() {
         element={<StudentNewPassword />}
       />
       <Route
-        path="/email-verify/tutor/:studentId/:uniqueString"
+        path="/email-verify/tutor/:tutorId/:uniqueString"
         element={<TutorEmailV />}
       />
       <Route path="reset-check" element={<CheckReset />} />

@@ -1,5 +1,6 @@
-import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
+import { ICourseResponse } from "./student";
 import { IGuardian, IStudent, ITutor } from "./signup";
+import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent } from "react";
 
 export interface IStudentProps {
   onClick?: (e: SyntheticEvent<HTMLFormElement, SubmitEvent> | string) => void;
@@ -81,7 +82,9 @@ export interface OtherState {
   message: string;
   isLoading: boolean;
   isSuccess: boolean;
+  isCurriculumLoading: boolean;
   userType: string | null;
+  curriculum: ICourseResponse | null;
 }
 
 export interface Admission {
@@ -91,6 +94,7 @@ export interface Admission {
 
 export interface Course {
   title: string;
+  id?: string;
   description: string;
   curriculum: string;
 }
