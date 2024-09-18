@@ -125,13 +125,42 @@ const newPassword = async ({ id, newPassword }) => {
   return response.data;
 };
 
-const verifyStudentResetPassword = async ({resetToken, email}) => {
+// New Password for Student
+const newStudentPassword = async ({ url, newPassword }) => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  const response = await axios.post(
+    `${url}`,
+    newPassword,
+    { headers }
+  );
+  return response.data;
+};
+
+// New Password for Tutor
+const newTutorPassword = async ({ url, newPassword }) => {
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+  const response = await axios.post(
+    `${url}`,
+    newPassword,
+    { headers }
+  );
+  return response.data;
+};
+
+const verifyStudentResetPassword = async ({ resetToken, email }) => {
   const response = await axios.get(`${API_BASE_URL}/student/resetPassword/newPassword/${resetToken}/${email}`);
   return response.data;
 }
 
-const verifyTutorResetPassword = async ({resetToken, email}) => {
+const verifyTutorResetPassword = async ({ resetToken, email }) => {
   const response = await axios.get(`${API_BASE_URL}/tutor/resetPassword/newPassword/${resetToken}/${email}`);
+  if (response.data) {
+    sessionStorage.setItem("resetURL", JSON.stringify(response.data.resetUrl));
+  }
   return response.data;
 }
 
@@ -139,7 +168,7 @@ const verifyTutorResetPassword = async ({resetToken, email}) => {
 export const logout = async () => {
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("tutor");
-  sessionStorage.removeItem("user"); 
+  sessionStorage.removeItem("user");
   setTimeout(() => {
     window.location.href = "/";
   }, 2000);
@@ -157,7 +186,9 @@ const authService = {
   resetTutorPassword,
   newPassword,
   verifyStudentResetPassword,
-  verifyTutorResetPassword
+  verifyTutorResetPassword,
+  newStudentPassword,
+  newTutorPassword
 };
 
 export default authService;

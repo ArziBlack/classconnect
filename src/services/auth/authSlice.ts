@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import authService, { ILoginParams } from "./authService";
-import { IRegister, IReset, IResetVerify, IVerify } from "../../typings/signup";
+import { IPasswordReset, IRegister, IReset, IResetVerify, IVerify } from "../../typings/signup";
 
 export interface IResponse {
   statusCode: number;
@@ -32,12 +32,9 @@ const data: IResponse | null = JSON.parse(
   sessionStorage.getItem("user") || sessionStorage.getItem("tutor") || "null"
 );
 const jwt: string | null = sessionStorage.getItem("token")?.trim().toString();
-
-if (data) {
-  console.log(data);
-}
-if (jwt) {
-  console.log(jwt);
+const resetURL: string | null = sessionStorage.getItem("resetURL")?.trim().toString();
+if (resetURL) {
+  console.log(resetURL)
 }
 
 interface AuthState {
@@ -45,6 +42,7 @@ interface AuthState {
   update: IResponse | null;
   response: string;
   isLoading: boolean;
+  resetURL: string;
   isError: boolean;
   isSuccess: boolean;
   Loaded: boolean;
@@ -58,6 +56,7 @@ const initialState: AuthState = {
   update: data,
   response: "",
   isLoading: false,
+  resetURL: resetURL,
   isError: false,
   isSuccess: false,
   Loaded: false,
@@ -229,7 +228,35 @@ export const tutorResetVerify = createAsyncThunk("auth/tutor-password-verify", a
       error.toString();
     return thunkAPI.rejectWithValue(message);
   }
-})
+});
+
+// create new password for student
+export const newStudentPassword = createAsyncThunk("auth/create-student-password", async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
+  try {
+    return await authService.newStudentPassword({ url, newPassword });
+  } catch (err) {
+    const error = err as AxiosError;
+    const message =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+// create new password for tutor
+export const newTutorPassword = createAsyncThunk("auth/create-tutor-password", async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
+  try {
+    return await authService.newTutorPassword({ url, newPassword });
+  } catch (err) {
+    const error = err as AxiosError;
+    const message =
+      (error.response && error.response.data) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 
 export const getToken = createAsyncThunk("auth/token", async () => {
   const token = localStorage.getItem("token");
@@ -426,26 +453,61 @@ const authSlice = createSlice({
         state.isError = false;
       })
       .addCase(studentResetVerify.fulfilled, (state, action) => {
-        state.message = action.payload.message,
-        state.isLoading = false,
+        state.message = action.payload.message;
+        state.isLoading = false;
         state.isSuccess = true;
+        state.resetURL = action.payload.resetUrl;
       })
-      .addCase(studentResetVerify.rejected, (state)=> {
+      .addCase(studentResetVerify.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.message = "An Error Occurred!!";
       })
-      .addCase(tutorResetVerify.pending, (state)=> {
+      .addCase(tutorResetVerify.pending, (state) => {
         state.isLoading = true;
         state.isSuccess = false;
         state.isError = false;
+        state.message = "";
       })
-      .addCase(tutorResetVerify.fulfilled, (state, action)=> {
+      .addCase(tutorResetVerify.fulfilled, (state, action) => {
         state.message = action.payload.message,
-        state.isLoading = false,
+          state.isLoading = false,
+          state.isSuccess = true;
+        state.resetURL = action.payload.resetUrl;
+      })
+      .addCase(tutorResetVerify.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "An Error Occurred!!";
+      })
+      .addCase(newStudentPassword.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(newStudentPassword.fulfilled, (state, action) => {
+        state.message = action.payload.message;
+        state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(tutorResetVerify.rejected, (state)=> {
+      .addCase(newStudentPassword.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "An Error Occurred!!";
+      })
+      .addCase(newTutorPassword.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(newTutorPassword.fulfilled, (state, action) => {
+        state.message = action.payload.message;
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(newTutorPassword.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
         state.message = "An Error Occurred!!";

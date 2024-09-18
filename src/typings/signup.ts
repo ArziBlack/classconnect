@@ -173,3 +173,8 @@ export interface IResetVerify {
   resetToken: string;
   email: string;
 }
+
+export interface IPasswordReset {
+  url: string;
+  newPassword: object;
+}
