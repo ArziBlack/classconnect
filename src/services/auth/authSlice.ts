@@ -2,7 +2,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import authService, { ILoginParams } from "./authService";
-import { IPasswordReset, IRegister, IReset, IResetVerify, IVerify } from "../../typings/signup";
+import {
+  IPasswordReset,
+  IRegister,
+  IReset,
+  IResetVerify,
+  IVerify,
+} from "../../typings/signup";
 
 export interface IResponse {
   statusCode: number;
@@ -26,6 +32,7 @@ export interface IResponse {
   classNoticeUrl?: string;
   error?: string;
   token?: string;
+  classLink?: string | null;
   monthly_performance_count?: number;
   monthly_performance?: number;
   yearly_performance?: number;
@@ -36,9 +43,12 @@ const data: IResponse | null = JSON.parse(
   sessionStorage.getItem("user") || sessionStorage.getItem("tutor") || "null"
 );
 const jwt: string | null = sessionStorage.getItem("token")?.trim().toString();
-const resetURL: string | null = sessionStorage.getItem("resetURL")?.trim().toString();
+const resetURL: string | null = sessionStorage
+  .getItem("resetURL")
+  ?.trim()
+  .toString();
 if (resetURL) {
-  console.log(resetURL)
+  console.log(resetURL);
 }
 
 interface AuthState {
@@ -208,59 +218,74 @@ export const tutorEmailVerify = createAsyncThunk(
   }
 );
 
-export const studentResetVerify = createAsyncThunk("auth/student-password-verify", async ({ resetToken, email }: IResetVerify, thunkAPI) => {
-  try {
-    return await authService.verifyStudentResetPassword({ resetToken, email });
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const studentResetVerify = createAsyncThunk(
+  "auth/student-password-verify",
+  async ({ resetToken, email }: IResetVerify, thunkAPI) => {
+    try {
+      return await authService.verifyStudentResetPassword({
+        resetToken,
+        email,
+      });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
-export const tutorResetVerify = createAsyncThunk("auth/tutor-password-verify", async ({ resetToken, email }: IResetVerify, thunkAPI) => {
-  try {
-    return await authService.verifyTutorResetPassword({ resetToken, email });
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const tutorResetVerify = createAsyncThunk(
+  "auth/tutor-password-verify",
+  async ({ resetToken, email }: IResetVerify, thunkAPI) => {
+    try {
+      return await authService.verifyTutorResetPassword({ resetToken, email });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 // create new password for student
-export const newStudentPassword = createAsyncThunk("auth/create-student-password", async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
-  try {
-    return await authService.newStudentPassword({ url, newPassword });
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const newStudentPassword = createAsyncThunk(
+  "auth/create-student-password",
+  async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
+    try {
+      return await authService.newStudentPassword({ url, newPassword });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 // create new password for tutor
-export const newTutorPassword = createAsyncThunk("auth/create-tutor-password", async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
-  try {
-    return await authService.newTutorPassword({ url, newPassword });
-  } catch (err) {
-    const error = err as AxiosError;
-    const message =
-      (error.response && error.response.data) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const newTutorPassword = createAsyncThunk(
+  "auth/create-tutor-password",
+  async ({ url, newPassword }: IPasswordReset, thunkAPI) => {
+    try {
+      return await authService.newTutorPassword({ url, newPassword });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 export const getToken = createAsyncThunk("auth/token", async () => {
   const token = localStorage.getItem("token");
@@ -474,9 +499,9 @@ const authSlice = createSlice({
         state.message = "";
       })
       .addCase(tutorResetVerify.fulfilled, (state, action) => {
-        state.message = action.payload.message,
-          state.isLoading = false,
-          state.isSuccess = true;
+        (state.message = action.payload.message),
+          (state.isLoading = false),
+          (state.isSuccess = true);
         state.resetURL = action.payload.resetUrl;
       })
       .addCase(tutorResetVerify.rejected, (state) => {
@@ -515,7 +540,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = "An Error Occurred!!";
-      })
+      });
   },
 });
 

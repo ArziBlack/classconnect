@@ -27,11 +27,15 @@ const CreateClassNotice = () => {
   const { isLoading, noticeResponse, error } = useAppSelector(
     (state) => state.tutor
   );
+
+  const { data } = useAppSelector((store) => store.auth);
+
   const [classNotice, setClassNotice] = useState({
     time1: "",
     time2: "",
     date: "",
-    class_link: "",
+    class_link:
+      data.classLink === "null" ? "No class link yet" : data.classLink,
   });
   console.log("error", error);
   const handleChange = (e) => {
@@ -72,8 +76,11 @@ const CreateClassNotice = () => {
       return;
     }
 
-    if (!classNotice.class_link) {
-      toast("Please include class meeting link", "error");
+    if (data.classLink === "null") {
+      toast(
+        "You are yet receive your class link, you can only send class notice when you have one",
+        "error"
+      );
       return;
     }
     if (!classNotice.date) {
@@ -170,6 +177,8 @@ const CreateClassNotice = () => {
                 placeholder="Class Meeting Link..."
                 value={classNotice.class_link}
                 onChange={handleChange}
+                readOnly
+                disabled
               />
             </FormControl>
             <Button

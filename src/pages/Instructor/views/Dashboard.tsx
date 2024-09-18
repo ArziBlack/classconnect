@@ -35,7 +35,9 @@ const HeaderComponent = () => {
       <div className="flex justify-between gap-4 ">
         <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
           <div className="flex items-center justify-between w-full mb-2">
-            <h2 className="text-sm font-medium">{"Monthly completion"}</h2>
+            <h2 className="text-sm font-medium">
+              {"Monthly completion count"}
+            </h2>
             <div>
               <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
             </div>
