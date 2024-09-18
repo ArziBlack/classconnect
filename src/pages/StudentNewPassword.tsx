@@ -17,6 +17,7 @@ import {
   import { useNavigate } from "react-router-dom";
   import { LOGO } from "../constants/icon";
   import InputField from "../components/Input";
+import { setUserType } from "../services/others/otherSlice";
 
 const StudentNewPassword = () => {
     const bgColor = useColorModeValue("#002333", "#002333");
@@ -24,7 +25,7 @@ const StudentNewPassword = () => {
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.900", "white");
   const primaryColor = useColorModeValue("blue.500", "primary.600");
-  const { isLoading, message, isError, isSuccess, resetURL } = useAppSelector(
+  const { isLoading, message, resetURL } = useAppSelector(
     (state) => state.auth
   );
   const [form, setForm] = useState({
@@ -43,6 +44,7 @@ const StudentNewPassword = () => {
 
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
+  const navigate = useNavigate();
 
   const handleCreateNewPassword = async(e) => {
     e.preventDefault();
@@ -57,7 +59,17 @@ const StudentNewPassword = () => {
     if (!confirmPassword && !form.newPassword) {
       toast("password fields cannot be empty!!", "warning");
     } else {
-      await dispatch(newStudentPassword({ url, newPassword }));
+      const result = await dispatch(newStudentPassword({ url, newPassword }));
+      if (result.meta.requestStatus === "fulfilled") {
+        toast(message || "Password reset link sent successfully!", "success");
+        setUserType("student");
+        setTimeout(() => {
+          navigate("/signin");
+        }, 4000);
+      }
+      if (result.meta.requestStatus === "rejected") {
+        toast("Error sending password reset link!", "error");
+      }
     }
   };
   return (

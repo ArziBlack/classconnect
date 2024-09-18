@@ -26,7 +26,7 @@ const StudentEmailV = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setUserType("student");
+      setUserType("tutor");
       const timer = setTimeout(() => {
         navigate("/signin");
       }, 3000);
