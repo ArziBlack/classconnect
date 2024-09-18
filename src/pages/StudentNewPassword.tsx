@@ -68,7 +68,7 @@ const StudentNewPassword = () => {
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
-        toast("Error sending password reset link!", "error");
+        toast(message || "Error sending password reset link!", "error");
       }
     }
   };
