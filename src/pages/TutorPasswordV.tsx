@@ -28,7 +28,7 @@ const TutorPasswordV = () => {
     if (isSuccess) {
       setUserType("student");
       const timer = setTimeout(() => {
-        navigate("/signin");
+        navigate("/new-password/tutor");
       }, 3000);
       return () => clearTimeout(timer);
     }
