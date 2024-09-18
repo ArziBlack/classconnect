@@ -125,6 +125,16 @@ const newPassword = async ({ id, newPassword }) => {
   return response.data;
 };
 
+const verifyStudentResetPassword = async ({resetToken, email}) => {
+  const response = await axios.get(`${API_BASE_URL}/student/resetPassword/newPassword/${resetToken}/${email}`);
+  return response.data;
+}
+
+const verifyTutorResetPassword = async ({resetToken, email}) => {
+  const response = await axios.get(`${API_BASE_URL}/tutor/resetPassword/newPassword/${resetToken}/${email}`);
+  return response.data;
+}
+
 // logout
 export const logout = async () => {
   sessionStorage.removeItem("token");
@@ -146,6 +156,8 @@ const authService = {
   registerTutor,
   resetTutorPassword,
   newPassword,
+  verifyStudentResetPassword,
+  verifyTutorResetPassword
 };
 
 export default authService;

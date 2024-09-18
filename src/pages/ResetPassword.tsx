@@ -13,7 +13,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { resetPassword } from "../services/auth/authSlice";
+import { resetPassword, resetTutorPassword } from "../services/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
 import { useEffect, useState } from "react";
 import useCustomToast from "../hooks/useCustomToast";
@@ -31,24 +31,42 @@ const ResetPassword = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const [email, setEmail] = useState<{ email: string }>({ email: "" });
-  const { message, isError, isSuccess, isLoading } = useAppSelector((state) => state.auth);
+  const { message, isError, isSuccess, isLoading } = useAppSelector(
+    (state) => state.auth
+  );
+  const { userType } = useAppSelector((state) => state.other);
   const navigate = useNavigate();
+
   async function sendReset(e) {
     e.preventDefault();
     if (email?.email === "") {
       toast("Email field can't be Blank!!!", "error");
     }
-    const result = await dispatch(resetPassword(email));
-    if (result.meta.requestStatus === "fulfilled") { 
-      toast("Password reset link sent successfully!", "success");
-      setTimeout(()=> {
-        navigate("/reset-check")
-      }, 4000);
-    }
-    if (result.meta.requestStatus === "rejected") {
-      toast("Error sending password reset link!", "error");
+    if (userType === "student") {
+      const result = await dispatch(resetPassword(email));
+      if (result.meta.requestStatus === "fulfilled") {
+        toast("Password reset link sent successfully!", "success");
+        setTimeout(() => {
+          navigate("/reset-check");
+        }, 4000);
+      }
+      if (result.meta.requestStatus === "rejected") {
+        toast("Error sending password reset link!", "error");
+      }
+    } else {
+      const result = await dispatch(resetTutorPassword(email));
+      if (result.meta.requestStatus === "fulfilled") {
+        toast("Password reset link sent successfully!", "success");
+        setTimeout(() => {
+          navigate("/reset-check");
+        }, 4000);
+      }
+      if (result.meta.requestStatus === "rejected") {
+        toast("Error sending password reset link!", "error");
+      }
     }
   }
+
   useEffect(() => {
     if (isError) {
       toast(message, "error");
@@ -57,6 +75,7 @@ const ResetPassword = () => {
       toast(message, "success");
     }
   }, [isError, isSuccess, message, toast]);
+  
   return (
     <Box
       bg={bgColor}
@@ -78,14 +97,7 @@ const ResetPassword = () => {
           fontWeight="semibold"
           color={textColor}
         >
-          <Box
-            as="img"
-            src={LOGO}
-            alt="logo"
-            w={12}
-            h={8}
-            mr={2}
-          />
+          <Box as="img" src={LOGO} alt="logo" w={12} h={8} mr={2} />
         </Link>
         <Box
           w="full"
@@ -232,7 +244,7 @@ const ResetPassword = () => {
               //     focusRingColor: "primary.800",
               //   }}
             >
-              {isLoading ? <CircularProgress/>: "Reset password"}
+              {isLoading ? <CircularProgress /> : "Reset password"}
             </Button>
           </VStack>
         </Box>

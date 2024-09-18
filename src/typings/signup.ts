@@ -168,3 +168,8 @@ export interface IVerify {
 export interface IReset {
   email: string;
 }
+
+export interface IResetVerify {
+  resetToken: string;
+  email: string;
+}
