@@ -74,6 +74,8 @@ export const createPersonnalAssessment = createAsyncThunk<
       const params = {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
         },
       };
       const response = await axios.post<IAssessmentResponse>(

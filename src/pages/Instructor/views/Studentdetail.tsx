@@ -39,7 +39,7 @@ const StudentDetail = () => {
   const dispatch = useAppDispatch();
   const { studentId } = useParams();
   const { home } = useAppSelector((from) => from.other);
-  const { myStudents } = useAppSelector((state) => state.tutor);
+  const { myStudents, isLoading } = useAppSelector((state) => state.tutor);
   const student = myStudents?.data?.find(
     (item) => item?.name?.replace(" ", "") === studentId
   );
@@ -61,7 +61,12 @@ const StudentDetail = () => {
   const handleNextTopicChange = (e) => setNextTopic(e.target.value);
   const handlePerformanceChange = (e) => setPerformance(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
-  const handleAttachmentChange = (e) => setAttachment(e.target.files[0]);
+  const handleAttachmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setAttachment(file);
+    }
+  };
 
   const handleAssessmentSubmit = async (e) => {
     e.preventDefault();
@@ -81,6 +86,8 @@ const StudentDetail = () => {
       document: attachment,
     };
 
+    console.log(assessment);
+
     const result = await dispatch(
       createPersonnalAssessment({ assessmentFormActionUrl, assessment })
     );
@@ -93,7 +100,7 @@ const StudentDetail = () => {
 
     setType("");
     setContent("");
-    setAttachment(null);
+    // setAttachment(null);
   };
 
   const handleReportSubmit = async (e) => {
@@ -406,7 +413,7 @@ const StudentDetail = () => {
                         <FormLabel>Attachment (optional)</FormLabel>
                         <CInput
                           type="file"
-                          isFileInput
+                          isFileInput={true}
                           value={attachment}
                           fileChange={handleAttachmentChange}
                           accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
@@ -416,7 +423,8 @@ const StudentDetail = () => {
                         type="submit"
                         text="Send Assessment"
                         ml={"auto"}
-                      ></Button>
+                        isLoading={isLoading}
+                      />
                     </VStack>
                   </form>
                 )}
@@ -497,7 +505,8 @@ const StudentDetail = () => {
                         type="submit"
                         text="Send Report"
                         ml={"auto"}
-                      ></Button>
+                        isLoading={isLoading}
+                      />
                     </VStack>
                   </form>
                 )}
