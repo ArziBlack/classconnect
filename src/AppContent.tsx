@@ -155,10 +155,9 @@ function AppContent() {
           <Route path="profile" element={<TutorProfile />}></Route>
           <Route path="feedback" element={<CreateReport />}></Route>
           <Route path="assessments" element={<TutorAssessment />}>
-            <Route index element={<CreateAssessment />} />
-            <Route path="feedback" element={<CreateReport />} />
+            <Route index element={<CreateClassNotice />} />
+            <Route path="create-assessment" element={<CreateAssessment />} />
             <Route path="class-report" element={<ClassReport />} />
-            <Route path="class-notice" element={<CreateClassNotice />} />
           </Route>
           <Route path="notification" element={<NotificationTutor />} />
           <Route path="assessment" element={<Assessment />} />
@@ -179,14 +178,8 @@ function AppContent() {
         path="/confirmation/student/password-change/:resetToken/:email"
         element={<StudentPasswordV />}
       />
-      <Route
-        path="/new-password/tutor"
-        element={<TutorNewPassword />}
-      />
-      <Route
-        path="/new-password/student"
-        element={<StudentNewPassword />}
-      />
+      <Route path="/new-password/tutor" element={<TutorNewPassword />} />
+      <Route path="/new-password/student" element={<StudentNewPassword />} />
       <Route
         path="/email-verify/tutor/:tutorId/:uniqueString"
         element={<TutorEmailV />}

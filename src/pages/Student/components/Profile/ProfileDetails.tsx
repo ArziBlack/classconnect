@@ -254,10 +254,10 @@ export const ProfileDetails = () => {
               marginRight={`3px`}
             >
               <label className="block text-sm font-medium text-green-500 mb-2">
-                Age
+                Date of Birth
               </label>
               <Input
-                value={age}
+                value={(age as string).slice(0, 10)}
                 onChange={(e) => setAge(Number(e.target.value))}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
                 height={55}

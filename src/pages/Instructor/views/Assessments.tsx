@@ -10,8 +10,8 @@ export const Assessments = () => {
       />
       <BreadCrumb
         links={[
-          { to: "", label: "Class Assessment" },
-          { to: "class-notice", label: "Class Notice" },
+          { to: "", label: "Class Notice" },
+          { to: "create-assessment", label: "Class Assessment" },
           { to: "class-report", label: "Class Report" },
         ]}
       />
