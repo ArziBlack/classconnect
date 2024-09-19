@@ -94,7 +94,10 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="signin/:user" element={getCurrentComponent(previousPath)} />
+        <Route
+          path="signin/:user"
+          element={getCurrentComponent(previousPath)}
+        />
         <Route path="register" element={getCurrentComponent(previousPath)} />
         <Route path="apply" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />
@@ -117,8 +120,8 @@ function AppContent() {
           </Route>
           <Route path="courses/:courseId" element={<Content />} />
           <Route path="courses" element={<MyCourses />}>
-            <Route index element={<Started />} />
-            <Route path="available" element={<Browse />} />
+            <Route index element={<Browse />} />
+            <Route path="my-courses" element={<Started />} />
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileDetails />} />

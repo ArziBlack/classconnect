@@ -1,26 +1,23 @@
 import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    Heading,
-    Link,
-    useColorModeValue,
-    VStack,
-  } from "@chakra-ui/react";
-  import {
-      newStudentPassword,
-  } from "../services/auth/authSlice";
-  import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
-  import { useEffect, useState } from "react";
-  import useCustomToast from "../hooks/useCustomToast";
-  import { useNavigate } from "react-router-dom";
-  import { LOGO } from "../constants/icon";
-  import InputField from "../components/Input";
+  Box,
+  Button,
+  Container,
+  Heading,
+  Link,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
+import { newStudentPassword } from "../services/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
+import { useState } from "react";
+import useCustomToast from "../hooks/useCustomToast";
+import { useNavigate } from "react-router-dom";
+import { LOGO } from "../constants/icon";
+import InputField from "../components/Input";
 import { setUserType } from "../services/others/otherSlice";
 
 const StudentNewPassword = () => {
-    const bgColor = useColorModeValue("#002333", "#002333");
+  const bgColor = useColorModeValue("#002333", "#002333");
   const cardBgColor = useColorModeValue("#EDE9F2", "#EDE9F2");
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.900", "white");
@@ -46,10 +43,10 @@ const StudentNewPassword = () => {
   const toast = useCustomToast();
   const navigate = useNavigate();
 
-  const handleCreateNewPassword = async(e) => {
+  const handleCreateNewPassword = async (e) => {
     e.preventDefault();
     const newPassword = {
-      newPassword: form.newPassword
+      newPassword: form.newPassword,
     };
     const url = resetURL;
     if (!url) {
@@ -170,7 +167,7 @@ const StudentNewPassword = () => {
         </Box>
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default StudentNewPassword
+export default StudentNewPassword;
