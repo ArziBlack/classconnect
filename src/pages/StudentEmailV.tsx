@@ -28,7 +28,7 @@ const StudentEmailV = () => {
     if (isSuccess) {
       setUserType("student");
       const timer = setTimeout(() => {
-        navigate("/signin");
+        navigate("/signin/student");
       }, 3000);
       return () => clearTimeout(timer);
     }

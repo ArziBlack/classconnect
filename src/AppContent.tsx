@@ -66,7 +66,8 @@ function AppContent() {
 
   useEffect(() => {
     if (
-      location.pathname !== "/signin" &&
+      location.pathname !== "/signin/tutor" &&
+      location.pathname !== "/signin/student" &&
       location.pathname !== "/register" &&
       location.pathname !== "/apply"
     ) {
@@ -93,7 +94,7 @@ function AppContent() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="signin" element={getCurrentComponent(previousPath)} />
+        <Route path="signin/:user" element={getCurrentComponent(previousPath)} />
         <Route path="register" element={getCurrentComponent(previousPath)} />
         <Route path="apply" element={getCurrentComponent(previousPath)} />
         <Route path="pricing" element={<Pricing />} />

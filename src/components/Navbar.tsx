@@ -87,13 +87,14 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
   );
 };
 
+export const userType = [{ type: "student" }, { type: "tutor" }];
+
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const userType = [{ type: "student" }, { type: "tutor" }];
 
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -212,7 +213,7 @@ const Navbar = () => {
                     _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
                     cursor="pointer"
                     textTransform={"capitalize"}
-                    to={location.pathname !== "/signin" ? "/signin" : "/"}
+                    to={location.pathname !== `/signin/${type?.type}` ? `/signin/${type?.type}` : "/"}
                   >
                     {type.type}
                   </Box>

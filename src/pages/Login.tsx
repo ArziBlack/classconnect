@@ -24,10 +24,15 @@ import {
 } from "../services/auth/authSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, IRootState } from "../app/store.ts";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import { useState, ChangeEvent } from "react";
+import {
+  Link as ReactRouterLink,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { useState, ChangeEvent, useEffect } from "react";
 import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
 import useCustomToast from "../hooks/useCustomToast.tsx";
+import { setUserType } from "../services/others/otherSlice.ts";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -35,6 +40,11 @@ interface SignInModalProps {
 }
 
 const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
+  const { user } = useParams();
+  useEffect(() => {
+    setUserType(user);
+  }, [user]);
+  console.log(user);
   const closeModal = () => {
     onClose();
   };
@@ -43,7 +53,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   const showToast = useCustomToast();
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading } = useSelector((store: IRootState) => store.auth);
-  const { userType } = useSelector((store: IRootState) => store.other);
+  const { } = useSelector((store: IRootState) => store.other);
   const [check, setCheck] = useState<boolean>(false);
   const [inputError] = useState<string>("");
   const [userData, setUserData] = useState({
@@ -58,18 +68,19 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
     }
 
     const resultAction =
-      userType === "student"
+      user === "student"
         ? await dispatch(login(userData))
         : await dispatch(loginTutor(userData));
     dispatch(reset());
-
+    console.log(user);
     if (
       login.fulfilled.match(resultAction) ||
       loginTutor.fulfilled.match(resultAction)
     ) {
       showToast(resultAction.payload.message || "Login successful", "success");
       setTimeout(() => {
-        if (userType === "student") {
+        if (user === "student") {
+          console.log(user);
           navigate("/student");
         } else {
           navigate("/instructor");
@@ -106,7 +117,6 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={closeModal} size={modalSize}>
@@ -204,8 +214,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                         color="black"
                       >
                         Sign In to your{" "}
-                        <strong className="font-[500]">{userType}</strong>{" "}
-                        dashboard
+                        <strong className="font-[500]">{user}</strong> dashboard
                       </Text>
                     </Box>
                     <Box w="100%" mb={3}>

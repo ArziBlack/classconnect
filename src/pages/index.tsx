@@ -29,7 +29,9 @@ const Layout = () => {
   } = useDisclosure();
 
   React.useEffect(() => {
-    if (location.pathname === "/signin") {
+    if (location.pathname === "/signin/student") {
+      onSignInOpen();
+    } else if (location.pathname === "/signin/tutor") {
       onSignInOpen();
     } else {
       onSignInClose();

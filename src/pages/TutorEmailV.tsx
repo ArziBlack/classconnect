@@ -30,7 +30,7 @@ const TutorEmailV = () => {
     if (isSuccess) {
       setUserType("tutor");
       const timer = setTimeout(() => {
-        navigate("/signin");
+        navigate("/signin/tutor");
       }, 3000);
       return () => clearTimeout(timer);
     }

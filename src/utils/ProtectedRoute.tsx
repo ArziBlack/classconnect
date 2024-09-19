@@ -9,6 +9,6 @@ export default function PrivateRoute() {
     return isUserLoggedIn ? (
         <Outlet />
     ) : (
-        <Navigate to="/signin" state={{ from: location }} replace />
+        <Navigate to="/" state={{ from: location }} replace />
     );
 }

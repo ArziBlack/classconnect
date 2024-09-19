@@ -64,7 +64,7 @@ const TutorNewPassword = () => {
         toast(message || "Password reset link sent successfully!", "success");
         setUserType("tutor");
         setTimeout(() => {
-          navigate("/signin");
+          navigate("/signin/tutor");
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
