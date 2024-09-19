@@ -41,9 +41,11 @@ interface SignInModalProps {
 
 const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   const { user } = useParams();
+  
   useEffect(() => {
     setUserType(user);
   }, [user]);
+
   console.log(user);
   const closeModal = () => {
     onClose();
