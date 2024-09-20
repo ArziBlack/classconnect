@@ -10,7 +10,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  CircularProgress,
+  Spinner,
 } from "@chakra-ui/react";
 import SecondaryHero from "./SecondaryHero";
 import LessonCard from "./LessonCard";
@@ -131,7 +131,7 @@ const Courses = () => {
           padding={10}
         >
           {isCurriculumLoading ? (
-            <CircularProgress />
+            <Spinner size={"lg"} color="white" />
           ) : !curriculum?.data ? (
             <Text
               fontSize="lg"
@@ -227,18 +227,30 @@ const Courses = () => {
                                     >
                                       {Array.isArray(topicItem?.content) &&
                                       topicItem?.content.length > 0 ? (
-                                        topicItem.content[0]
-                                          ?.split(",")
-                                          .map((contentItem, contentIndex) => (
-                                            <Text
-                                              key={contentIndex}
-                                              mb={2}
-                                              fontSize="sm"
-                                              color="gray.300"
-                                            >
-                                              • {contentItem.trim()}
-                                            </Text>
-                                          ))
+                                        topicItem.content.map(
+                                          (
+                                            contentItem: string,
+                                            contentIndex: number
+                                          ) => {
+                                            const contentArray =
+                                              contentItem.includes(",")
+                                                ? contentItem.split(",")
+                                                : [contentItem];
+
+                                            return contentArray.map(
+                                              (item: string, index: number) => (
+                                                <Text
+                                                  key={`${contentIndex}-${index}`}
+                                                  mb={2}
+                                                  fontSize="sm"
+                                                  color="gray.300"
+                                                >
+                                                  • {item.trim()}
+                                                </Text>
+                                              )
+                                            );
+                                          }
+                                        )
                                       ) : (
                                         <Text color="gray.500">
                                           No content available

@@ -116,15 +116,28 @@ export const Curriculum = () => {
                         <AccordionPanel pb={2} textTransform={"capitalize"}>
                           {Array.isArray(topicItem?.content) &&
                           topicItem?.content.length > 0 ? (
-                            topicItem.content[0]
-                              ?.split(",")
-                              .map((contentItem, contentIndex) => (
-                                <Text key={contentIndex} mb={2}>
-                                  • {contentItem.trim()}
-                                </Text>
-                              ))
+                            topicItem.content.map(
+                              (contentItem: string, contentIndex: number) => {
+                                const contentArray = contentItem.includes(",")
+                                  ? contentItem.split(",")
+                                  : [contentItem];
+
+                                return contentArray.map(
+                                  (item: string, index: number) => (
+                                    <Text
+                                      key={`${contentIndex}-${index}`}
+                                      mb={2}
+                                      fontSize="sm"
+                                      color="gray.300"
+                                    >
+                                      • {item.trim()}
+                                    </Text>
+                                  )
+                                );
+                              }
+                            )
                           ) : (
-                            <Text>No content available</Text>
+                            <Text color="gray.500">No content available</Text>
                           )}
                         </AccordionPanel>
                       </AccordionItem>
