@@ -1,24 +1,24 @@
 import {
   Box,
-  Button,
-  Checkbox,
-  CircularProgress,
-  Container,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
   Link,
   Text,
-  useColorModeValue,
+  Input,
   VStack,
+  Button,
+  Heading,
+  Spinner,
+  Checkbox,
+  FormLabel,
+  Container,
+  FormControl,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { resetPassword, resetTutorPassword } from "../services/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
-import { useEffect, useState } from "react";
-import useCustomToast from "../hooks/useCustomToast";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { LOGO } from "../constants/icon";
+import { useNavigate } from "react-router-dom";
+import useCustomToast from "../hooks/useCustomToast";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
+import { resetPassword, resetTutorPassword } from "../services/auth/authSlice";
 
 const ResetPassword = () => {
   const bgColor = useColorModeValue("#002333", "#002333");
@@ -31,9 +31,7 @@ const ResetPassword = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
   const [email, setEmail] = useState<{ email: string }>({ email: "" });
-  const { message, isError, isSuccess, isLoading } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isLoading } = useAppSelector((state) => state.auth);
   const { userType } = useAppSelector((state) => state.other);
   const navigate = useNavigate();
 
@@ -45,37 +43,37 @@ const ResetPassword = () => {
     if (userType === "student") {
       const result = await dispatch(resetPassword(email));
       if (result.meta.requestStatus === "fulfilled") {
-        toast("Password reset link sent successfully!", "success");
+        toast(result.payload.message, "success");
         setTimeout(() => {
           navigate("/reset-check");
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
-        toast("Error sending password reset link!", "error");
+        toast(result.payload.message, "error");
       }
     } else {
       const result = await dispatch(resetTutorPassword(email));
       if (result.meta.requestStatus === "fulfilled") {
-        toast("Password reset link sent successfully!", "success");
+        toast(result.payload.message, "success");
         setTimeout(() => {
           navigate("/reset-check");
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
-        toast("Error sending password reset link!", "error");
+        toast(result.payload.message, "error");
       }
     }
   }
 
-  useEffect(() => {
-    if (isError) {
-      toast(message, "error");
-    }
-    if (isSuccess) {
-      toast(message, "success");
-    }
-  }, [isError, isSuccess, message, toast]);
-  
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast(message, "error");
+  //   }
+  //   if (isSuccess) {
+  //     toast(message, "success");
+  //   }
+  // }, [isError, isSuccess, message, toast]);
+
   return (
     <Box
       bg={bgColor}
@@ -97,7 +95,7 @@ const ResetPassword = () => {
           fontWeight="semibold"
           color={textColor}
         >
-          <Box as="img" src={LOGO} alt="logo" w={12} h={8} mr={2} />
+          <Box as="img" src={LOGO} alt="logo" w={"full"} h={8} mr={2} />
         </Link>
         <Box
           w="full"
@@ -136,13 +134,13 @@ const ResetPassword = () => {
                 fontWeight="medium"
                 color={textColor}
               >
-                Your email
+                Your email:
               </FormLabel>
               <Input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="name@company.com"
+                placeholder="Enter your email here"
                 bg={`#FFF`}
                 borderColor={borderColor}
                 color={textColor}
@@ -244,7 +242,11 @@ const ResetPassword = () => {
               //     focusRingColor: "primary.800",
               //   }}
             >
-              {isLoading ? <CircularProgress /> : "Reset password"}
+              {isLoading ? (
+                <Spinner color={"white"} size={"md"} />
+              ) : (
+                "Reset password"
+              )}
             </Button>
           </VStack>
         </Box>

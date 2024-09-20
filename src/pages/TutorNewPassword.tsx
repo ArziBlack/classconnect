@@ -1,18 +1,15 @@
 import {
   Box,
   Button,
-  CircularProgress,
   Container,
   Heading,
   Link,
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import {
-  newTutorPassword,
-} from "../services/auth/authSlice";
+import { newTutorPassword } from "../services/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useCustomToast from "../hooks/useCustomToast";
 import { useNavigate } from "react-router-dom";
 import { LOGO } from "../constants/icon";
@@ -25,9 +22,7 @@ const TutorNewPassword = () => {
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.900", "white");
   const primaryColor = useColorModeValue("blue.500", "primary.600");
-  const { isLoading, message, resetURL } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isLoading, resetURL } = useAppSelector((state) => state.auth);
   const [form, setForm] = useState({
     newPassword: "",
     confirmPassword: "",
@@ -44,12 +39,12 @@ const TutorNewPassword = () => {
 
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleCreateNewPassword = async(e) => {
+  const handleCreateNewPassword = async (e) => {
     e.preventDefault();
     const newPassword = {
-      newPassword: form.newPassword
+      newPassword: form.newPassword,
     };
     const url = resetURL;
     if (!url) {
@@ -61,14 +56,14 @@ const TutorNewPassword = () => {
     } else {
       const result = await dispatch(newTutorPassword({ url, newPassword }));
       if (result.meta.requestStatus === "fulfilled") {
-        toast(message || "Password reset link sent successfully!", "success");
+        toast(result.payload.message, "success");
         setUserType("tutor");
         setTimeout(() => {
           navigate("/signin/tutor");
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
-        toast(message || "Error sending password reset link!", "error");
+        toast(result.payload.message, "error");
       }
     }
   };
@@ -94,7 +89,7 @@ const TutorNewPassword = () => {
           fontWeight="semibold"
           color={textColor}
         >
-          <Box as="img" src={LOGO} alt="logo" w={12} h={8} mr={2} />
+          <Box as="img" src={LOGO} alt="logo" w={"full"} h={8} mr={2} />
         </Link>
         <Box
           w="full"

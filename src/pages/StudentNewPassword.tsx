@@ -22,9 +22,7 @@ const StudentNewPassword = () => {
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.900", "white");
   const primaryColor = useColorModeValue("blue.500", "primary.600");
-  const { isLoading, message, resetURL } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isLoading, resetURL } = useAppSelector((state) => state.auth);
   const [form, setForm] = useState({
     newPassword: "",
     confirmPassword: "",
@@ -58,14 +56,14 @@ const StudentNewPassword = () => {
     } else {
       const result = await dispatch(newStudentPassword({ url, newPassword }));
       if (result.meta.requestStatus === "fulfilled") {
-        toast(message || "Password reset link sent successfully!", "success");
+        toast(result.payload.message, "success");
         setUserType("student");
         setTimeout(() => {
           navigate("/signin/student");
         }, 4000);
       }
       if (result.meta.requestStatus === "rejected") {
-        toast(message || "Error sending password reset link!", "error");
+        toast(result.payload.message, "error");
       }
     }
   };
@@ -90,7 +88,7 @@ const StudentNewPassword = () => {
           fontWeight="semibold"
           color={textColor}
         >
-          <Box as="img" src={LOGO} alt="logo" w={12} h={8} mr={2} />
+          <Box as="img" src={LOGO} alt="logo" w={"full"} h={8} mr={2} />
         </Link>
         <Box
           w="full"
