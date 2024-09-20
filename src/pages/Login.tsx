@@ -41,12 +41,11 @@ interface SignInModalProps {
 
 const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   const { user } = useParams();
-  
+
   useEffect(() => {
     setUserType(user);
   }, [user]);
 
-  console.log(user);
   const closeModal = () => {
     onClose();
   };
@@ -55,7 +54,6 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   const showToast = useCustomToast();
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading } = useSelector((store: IRootState) => store.auth);
-  const { } = useSelector((store: IRootState) => store.other);
   const [check, setCheck] = useState<boolean>(false);
   const [inputError] = useState<string>("");
   const [userData, setUserData] = useState({
@@ -74,7 +72,6 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
         ? await dispatch(login(userData))
         : await dispatch(loginTutor(userData));
     dispatch(reset());
-    console.log(user);
     if (
       login.fulfilled.match(resultAction) ||
       loginTutor.fulfilled.match(resultAction)

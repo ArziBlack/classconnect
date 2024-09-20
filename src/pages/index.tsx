@@ -58,18 +58,26 @@ const Layout = () => {
   ]);
 
   const closeSignInModal = () => {
-    navigate(-1);
-    onSignInClose();
+    handleCloseModal(onSignInClose);
   };
 
   const closeRegisterModal = () => {
-    navigate(-1);
-    onRegisterClose();
+    handleCloseModal(onRegisterClose);
   };
 
   const closeApplyModal = () => {
-    navigate(-1);
-    onApplyClose();
+    handleCloseModal(onApplyClose);
+  };
+
+  const handleCloseModal = (closeModalFn: () => void) => {
+    const doesAnyHistoryEntryExist = location.key !== "default";
+    if (!doesAnyHistoryEntryExist) {
+      navigate("/");
+    } else {
+      navigate(-1);
+    }
+
+    closeModalFn();
   };
 
   return (

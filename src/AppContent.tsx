@@ -84,7 +84,7 @@ function AppContent() {
         return <Tutor />;
       case "/about":
         return <About />;
-      case "/courses":
+      case "/programs":
         return <Courses />;
       default:
         return <Home />;
