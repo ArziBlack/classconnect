@@ -59,6 +59,7 @@ import TutorNewPassword from "./pages/TutorNewPassword";
 import StudentNewPassword from "./pages/StudentNewPassword";
 import TutorPasswordV from "./pages/TutorPasswordV";
 import StudentPasswordV from "./pages/StudentPasswordV";
+import TutorRecommendation from "./pages/TutorRecommendation";
 
 function AppContent() {
   const location = useLocation();
@@ -170,6 +171,10 @@ function AppContent() {
 
       <Route path="reset" element={<ResetPassword />} />
       <Route path="verify" element={<VerifyAccount />} />
+      <Route
+        path="/tutor-recommendation/:recommendationStatus/:tutorId/:studentId"
+        element={<TutorRecommendation />}
+      />
       <Route
         path="/email-verify/student/:studentId/:uniqueString"
         element={<StudentEmailV />}
