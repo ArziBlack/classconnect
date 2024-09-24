@@ -49,11 +49,10 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
           to={link.to}
           key={link.to}
           onClick={() => handleLinkClick()}
-          className={"group"}
+          className="group sm:text-black lg:text-white md:text-2xl md:font-medium md:space-y-[15px]"
           style={({ isActive, isTransitioning }) => {
             return {
               padding: "0 10px",
-              color: "#ffffff",
               position: "relative",
               opacity: isActive ? "1" : "0.7",
               fontWeight: isActive ? "bold" : "",
@@ -95,7 +94,6 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -127,7 +125,7 @@ const Navbar = () => {
       height="100%"
       zIndex="1000"
       bg={"brand.dark"}
-      color={"#ffff"}
+      color={{ base: "black", md: "#fff" }}
     >
       <HStack
         py="2"
@@ -144,7 +142,7 @@ const Navbar = () => {
         </HStack>
 
         <IconButton
-          icon={<FaBars />}
+          icon={<FaBars color="white" size="30" />}
           onClick={onOpen}
           bg={"transparent"}
           aria-label="Open Menu"
@@ -213,7 +211,11 @@ const Navbar = () => {
                     _hover={{ bg: "rgba(255, 255, 255, 0.2)" }}
                     cursor="pointer"
                     textTransform={"capitalize"}
-                    to={location.pathname !== `/signin/${type?.type}` ? `/signin/${type?.type}` : "/"}
+                    to={
+                      location.pathname !== `/signin/${type?.type}`
+                        ? `/signin/${type?.type}`
+                        : "/"
+                    }
                   >
                     {type.type}
                   </Box>
@@ -230,10 +232,19 @@ const Navbar = () => {
           <DrawerCloseButton />
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
-            <VStack alignItems="flex-start">
+            <VStack
+              alignItems="flex-start"
+              h="60%"
+              justifyContent={"space-between"}
+              className="text-xl font-light mt-8"
+            >
               <NavbarLinks onClick={onClose} />
               <HStack>
                 <Text>Login</Text>
+                <FaUser />
+              </HStack>
+              <HStack>
+                <Text>Signup</Text>
                 <FaUser />
               </HStack>
             </VStack>
