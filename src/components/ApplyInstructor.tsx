@@ -45,7 +45,12 @@ const ApplyInstructor = () => {
   return (
     <Box mx="auto" mt={{ base: 4, md: 8 }} mb={{ base: 4, md: 28 }}>
       <Flex direction={{ base: "column", md: "row" }} borderRadius="md">
-        <Box px={5} pt={5} w={{ base: "350px", md: "500px" }} mx={"auto"}>
+        <Box
+          // px={5}
+          pt={5}
+          w={{ base: "300px", md: "500px" }}
+          mx={"auto"}
+        >
           <Image borderRadius="md" src={APPLY_TUTOR} alt="Instructor" />
         </Box>
         <Box
@@ -85,17 +90,18 @@ const ApplyInstructor = () => {
               </CustomTab>
             </TabList>
             <TabIndicator
+              display={{ base: "colum", md: "flex" }}
               mt="-1.5px"
               height="2px"
               bg="brand.action"
               borderRadius="1px"
-              w={"10px"}
+              w={{ base: "5px", md: "10px" }}
             />
             <TabPanels
               color={"brand.text"}
               fontWeight={400}
               fontSize={14}
-              maxW={{ base: "500px", md: "550px" }}
+              maxW={{ base: "400px", md: "550px" }}
             >
               <TabPanel>
                 <List spacing={3}>
