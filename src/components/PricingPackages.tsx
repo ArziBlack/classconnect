@@ -144,6 +144,7 @@ const PricingPackages: React.FC<IPricing> = ({ isLoading, fees }) => {
               <Tab
                 textTransform={"capitalize"}
                 key={classType}
+                fontSize={{ base: "10px", md: "12px" }}
                 _selected={{
                   color: "white",
                   bg: "brand.dark",
