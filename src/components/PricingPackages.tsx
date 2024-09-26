@@ -172,10 +172,11 @@ const PricingPackages: React.FC<IPricing> = ({ isLoading, fees }) => {
                         key={paymentType}
                         p={6}
                         width={"full"}
-                        minW={"400px"}
+                        // minW={"400px"}
                         borderWidth="1px"
                         borderRadius="lg"
                         textAlign="center"
+                        minW={{ base: "50px", md: "100px" }}
                       >
                         <Flex
                           mb={4}
