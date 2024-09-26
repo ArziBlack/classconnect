@@ -11,7 +11,7 @@ import {
 
 const UserInfo: React.FC = () => {
   return (
-    <Box w="100%" py={4}>
+    <Box w="100%" py={4} maxW="890px">
       <Tabs variant="soft-rounded">
         <TabList>
           <Tab
@@ -41,9 +41,9 @@ const UserInfo: React.FC = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Text fontSize="xl" fontWeight="bold">
+            {/* <Text fontSize="xl" fontWeight="bold">
               About us
-            </Text>
+            </Text> */}
             <Text mt={2}>
               <strong>HEP-CODING ACADEMY </strong>is a virtual learning platform
               dedicated to shaping the next generation of technology leaders.
@@ -70,10 +70,10 @@ const UserInfo: React.FC = () => {
               types and payment methods, making it easy to tailor the learning
               experience to individual preferences.
             </Text>
-
+            {/* 
             <Text fontSize="xl" fontWeight="bold" mt={4}>
               Goal
-            </Text>
+            </Text> */}
             <Text mt={2}>
               Our goal is to make quality software development education
               accessible and exciting for young learners, while also providing

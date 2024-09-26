@@ -49,7 +49,7 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
           to={link.to}
           key={link.to}
           onClick={() => handleLinkClick()}
-          className="group text-black lg:text-white md:text-2xl md:font-medium md:space-y-[15px]"
+          className="group text-black md:text-white"
           style={({ isActive, isTransitioning }) => {
             return {
               padding: "0 10px",
