@@ -103,7 +103,7 @@ function Footer() {
 
 function LinkGroup({ title, children, linkProps }) {
   return (
-    <Box textAlign="left" w="100%">
+    <Box textAlign="center" w="100%">
       <Heading size="md" fontWeight={500} fontFamily={"Metropolis"}>
         {title}
       </Heading>
