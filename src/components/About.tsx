@@ -1,14 +1,12 @@
 import {
   Box,
   Grid,
-  // Flex,
   Text,
   Tab,
   Tabs,
   TabList,
   TabPanel,
   TabPanels,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 
 const UserInfo: React.FC = () => {
@@ -110,72 +108,7 @@ const UserInfo: React.FC = () => {
   );
 };
 
-// const Sidebar: React.FC = () => {
-//   return (
-//     <Box
-//       bg="brand.dark"
-//       w={{ base: "100%", md: 300 }}
-//       mt={{ base: 4, md: 50 }}
-//       p={4}
-//       borderRadius="md"
-//       boxShadow="md"
-//     >
-//       <Flex direction="column">
-//         <Flex mt={4} align="center">
-//           <Text>Total Course</Text>
-//           <Spacer />
-//           <Text fontSize="xl" fontWeight="bold" color="orange.400">
-//             30
-//           </Text>
-//         </Flex>
-//         <Flex mt={4} align="center">
-//           <Text>Ratings</Text>
-//           <Spacer />
-//           <Icon as={FaStar} color="yellow.400" />
-//           <Text fontSize="md" fontWeight="bold" ml={2}>
-//             4.9(153)
-//           </Text>
-//         </Flex>
-//         <Flex mt={4}>
-//           <Text>Experiences</Text>
-//           <Spacer />
-//           <Text fontSize="md" fontWeight="bold">
-//             10 Years
-//           </Text>
-//         </Flex>
-//         <Flex mt={4}>
-//           <Text>Graduated</Text>
-//           <Spacer />
-//           <Text fontSize="md" fontWeight="bold">
-//             Yes
-//           </Text>
-//         </Flex>
-//         <Flex mt={4}>
-//           <Text>Language</Text>
-//           <Spacer />
-//           <Text fontSize="md" fontWeight="bold">
-//             English, French
-//           </Text>
-//         </Flex>
-//         <Flex mt={4}>
-//           <Text>Social</Text>
-//           <Spacer />
-//           <Icon as={FaFacebook} boxSize={6} mx={1} />
-//           <Icon as={FaInstagram} boxSize={6} mx={1} />
-//           <Icon as={FaTwitter} boxSize={6} mx={1} />
-//           <Icon as={FaLinkedin} boxSize={6} mx={1} />
-//         </Flex>
-//       </Flex>
-//     </Box>
-//   );
-// };
-
 const About: React.FC = () => {
-  const gridTemplateColumns = useBreakpointValue({
-    base: "1fr",
-    md: "3fr 1fr",
-  });
-
   return (
     <Box py={4} mx="auto" display="flex" justifyContent="center">
       <Grid
@@ -188,7 +121,6 @@ const About: React.FC = () => {
         <Box w="full">
           <UserInfo />
         </Box>
-        {/* <Sidebar /> */}
       </Grid>
     </Box>
   );
