@@ -126,10 +126,103 @@ const SideBarNav: FC = () => {
   );
 };
 
+type NavPillProps = {
+  number?: string;
+  text: string;
+  onClick: () => void;
+  isActive?: boolean;
+  danger?: boolean;
+};
+const NavPill: FC<NavPillProps> = ({
+  number,
+  text,
+  isActive,
+  onClick,
+  danger,
+}) => {
+  return (
+    <Flex
+      border={isActive || danger ? "none" : "1px solid #ffffff"}
+      borderRadius={"144px"}
+      bgColor={danger ? "#C60303" : isActive ? "#CFFFDF" : "transparent"}
+      h={"40px"}
+      px={"1rem"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      color={danger ? "#FFFFFF" : isActive ? "#4C9063" : "#ffffff"}
+      onClick={onClick}
+      minW={"fit-content"}
+    >
+      {number && <Text>{number}</Text>}
+      {number && <Text>.&nbsp;</Text>}
+      <Text>{text}</Text>
+    </Flex>
+  );
+};
+
 const MainView: FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setTimeout(() => {
+      // navigate("/");
+    }, 1500);
+  };
+
+  const navItems = [
+    { number: "1", text: "Home", to: "/instructor", icon: HOME, state: false },
+    {
+      number: "2",
+      text: "Students",
+      to: "students",
+      icon: ACADEMIC_CAP,
+      state: false,
+    },
+    {
+      number: "3",
+      text: "Curriculum",
+      to: "curriculum",
+      icon: COURSES,
+      state: false,
+    },
+    { number: "4", text: "Profile", to: "profile", icon: TUTORS, state: false },
+    {
+      number: "5",
+      text: "Communications",
+      to: "assessments",
+      icon: _ASSESSMENT,
+      state: false,
+    },
+    {
+      number: "6",
+      text: "Notification",
+      to: "notification",
+      icon: NOTIFICATION,
+      state: false,
+      w: "14px",
+    },
+    {
+      number: "7",
+      text: "Send feedback",
+      to: "feedback",
+      icon: _ASSESSMENT,
+      state: false,
+    },
+    {
+      number: "8",
+      text: "Log out",
+      to: "/",
+      icon: LOGOUT,
+      state: false,
+      onContextClick: handleLogout,
+      danger: true, // Sets background color to indicate danger (e.g., red)
+    },
+  ];
 
   return (
     <Flex
@@ -137,6 +230,7 @@ const MainView: FC = () => {
       h={"100vh"}
       position={"relative"}
       pr={"20px"}
+      pl={isSmallerThan900 ? "20px" : "0"}
       flexDirection={"column"}
     >
       <Flex
@@ -150,12 +244,11 @@ const MainView: FC = () => {
           right={4}
           h={"45px"}
           color={"white"}
-          width={"400px"}
           borderRadius={"8px"}
           alignItems={"center"}
           background={"transparent"}
           // border={"1px solid #5E7079"}
-          display={isSmallerThan900 ? "none" : "flex"}
+          // display={isSmallerThan900 ? "none" : "flex"}
         >
           {/* <IoIosSearch fontSize={"30px"} color="#CED1DD" /> */}
           {/* <Input
@@ -169,21 +262,25 @@ const MainView: FC = () => {
             background="transparent"
           /> */}
           <Flex alignItems={"center"} gap={"20px"}>
-            <Flex
-              w={"30px"}
-              h={"30px"}
-              borderRadius={"50px"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              color={"#002333"}
-              fontSize={"18px"}
-              bgColor={"white"}
-              border={"1px solid brand.text"}
-              cursor={"pointer"}
-              onClick={() => navigate("notification")}
-            >
-              <Image width={"15px"} src={NOTIFICATION} />
-            </Flex>
+            {!isSmallerThan900 ? (
+              <Flex
+                w={"30px"}
+                h={"30px"}
+                borderRadius={"50px"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                color={"#002333"}
+                fontSize={"18px"}
+                bgColor={"white"}
+                border={"1px solid brand.text"}
+                cursor={"pointer"}
+                onClick={() => navigate("notification")}
+              >
+                <Image width={"15px"} src={NOTIFICATION} />
+              </Flex>
+            ) : (
+              <Image w="60px" src={LOGO} marginLeft={"5px"} />
+            )}
             {/* <Image
               w={"40px"}
               h={"40px"}
@@ -221,10 +318,50 @@ const MainView: FC = () => {
             src={data?.profileImage}
             borderRadius={"50%"}
           />
-          <Text fontSize={"12px"} color="#ffffff">
-            {data?.first_name + " " + data?.last_name}
-          </Text>
+          {!isSmallerThan900 && (
+            <Text fontSize={"12px"} color="#ffffff">
+              {data?.first_name + " " + data?.last_name}
+            </Text>
+          )}
           {/* <MdOutlineKeyboardArrowDown fontSize={"25px"} color="white" /> */}
+        </Flex>
+      </Flex>
+      <Flex
+        py={1}
+        gap={"0.5rem"}
+        pl={"1rem"}
+        alignItems={"center"}
+        mb={"0.5rem"}
+        w="full"
+        overflowX="auto"
+        className="no-scrollbar"
+        display={isSmallerThan900 ? "flex" : "none"}
+      >
+        <Flex
+          overflowX={"scroll"}
+          className={"no-scrollbar"}
+          gap={"0.5rem"}
+          pr={"1rem"}
+          pt={"1rem"}
+        >
+          {navItems.map(
+            ({ number, text, onContextClick, danger, to }, index) => (
+              <NavPill
+                key={number + text + index}
+                number={number}
+                text={text}
+                danger={danger}
+                onClick={() => {
+                  if (onContextClick) {
+                    onContextClick();
+                  } else {
+                    navigate(to);
+                  }
+                }}
+                isActive={false}
+              />
+            )
+          )}
         </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
