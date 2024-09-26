@@ -45,10 +45,15 @@ const ApplyInstructor = () => {
   return (
     <Box mx="auto" mt={{ base: 4, md: 8 }} mb={{ base: 4, md: 28 }}>
       <Flex direction={{ base: "column", md: "row" }} borderRadius="md">
-        <Box px={5} pt={5} w={"500px"} mx={"auto"}>
+        <Box px={5} pt={5} w={{ base: "350px", md: "500px" }} mx={"auto"}>
           <Image borderRadius="md" src={APPLY_TUTOR} alt="Instructor" />
         </Box>
-        <Box ml={{ md: 6 }} mt={{ base: 4, md: 10 }} px={5} w={"50%"}>
+        <Box
+          ml={{ md: 6 }}
+          mt={{ base: 4, md: 10 }}
+          px={5}
+          w={{ base: "full", md: "50%" }}
+        >
           <Heading
             as="h2"
             size="lg"
@@ -59,7 +64,12 @@ const ApplyInstructor = () => {
           >
             Apply as a Tutor
           </Heading>
-          <Text fontSize="md" color="gray.700" mb={4} maxW={"600px"}>
+          <Text
+            fontSize="md"
+            color="gray.700"
+            mb={4}
+            maxW={{ base: "500px", md: "600px" }}
+          >
             Teaching is a vital and admirable career. As such, it comes with
             quite a bit of responsibility, both in practice and in preparation
             with many skills required to be a teacher. The following steps
@@ -85,7 +95,7 @@ const ApplyInstructor = () => {
               color={"brand.text"}
               fontWeight={400}
               fontSize={14}
-              maxW={"550px"}
+              maxW={{ base: "500px", md: "550px" }}
             >
               <TabPanel>
                 <List spacing={3}>
