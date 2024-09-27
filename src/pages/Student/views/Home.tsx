@@ -70,8 +70,8 @@ export const Home = () => {
 
   const videoId = "pBv7igaxfQE-I?si=yEOannHhgq2uXG0j";
   return (
-    <div className="w-full flex gap-6 text-white text-[14px]">
-      <div className="w-2/3 flex flex-col justify-center ">
+    <div className="w-full justify-center md:justify-start p-3 items-center md:items-start md:p-0 flex md:flex-row flex-col gap-6 text-white text-[14px]">
+      <div className="w-full md:w-2/3 flex flex-col justify-center ">
         <div className="mb-8">
           <h2 className="font-[600] text-2xl pb-3">Hi {data?.first_name}</h2>
           <p className=" font-[400] text-[16px]">{data?.greeting}</p>
@@ -86,7 +86,7 @@ export const Home = () => {
         <div className="flex flex-col w-full justify-between h-full mt-5 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
           <div className="flex w-full p-2">
             <h2 className="w-2/4">My Courses</h2>
-            <h2 className="w-1/4">Status</h2>
+            <h2 className="w-1/4 hidden md:flex">Status</h2>
             <Link
               to={`/student/courses/available`}
               className="w-1/4 text-right text-[#00ff84]"
@@ -111,7 +111,9 @@ export const Home = () => {
                     {/* <h2 className="font-[100] text-xs">{item?.tutor}</h2> */}
                   </div>
                 </div>
-                <h2 className="w-1/4 font-[100] text-xs">Started</h2>
+                <h2 className="w-1/4 font-[100] text-xs hidden md:flex">
+                  Started
+                </h2>
                 {/* <Link to={`student/courses/${item.id}`}> */}
                 <button
                   className="w-1/4 justify-end text-end py-2 px-1 text-xs rounded underline"
@@ -125,7 +127,7 @@ export const Home = () => {
           )}
         </div>
       </div>
-      <div className="w-1/3 flex flex-col self-center justify-center items-center max-h-[500px]  border border-gray-500 rounded-lg mr-2 font-light mb-5 mt-16 py-8">
+      <div className="w-full md:w-1/3 flex flex-col self-center justify-center items-center max-h-[500px]  border border-gray-500 rounded-lg mr-2 font-light mb-5 mt-2 md:mt-16 py-8">
         <DayPicker
           fromYear={2010}
           toYear={2024}

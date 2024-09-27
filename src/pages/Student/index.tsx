@@ -72,6 +72,7 @@ const Nav: FC<NavProps> = ({
             fontSize={"14px"}
             fontWeight={isActive ? "400" : "400"}
             color={isActive ? "#ffffff" : "white"}
+            display={{ base: "none", md: "none", lg: "flex" }}
           >
             {text}
           </Text>
@@ -204,7 +205,7 @@ const MainView: FC = () => {
 };
 
 const StudentLayout: FC = () => {
-  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+  // const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
 
   // eslint-disable-next-line
   const subtext = {
@@ -220,8 +221,8 @@ const StudentLayout: FC = () => {
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
-        minW={{ base: "full", md: "220px" }}
-        display={isSmallerThan900 ? "none" : "block"}
+        minW={{ base: "full", md: "100px", lg: "220px" }}
+        display={{ base: "none", md: "block", lg: "block" }}
       >
         <SideBarNav />
       </Box>
