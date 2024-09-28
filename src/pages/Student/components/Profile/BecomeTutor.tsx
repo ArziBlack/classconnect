@@ -5,6 +5,7 @@ export const BecomeTutor = () => {
     <Flex color={"white"}>
       <Box
         p={8}
+        ml={{base: "20px", md: "0"}}
         maxW="lg"
         boxShadow="lg"
         borderWidth="1px"

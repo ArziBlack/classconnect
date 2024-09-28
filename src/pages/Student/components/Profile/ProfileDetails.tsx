@@ -109,8 +109,8 @@ export const ProfileDetails = () => {
   return (
     <Box className="text-white flex flex-col items-center">
       <VStack spacing={6} w={"full"} maxW={"1080px"}>
-        <Box className=" bg-gray-500 h-[250px] w-full relative">
-          <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
+        <Box className=" md:bg-gray-500 h-[250px] w-full relative flex items-center justify-center">
+          <Box className="ml-5 sm:ml-0 mb-2 md:mb-10 bg-gray-500 md:bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center md:absolute top-[140px] right-[40%] ">
             <Box className="relative">
               <Avatar
                 src={
@@ -156,8 +156,13 @@ export const ProfileDetails = () => {
             </Box>
           </Box>
         </Box>
-        <Box marginTop={"80px"} w={`full`}>
-          <HStack gap={5} alignItems="center" w="full">
+        <Box marginTop={{base: "10px", md:"80px"}} w={`full`} pl={{base: "10px", md: "0"}}>
+          <HStack
+            gap={5}
+            alignItems="center"
+            w="full"
+            flexDir={{ base: "column", md: "row" }}
+          >
             <Box display={`flex`} flexDir={`column`} w="full">
               <label className="block text-sm font-medium text-green-500 mb-2">
                 First Name
@@ -166,7 +171,7 @@ export const ProfileDetails = () => {
                 value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 name="first_name"
@@ -180,14 +185,14 @@ export const ProfileDetails = () => {
                 value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 name="last_name"
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack marginTop={`10px`} gap={5} flexDir={{ base: "column", md: "row" }}>
             <Box
               display={`flex`}
               flexDir={`column`}
@@ -200,7 +205,7 @@ export const ProfileDetails = () => {
               <Input
                 value={email}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 disabled
@@ -220,14 +225,14 @@ export const ProfileDetails = () => {
                 value={student_phoneNum}
                 onChange={(e) => setPhone(Number(e.target.value))}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 name="student_phoneNum"
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack marginTop={`10px`} gap={5} flexDir={{ base: "column", md: "row" }}>
             <Box
               display={`flex`}
               flexDir={`column`}
@@ -240,7 +245,7 @@ export const ProfileDetails = () => {
               <Input
                 value={sex}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 onChange={(e) => setSex(e.target.value)}
@@ -260,7 +265,7 @@ export const ProfileDetails = () => {
                 value={(age as string).slice(0, 10)}
                 onChange={(e) => setAge(Number(e.target.value))}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 name="age"
@@ -268,7 +273,7 @@ export const ProfileDetails = () => {
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack marginTop={`10px`} gap={5} flexDir={{ base: "column", md: "row" }}>
             <Box
               display={`flex`}
               flexDir={`column`}
@@ -282,7 +287,7 @@ export const ProfileDetails = () => {
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 className="p-2 border border-gray-700 bg-gray-800 text-white"
-                height={55}
+                height={{ base: 45, md: 55}}
                 width="full"
                 display={`flex`}
                 name="state"
