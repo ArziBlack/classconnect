@@ -23,7 +23,7 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({
   };
 
   return (
-    <Box>
+    <Box ml={{ base: 5, md: 0 }}>
       <SkeletonText isLoaded={!loading}>
         <Text
           fontSize={"22px"}

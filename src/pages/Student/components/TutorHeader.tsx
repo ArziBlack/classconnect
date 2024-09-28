@@ -81,7 +81,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   };
 
   return (
-    <Flex maxW={"700px"} justify={"space-between"}>
+    <Flex maxW={"700px"} justify={"space-between"} ml={{ base: 5, md: 0 }}>
       <Box>
         <Flex gap={6} align={"center"} h={"fit-content"}>
           <SkeletonText isLoaded={!loading}>
