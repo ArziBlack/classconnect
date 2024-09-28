@@ -21,7 +21,6 @@ export const TutorCard: React.FC<TutorCardProps> = ({
   imageUrl,
   link,
 }) => {
-  // const navigate = useNavigate();
 
   const getGenderIcon = (gender: string) => {
     return gender === "Female" ? (
@@ -44,7 +43,6 @@ export const TutorCard: React.FC<TutorCardProps> = ({
         bg="#254f62"
         color="white"
         cursor={"pointer"}
-        // onClick={() => navigate("/student/tutor-details")}
         border={"1px solid #5E7079"}
         overflow="hidden"
       >

@@ -71,10 +71,14 @@ export const Approved = () => {
   };
 
   return (
-    <Box className="text-white">
+    <Box className="text-white" ml={{ base: 5, md: 0 }}>
       <Flex justify={"space-between"} align={"center"} mb={4}>
         <div className="flex items-center">
-          <Text fontSize={{ base: "sm", md: "md" }} textTransform="capitalize">
+          <Text
+            fontSize={{ base: "sm", md: "md" }}
+            textTransform="capitalize"
+            display={{ base: "none", md: "flex" }}
+          >
             {selectedSpecialization
               ? `Available Tutors: ${selectedSpecialization.toLowerCase()}`
               : "Available Tutors:"}
@@ -136,7 +140,7 @@ export const Approved = () => {
             </Flex>
           )}
           <Button
-           p={{ base: "15px 15px", md: "20px 20px"}}
+            p={{ base: "15px 15px", md: "20px 20px" }}
             fontSize={{ base: "sm", md: "md" }}
             text="Get Recommendation"
             onClick={() => setConfirmation(true)}
@@ -144,7 +148,7 @@ export const Approved = () => {
         </Flex>
       </Flex>
 
-      <SimpleGrid columns={{ base: 2, md: 3 }} spacing={5} color="#ffffff">
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">
         {approvedTutors &&
           filteredTutors?.map((tutor: IMyTutor, index: number) => (
             <Skeleton key={index} borderRadius={"md"} isLoaded={!isLoading}>

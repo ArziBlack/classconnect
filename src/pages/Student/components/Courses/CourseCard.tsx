@@ -72,11 +72,12 @@ export const CourseCard: React.FC<CardProps> = ({
             opacity={0.6}
             gap={1}
             color={getDifficultyColor(difficulty)}
+            display={{ base: "none", md: "flex" }}
           >
             <SiLevelsdotfyi className="mb-[4px]" />
             <Text>{difficulty}</Text>
           </Flex>
-          <Flex align="center" ml={4}>
+          <Flex align="center" ml={{ base: 0, md: 4 }}>
             <Icon as={TimeIcon} mr={2} />
             <Text textTransform={"capitalize"}>{lessons?.toLowerCase()}</Text>
           </Flex>

@@ -330,7 +330,7 @@ const MainView: FC = () => {
               backgroundColor={"#023248"}
               justifyContent={"space-between"}
             >
-              <Flex w={"full"} flexDirection={"column"}>
+              <Flex w={"full"} flexDirection={"column"} onClick={toggleMenu}>
                 <MobileNav text="Home" to="/student" icon={HOME} />
                 <MobileNav text="Tutors" to="tutors" icon={TUTORS} />
                 <MobileNav text="Courses" to="courses" icon={COURSES} />
