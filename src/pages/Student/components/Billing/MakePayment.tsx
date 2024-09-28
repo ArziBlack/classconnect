@@ -69,8 +69,8 @@ export const MakePayment = () => {
     window.open(url, "_blank");
   };
   return (
-    <div className="flex w-full items-start pr-5 gap-5 relative">
-      <div className="w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
+    <div className="flex flex-col md:flex-row w-full items-start pr-5 gap-5 relative">
+      <div className="ml-5 md:ml-0 w-full md:w-2/3 bg-[#023248] rounded-md flex flex-col h-full p-5 min-h-[650px] justify-between">
         <h2 className="py-2 text-white text-lg font-[600]">Billing Details</h2>
         <div className="flex flex-col text-white py-2 text-sm">
           <div className="flex flex-col items-start py-1">
@@ -128,7 +128,7 @@ export const MakePayment = () => {
           }}
         />
       </div>
-      <div className="w-1/3 flex flex-col h-full">
+      <div className="w-full md:w-1/3 flex flex-col h-full ml-5 md:ml-0">
         <div className="flex flex-col p-3 bg-[#023248] rounded-md text-white">
           <h2 className="font-[600] py-3">Your Plan</h2>
           <div className="flex items-center justify-between w-full font-light text-sm py-3">
