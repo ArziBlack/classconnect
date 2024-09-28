@@ -164,7 +164,7 @@ const SideBarNav: FC = () => {
       w={"full"}
       h={"100vh"}
       flexDir={"column"}
-      padding="10px 1rem"
+      padding="0 1rem"
       pt={"1.5rem"}
       position={"sticky"}
       top={0}
@@ -385,7 +385,7 @@ const StudentLayout: FC = () => {
       gap={{ base: "1rem", xl: "2rem" }}
     >
       <Box
-        minW={{ base: "full", md: "100px", lg: "220px" }}
+        minW={{ base: "full", md: "80px", lg: "220px" }}
         display={{ base: "none", md: "block", lg: "block" }}
       >
         <SideBarNav />
