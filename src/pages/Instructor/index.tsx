@@ -1,12 +1,10 @@
 import { FC } from "react";
-// import { IoIosSearch } from "react-icons/io";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 // import { IoMdNotificationsOutline } from "react-icons/io";
 import {
   Box,
   Flex,
   Image,
-  // Input,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";

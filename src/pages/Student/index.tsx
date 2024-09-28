@@ -1,6 +1,20 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  useMediaQuery,
+  VStack,
+} from "@chakra-ui/react";
 import {
   ASSESSMENT,
   COURSES,
@@ -17,6 +31,7 @@ import { useAppDispatch } from "../../hooks/reactReduxHooks";
 import { useAppSelector } from "../../hooks/reactReduxHooks";
 import { FaGoogleScholar, FaLink } from "react-icons/fa6";
 import { MdOutlineWorkHistory } from "react-icons/md";
+import { FaBars } from "react-icons/fa";
 
 type NavProps = {
   to: string;
@@ -73,6 +88,60 @@ const Nav: FC<NavProps> = ({
             fontWeight={isActive ? "400" : "400"}
             color={isActive ? "#ffffff" : "white"}
             display={{ base: "none", md: "none", lg: "flex" }}
+          >
+            {text}
+          </Text>
+        </Flex>
+      )}
+    </NavLink>
+  );
+};
+
+const MobileNav: FC<NavProps> = ({
+  text,
+  to,
+  icon,
+  children,
+  isImage = true,
+  w = "20px",
+}) => {
+  return (
+    <NavLink
+      to={to}
+      style={({ isActive }) => ({
+        textDecoration: "none",
+        padding: "8px 0.5rem",
+        color: "#fffff",
+        opacity: isActive ? "1" : "0.8",
+        background: isActive ? "#254F62" : "transparent",
+        borderRadius: "15px",
+      })}
+      end
+    >
+      {({ isActive }) => (
+        <Flex
+          gap={"1rem"}
+          cursor={"pointer"}
+          alignItems={"center"}
+          fontFamily={"Metropolis"}
+        >
+          <Flex
+            w={"25px"}
+            h={"25px"}
+            borderRadius={"50px"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            color={"002333"}
+            fontSize={"16px"}
+            bgColor={"white"}
+            border={isActive ? "none" : "1px solid brand.text"}
+          >
+            {isImage ? <Image width={w} src={icon} /> : children}
+          </Flex>
+          <Text
+            fontSize={"14px"}
+            fontWeight={isActive ? "400" : "400"}
+            color={isActive ? "#ffffff" : "white"}
           >
             {text}
           </Text>
@@ -140,6 +209,15 @@ const MainView: FC = () => {
   useEffect(() => {
     document.title = "HEP | Student Dashboard";
   }, []);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  function toggleMenu() {
+    setIsMenuOpen(!isMenuOpen);
+  }
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    setTimeout(() => {}, 1500);
+  };
 
   return (
     <Flex
@@ -171,6 +249,7 @@ const MainView: FC = () => {
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
           <Flex
+            display={{ base: "none", md: "flex" }}
             w={"30px"}
             h={"30px"}
             borderRadius={"50px"}
@@ -196,10 +275,95 @@ const MainView: FC = () => {
             {data.first_name + " " + data.last_name}
           </Text>
         </Flex>
+        <Flex
+          gap={5}
+          alignItems="center"
+          display={{ base: "flex", md: "none" }}
+        >
+          <Box
+            w={"30px"}
+            h={"30px"}
+            borderRadius={"50px"}
+            alignItems={"center"}
+            display={{ base: "flex", md: "hidden" }}
+            justifyContent={"center"}
+            color={"#002333"}
+            fontSize={"18px"}
+            bgColor={"white"}
+            border={"1px solid brand.text"}
+            cursor={"pointer"}
+            onClick={() => navigate("notification")}
+          >
+            <Image width={"15px"} src={NOTIFICATION} />
+          </Box>
+
+          <Flex cursor="pointer" onClick={toggleMenu}>
+            <FaBars />
+          </Flex>
+        </Flex>
       </Flex>
       <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
         <Outlet />
       </Box>
+      <Drawer placement="left" onClose={() => toggleMenu()} isOpen={isMenuOpen}>
+        <DrawerOverlay />
+        <DrawerContent backgroundColor={"#023248"}>
+          <DrawerCloseButton />
+          <DrawerHeader color="white">
+            <Image
+              w="50px"
+              src={LOGO}
+              marginLeft={"5px"}
+              marginBottom={"20px"}
+            />
+          </DrawerHeader>
+          <DrawerBody>
+            <Flex
+              w={"full"}
+              h={"100%"}
+              flexDir={"column"}
+              padding="1rem"
+              pt={"1.5rem"}
+              pl="10px"
+              position={"sticky"}
+              top={0}
+              backgroundColor={"#023248"}
+              justifyContent={"space-between"}
+            >
+              <Flex w={"full"} flexDirection={"column"}>
+                <MobileNav text="Home" to="/student" icon={HOME} />
+                <MobileNav text="Tutors" to="tutors" icon={TUTORS} />
+                <MobileNav text="Courses" to="courses" icon={COURSES} />
+                <MobileNav text="Profile" to="profile" icon={PROFILE} />
+                <MobileNav
+                  text="Assessments"
+                  to="assessments"
+                  icon={ASSESSMENT}
+                />
+                <MobileNav text="Billing" to="billing" icon={SETTINGS} />
+                <MobileNav
+                  text="Notification"
+                  to="notification"
+                  icon={NOTIFICATION}
+                  w="14px"
+                />
+                <MobileNav text="Referral" to="referral" isImage={false}>
+                  <FaLink />
+                </MobileNav>
+                <MobileNav text="Scholarship" to="scholarship" isImage={false}>
+                  <FaGoogleScholar />
+                </MobileNav>
+                <MobileNav text="Internship" to="internship" isImage={false}>
+                  <MdOutlineWorkHistory />
+                </MobileNav>
+              </Flex>
+              <Flex onClick={handleLogout}>
+                <MobileNav text="Log out" to="/" icon={LOGOUT} />
+              </Flex>
+            </Flex>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Flex>
   );
 };
