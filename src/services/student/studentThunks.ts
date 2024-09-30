@@ -324,16 +324,16 @@ export const UpdateStudentProfile = createAsyncThunk<
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const RegisterForACourse = createAsyncThunk<
   any,
-  { newCourse: string },
+  string,
   { rejectValue: string }
->("student/register-course", async ({ newCourse }, thunkAPI) => {
+>("student/register-course", async (id, thunkAPI) => {
   try {
-    const response = await axiosInstance.post("/student/registerNewCourse", {
-      newCourse,
-    });
+    const response = await axiosInstance.post(
+      `/student/enrollForNewCourse/${id}`
+    );
     return response.data;
   } catch (err) {
-    const error = err.response ? err.response.data.error : err.message;
+    const error = err.response ? err.response.data.message : err.message;
     return thunkAPI.rejectWithValue(error);
   }
 });

@@ -101,7 +101,7 @@ export const Content = () => {
   }
 
   const handleCourseRegistration = async () => {
-    const result = await dispatch(RegisterForACourse(curriculum?.data?.title));
+    const result = await dispatch(RegisterForACourse(courseId));
     if (result.meta.requestStatus === "fulfilled") {
       if (result.payload?.statusCode === 403) {
         showToast(result.payload?.message, "error");
