@@ -5,34 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import { getMyStudents } from "../../../services/tutor/tutorThunk";
 import moment from "moment";
-
-const classSchedule = localStorage.getItem("nextclass");
-const futureDate = moment(classSchedule);
-const formattedDate = futureDate.format("YYYY-MM-DD");
-
-const highlightedDates = [new Date(futureDate.toISOString())];
-
-const active = new Date();
-
-const cells = {
-  margin: "0.2rem",
-};
-
-const modifiers = {
-  highlighted: highlightedDates,
-  active: active,
-};
-
-const modifiersStyles = {
-  active: {
-    backgroundColor: "yellow",
-    color: "black",
-  },
-  highlighted: {
-    backgroundColor: "#00ff84",
-    color: "#fff",
-  },
-};
+import { BsCalendar2Date } from "react-icons/bs";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -43,6 +16,33 @@ export const Home = () => {
   }, [myStudents, dispatch]);
 
   const { data } = useAppSelector((store) => store.auth);
+
+  const futureDate = moment(data.upcomingClassDate);
+  const formattedDate = futureDate.format("YYYY-MM-DD");
+
+  const highlightedDates = [new Date(futureDate.toISOString())];
+
+  const active = new Date();
+
+  const cells = {
+    margin: "0.2rem",
+  };
+
+  const modifiers = {
+    highlighted: highlightedDates,
+    active: active,
+  };
+
+  const modifiersStyles = {
+    active: {
+      backgroundColor: "yellow",
+      color: "black",
+    },
+    highlighted: {
+      backgroundColor: "#00ff84",
+      color: "#fff",
+    },
+  };
   return (
     <div className="w-full flex gap-6 text-white text-[14px] font-['Inter']">
       <div className="w-2/3 flex flex-col justify-center items-start">
@@ -73,10 +73,12 @@ export const Home = () => {
             <h2 className="font-semibold">Upcoming classes</h2>
           </div>
           <div className="">
-            {!formattedDate ? (
+            {formattedDate ? (
               <div className="flex w-full items-center my-2 p-1 rounded justify-between">
-                <div className="w-2/4 flex items-center text-[9px]">
-                  <div className="bg-black/50 rounded-md h-7 w-7 p-1"></div>
+                <div className="w-2/4 flex items-center text-[12px]">
+                  <div className="flex items-center justify-center bg-black/50 rounded-md h-7 w-7 p-1">
+                    <BsCalendar2Date color="white" size={"18px"} />
+                  </div>
                   <div className="flex flex-col h-full justify-between  ml-2">
                     <h2 className="font-semibold">{formattedDate}</h2>
                   </div>

@@ -21,6 +21,7 @@ export interface IResponse {
   profileImage: string;
   phoneNum: string;
   classType: string;
+  upcomingClassDate: string;
   class_type?: string;
   country?: string;
   state?: string;
