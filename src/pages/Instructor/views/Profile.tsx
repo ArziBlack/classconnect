@@ -7,6 +7,7 @@ import {
   VStack,
   Img,
   CircularProgress,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { FaUpload } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
@@ -122,11 +123,13 @@ const Profile = () => {
     }
   };
 
+  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+
   return (
     <Box className="text-white flex flex-col items-center">
       <VStack spacing={6} w={"full"} maxW={"1080px"}>
         <Box className=" bg-gray-500 h-[250px] w-full relative">
-          <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute top-[140px] right-[40%] ">
+          <Box className="mb-10 bg-[#002333] p-10 w-[200px] h-[200px] rounded-full flex items-center justify-center absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
             <Box className="relative">
               <Avatar
                 src={
@@ -134,7 +137,6 @@ const Profile = () => {
                   data?.profileImage ||
                   "https://via.placeholder.com/150"
                 }
-                size="2xl"
                 h={"165px"}
                 w={"165px"}
               />
@@ -172,8 +174,13 @@ const Profile = () => {
             </Box>
           </Box>
         </Box>
-        <Box marginTop={"80px"} w={`full`}>
-          <HStack gap={5} alignItems="center" w="full">
+        <Box marginTop={"30px"} w={`full`} pl={1}>
+          <HStack
+            flexDir={isSmallerThan900 ? "column" : "row"}
+            gap={5}
+            alignItems="center"
+            w="full"
+          >
             <Box display={`flex`} flexDir={`column`} w="full">
               <label className="block text-sm font-medium text-green-500 mb-2">
                 First Name
@@ -203,7 +210,13 @@ const Profile = () => {
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack
+            flexDir={isSmallerThan900 ? "column" : "row"}
+            marginTop={`10px`}
+            gap={5}
+            alignItems="center"
+            w="full"
+          >
             <Box
               display={`flex`}
               flexDir={`column`}
@@ -243,7 +256,11 @@ const Profile = () => {
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack
+            marginTop={`10px`}
+            gap={5}
+            flexDir={isSmallerThan900 ? "column" : "row"}
+          >
             <Box
               display={`flex`}
               flexDir={`column`}
@@ -284,7 +301,11 @@ const Profile = () => {
               />
             </Box>
           </HStack>
-          <HStack marginTop={`10px`} gap={5}>
+          <HStack
+            marginTop={`10px`}
+            gap={5}
+            flexDir={isSmallerThan900 ? "column" : "row"}
+          >
             <Box
               display={`flex`}
               flexDir={`column`}

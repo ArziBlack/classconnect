@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@chakra-ui/react";
 import Vector from "../../../assets/icons/Vector.svg";
 import { useAppSelector } from "../../../hooks/reactReduxHooks";
 import { truncateString } from "../../../utils/utility";
@@ -5,10 +6,13 @@ import { CgPerformance } from "react-icons/cg";
 import { SiGoogleanalytics } from "react-icons/si";
 
 const HeaderComponent = () => {
+  const [isSmallerThan500] = useMediaQuery("(max-width: 550px)");
   const { data } = useAppSelector((store) => store.auth);
   return (
     <div>
-      <div className="flex justify-between gap-4 mb-4 ">
+      <div
+        className={`flex ${isSmallerThan500 ? "flex-col" : "flex-row"} justify-between gap-4 mb-4`}
+      >
         <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
           <div className="flex items-center justify-between w-full mb-2">
             <h2 className="text-sm font-medium">{"Monthly performance"}</h2>
@@ -32,7 +36,9 @@ const HeaderComponent = () => {
           </span>
         </div>
       </div>
-      <div className="flex justify-between gap-4 ">
+      <div
+        className={`flex ${isSmallerThan500 ? "flex-col" : "flex-row"} justify-between gap-4`}
+      >
         <div className="flex flex-col items-start p-4 rounded-lg shadow-lg text-white w-full h-[104px] bg-[#023248] ">
           <div className="flex items-center justify-between w-full mb-2">
             <h2 className="text-sm font-medium">

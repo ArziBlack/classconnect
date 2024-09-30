@@ -1,4 +1,4 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Spinner, Text, useMediaQuery } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { students } from "../../../../mock/students";
 import { useAppSelector } from "../../../../hooks/reactReduxHooks";
@@ -13,6 +13,8 @@ export const MyStudents = () => {
     navigate(input);
   }
   console.log("error", error);
+
+  const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
 
   if (isLoading) {
     return (
@@ -30,11 +32,12 @@ export const MyStudents = () => {
             <thead className="w-full h-20 gap-10">
               <tr className=" text-left py-5 text-lg font-semibold">
                 <th className="py-2 px-4">Name</th>
-                <th className="py-2 px-4">Status</th>
-                <th className="py-2 px-4">Course</th>
+                {!isSmallerThan500 && <th className="py-2 px-4">Course</th>}
                 <th className="py-2 px-4">Age</th>
                 <th className="py-2 px-4">Sex</th>
-                <th className="py-2 px-4">Nationality</th>
+                {!isSmallerThan500 && (
+                  <th className="py-2 px-4">Nationality</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -52,22 +55,15 @@ export const MyStudents = () => {
                     />
                     {student?.name}
                   </td>
-                  <td>
-                    <span
-                      className={`flex justify-around px-2 py-2 rounded-full text-sm ${
-                        student.status === "Active"
-                          ? "bg-green-500"
-                          : "bg-red-500"
-                      }`}
-                    >
-                      <span className="w-4 h-4 flex py-2  px-2 justify-center items-center rounded-full bg-[#023248] shadow-lg"></span>
-                      {student.status}
-                    </span>
-                  </td>
-                  <td className="py-2 px-4">{student?.courses[0]}</td>
+
+                  {!isSmallerThan500 && (
+                    <td className="py-2 px-4">{student?.courses[0]}</td>
+                  )}
                   <td className="py-2 px-4">{student?.Age}</td>
                   <td className="py-2 px-4">{student?.sex}</td>
-                  <td className="py-2 px-4">{student?.country}</td>
+                  {!isSmallerThan500 && (
+                    <td className="py-2 px-4">{student?.country}</td>
+                  )}
                 </tr>
               ))}
             </tbody>

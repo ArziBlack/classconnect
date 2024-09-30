@@ -1,14 +1,6 @@
 import { FC } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-// import { IoMdNotificationsOutline } from "react-icons/io";
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
-// import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import {
   COURSES,
   HOME,
@@ -160,6 +152,7 @@ const NavPill: FC<NavPillProps> = ({
 
 const MainView: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
@@ -277,7 +270,7 @@ const MainView: FC = () => {
                 <Image width={"15px"} src={NOTIFICATION} />
               </Flex>
             ) : (
-              <Image w="60px" src={LOGO} marginLeft={"5px"} />
+              <Image w="60px" src={LOGO} />
             )}
             {/* <Image
               w={"40px"}
@@ -325,13 +318,13 @@ const MainView: FC = () => {
         </Flex>
       </Flex>
       <Flex
-        py={1}
-        gap={"0.5rem"}
-        pl={"1rem"}
-        alignItems={"center"}
-        mb={"0.5rem"}
         w="full"
+        h={"40px"}
+        py={"20px"}
+        mt={"10px"}
+        gap={"0.5rem"}
         overflowX="auto"
+        alignItems={"center"}
         className="no-scrollbar"
         display={isSmallerThan900 ? "flex" : "none"}
       >
@@ -339,8 +332,11 @@ const MainView: FC = () => {
           overflowX={"scroll"}
           className={"no-scrollbar"}
           gap={"0.5rem"}
-          pr={"1rem"}
-          pt={"1rem"}
+          py={"10px"}
+
+          // pr={"1rem"}
+          // pt={"1rem"}
+          // pb={"1rem"}
         >
           {navItems.map(
             ({ number, text, onContextClick, danger, to }, index) => (
@@ -356,7 +352,11 @@ const MainView: FC = () => {
                     navigate(to);
                   }
                 }}
-                isActive={false}
+                isActive={
+                  to === "/instructor"
+                    ? location.pathname === to
+                    : location.pathname.includes(to)
+                }
               />
             )
           )}

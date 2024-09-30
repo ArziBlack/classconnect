@@ -12,6 +12,7 @@ import {
   Text,
   Spinner,
   Link,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import Button from "../../../components/Button";
 import { getCurriculum } from "../../../services/tutor/tutorThunk";
@@ -21,6 +22,7 @@ const links = [{ to: "", label: "My curriculum" }];
 
 export const Curriculum = () => {
   const dispatch = useAppDispatch();
+  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { curriculumResponse, isLoading, isError } = useAppSelector(
     (state) => state.tutor
   );
@@ -62,11 +64,17 @@ export const Curriculum = () => {
       />
       <BreadCrumb links={links} />
 
-      <Flex color="white" justify={"space-between"}>
+      <Flex
+        color="white"
+        justify={"space-between"}
+        gap={4}
+        flexDir={isSmallerThan900 ? "column" : "row"}
+      >
         {curriculumResponse?.data?.curriculum?.length > 0 ? (
           <Accordion
             allowMultiple
-            width="700px"
+            maxW="700px"
+            w="full"
             display="flex"
             flexDir="column"
             gap={4}
