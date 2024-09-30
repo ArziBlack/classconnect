@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TimeIcon } from "@chakra-ui/icons";
-import { SiLevelsdotfyi } from "react-icons/si";
+// import { SiLevelsdotfyi } from "react-icons/si";
 import { Box, Flex, Text, Icon } from "@chakra-ui/react";
 
 interface CardProps {
   title: string;
   description: string;
+  ageBracket: string;
   difficulty: "Beginner" | "Intermediate" | "Advance";
   lessons: string;
   link?: string;
@@ -17,6 +18,7 @@ export const CourseCard: React.FC<CardProps> = ({
   description,
   difficulty,
   lessons,
+  ageBracket = "All ages",
   link,
 }) => {
   const getDifficultyColor = (difficulty: string) => {
@@ -55,7 +57,13 @@ export const CourseCard: React.FC<CardProps> = ({
       <Text textTransform={"capitalize"} fontSize="xl" fontWeight="bold" mb={2}>
         {title?.toLocaleLowerCase()}
       </Text>
-      <Text opacity={0.8} mb={4} fontWeight={300} fontFamily={"Work Sans"}>
+      <Text
+        opacity={0.8}
+        mb={4}
+        fontWeight={300}
+        fontFamily={"Work Sans"}
+        noOfLines={2}
+      >
         {truncateDescription(description)}
       </Text>
       <Flex
@@ -65,19 +73,26 @@ export const CourseCard: React.FC<CardProps> = ({
         justifyContent={"space-between"}
         fontFamily={"Work Sans"}
       >
-        <Flex align="center">
-          <Flex
-            alignItems="center"
-            justifyContent={"center"}
-            opacity={0.6}
-            gap={1}
-            color={getDifficultyColor(difficulty)}
-            display={{ base: "none", md: "flex" }}
-          >
-            <SiLevelsdotfyi className="mb-[4px]" />
-            <Text>{difficulty}</Text>
-          </Flex>
-          <Flex align="center" ml={{ base: 0, md: 4 }}>
+        <Flex align="center" gap={4}>
+          {ageBracket && (
+            <Flex
+              alignItems="center"
+              justifyContent={"center"}
+              opacity={0.6}
+              gap={1}
+              color={getDifficultyColor(difficulty)}
+              display={{ base: "none", md: "flex" }}
+            >
+              {/* <SiLevelsdotfyi className="mb-[4px]" /> */}
+              <Text>
+                {ageBracket === "All ages"
+                  ? ageBracket
+                  : ageBracket.replace(/\s+/g, "")}{" "}
+                {ageBracket !== "All ages" && "years old"}
+              </Text>
+            </Flex>
+          )}
+          <Flex align="center">
             <Icon as={TimeIcon} mr={2} />
             <Text textTransform={"capitalize"}>{lessons?.toLowerCase()}</Text>
           </Flex>

@@ -1,5 +1,8 @@
 import Refresh from "../../../../components/Refresh";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reactReduxHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reactReduxHooks";
 import useCustomToast from "../../../../hooks/useCustomToast";
 import { getMyCourses } from "../../../../services/student/studentThunks";
 import { CourseCard } from "./CourseCard";
@@ -17,17 +20,18 @@ export const Started = () => {
     } else if (getMyCourses.rejected.match(response)) {
       toast(response?.payload, "warning");
     }
-  }
+  };
 
   return (
     <Box className="text-white" ml={{ base: 5, md: 0 }}>
-      <Refresh  handleRefresh={handleRefresh} />
+      <Refresh handleRefresh={handleRefresh} />
       {myCoursesRes ? (
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
           {myCoursesRes?.message?.map((item, idx) => (
             <Skeleton borderRadius={"md"} isLoaded={!isLoading} key={idx}>
               <CourseCard
                 title={item.title}
+                ageBracket={item.ageBracket}
                 description={item.description}
                 difficulty="Beginner"
                 lessons="3 months"

@@ -30,28 +30,28 @@ const LessonCard: React.FC<ICardProps> = ({
       px="18px"
       py="50px"
       my="20px"
-      justifyContent={`space-between`}
       borderRadius={20}
+      justifyContent={`space-between`}
     >
       <Image src={image} width={"50px"} />
 
       <VStack my="4">
         <Text
-          fontWeight="bold"
           fontSize="lg"
-          color={"white"}
-          textTransform={"uppercase"}
           noOfLines={1}
+          color={"white"}
+          fontWeight="bold"
+          textTransform={"uppercase"}
         >
           {title}
         </Text>
         <Text
           fontSize="sm"
-          color={"white"}
           opacity={0.9}
+          noOfLines={3}
+          color={"white"}
           fontWeight={200}
           textAlign="center"
-          noOfLines={3}
         >
           {description}
         </Text>

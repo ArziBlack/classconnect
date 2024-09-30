@@ -23,7 +23,7 @@ import {
 } from "../../../../services/student/studentThunks";
 import ViewHeader from "../ViewHeader";
 import { BreadCrumb } from "./BreadCrumb";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, Link as RLink } from "react-router-dom";
 import Loading from "../../../../utils/Loading";
 import Button from "../../../../components/Button";
 import ChakraModal from "../../../../components/ChakraModal";
@@ -39,6 +39,12 @@ export const Content = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { courseId } = useParams();
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate("/student/courses");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,10 +76,25 @@ export const Content = () => {
 
   if (errorMessage) {
     return (
-      <Flex justifyContent="center" alignItems="center">
-        <Text fontSize="xl" color="white">
-          {errorMessage ||
-            "Curriculum is not yet available for this course, check again later."}
+      <Flex flexDir={"column"} align={"center"}>
+        <Flex justifyContent="center" alignItems="center">
+          <Box fontSize="xl" color="white">
+            {errorMessage ||
+              "Curriculum is not yet available for this course, check again later."}
+          </Box>
+        </Flex>
+        <Text
+          fontWeight={500}
+          color={"white"}
+          display={"inline-flex"}
+          alignItems={"center"}
+          textAlign={"center"}
+          cursor="pointer"
+          onClick={goBack}
+          mt={30}
+          textDecor={"underline"}
+        >
+          <RLink to={"/student/courses"}>Go Back</RLink>
         </Text>
       </Flex>
     );

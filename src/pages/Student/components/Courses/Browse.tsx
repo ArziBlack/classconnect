@@ -33,6 +33,7 @@ export const Browse = () => {
             <Skeleton borderRadius={"md"} isLoaded={!isLoading} key={idx}>
               <CourseCard
                 title={item.title}
+                ageBracket={item.ageBracket}
                 description={item.description}
                 difficulty="Beginner"
                 lessons={item?.duration}

@@ -4,13 +4,13 @@ import {
   Flex,
   VStack,
   Heading,
+  Spinner,
   SimpleGrid,
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  Spinner,
 } from "@chakra-ui/react";
 import SecondaryHero from "./SecondaryHero";
 import LessonCard from "./LessonCard";
@@ -150,6 +150,12 @@ const Courses = () => {
               </Heading>
               <Text fontSize="md" color="gray.200" mb={6}>
                 {curriculum?.data?.description}
+              </Text>
+              <Text fontSize="md" fontWeight="semibold" color="gray.200">
+                Age Bracket: 10-15
+              </Text>
+              <Text fontSize="md" fontWeight="semibold" color="gray.200" mb={6}>
+                Duration: {curriculum?.data?.duration.toLowerCase()}
               </Text>
 
               <Flex color="white" justify={"space-between"}>
