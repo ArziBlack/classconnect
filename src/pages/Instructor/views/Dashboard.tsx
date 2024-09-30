@@ -1,8 +1,8 @@
 import Vector from "../../../assets/icons/Vector.svg";
-import checkbox from "../../../assets/icons/checkbok.svg";
-import { ACADEMIC_LIGHT } from "../../../constants/icon";
 import { useAppSelector } from "../../../hooks/reactReduxHooks";
 import { truncateString } from "../../../utils/utility";
+import { CgPerformance } from "react-icons/cg";
+import { SiGoogleanalytics } from "react-icons/si";
 
 const HeaderComponent = () => {
   const { data } = useAppSelector((store) => store.auth);
@@ -13,7 +13,7 @@ const HeaderComponent = () => {
           <div className="flex items-center justify-between w-full mb-2">
             <h2 className="text-sm font-medium">{"Monthly performance"}</h2>
             <div>
-              <img src={checkbox} alt="Checkbox" />
+              <CgPerformance size={"20px"} color="#4ade80" />
             </div>
           </div>
           <span className="text-2xl font-bold">
@@ -24,7 +24,7 @@ const HeaderComponent = () => {
           <div className="flex items-center justify-between w-full mb-2">
             <h2 className="text-sm font-medium">{"Session performance"}</h2>
             <div>
-              <img src={Vector} alt="Book" />
+              <CgPerformance size={"20px"} color="#4ade80" />
             </div>
           </div>
           <span className="text-2xl font-bold">
@@ -39,7 +39,7 @@ const HeaderComponent = () => {
               {"Monthly completion count"}
             </h2>
             <div>
-              <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
+              <SiGoogleanalytics size={"20px"} color="#4ade80" />
             </div>
           </div>
           <span className="text-2xl font-bold">
@@ -52,7 +52,7 @@ const HeaderComponent = () => {
               {"Session completion count"}
             </h2>
             <div>
-              <img src={ACADEMIC_LIGHT} alt="Academic Cap" />
+              <SiGoogleanalytics size={"20px"} color="#4ade80" />
             </div>
           </div>
           <span className="text-2xl font-bold">
