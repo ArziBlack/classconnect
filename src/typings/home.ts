@@ -73,9 +73,16 @@ export interface ISignupPage {
   admission: ISignupAdmission;
 }
 
+export interface IVideo {
+  id: string;
+  link: string;
+  title: string;
+}
+
 export interface OtherState {
   home: IHomeResponse | null;
   fees: IFees | null;
+  videos: IVideo[] | null;
   tnc: string;
   URL: string | null;
   error: string | null;

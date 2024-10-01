@@ -6,6 +6,7 @@ import {
   IFees,
   IHomeResponse,
   ISignupPage,
+  IVideo,
   OtherState,
 } from "../../typings/home.ts";
 
@@ -31,6 +32,7 @@ interface INewsletter {
 const initialState: OtherState = {
   home: home,
   fees: fees,
+  videos: null,
   curriculum: null,
   tnc: "",
   URL: URL,
@@ -53,12 +55,23 @@ export const getHomeResponse = createAsyncThunk(
   }
 );
 
+export const getLandingVideos = createAsyncThunk(
+  "other/landingVideos",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await otherService.getLandingVideos();
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getTnC_Policy = createAsyncThunk(
   "other/policy",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/agreement`);
-      return response.data;
+      return response.data.videos;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
@@ -141,6 +154,11 @@ export interface INewsLetterError {
   message?: string;
   error?: string;
 }
+export interface IVideoRes {
+  message: number;
+  videos?: IVideo[];
+  error?: string;
+}
 
 // Newsletter
 export const newsLetter = createAsyncThunk(
@@ -200,6 +218,23 @@ const otherSlice = createSlice({
       )
       .addCase(
         getHomeResponse.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload.message;
+        }
+      )
+      .addCase(getLandingVideos.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        getLandingVideos.fulfilled,
+        (state, action: PayloadAction<IVideoRes>) => {
+          state.isLoading = false;
+          state.videos = action.payload.videos;
+        }
+      )
+      .addCase(
+        getLandingVideos.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload.message;

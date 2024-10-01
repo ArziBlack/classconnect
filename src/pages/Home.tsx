@@ -5,17 +5,29 @@ import CollegeLevel from "../components/CollegeLevel";
 import Career from "../components/Career";
 import HeroMaster from "../components/HeroMaster";
 import GoodPricing from "../components/GoodPricing";
-import { getHomeResponse, getTuitionFees } from "../services/others/otherSlice";
+import {
+  getHomeResponse,
+  getTuitionFees,
+  getLandingVideos,
+} from "../services/others/otherSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
+import { YoutubeEmbed } from "../components/CustomComponent";
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const { home, fees } = useAppSelector(state => state.other)
-  React.useEffect(()=> {
+  const { home, fees, videos } = useAppSelector((state) => state.other);
+  React.useEffect(() => {
     !home && dispatch(getHomeResponse());
     !fees && dispatch(getTuitionFees());
-  },[])
+    !videos && dispatch(getLandingVideos());
+  }, []);
 
+  const videoList = videos
+    ?.map((video) => {
+      const videoIdMatch = video.link.match(/v=([^&]+)/);
+      return videoIdMatch ? videoIdMatch[1] : null;
+    })
+    .filter(Boolean);
   return (
     <>
       <HeroMaster />
@@ -24,6 +36,11 @@ const Home = () => {
       <Lessons />
       <CollegeLevel />
       <Career />
+      <YoutubeEmbed
+        initialEmbedId={videoList[0]}
+        title={"All you need to know about HEP Coding"}
+        videoList={videoList}
+      />
     </>
   );
 };

@@ -11,6 +11,10 @@ const getHomeResponse = async () => {
   }
   return response.data;
 };
+const getLandingVideos = async () => {
+  const response = await axios.get(`${API_BASE_URL}/landingVideos`);
+  return response.data;
+};
 
 // Get Tuition Fees Packages
 const getTuitionFees = async () => {
@@ -102,6 +106,7 @@ const otherService = {
   sendMemo,
   getCurriculum,
   LogoutTutor,
+  getLandingVideos,
 };
 
 export default otherService;

@@ -9,11 +9,9 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  HStack,
   Image,
   Text,
   useMediaQuery,
-  VStack,
 } from "@chakra-ui/react";
 import {
   ASSESSMENT,
@@ -220,16 +218,11 @@ const MainView: FC = () => {
   };
 
   return (
-    <Flex
-      w={"full"}
-      h={"100vh"}
-      position={"relative"}
-      pr={"20px"}
-      flexDirection={"column"}
-    >
+    <Flex w={"full"} h={"100vh"} position={"relative"} flexDirection={"column"}>
       <Flex
         mt={4}
         w={"full"}
+        px={3}
         alignItems={"center"}
         color={"white"}
         justifyContent={"space-between"}

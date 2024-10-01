@@ -11,14 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
 
-export const YoutubeEmbed = ({ initialEmbedId, videoList }) => {
+export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
     videoList.indexOf(initialEmbedId)
   );
   const [isPlaying, setIsPlaying] = useState(true);
   const iframeRef = useRef(null);
 
-const handlePlayPause = () => {
+  const handlePlayPause = () => {
     if (iframeRef.current) {
       const iframe = iframeRef.current;
       if (isPlaying) {
@@ -67,7 +67,7 @@ const handlePlayPause = () => {
         textAlign="center"
         mb={4}
       >
-        How to apply to join as instructor
+        {title}
       </Heading>
       <Box
         zIndex={2}
@@ -144,6 +144,7 @@ const CustomComponent = () => (
     <ApplyInstructor />
     <YoutubeEmbed
       initialEmbedId="fBUfJFcxjiM"
+      title={"How to apply to join as instructor"}
       videoList={["fBUfJFcxjiM", "3fumBcKC6RE", "eX2qFMC8cFo", "yzC4hFK5P3g"]}
     />
   </div>

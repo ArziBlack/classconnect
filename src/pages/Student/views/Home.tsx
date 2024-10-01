@@ -68,7 +68,9 @@ export const Home = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const videoId = "pBv7igaxfQE-I?si=yEOannHhgq2uXG0j";
+  const videoIdMatch = data.video.match(/v=([^&]+)/);
+  const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
   return (
     <div className="w-full justify-center md:justify-start p-3 items-center md:items-start md:p-0 flex md:flex-row flex-col gap-6 text-white text-[14px]">
       <div className="w-full md:w-2/3 flex flex-col justify-center ">
