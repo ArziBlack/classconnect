@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import PropTypes from "prop-types";
 import ApplyInstructor from "./ApplyInstructor";
 import {
   Box,
@@ -13,7 +12,7 @@ import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
 
 export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
-    videoList.indexOf(initialEmbedId)
+    videoList?.indexOf(initialEmbedId)
   );
   const [isPlaying, setIsPlaying] = useState(true);
   const iframeRef = useRef(null);
@@ -81,7 +80,7 @@ export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
           <AspectRatio ratio={16 / 9}>
             <iframe
               ref={iframeRef}
-              src={`https://www.youtube.com/embed/${videoList[currentVideoIndex]}?enablejsapi=1`}
+              src={`https://www.youtube.com/embed/${videoList?.[currentVideoIndex]}?enablejsapi=1`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -125,18 +124,13 @@ export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
               color="white"
               onClick={handleNext}
               sx={{ "&:hover": { bg: "transparent" } }}
-              isDisabled={currentVideoIndex === videoList.length - 1}
+              isDisabled={currentVideoIndex === videoList?.length - 1}
             />
           </Flex>
         </Box>
       </Box>
     </Box>
   );
-};
-
-YoutubeEmbed.propTypes = {
-  initialEmbedId: PropTypes.string.isRequired,
-  videoList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const CustomComponent = () => (

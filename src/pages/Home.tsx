@@ -17,17 +17,22 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const { home, fees, videos } = useAppSelector((state) => state.other);
   React.useEffect(() => {
-    !home && dispatch(getHomeResponse());
-    !fees && dispatch(getTuitionFees());
-    !videos && dispatch(getLandingVideos());
-  }, []);
+    if (!home) dispatch(getHomeResponse());
+    if (!fees) dispatch(getTuitionFees());
+    if (!videos) dispatch(getLandingVideos());
+  }, [dispatch, home, fees, videos]);
 
-  const videoList = videos
-    ?.map((video) => {
-      const videoIdMatch = video.link.match(/v=([^&]+)/);
-      return videoIdMatch ? videoIdMatch[1] : null;
-    })
-    .filter(Boolean);
+  const videoList = Array.isArray(videos)
+    ? videos
+        .map((video) => {
+          const videoIdMatch = video.link.match(/v=([^&]+)/);
+          return videoIdMatch ? videoIdMatch[1] : null;
+        })
+        .filter(Boolean)
+    : [];
+
+  console.log(videoList);
+
   return (
     <>
       <HeroMaster />
@@ -36,11 +41,15 @@ const Home = () => {
       <Lessons />
       <CollegeLevel />
       <Career />
-      <YoutubeEmbed
-        initialEmbedId={videoList[0]}
-        title={"All you need to know about HEP Coding"}
-        videoList={videoList}
-      />
+      {videoList && videoList.length > 0 ? (
+        <YoutubeEmbed
+          initialEmbedId={videoList[0]}
+          title={"All you need to know about HEP Coding"}
+          videoList={videoList}
+        />
+      ) : (
+        <p>Loading videos...</p>
+      )}
     </>
   );
 };
