@@ -61,7 +61,9 @@ const StudentDetail = () => {
   const handleNextTopicChange = (e) => setNextTopic(e.target.value);
   const handlePerformanceChange = (e) => setPerformance(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
-  const handleAttachmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAttachmentChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setAttachment(file);
@@ -170,18 +172,10 @@ const StudentDetail = () => {
 
   return (
     <div>
-      <Text
-        mt={{ sm: "16", md: "30px" }}
-        marginY="30px"
-        fontSize="20px"
-        fontWeight="700"
-        color="white"
-      ></Text>
       <Box
         bg="#023248"
         color={`white`}
-        w={{ sm: "115%", md: "100%" }}
-        ml={{ sm: "-34px", md: "0px" }}
+        // ml={{ base: "-34px", md: "0px" }}
         borderRadius="18px"
         p="30px"
         mb="20px"
@@ -193,7 +187,7 @@ const StudentDetail = () => {
             </Skeleton>
           </Box>
           <Text
-            fontSize={{ sm: "lg", md: "xl" }}
+            fontSize={{ base: "lg", md: "xl" }}
             className="text-[white]"
             fontWeight="700"
           >
@@ -202,7 +196,7 @@ const StudentDetail = () => {
         </Flex>
         <Text
           mt={6}
-          fontSize={{ sm: "xs", md: "sm" }}
+          fontSize={{ base: "xs", md: "sm" }}
           color="white"
           fontWeight="normal"
         >
@@ -213,29 +207,29 @@ const StudentDetail = () => {
         <div className=" w-full border-t-[1px] mt-10"></div>
         <Text
           mt={6}
-          fontSize={{ sm: "xs", md: "xl" }}
+          fontSize={{ base: "xs", md: "xl" }}
           fontWeight="600"
           color="white"
         >
           Personal
         </Text>
-        <Flex flexDirection={{ sm: "column", lg: "row" }}>
+        <Flex flexDirection={{ base: "column", lg: "row" }}>
           <Box mt={8} w="50%">
             <Skeleton
               borderRadius="xl"
-              boxSize={{ sm: "250px", md: "300px" }}
+              boxSize={{ base: "250px", md: "300px" }}
               isLoaded={Loaded}
             >
               <Image
                 borderRadius="xl"
-                boxSize={{ sm: "250px", md: "300px" }}
+                boxSize={{ base: "250px", md: "300px" }}
                 src={student?.profileImage}
                 alt="Dan Abramov"
                 objectFit={"cover"}
               />
             </Skeleton>
           </Box>
-          <Box w={{ sm: "full", lg: "50%" }}>
+          <Box w={{ base: "full", lg: "50%" }}>
             <HStack>
               <Text fontWeight="600" fontSize="2xl">
                 <SkeletonText isLoaded={Loaded}>{""}</SkeletonText>
@@ -243,7 +237,7 @@ const StudentDetail = () => {
             </HStack>
             <Box>
               <Text
-                fontSize={{ sm: "xs", md: "md" }}
+                fontSize={{ base: "xs", md: "md" }}
                 fontWeight="550"
                 my="15px"
               >
@@ -252,7 +246,7 @@ const StudentDetail = () => {
               <Box>
                 <Skeleton mt="5px" borderRadius="10px" isLoaded={Loaded}>
                   <Input
-                    fontSize={{ sm: "xs", md: "sm" }}
+                    fontSize={{ base: "xs", md: "sm" }}
                     type="name"
                     placeholder={student?.name}
                     _placeholder={{ color: "white" }}
@@ -262,7 +256,7 @@ const StudentDetail = () => {
                 </Skeleton>
                 <Skeleton my="15px" borderRadius="10px" isLoaded={Loaded}>
                   <Input
-                    fontSize={{ sm: "xs", md: "sm" }}
+                    fontSize={{ base: "xs", md: "sm" }}
                     type="name"
                     placeholder={student?.courses[0]}
                     _placeholder={{ color: "white" }}
@@ -272,7 +266,7 @@ const StudentDetail = () => {
                 </Skeleton>
                 <Skeleton borderRadius="10px" isLoaded={Loaded}>
                   <Input
-                    fontSize={{ sm: "xs", md: "sm" }}
+                    fontSize={{ base: "xs", md: "sm" }}
                     readOnly
                     type="email"
                     placeholder={student?.country}
@@ -282,7 +276,7 @@ const StudentDetail = () => {
                 </Skeleton>
                 <Skeleton borderRadius="10px" isLoaded={Loaded}>
                   <Input
-                    fontSize={{ sm: "xs", md: "sm" }}
+                    fontSize={{ base: "xs", md: "sm" }}
                     readOnly
                     type="text"
                     placeholder={student?.Age?.toString()}
@@ -292,7 +286,7 @@ const StudentDetail = () => {
                 </Skeleton>
                 <Skeleton borderRadius="10px" isLoaded={Loaded}>
                   <Input
-                    fontSize={{ sm: "xs", md: "sm" }}
+                    fontSize={{ base: "xs", md: "sm" }}
                     readOnly
                     type="email"
                     placeholder={student?.sex}
@@ -305,16 +299,12 @@ const StudentDetail = () => {
           </Box>
         </Flex>
       </Box>
-      <Box
-        w={{ sm: "115%", md: "100%" }}
-        color="white"
-        ml={{ sm: "-34px", md: "0px" }}
-        bg="#023248"
-        borderRadius="18px"
-        p="30px"
-        mb="20px"
-      >
-        <Text fontSize={{ sm: "xs", md: "xl" }} fontWeight="600" color="white">
+      <Box color="white" bg="#023248" borderRadius="18px" p="30px" mb="20px">
+        <Text
+          fontSize={{ base: "xs", md: "xl" }}
+          fontWeight="600"
+          color="white"
+        >
           Student Class Time Options
         </Text>
         <div className=" w-full border-t-[1px] mt-5"></div>
@@ -322,7 +312,7 @@ const StudentDetail = () => {
           <Flex>
             <Text
               mt={3}
-              fontSize={{ sm: "xs", md: "md" }}
+              fontSize={{ base: "xs", md: "md" }}
               fontWeight="550"
               my="15px"
             >
@@ -335,10 +325,9 @@ const StudentDetail = () => {
                 setAssessmentSwitch("assessment");
               }}
               leftIcon={<IoPeopleCircle size={23} />}
-              mt={{ sm: 2, md: 3 }}
-              width={{ sm: "100px", md: "200px" }}
-              height={{ sm: "7", md: "10" }}
-              fontSize={{ sm: "xs", md: "sm" }}
+              mt={{ base: 2, md: 3 }}
+              height={{ base: "7", md: "10" }}
+              fontSize={{ base: "xs", md: "sm" }}
               borderRadius="md"
               bg="#002c8a"
               _hover={{ bg: "#002C6A" }}
@@ -352,10 +341,9 @@ const StudentDetail = () => {
                 setAssessmentSwitch("report");
               }}
               leftIcon={<IoPeopleCircle size={23} />}
-              mt={{ sm: 2, md: 3 }}
-              width={{ sm: "100px", md: "200px" }}
-              height={{ sm: "7", md: "10" }}
-              fontSize={{ sm: "xs", md: "sm" }}
+              mt={{ base: 2, md: 3 }}
+              height={{ base: "7", md: "10" }}
+              fontSize={{ base: "xs", md: "sm" }}
               borderRadius="md"
               bg="#002c8a"
               _hover={{ bg: "#002C6A" }}
@@ -374,7 +362,7 @@ const StudentDetail = () => {
             <ModalContent>
               <ModalHeader
                 textAlign="center"
-                fontSize={{ sm: "xs", md: "sm" }}
+                fontSize={{ base: "xs", md: "sm" }}
                 color="#002c8a"
               >
                 Create Student Personnal {assessmentSwitch}
@@ -456,7 +444,7 @@ const StudentDetail = () => {
                       <FormControl id="content" isRequired>
                         <FormLabel>Topic</FormLabel>
                         <Input
-                          fontSize={{ sm: "xs", md: "sm" }}
+                          fontSize={{ base: "xs", md: "sm" }}
                           type="text"
                           name="todays_topic"
                           value={todays_topic}
@@ -468,7 +456,7 @@ const StudentDetail = () => {
                       <FormControl id="type" isRequired>
                         <FormLabel>Home Work Status</FormLabel>
                         <Input
-                          fontSize={{ sm: "xs", md: "sm" }}
+                          fontSize={{ base: "xs", md: "sm" }}
                           type="text"
                           name="homework_status"
                           value={homework_status}
@@ -480,7 +468,7 @@ const StudentDetail = () => {
                       <FormControl id="type" isRequired>
                         <FormLabel>Student Class Performance</FormLabel>
                         <Input
-                          fontSize={{ sm: "xs", md: "sm" }}
+                          fontSize={{ base: "xs", md: "sm" }}
                           type="text"
                           name="class_performance"
                           value={class_performance}
@@ -492,7 +480,7 @@ const StudentDetail = () => {
                       <FormControl id="type" isRequired>
                         <FormLabel>Next Session Topic</FormLabel>
                         <Input
-                          fontSize={{ sm: "xs", md: "sm" }}
+                          fontSize={{ base: "xs", md: "sm" }}
                           type="text"
                           name="next_session_topic"
                           value={next_session_topic}
@@ -517,7 +505,7 @@ const StudentDetail = () => {
           <Box my="10px">
             {student?.classTime_options?.map((classTime, id) => (
               <Input
-                fontSize={{ sm: "xs", md: "sm" }}
+                fontSize={{ base: "xs", md: "sm" }}
                 _placeholder={{ color: "white" }}
                 placeholder={"user"}
                 value={classTime}

@@ -4,6 +4,8 @@ import { useAppSelector } from "../../../hooks/reactReduxHooks";
 import { truncateString } from "../../../utils/utility";
 import { CgPerformance } from "react-icons/cg";
 import { SiGoogleanalytics } from "react-icons/si";
+import VideoEmbed from "../../Student/components/VideoComp";
+import { useEffect, useState } from "react";
 
 const HeaderComponent = () => {
   const [isSmallerThan500] = useMediaQuery("(max-width: 550px)");
@@ -161,12 +163,34 @@ const TopCourses = () => {
   );
 };
 
-const Dashboard = () => (
-  <div className="flex flex-col gap-4 w-full h-full mb-4">
-    <HeaderComponent />
-    <StudentPerformance />
-    <TopCourses />
-  </div>
-);
+const Dashboard = () => {
+  const { data } = useAppSelector((store) => store.auth);
+
+  const [containerWidth, setContainerWidth] = useState<number>(660);
+  const iframeHeight = containerWidth * (300 / 560);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width =
+        document.getElementById("video-container")?.offsetWidth ?? 560;
+      setContainerWidth(width);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const videoIdMatch = data.video.match(/v=([^&]+)/);
+  const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+  return (
+    <div className="flex flex-col gap-4 w-full h-full mb-4">
+      <HeaderComponent />
+      <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
+      <StudentPerformance />
+      <TopCourses />
+    </div>
+  );
+};
 
 export default Dashboard;
