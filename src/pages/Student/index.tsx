@@ -170,7 +170,7 @@ const SideBarNav: FC = () => {
       justifyContent={"space-between"}
     >
       <Flex w={"full"} flexDirection={"column"}>
-        <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
+        <Image w="40px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/student" icon={HOME} />
         <Nav text="Tutors" to="tutors" icon={TUTORS} />
         <Nav text="Courses" to="courses" icon={COURSES} />

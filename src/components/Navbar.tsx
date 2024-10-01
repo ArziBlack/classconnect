@@ -138,7 +138,7 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <HStack>
-          <Image src={LOGO} marginRight="1.4" width={"60px"} />
+          <Image src={LOGO} marginRight="1.4" width={"40px"} />
         </HStack>
 
         <IconButton

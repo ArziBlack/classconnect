@@ -10,7 +10,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Logo from "../assets/icons/Logo.png";
+import Logo from "../assets/icons/dark-logo.png";
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsTwitter, BsLinkedin } from "react-icons/bs";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -22,7 +22,7 @@ function Footer() {
 
   return (
     <VStack
-      py={4}
+      py={10}
       w="full"
       px={"20px"}
       color="text"
@@ -44,7 +44,7 @@ function Footer() {
               mt="3px"
               alt="logo"
               src={Logo}
-              width={"60px"}
+              width={"40px"}
               objectFit="cover"
             />
           </Flex>

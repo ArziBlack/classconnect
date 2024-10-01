@@ -95,7 +95,7 @@ const SideBarNav: FC = () => {
         // bgColor={"brand.dark"}
         flexDirection={"column"}
       >
-        <Image w="50px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
+        <Image w="40px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/instructor" icon={HOME} />
         <Nav text="Students" to="students" icon={ACADEMIC_CAP} />
         <Nav text="Curriculum" to="curriculum" icon={COURSES} />
@@ -270,7 +270,7 @@ const MainView: FC = () => {
                 <Image width={"15px"} src={NOTIFICATION} />
               </Flex>
             ) : (
-              <Image w="60px" src={LOGO} />
+              <Image w="40px" src={LOGO} />
             )}
             {/* <Image
               w={"40px"}
