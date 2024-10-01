@@ -88,6 +88,17 @@ const verify = async ({ studentId, uniqueString }: IVerify) => {
   return response.data;
 };
 
+// Verify Student or Guardian
+const awaitingStudentVerify = async ({ studentId, uniqueString }: IVerify) => {
+  const response = await axios.get(
+    `${API_BASE_URL}/awaitingStudent/verify/${studentId}/${uniqueString}`
+  );
+  if (response.data) {
+    resetLogger("An Email verification", "Verification");
+  }
+  return response.data;
+};
+
 // Reset Tutor Password
 const resetTutorPassword = async (email: IReset) => {
   const response = await axios.post(
@@ -130,11 +141,7 @@ const newStudentPassword = async ({ url, newPassword }) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   };
-  const response = await axios.post(
-    `${url}`,
-    newPassword,
-    { headers }
-  );
+  const response = await axios.post(`${url}`, newPassword, { headers });
   return response.data;
 };
 
@@ -143,26 +150,26 @@ const newTutorPassword = async ({ url, newPassword }) => {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
   };
-  const response = await axios.post(
-    `${url}`,
-    newPassword,
-    { headers }
-  );
+  const response = await axios.post(`${url}`, newPassword, { headers });
   return response.data;
 };
 
 const verifyStudentResetPassword = async ({ resetToken, email }) => {
-  const response = await axios.get(`${API_BASE_URL}/student/resetPassword/newPassword/${resetToken}/${email}`);
+  const response = await axios.get(
+    `${API_BASE_URL}/student/resetPassword/newPassword/${resetToken}/${email}`
+  );
   return response.data;
-}
+};
 
 const verifyTutorResetPassword = async ({ resetToken, email }) => {
-  const response = await axios.get(`${API_BASE_URL}/tutor/resetPassword/newPassword/${resetToken}/${email}`);
+  const response = await axios.get(
+    `${API_BASE_URL}/tutor/resetPassword/newPassword/${resetToken}/${email}`
+  );
   if (response.data) {
     sessionStorage.setItem("resetURL", JSON.stringify(response.data.resetUrl));
   }
   return response.data;
-}
+};
 
 // logout
 export const logout = async () => {
@@ -188,7 +195,8 @@ const authService = {
   verifyStudentResetPassword,
   verifyTutorResetPassword,
   newStudentPassword,
-  newTutorPassword
+  newTutorPassword,
+  awaitingStudentVerify,
 };
 
 export default authService;

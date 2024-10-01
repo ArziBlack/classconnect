@@ -60,6 +60,7 @@ import StudentNewPassword from "./pages/StudentNewPassword";
 import TutorPasswordV from "./pages/TutorPasswordV";
 import StudentPasswordV from "./pages/StudentPasswordV";
 import TutorRecommendation from "./pages/TutorRecommendation";
+import AwaitingStudentEmailV from "./pages/AwaitingStudentEmailV";
 
 function AppContent() {
   const location = useLocation();
@@ -178,6 +179,10 @@ function AppContent() {
       <Route
         path="/email-verify/student/:studentId/:uniqueString"
         element={<StudentEmailV />}
+      />
+      <Route
+        path="/email-verify/awaiting-student/:studentId/:uniqueString"
+        element={<AwaitingStudentEmailV />}
       />
       <Route
         path="/confirmation/tutor/password-change/:resetToken/:email"

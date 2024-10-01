@@ -203,6 +203,26 @@ export const emailVerify = createAsyncThunk(
   }
 );
 
+// Verify a Signed up Student or Guardian before login
+export const awaitingStudentEmailVerify = createAsyncThunk(
+  "auth/verify",
+  async ({ studentId, uniqueString }: IVerify, thunkAPI) => {
+    try {
+      return await authService.awaitingStudentVerify({
+        studentId,
+        uniqueString,
+      });
+    } catch (err) {
+      const error = err as AxiosError;
+      const message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // verify Tutor Account before login
 export const tutorEmailVerify = createAsyncThunk(
   "auth/tutorVerify",
