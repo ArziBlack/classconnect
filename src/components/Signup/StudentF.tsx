@@ -37,6 +37,8 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
     }
   }, [data, fees]);
 
+  console.log(data);
+
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);
@@ -126,7 +128,10 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
                   value={values.payment_plan || ""}
                 >
                   {paymentPlan.map((plan, idx) => (
-                    <option key={idx} value={plan?.key?.toString()?.trim()}>
+                    <option
+                      key={idx}
+                      value={plan?.key?.toString()?.trim().replace(/_/g, "-")}
+                    >
                       {`${plan.key.replace(/_/g, " ")}`}
                     </option>
                   ))}

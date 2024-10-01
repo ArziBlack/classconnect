@@ -121,7 +121,10 @@ const GuardianF = ({ data, onChange, onClick }: IGuardianProps) => {
                 >
                   {selectedClass &&
                     paymentPlan.map((plan, idx) => (
-                      <option key={idx} value={plan?.key?.toString()?.trim()}>
+                      <option
+                        key={idx}
+                        value={plan?.key?.toString()?.trim().replace(/_/g, "-")}
+                      >
                         {`${plan.key.replace(/_/g, " ")}`}
                       </option>
                     ))}
