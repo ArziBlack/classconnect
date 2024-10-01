@@ -39,7 +39,9 @@ const AdmissionBanner = () => {
           width="fit-content"
           textTransform="uppercase"
         >
-          {home?.admissionMessage} / {home?.admission?.from} {"  → "} {home?.admission?.to}
+          {home?.admissionMessage} {home?.admission?.from && "  / "}{" "}
+          {home?.admission?.from} {home?.admission?.to && "  → "}{" "}
+          {home?.admission?.to}
         </Text>
       </SkeletonText>
     </Box>

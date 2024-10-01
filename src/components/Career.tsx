@@ -38,7 +38,7 @@ const Career = () => {
             fontWeight={500}
             color={`brand.dark`}
             fontFamily={"Metropolis"}
-            size={{ base: "x", md: "2xl" }}
+            size={{ base: "xl", md: "2xl" }}
             paddingY={{ base: "5", md: "0" }}
             paddingRight={{ base: "0", md: "20px" }}
           >
@@ -61,7 +61,7 @@ const Career = () => {
       <Box
         flex={{ base: "none", md: 1 }}
         display="flex"
-        justifyContent="flex-end"
+        justifyContent={{ base: "center", md: "flex-end" }}
         alignItems="flex-end"
         marginY="10px"
         h="full"

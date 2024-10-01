@@ -8,24 +8,24 @@ import {
   SimpleGrid,
   Accordion,
   AccordionItem,
-  AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionPanel,
+  AccordionButton,
 } from "@chakra-ui/react";
-import SecondaryHero from "./SecondaryHero";
 import LessonCard from "./LessonCard";
 import ChakraModal from "./ChakraModal";
+import SecondaryHero from "./SecondaryHero";
 import {
   getCurriculum,
   getHomeResponse,
   RESET_CURRICULUM,
 } from "../services/others/otherSlice";
-import { useEffect, useState } from "react";
+import { ONE } from "../constants/icon";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
-import { useAppSelector } from "../hooks/reactReduxHooks";
-import { ONE } from "../constants/icon";
+import { useEffect, useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
+import { useAppSelector } from "../hooks/reactReduxHooks";
 
 const Courses = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -82,12 +82,12 @@ const Courses = () => {
 
           <Text
             mt={10}
-            fontWeight={500}
-            fontSize={"20px"}
+            fontWeight={{ base: 300, md: 500 }}
             color={"brand.text"}
             textAlign={`center`}
             paddingBottom={`10px`}
             w={{ base: "90%", md: "650px" }}
+            fontSize={{ base: "16px", md: "20px" }}
           >
             Welcome to our tech programs! We take you from beginner to advanced
             levels with a curriculum designed to be comprehensive yet
@@ -125,17 +125,18 @@ const Courses = () => {
         onClose={() => setIsCurriculumOpen(false)}
       >
         <Flex
-          bg={"#023248"}
+          bg={"white"}
+          color={"#023248"}
           flexDirection={"column"}
           borderRadius={"12px"}
           padding={10}
         >
           {isCurriculumLoading ? (
-            <Spinner size={"lg"} color="white" />
+            <Spinner size={"lg"} color="black" />
           ) : !curriculum?.data ? (
             <Text
               fontSize="lg"
-              color="gray.300"
+              color={"#023248"}
               textAlign="center"
               mt={6}
               fontWeight="bold"
@@ -145,21 +146,30 @@ const Courses = () => {
             </Text>
           ) : (
             <>
-              <Heading size="lg" color="white" mb={4}>
+              <Heading size="lg" color={"#023248"} mb={4}>
                 {curriculum?.data?.title}
               </Heading>
-              <Text fontSize="md" color="gray.200" mb={6}>
+              <Text fontSize="md" color={"#023248"} mb={6}>
                 {curriculum?.data?.description}
               </Text>
-              <Text fontSize="md" fontWeight="semibold" color="gray.200">
-                Age Bracket: 10-15
+              <Text fontSize="md" fontWeight="semibold" color={"#023248"}>
+                Age Bracket:{" "}
+                {!curriculum?.data?.ageBracket
+                  ? "All ages"
+                  : curriculum?.data?.ageBracket.replace(/\s+/g, "")}{" "}
+                {curriculum?.data?.ageBracket && "years old"}
               </Text>
-              <Text fontSize="md" fontWeight="semibold" color="gray.200" mb={6}>
+              <Text
+                fontSize="md"
+                fontWeight="semibold"
+                color={"#023248"}
+                mb={6}
+              >
                 Duration: {curriculum?.data?.duration.toLowerCase()}
               </Text>
 
               <Flex color="white" justify={"space-between"}>
-                <Accordion allowToggle width="700px" defaultIndex={[]}>
+                <Accordion allowToggle w={"full"} defaultIndex={[]}>
                   {curriculum?.data?.curriculum
                     ?.filter(
                       (levelItems) =>
@@ -187,7 +197,6 @@ const Courses = () => {
                         </h2>
 
                         <AccordionPanel pb={4}>
-                          {/* Inner Accordion for Topics */}
                           <Accordion allowMultiple>
                             {Array.isArray(levelItems) &&
                               levelItems

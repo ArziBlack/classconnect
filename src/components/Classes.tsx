@@ -10,7 +10,7 @@ const Classes = () => {
     navigate("/programs");
   };
   return (
-    <VStack paddingY="40px" h="full" mt={20}>
+    <VStack paddingY="40px" h="full" mt={{ base: 10, lg: 20 }}>
       <Heading
         as={`h2`}
         color="brand.dark"
@@ -24,18 +24,18 @@ const Classes = () => {
 
       <Text
         mt={10}
-        fontWeight={500}
-        fontSize={"20px"}
         color={"brand.text"}
         textAlign={`center`}
         paddingBottom={`10px`}
         w={{ base: "90%", md: "650px" }}
+        fontWeight={{ base: 300, md: 500 }}
+        fontSize={{ base: "16px", md: "20px" }}
       >
-        Our platform is designed with flexibility in mind, offering programs that
-        are perfect for beginners. All classes are conducted via Google Meet,
-        ensuring that you can join from anywhere with ease. Our programs are
-        structured to accommodate your schedule, allowing you to learn at your
-        own pace and convenience.
+        Our platform is designed with flexibility in mind, offering programs
+        that are perfect for beginners. All classes are conducted via Google
+        Meet, ensuring that you can join from anywhere with ease. Our programs
+        are structured to accommodate your schedule, allowing you to learn at
+        your own pace and convenience.
       </Text>
       <Button text="Visit Programs" onClick={() => handleLinkClick()} />
     </VStack>

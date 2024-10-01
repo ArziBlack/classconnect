@@ -72,7 +72,7 @@ const ChakraModal: FC<ChakraModalInterface> = ({
           >
             <CloseIcon w={"20px"} h={"20px"} onClick={onClose} />
           </Flex>
-          <ModalBody p={"0px"}>{children}</ModalBody>
+          <ModalBody p={"5px"}>{children}</ModalBody>
         </ModalContent>
       </Modal>
     </>

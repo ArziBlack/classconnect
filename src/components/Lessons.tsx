@@ -29,8 +29,11 @@ const Lessons = () => {
         instructor.
       </Description>
 
-      <Box position={`relative`} mt={5}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="12">
+      <Box position={`relative`} mt={5} px={5}>
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={{ base: 4, md: "12" }}
+        >
           {data.map((item, index) => (
             <LessonCard
               key={index}
@@ -44,7 +47,7 @@ const Lessons = () => {
           ))}
         </SimpleGrid>
       </Box>
-      <Box marginY="35px"></Box>
+      <Box marginY={{ base: "15px", md: "35px" }}></Box>
     </VStack>
   );
 };

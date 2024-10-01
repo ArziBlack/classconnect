@@ -40,14 +40,13 @@ const NewsletterSection: React.FC = () => {
     <Box w="full" bg={"brand.dark"}>
       <Box
         mx="auto"
-        py={{ base: 6, md: 10 }}
+        p={{ base: 6, md: 10 }}
         color={"brand.page"}
         textAlign="center"
         position="relative"
         overflow="hidden"
         maxW={"1280px"}
       >
-        {/* Circular Images */}
         <Image
           src={photo1}
           alt="Profile 1"
@@ -108,7 +107,7 @@ const NewsletterSection: React.FC = () => {
           mx={{ base: "auto", md: "auto" }}
         >
           <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold">
-            Subscribe To Get Update <br /> Of Our New Courses
+            Subscribe To Get Update Of Our New Courses
           </Text>
           <Text color={"brand.page"} fontSize={{ base: "sm", md: "md" }} my={4}>
             20k+ students daily learn with HEP. Subscribe for new courses.

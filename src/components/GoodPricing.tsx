@@ -18,13 +18,14 @@ const GoodPricing = () => {
       p={{ base: 4, md: 20 }}
       justifyContent={`space-between`}
       flexDir={{ base: "column-reverse", md: "row" }}
+      gap={{ base: 0, md: 10 }}
     >
       <Box
-        w={"50%"}
         order={2}
         display="flex"
         flex={{ base: "none", md: 1 }}
         justifyContent={`space-between`}
+        w={{ base: "100%", md: "50%" }}
         paddingY={{ base: "10", md: "20" }}
         flexDir={{ base: "column", md: "row" }}
         textAlign={{ base: "center", md: "left" }}
@@ -42,13 +43,23 @@ const GoodPricing = () => {
           >
             Affordable Pricing for Everyone
           </Heading>
-          <Text fontSize="medium" color="white" paddingY="10px" mt={5}>
+          <Text
+            fontSize={{ base: "16px", md: "medium" }}
+            color="white"
+            paddingY="10px"
+            mt={5}
+          >
             Discover the perfect plan for your learning style with our flexible
             pricing options. Whether you prefer one-on-one sessions, small group
             interactions, or dynamic group classes, we have a plan that fits
             your budget.
           </Text>
-          <Text fontSize="medium" color="white" paddingY="10px" mb={4}>
+          <Text
+            fontSize={{ base: "16px", md: "medium" }}
+            color="white"
+            paddingY="10px"
+            mb={4}
+          >
             Unlock personalized instruction, collaborative learning, or a
             vibrant classroom experience at prices designed to make top-quality
             education accessible to everyone. Start your journey today and
@@ -59,7 +70,7 @@ const GoodPricing = () => {
         </Box>
       </Box>
       <Box
-        w={"50%"}
+        w={{ base: "100%", md: "50%" }}
         display={"flex"}
         h={{ base: "full" }}
         justifyContent={"center"}

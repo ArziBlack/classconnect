@@ -102,6 +102,7 @@ export interface CurriculumData {
   title: string;
   description: string;
   duration: string;
+  ageBracket: string;
   curriculumFile: string;
   curriculum: Level[];
 }

@@ -61,7 +61,6 @@ function Footer() {
         </Box>
 
         <LinkGroup title="Courses" linkProps={commonLinkProps}>
-          <Text>Classroom Courses</Text>
           <Text>Visual classroom courses</Text>
           <Text>E-learning Courses</Text>
           <Text>Video courses</Text>
@@ -69,8 +68,6 @@ function Footer() {
         </LinkGroup>
 
         <LinkGroup title="Community" linkProps={commonLinkProps}>
-          <Text>Leaners</Text>
-          <Text>Partners</Text>
           <Text>Developers</Text>
           <Text>Transaction</Text>
           <Text>Blog</Text>
@@ -78,17 +75,12 @@ function Footer() {
         </LinkGroup>
 
         <LinkGroup title="Quick Links" linkProps={commonLinkProps}>
-          <Text>Home</Text>
           <Text>Professional Education</Text>
-          <Text>Courses</Text>
           <Text>Addmission</Text>
-          <Text>Testionial</Text>
           <Text>Programs</Text>
         </LinkGroup>
 
         <LinkGroup title="More" linkProps={commonLinkProps}>
-          <Text>Press</Text>
-          <Text>Inventors</Text>
           <Text>Terms</Text>
           <ChakraLink as={ReactRouterLink} to="/privacy">
             <Text>Privacy</Text>
@@ -103,7 +95,7 @@ function Footer() {
 
 function LinkGroup({ title, children, linkProps }) {
   return (
-    <Box textAlign="center" w="100%">
+    <Box w="100%">
       <Heading size="md" fontWeight={500} fontFamily={"Metropolis"}>
         {title}
       </Heading>

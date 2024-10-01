@@ -13,11 +13,12 @@ const CollegeLevel = () => {
       bg={`brand.dark`}
       alignItems={"center"}
       p={{ base: 4, md: 20 }}
+      gap={{ base: 0, md: 10 }}
       justifyContent={`space-between`}
       flexDir={{ base: "column-reverse", md: "row" }}
     >
       <Box
-        w={"50%"}
+        w={{ base: "100%", md: "50%" }}
         display="flex"
         flex={{ base: "none", md: 1 }}
         justifyContent={`space-between`}
@@ -53,11 +54,12 @@ const CollegeLevel = () => {
         </Box>
       </Box>
       <Box
-        w={"50%"}
         display={"flex"}
         h={{ base: "full" }}
+        pt={{ base: "20", md: 0 }}
         justifyContent={"center"}
         flex={{ base: "none", md: 1 }}
+        w={{ base: "100%", md: "50%" }}
       >
         <Image
           h="full"

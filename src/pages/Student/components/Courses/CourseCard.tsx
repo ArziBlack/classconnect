@@ -83,7 +83,6 @@ export const CourseCard: React.FC<CardProps> = ({
               color={getDifficultyColor(difficulty)}
               display={{ base: "none", md: "flex" }}
             >
-              {/* <SiLevelsdotfyi className="mb-[4px]" /> */}
               <Text>
                 {ageBracket === "All ages"
                   ? ageBracket

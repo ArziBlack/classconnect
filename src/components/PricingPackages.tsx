@@ -90,7 +90,7 @@ const PricingPackages: React.FC<IPricing> = ({ isLoading, fees }) => {
         <Heading
           mb={8}
           as="h2"
-          fontSize="44px"
+          fontSize={{ base: "26px", md: "44px" }}
           fontWeight={500}
           textAlign="center"
           color={"brand.dark"}
