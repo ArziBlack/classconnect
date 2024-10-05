@@ -4,7 +4,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../hooks/reactReduxHooks";
-import { getMyTuitionFee, initiateTrx } from "../../../../services/student/studentThunks";
+import {
+  getMyTuitionFee,
+  initiateTrx,
+} from "../../../../services/student/studentThunks";
 import ChakraModal from "../../../../components/ChakraModal";
 import { Flex } from "@chakra-ui/layout";
 import { Button, CircularProgress, Text } from "@chakra-ui/react";
@@ -13,7 +16,9 @@ import { getTuitionFees } from "../../../../services/others/otherSlice";
 
 export const MakePayment = () => {
   const diapatch = useAppDispatch();
-  const { isLoading, trxResponse, tuitionFeeResponse } = useAppSelector((app) => app.student);
+  const { isLoading, trxResponse, tuitionFeeResponse } = useAppSelector(
+    (app) => app.student
+  );
   const { data } = useAppSelector((from) => from.auth);
   const { fees } = useAppSelector((from) => from.other);
   React.useEffect(() => {
@@ -142,13 +147,15 @@ export const MakePayment = () => {
             </div>
             <div className="flex">
               <span>{haha?.value}/</span>
-              <span>{data?.paymentPlan}</span>
+              <span>course</span>
             </div>
           </div>
           <div className="flex items-center justify-between py-4 border-t border-[#255E78] font-[600]">
-             <>
-              <span>Total</span>
-              <span>{tuitionFeeResponse?.tuition_fee_in_localCurrency.split(" ")[0]}</span>
+            <>
+              <span>Local amount</span>
+              <span>
+                {tuitionFeeResponse?.tuition_fee_in_localCurrency.split(" ")[0]}
+              </span>
             </>
           </div>
         </div>
