@@ -8,8 +8,27 @@ import {
   TabPanel,
   TabPanels,
 } from "@chakra-ui/react";
+import React from "react";
+import { YoutubeEmbed } from "./CustomComponent";
+import { getLandingVideos } from "../services/others/otherSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reactReduxHooks";
 
 const UserInfo: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { videos } = useAppSelector((state) => state.other);
+  React.useEffect(() => {
+    if (!videos) dispatch(getLandingVideos());
+  }, [dispatch, videos]);
+
+  const videoList = Array.isArray(videos)
+    ? videos
+        .map((video) => {
+          const videoIdMatch = video.link.match(/v=([^&]+)/);
+          return videoIdMatch ? videoIdMatch[1] : null;
+        })
+        .filter(Boolean)
+    : [];
+
   return (
     <Box w="100%" py={4} maxW="890px">
       <Tabs variant="soft-rounded">
@@ -79,6 +98,16 @@ const UserInfo: React.FC = () => {
               accessible and exciting for young learners, while also providing
               opportunities for lifelong learning to individuals of any age.
             </Text>
+
+            {videoList && videoList.length > 0 ? (
+              <YoutubeEmbed
+                initialEmbedId={videoList[0]}
+                title={"All you need to know about HEP Coding"}
+                videoList={videoList}
+              />
+            ) : (
+              <p>Loading videos...</p>
+            )}
           </TabPanel>
           <TabPanel>
             <Text>

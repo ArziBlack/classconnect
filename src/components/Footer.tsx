@@ -49,10 +49,34 @@ function Footer() {
             />
           </Flex>
           <Flex gap={5} py="5px" mt="5px" fontSize={26}>
-            <FaFacebook className="pointer" />
-            <BsInstagram className="pointer" />
-            <BsTwitter className="pointer" />
-            <BsLinkedin className="pointer" />
+            <a
+              href="https://web.facebook.com/profile.php?id=61555382193329"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebook className="pointer" />
+            </a>
+            <a
+              href="https://www.instagram.com/hep_coding/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsInstagram className="pointer" />
+            </a>
+            <a
+              href="https://twitter.com/HepCoding"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsTwitter className="pointer" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/hepcoding"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <BsLinkedin className="pointer" />
+            </a>
           </Flex>
           <Box px="5px" py="10px" gap={10}>
             <Text>© 2024 HEP Coding</Text>
@@ -76,7 +100,7 @@ function Footer() {
 
         <LinkGroup title="Quick Links" linkProps={commonLinkProps}>
           <Text>Professional Education</Text>
-          <Text>Addmission</Text>
+          <Text>Admission</Text>
           <Text>Programs</Text>
         </LinkGroup>
 

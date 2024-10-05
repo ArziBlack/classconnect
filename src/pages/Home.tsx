@@ -31,8 +31,6 @@ const Home = () => {
         .filter(Boolean)
     : [];
 
-  console.log(videoList);
-
   return (
     <>
       <HeroMaster />
