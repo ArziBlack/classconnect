@@ -81,12 +81,12 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
   };
 
   return (
-    <Flex maxW={"700px"} justify={"space-between"} ml={{ base: 5, md: 0 }}>
-      <Box>
+    <Flex maxW={"700px"} justify={"space-between"} ml={{ base: 5, md: 0 }} flexDir={{base:"column-reverse", md: "row"}}>
+      <Box display="flex" flexDir={"column"}>
         <Flex gap={6} align={"center"} h={"fit-content"}>
           <SkeletonText isLoaded={!loading}>
             <Text
-              fontSize={"22px"}
+              fontSize={{base:"18px",lg:"22px"}}
               fontWeight={500}
               color={"white"}
               lineHeight={"60.48px"}
@@ -98,6 +98,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
                 color="white"
                 onClick={() => navigate("/student/tutors")}
                 cursor={"pointer"}
+                className="mr-2 md:flex hidden"
               />
               {title}
             </Text>
@@ -161,7 +162,7 @@ const TutorHeader: React.FC<TutorHeaderProps> = ({
           </Flex>
         </Flex>
       </Box>
-      <Image borderRadius="full" boxSize="160px" src={pic} alt="Avatar" />
+      <Image borderRadius="full" boxSize={{base: "150px", md:"160px"}} src={pic} alt="Avatar" />
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
         <Flex
           bg={"#023248"}

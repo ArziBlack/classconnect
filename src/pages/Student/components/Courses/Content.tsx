@@ -118,8 +118,9 @@ export const Content = () => {
       showToast(result.payload, "error");
     }
   };
+
   return (
-    <div>
+    <div className="px-4 md:px-0">
       <Flex flexDir={"column"} gap={3}>
         <ViewHeader
           preNav="/student/courses"
@@ -131,10 +132,16 @@ export const Content = () => {
         )}
       </Flex>
       <BreadCrumb links={links} />
-      <Flex color="white" justify={"space-between"}>
+      <Flex
+        color="white"
+        justify={{ base: "flex-start", md: "space-between" }}
+        gap={4}
+        flexDir={{ base: "column-reverse", lg: "row" }}
+        paddingRight={{base:"35px", md:"0px"}}
+      >
         <Accordion
           allowMultiple
-          width="700px"
+          width={{ base: "full", md: "600px" }}
           display="flex"
           flexDir="column"
           gap={4}
@@ -222,7 +229,7 @@ export const Content = () => {
           style={{ pointerEvents: isNoCurriculumFile ? "none" : "auto" }}
           opacity={isNoCurriculumFile ? 0.6 : 1}
         >
-          <Button text=" Download Curriculum" />
+          <Button text=" Download Curriculum" fontSize={{base:15, md:18}} />
         </Link>
       </Flex>
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>

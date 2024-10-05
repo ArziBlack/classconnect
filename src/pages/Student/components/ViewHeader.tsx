@@ -26,7 +26,7 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({
     <Box ml={{ base: 5, md: 0 }}>
       <SkeletonText isLoaded={!loading}>
         <Text
-          fontSize={"22px"}
+          fontSize={{base:"18px",lg:"22px"}}
           fontWeight={500}
           color={"white"}
           lineHeight={"60.48px"}
@@ -35,7 +35,7 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({
           cursor="pointer"
           onClick={goBack}
         >
-          <Link to={preNav}>
+          <Link to={preNav} className="mr-2">
             <MdOutlineKeyboardArrowLeft fontSize={"25px"} color="white" />
           </Link>
           {title}
@@ -48,6 +48,7 @@ const ViewHeader: React.FC<ViewHeaderProps> = ({
           color={"white"}
           maxW={"600px"}
           fontSize={"14px"}
+          pl={"25px"}
         >
           {subtext}
         </Text>

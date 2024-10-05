@@ -39,7 +39,7 @@ const AboutMe: React.FC = () => {
   };
 
   return (
-    <Box maxW="700px" color="white">
+    <Box maxW="700px" color="white" pl={{base: 5, md: 0}}>
       <Flex direction="column" mt={5}>
         <SkeletonText isLoaded={!isLoading}>
           <Text fontSize="lg" fontWeight="bold" mb={2}>

@@ -71,7 +71,7 @@ export const Approved = () => {
   };
 
   return (
-    <Box className="text-white" ml={{ base: 5, md: 0 }} minH={"70dvh"}>
+    <Box className="text-white" mx={{ base: 5, md: 0 }} minH={"70dvh"}>
       <Flex justify={"space-between"} align={"center"} mb={4}>
         <div className="flex items-center">
           <Text
@@ -85,7 +85,7 @@ export const Approved = () => {
           </Text>
           <Box ml={`15px`} className="">
             <button
-              className="h-10 w-14 rounded-full bg-white flex items-center justify-center hover:rotate-180 hover:scale-105 hover:bg-gray-200/25 mr-2"
+              className="h-10 w-14 rounded-full bg-white hidden items-center justify-center hover:rotate-180 hover:scale-105 hover:bg-gray-200/25 mr-2 md:flex"
               onClick={handleRefresh}
             >
               <IoRefreshCircleOutline size={25} color="black" className="" />
