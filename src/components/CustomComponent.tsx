@@ -2,13 +2,19 @@ import { useState, useRef } from "react";
 import ApplyInstructor from "./ApplyInstructor";
 import {
   Box,
-  // Img,
   Heading,
   Flex,
   IconButton,
   AspectRatio,
+  keyframes,
 } from "@chakra-ui/react";
-import { FaStepForward, FaStepBackward, FaPlay, FaPause } from "react-icons/fa";
+import {
+  FaStepForward,
+  FaStepBackward,
+  FaPlay,
+  FaPause,
+  FaHandPointLeft,
+} from "react-icons/fa";
 
 export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(
@@ -16,6 +22,16 @@ export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
   );
   const [isPlaying, setIsPlaying] = useState(true);
   const iframeRef = useRef(null);
+
+  // Animation for hand icon
+  const bounce = keyframes`
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+  `;
 
   const handlePlayPause = () => {
     if (iframeRef.current) {
@@ -126,6 +142,17 @@ export const YoutubeEmbed = ({ initialEmbedId, videoList, title }) => {
               sx={{ "&:hover": { bg: "transparent" } }}
               isDisabled={currentVideoIndex === videoList?.length - 1}
             />
+            {/* Conditionally render animated hand icon */}
+            {currentVideoIndex < videoList.length - 1 && (
+              <Box
+                as={FaHandPointLeft}
+                color="white"
+                ml={2}
+                animation={`${bounce} 1s infinite`}
+                fontSize="24px"
+                transform="scaleX(-1)"
+              />
+            )}
           </Flex>
         </Box>
       </Box>
