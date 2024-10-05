@@ -1,5 +1,19 @@
 import { useState } from "react";
-import { Box, Flex, Text, Icon, Image, Skeleton, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Icon,
+  Image,
+  Skeleton,
+  Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  Spacer,
+} from "@chakra-ui/react";
 import { FaClock } from "react-icons/fa";
 import moment from "moment";
 import { NOTIFICATION, NOT_PROFILE } from "../../../../constants/image";
@@ -20,7 +34,7 @@ function formatRawDate(rawDate) {
 }
 
 export const AssessmentItem = ({ type, date, isSelected }) => {
-  const { myTutors } = useAppSelector(state => state.student);
+  const { myTutors } = useAppSelector((state) => state.student);
   const tutorName = myTutors?.data[0]?.name;
   return (
     <Box
@@ -58,40 +72,76 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
 };
 
 const AssessmentList = () => {
-
   const { generalAssessment, isLoading, error } = useAppSelector(
     (state) => state.student
   );
-  const { data } = useAppSelector(state => state.auth);
+  const { data } = useAppSelector((state) => state.auth);
   const [selectedId, setSelectedId] = useState<number>(null);
 
   const handleNotificationClick = (index: number) => {
     setSelectedId(index === selectedId ? null : index);
   };
 
-  const handleFileClick = (string) => {
+  const handleFileClick = (string: string) => {
     if (string) {
       console.log(string);
-      window.open(string, '_blank');
+      window.open(string, "_blank");
     }
-  }
+  };
 
   return (
-    <div className="w-full grid grid-cols-2">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2">
       {!error ? (
-        <div className="overflow-y-scroll h-[400px] no-scrollbar">
-          {generalAssessment?.data?.map((assess, index: number) => (
-            <Skeleton borderRadius={20} isLoaded={!isLoading}>
-              <div onClick={() => handleNotificationClick(index)} key={index}>
-                <AssessmentItem
-                  type={assess.type}
-                  date={assess.Date}
-                  isSelected={index === selectedId}
-                />
-              </div>
-            </Skeleton>
-          ))}
-        </div>
+        <>
+          <Accordion
+            allowToggle
+            display={{ base: "block", md: "none" }}
+            paddingX={5}
+          >
+            {generalAssessment?.data?.map((assess, index: number) => (
+              <AccordionItem>
+                <h2 className="py-2">
+                  <AccordionButton>
+                    <Box as="span" flex={1} textAlign="left">
+                      {assess?.type}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel>
+                  {assess.question} <br />
+                  <Spacer h={5} />
+                  <Button
+                    onClick={() => handleFileClick(assess?.document)}
+                    bg={"white"}
+                    variant="filled"
+                    borderRadius="md"
+                    borderWidth={"1px"}
+                    borderColor={"#DEDDE4"}
+                    _hover={{ bg: "yellow" }}
+                    color={"black"}
+                    leftIcon={<FaRegFilePdf />}
+                  >
+                    View Attachment
+                  </Button>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+          <div className="overflow-y-scroll h-[400px] no-scrollbar md:block hidden">
+            {generalAssessment?.data?.map((assess, index: number) => (
+              <Skeleton borderRadius={20} isLoaded={!isLoading}>
+                <div onClick={() => handleNotificationClick(index)} key={index}>
+                  <AssessmentItem
+                    type={assess.type}
+                    date={assess.Date}
+                    isSelected={index === selectedId}
+                  />
+                </div>
+              </Skeleton>
+            ))}
+          </div>
+        </>
       ) : (
         <Box p={8}>
           <Text fontWeight="bold">{error?.message?.split(".")[0]}</Text>
@@ -99,7 +149,7 @@ const AssessmentList = () => {
           <Text fontWeight="bold">{error?.message?.split(".")[2]}</Text>
         </Box>
       )}
-      <Flex w="100%" h="400px">
+      <Flex w="100%" h="400px" display={{ base: "none", md: "flex" }}>
         {selectedId !== null ? (
           <div className="flex flex-col max-h-[400px] w-full overflow-y-scroll no-scrollbar px-10">
             <div className="flex flex-col py-[5px]">
@@ -124,10 +174,14 @@ const AssessmentList = () => {
               <p className="py-5 font-[300] text-justify text-xl leading-6">
                 {generalAssessment?.data[selectedId]?.question}
               </p>
-              {generalAssessment?.data[selectedId]?.document &&
-                (<div>
+              {generalAssessment?.data[selectedId]?.document && (
+                <div>
                   <Button
-                    onClick={() => handleFileClick(generalAssessment?.data[selectedId]?.document)}
+                    onClick={() =>
+                      handleFileClick(
+                        generalAssessment?.data[selectedId]?.document
+                      )
+                    }
                     bg={"white"}
                     variant="filled"
                     borderRadius="md"
@@ -139,14 +193,15 @@ const AssessmentList = () => {
                   >
                     View Attachment
                   </Button>
-                </div>)}
+                </div>
+              )}
             </div>
           </div>
         ) : (
           <Image
             src={NOTIFICATION}
             alt="notification image"
-            className="w-full object-cover"
+            className="w-full object-cover hidden"
           />
         )}
       </Flex>
