@@ -71,7 +71,7 @@ export const Approved = () => {
   };
 
   return (
-    <Box className="text-white" ml={{ base: 5, md: 0 }}>
+    <Box className="text-white" ml={{ base: 5, md: 0 }} minH={"70dvh"}>
       <Flex justify={"space-between"} align={"center"} mb={4}>
         <div className="flex items-center">
           <Text
@@ -121,7 +121,7 @@ export const Approved = () => {
               backdropFilter="blur(10px)"
               borderRadius="md"
               mt={2}
-              zIndex={5000}
+              zIndex={10000}
             >
               {titles?.map((course) => (
                 <Box
