@@ -6,7 +6,7 @@ export const PaymentHistory = () => {
   const [paymentHis] = React.useState<boolean>(true);
 
   return (
-    <Box color={"white"} maxW={"800px"} ml={{ base: 5, md: 0 }}>
+    <Box color={"white"} maxW={"800px"}>
       <div>
         {paymentHis ? (
           <div className="flex flex-col py-4">

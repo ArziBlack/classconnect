@@ -295,7 +295,14 @@ const MainView: FC = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Box w={"full"} overflowY={"auto"} mt={4} pb={4} className="no-scrollbar">
+      <Box
+        mt={4}
+        pb={4}
+        px={4}
+        w={"full"}
+        overflowY={"auto"}
+        className="no-scrollbar"
+      >
         <Outlet />
       </Box>
       <Drawer placement="left" onClose={() => toggleMenu()} isOpen={isMenuOpen}>
