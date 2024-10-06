@@ -86,7 +86,7 @@ export const Home = () => {
           <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
         </div>
         <div className="flex flex-col w-full justify-between h-full mt-5 border border-gray-500 pt-4 pb-1 px-2 rounded bg-[#143543]">
-          <div className="flex w-full p-2">
+          <div className="flex w-full p-2 justify-between">
             <h2 className="w-2/4">My Courses</h2>
             <h2 className="w-1/4 hidden md:flex">Status</h2>
             <Link
@@ -103,11 +103,11 @@ export const Home = () => {
           ) : (
             myCoursesRes?.message?.slice(0, 2).map((item, id) => (
               <div
-                className={`flex w-full items-center my-1 p-1 border-t border-gray-400`}
+                className={`flex w-full items-center my-1 p-1 border-t border-gray-400 justify-between`}
                 key={id}
               >
                 <div className="w-2/4 flex items-center">
-                  <div className="bg-red-400 rounded-full h-9 w-9 p-1 ml-1"></div>
+                  <div className="bg-red-400 hidden md:flex rounded-full h-9 w-9 p-1 ml-1"></div>
                   <div className="flex flex-col h-full justify-between  ml-2">
                     <h2 className="text-xs">{item?.title}</h2>
                     {/* <h2 className="font-[100] text-xs">{item?.tutor}</h2> */}

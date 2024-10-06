@@ -308,12 +308,12 @@ const MainView: FC = () => {
       <Drawer placement="left" onClose={() => toggleMenu()} isOpen={isMenuOpen}>
         <DrawerOverlay />
         <DrawerContent backgroundColor={"#023248"}>
-          <DrawerCloseButton />
+          <DrawerCloseButton color={"white"} />
           <DrawerHeader color="white">
             <Image
               w="50px"
               src={LOGO}
-              marginLeft={"5px"}
+              marginLeft={"10px"}
               marginBottom={"20px"}
             />
           </DrawerHeader>

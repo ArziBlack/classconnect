@@ -156,7 +156,7 @@ export const ProfileDetails = () => {
             </Box>
           </Box>
         </Box>
-        <Box marginTop={{base: "10px", md:"80px"}} w={`full`} pl={{base: "10px", md: "0"}}>
+        <Box marginTop={{base: "10px", md:"80px"}} w={`full`}>
           <HStack
             gap={5}
             alignItems="center"

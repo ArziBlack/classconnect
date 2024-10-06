@@ -2,7 +2,7 @@ import { Box, Flex, Heading, VStack, Text } from "@chakra-ui/react";
 
 export const Referral = () => {
   return (
-    <Flex color={"white"}>
+    <Flex color={"white"} w="full" justifyContent="center">
       <Box
         p={8}
         maxW="lg"

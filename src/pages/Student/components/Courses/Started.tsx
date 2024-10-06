@@ -23,7 +23,7 @@ export const Started = () => {
   };
 
   return (
-    <Box className="text-white" ml={{ base: 5, md: 0 }}>
+    <Box className="text-white">
       <Refresh handleRefresh={handleRefresh} />
       {myCoursesRes ? (
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">

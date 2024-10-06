@@ -38,7 +38,7 @@ export const AssessmentItem = ({ type, date, isSelected }) => {
   const tutorName = myTutors?.data[0]?.name;
   return (
     <Box
-      className={`gap-3 border-b border-gray-700 py-4 cursor-pointer te1xt-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
+      className={`gap-3 border-b border-gray-700 py-4 cursor-pointer text-sm hover:bg-[#B3F8DA]/25 ${isSelected ? "bg-[#B3F8DA]/50" : ""}`}
       w={{ base: "100%", md: "80%", lg: "100%" }}
       p={{ base: "2", md: "4" }}
       tabIndex={0}
@@ -96,12 +96,17 @@ const AssessmentList = () => {
           <Accordion
             allowToggle
             display={{ base: "block", md: "none" }}
-            paddingX={5}
+            paddingX={1}
           >
             {personalAssessment?.data?.map((assess, index: number) => (
-              <AccordionItem>
+              <AccordionItem border="none" mb="2px">
                 <h2 className="py-2">
-                  <AccordionButton>
+                  <AccordionButton
+                    h="50px"
+                    borderRadius="8px"
+                    _hover={{ bg: "#37474f" }}
+                    bg="#37474F"
+                  >
                     <Box as="span" flex={1} textAlign="left">
                       {assess?.type}
                     </Box>
@@ -201,7 +206,7 @@ const AssessmentList = () => {
           <Image
             src={NOTIFICATION}
             alt="notification image"
-            className="w-full object-cover"
+            className="w-full object-cover hidden"
           />
         )}
       </Flex>
@@ -214,11 +219,11 @@ export const PersonalAssessments = () => {
     <Box
       className="text-white flex items-center"
       flexDirection={{ base: "column", lg: "row" }}
-      justifyContent="center"
+      justifyContent="flex-start"
       alignItems="center"
       w="100%"
       maxH="100vh"
-      overflow="hidden"
+      overflowY="scroll"
     >
       <AssessmentList />
     </Box>
