@@ -88,8 +88,6 @@ const StudentDetail = () => {
       document: attachment,
     };
 
-    console.log(assessment);
-
     const result = await dispatch(
       createPersonnalAssessment({ assessmentFormActionUrl, assessment })
     );
@@ -156,8 +154,6 @@ const StudentDetail = () => {
     setNextTopic("");
     setPerformance("");
   };
-
-  console.log(attachment);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 

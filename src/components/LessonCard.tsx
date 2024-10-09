@@ -16,7 +16,7 @@ const LessonCard: React.FC<ICardProps> = ({
   image,
   title,
   description,
-  onClick = () => console.log("Button Clicked"),
+  onClick = () => {},
 }) => {
   return (
     <VStack

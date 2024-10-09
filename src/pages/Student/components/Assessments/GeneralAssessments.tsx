@@ -84,7 +84,6 @@ const AssessmentList = () => {
 
   const handleFileClick = (string: string) => {
     if (string) {
-      console.log(string);
       window.open(string, "_blank");
     }
   };
@@ -93,11 +92,8 @@ const AssessmentList = () => {
     <div className="w-full grid grid-cols-1 md:grid-cols-2">
       {!error ? (
         <>
-          <Accordion
-            allowToggle
-            display={{ base: "block", md: "none" }}
-          >
-            {generalAssessment?.data?.map((assess, index: number) => (
+          <Accordion allowToggle display={{ base: "block", md: "none" }}>
+            {generalAssessment?.data?.map((assess) => (
               <AccordionItem border="none" mb="2px">
                 <h2 className="py-2">
                   <AccordionButton

@@ -79,7 +79,6 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
       showToast(resultAction.payload.message || "Login successful", "success");
       setTimeout(() => {
         if (user === "student") {
-          console.log(user);
           navigate("/student");
         } else {
           navigate("/instructor");
@@ -107,11 +106,6 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
 
   const handleCheckBox = () => {
     setCheck(!check);
-    if (check) {
-      console.log("I was Checked");
-    } else {
-      console.log("You just UnChecked me");
-    }
   };
 
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });

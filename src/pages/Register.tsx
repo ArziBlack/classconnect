@@ -196,8 +196,6 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const modalSize = useBreakpointValue({ base: "full", md: "4xl" });
   const imageDisplay = useBreakpointValue({ base: "none", md: "block" });
 
-  console.log(guardianData);
-
   return (
     <>
       <Modal

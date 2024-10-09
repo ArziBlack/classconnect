@@ -10,7 +10,7 @@ import { setUserType } from "../services/others/otherSlice";
 import Button from "../components/Button";
 
 const TutorPasswordV = () => {
-    const { width, height } = useWindowSize();
+  const { width, height } = useWindowSize();
   const dispatch = useAppDispatch();
   const { resetToken, email } = useParams();
   const navigate = useNavigate();
@@ -31,9 +31,6 @@ const TutorPasswordV = () => {
         navigate("/new-password/tutor");
       }, 3000);
       return () => clearTimeout(timer);
-    }
-    if (isError) {
-      console.log(message, isSuccess);
     }
   }, [isSuccess, isError, message, navigate]);
 
@@ -97,7 +94,7 @@ const TutorPasswordV = () => {
         {isSuccess && <Confetti width={width} height={height} />}
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default TutorPasswordV
+export default TutorPasswordV;

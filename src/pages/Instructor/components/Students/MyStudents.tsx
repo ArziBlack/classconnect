@@ -6,13 +6,10 @@ import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 export const MyStudents = () => {
   const navigate = useNavigate();
 
-  const { myStudents, isLoading, error } = useAppSelector(
-    (state) => state.tutor
-  );
+  const { myStudents, isLoading } = useAppSelector((state) => state.tutor);
   function handleClick(input: string) {
     navigate(input);
   }
-  console.log("error", error);
 
   const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
 

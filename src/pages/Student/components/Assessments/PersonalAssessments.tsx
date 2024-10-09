@@ -84,7 +84,6 @@ const AssessmentList = () => {
 
   const handleFileClick = (string) => {
     if (string) {
-      console.log(string);
       window.open(string, "_blank");
     }
   };

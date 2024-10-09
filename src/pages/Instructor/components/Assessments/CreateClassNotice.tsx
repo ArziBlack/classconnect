@@ -24,9 +24,7 @@ import { INoticeResponse } from "../../../../typings/tutor";
 const CreateClassNotice = () => {
   const dispatch = useAppDispatch();
   const toast = useCustomToast();
-  const { isLoading, noticeResponse, error } = useAppSelector(
-    (state) => state.tutor
-  );
+  const { isLoading, noticeResponse } = useAppSelector((state) => state.tutor);
 
   const { data } = useAppSelector((store) => store.auth);
 
@@ -37,7 +35,6 @@ const CreateClassNotice = () => {
     class_link:
       data.classLink === "null" ? "No class link yet" : data.classLink,
   });
-  console.log("error", error);
   const handleChange = (e) => {
     setClassNotice({
       ...classNotice,

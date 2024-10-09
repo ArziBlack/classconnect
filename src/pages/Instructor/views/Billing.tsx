@@ -24,7 +24,6 @@ export const Billing = () => {
 
   const handleButtonClick = () => {
     const url = trxResponse.transactionURL;
-    console.log(trxResponse);
 
     window.open(url, "_blank");
   };

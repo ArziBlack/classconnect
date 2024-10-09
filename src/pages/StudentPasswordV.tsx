@@ -32,9 +32,6 @@ const StudentPasswordV = () => {
       }, 3000);
       return () => clearTimeout(timer);
     }
-    if (isError) {
-      console.log(message, isSuccess);
-    }
   }, [isSuccess, isError, message, navigate]);
 
   const handleRetry = () => {

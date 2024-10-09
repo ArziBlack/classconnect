@@ -17,8 +17,6 @@ const TutorEmailV = () => {
   const { message, isSuccess, isError } = useAppSelector((state) => state.auth);
   const hasRequested = useRef(false);
 
-  console.log(tutorId, uniqueString);
-
   useEffect(() => {
     if (!hasRequested.current) {
       dispatch(tutorEmailVerify({ tutorId, uniqueString }));
@@ -33,9 +31,6 @@ const TutorEmailV = () => {
         navigate("/signin/tutor");
       }, 3000);
       return () => clearTimeout(timer);
-    }
-    if (isError) {
-      console.log(message, isSuccess);
     }
   }, [isSuccess, isError, message, navigate]);
 

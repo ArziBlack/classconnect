@@ -65,12 +65,8 @@ export const MakePayment = () => {
     }
   }, [diapatch, trxResponse]);
 
-  console.log("trxResponse", trxResponse);
-
   const handleButtonClick = () => {
     const url = trxResponse.transactionURL;
-    console.log(trxResponse);
-
     window.open(url, "_blank");
   };
   return (

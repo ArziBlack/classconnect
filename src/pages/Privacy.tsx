@@ -13,7 +13,6 @@ const Privacy: React.FC = () => {
   useEffect(() => {
     getPrivacy();
   }, []);
-  console.log(tnc);
 
   return (
     <>

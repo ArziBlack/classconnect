@@ -49,9 +49,6 @@ const resetURL: string | null = sessionStorage
   .getItem("resetURL")
   ?.trim()
   .toString();
-if (resetURL) {
-  console.log(resetURL);
-}
 
 interface AuthState {
   data: IResponse | null;
@@ -127,7 +124,6 @@ export const login = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      console.log(message);
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -146,7 +142,6 @@ export const loginTutor = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }

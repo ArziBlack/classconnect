@@ -24,7 +24,7 @@ export const CreateReport = () => {
   const [content, setContent] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
-  const { isLoading, error } = useAppSelector((state) => state.tutor);
+  const { isLoading } = useAppSelector((state) => state.tutor);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +47,6 @@ export const CreateReport = () => {
         showToast("Feedback sent successfully", "success");
       } else if (result.meta.requestStatus === "rejected") {
         showToast("Report creation failed", "error");
-        console.log("error", error);
       }
     }
     setTitle("");

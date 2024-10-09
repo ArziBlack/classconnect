@@ -67,7 +67,6 @@ export const CreateAssessment = () => {
     }
   };
 
-  console.log("attachment", attachment);
   return (
     <Box
       color="white"

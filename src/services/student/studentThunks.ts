@@ -128,7 +128,6 @@ export const chooseTutor = createAsyncThunk<
 
     return response.data;
   } catch (err) {
-    console.log(err.response.data.error);
     if (err?.response?.data) {
       return thunkAPI.rejectWithValue(err.response.data.error);
     } else if (err?.message) {
@@ -189,8 +188,6 @@ export const requestRecommendation = createAsyncThunk<
     );
     return response.data;
   } catch (err) {
-    console.log("Na the error we day find be this", err.response.data.message);
-
     const error = err.response ? err.response.data.message : err.message;
     return thunkAPI.rejectWithValue(error);
   }

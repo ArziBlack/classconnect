@@ -37,8 +37,6 @@ const StudentF: FC<IStudentProps> = ({ data, onClick, onChange }) => {
     }
   }, [data, fees]);
 
-  console.log(data);
-
   const getClassKeys = (fees) => {
     if (fees?.tuition_fees) {
       return Object.keys(fees.tuition_fees);

@@ -27,7 +27,7 @@ export const ClassReport = () => {
   const [content, setContent] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
-  const { isLoading, error } = useAppSelector((state) => state.tutor);
+  const { isLoading } = useAppSelector((state) => state.tutor);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,6 @@ export const ClassReport = () => {
         setContent("");
       } else if (result.meta.requestStatus === "rejected") {
         showToast((result.payload as IAssessmentResponse).message, "error");
-        console.log("error", error);
       }
     }
   };

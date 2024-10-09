@@ -4,8 +4,6 @@ import { useAppSelector } from "../../../../hooks/reactReduxHooks";
 
 export const PaymentHistory = () => {
   const { paymentHistory } = useAppSelector((state) => state.student);
-  console.log(paymentHistory);
-
   return (
     <Box color={"white"} maxW={"800px"}>
       <div>

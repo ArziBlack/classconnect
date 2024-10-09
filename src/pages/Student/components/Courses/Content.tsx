@@ -53,7 +53,6 @@ export const Content = () => {
         setErrorMessage("Curriculum not posted yet. Check later.");
       }
       dispatch(getMyCourses());
-      console.log(result.payload);
     };
     fetchData();
   }, [courseId, dispatch]);
@@ -137,7 +136,7 @@ export const Content = () => {
         justify={{ base: "flex-start", md: "space-between" }}
         gap={4}
         flexDir={{ base: "column-reverse", lg: "row" }}
-        paddingRight={{base:"35px", md:"0px"}}
+        paddingRight={{ base: "35px", md: "0px" }}
       >
         <Accordion
           allowMultiple
@@ -229,7 +228,7 @@ export const Content = () => {
           style={{ pointerEvents: isNoCurriculumFile ? "none" : "auto" }}
           opacity={isNoCurriculumFile ? 0.6 : 1}
         >
-          <Button text=" Download Curriculum" fontSize={{base:15, md:18}} />
+          <Button text=" Download Curriculum" fontSize={{ base: 15, md: 18 }} />
         </Link>
       </Flex>
       <ChakraModal isOpen={confirmation} onClose={() => setConfirmation(false)}>
