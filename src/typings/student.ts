@@ -154,6 +154,20 @@ export interface INotification {
   data: string[];
 }
 
+export interface PaymentHistoryData {
+  payer: string;
+  amount: string;
+  type: string,
+  transactionDate: string
+}
+
+export interface IPaymentHistory {
+  statusCode: number;
+  message: string;
+  paymentCount: number;
+  paymentHistory: PaymentHistoryData[];
+}
+
 export interface IProfileImage {
   profileImage: File;
 }

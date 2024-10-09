@@ -1,5 +1,8 @@
 import ViewHeader from "../components/ViewHeader";
 import { BreadCrumb } from "../components/Courses/BreadCrumb";
+import { useAppDispatch } from "../../../hooks/reactReduxHooks";
+import { getPaymentHistory } from "../../../services/student/studentThunks";
+import { useEffect } from "react";
 
 const links = [
   { to: "", label: "Make payment" },
@@ -7,6 +10,12 @@ const links = [
 ];
 
 export const Billing = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPaymentHistory());
+  }, []);
+
   return (
     <>
       <ViewHeader

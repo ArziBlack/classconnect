@@ -12,6 +12,7 @@ import {
   ICurriculumResponse,
   IMyTutorsResponse,
   INotification,
+  IPaymentHistory,
   IProfileImage,
   IRecommendationResponse,
   IScheduleResponse,
@@ -406,6 +407,21 @@ export const getNotifications = createAsyncThunk<
 >("student/notifications", async (_, thunkAPI) => {
   try {
     const response = await axiosInstance.get("/student/getNotifications");
+    return response.data;
+  } catch (err) {
+    const error = err.response ? err.response.data : err.message;
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Get Payment History for Student
+export const getPaymentHistory = createAsyncThunk<
+  IPaymentHistory,
+  void,
+  { rejectValue: string }
+>("student/getPaymentHistory", async (_, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get("/student/getPaymentHistory");
     return response.data;
   } catch (err) {
     const error = err.response ? err.response.data : err.message;

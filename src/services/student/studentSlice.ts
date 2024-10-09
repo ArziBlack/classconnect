@@ -21,6 +21,7 @@ import {
   rejectRecommendation,
   requestRecommendation,
   updateProfileImage,
+  getPaymentHistory,
 } from "./studentThunks";
 import {
   IAcceptnRejectResponse,
@@ -37,6 +38,7 @@ import {
   IStudentTrxAPIResponse,
   ITuitionFee,
   ITutorApiResponse,
+  IPaymentHistory,
 } from "../../typings/student";
 
 const approvedTutors: ITutorApiResponse | null = JSON.parse(
@@ -46,6 +48,7 @@ const approvedTutors: ITutorApiResponse | null = JSON.parse(
 interface IState {
   approvedTutors: ITutorApiResponse | null;
   myTutors: IMyTutorsResponse | null;
+  paymentHistory: IPaymentHistory | null;
   generalAssessment: IAssessmentResponse | null;
   personalAssessment: IAssessmentResponse | null;
   recommendResponse: IRecommendationResponse | null;
@@ -76,6 +79,7 @@ const initialState = {
   trxResponse: null,
   tuitionFeeResponse: null,
   allCoursesResponse: null,
+  paymentHistory: null,
   myCoursesRes: null,
   mySchedule: null,
   curriculum: null,
@@ -468,6 +472,24 @@ const studentSlice = createSlice({
         }
       )
       .addCase(getNotifications.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(getPaymentHistory.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+        state.isError = false;
+      })
+      .addCase(
+        getPaymentHistory.fulfilled,
+        (state, action: PayloadAction<IPaymentHistory>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.paymentHistory = action.payload.paymentHistory;
+        }
+      )
+      .addCase(getPaymentHistory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
