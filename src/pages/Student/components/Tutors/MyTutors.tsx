@@ -28,7 +28,7 @@ export const MyTutors = () => {
   };
 
   return (
-    <Box className="text-white" ml={{ base: 5, md: 0 }}>
+    <Box className="text-white" >
       <Refresh handleRefresh={handleRefresh} />
       {myTutors?.data?.length ? (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} color="#ffffff">

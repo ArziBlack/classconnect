@@ -120,7 +120,7 @@ export const Content = () => {
   };
 
   return (
-    <div className="px-4 md:px-0">
+    <div>
       <Flex flexDir={"column"} gap={3}>
         <ViewHeader
           preNav="/student/courses"

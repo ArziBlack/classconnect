@@ -96,12 +96,16 @@ const AssessmentList = () => {
           <Accordion
             allowToggle
             display={{ base: "block", md: "none" }}
-            paddingX={5}
           >
             {generalAssessment?.data?.map((assess, index: number) => (
-              <AccordionItem>
+              <AccordionItem border="none" mb="2px">
                 <h2 className="py-2">
-                  <AccordionButton>
+                  <AccordionButton
+                    h="50px"
+                    borderRadius="8px"
+                    _hover={{ bg: "#37474f" }}
+                    bg="#37474F"
+                  >
                     <Box as="span" flex={1} textAlign="left">
                       {assess?.type}
                     </Box>
@@ -214,11 +218,11 @@ export const GeneralAssessments = () => {
     <Box
       className="text-white flex items-center"
       flexDirection={{ base: "column", lg: "row" }}
-      justifyContent="center"
+      justifyContent="flex-start"
       alignItems="center"
       w="100%"
       maxH="100vh"
-      overflow="hidden"
+      overflowY="scroll"
     >
       <AssessmentList />
     </Box>

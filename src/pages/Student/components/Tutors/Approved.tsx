@@ -71,7 +71,7 @@ export const Approved = () => {
   };
 
   return (
-    <Box className="text-white" mx={{ base: 5, md: 0 }} minH={"70dvh"}>
+    <Box className="text-white" minH={"70dvh"}>
       <Flex justify={"space-between"} align={"center"} mb={4}>
         <div className="flex items-center">
           <Text

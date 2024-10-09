@@ -25,7 +25,7 @@ export const Browse = () => {
   };
 
   return (
-    <Box ml={{ base: 5, md: 0 }}>
+    <Box>
       <Refresh handleRefresh={handleRefresh} />
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} color="#ffffff">
         {allCoursesResponse &&
