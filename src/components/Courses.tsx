@@ -26,6 +26,7 @@ import { AppDispatch } from "../app/store";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
 import { useAppSelector } from "../hooks/reactReduxHooks";
+import { FaArrowTurnDown } from "react-icons/fa6";
 
 const Courses = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -106,7 +107,7 @@ const Courses = () => {
                   image={ONE}
                   title={item?.title}
                   bgColor={"brand.dark"}
-                  CTA="View curriculum"
+                  CTA="Read more"
                   onClick={() => {
                     resetCurriculum();
                     fetchCurriculum(item?.id);
@@ -159,13 +160,20 @@ const Courses = () => {
                   : curriculum?.data?.ageBracket.replace(/\s+/g, "")}{" "}
                 {curriculum?.data?.ageBracket && "years old"}
               </Text>
+              <Text fontSize="md" fontWeight="semibold" color={"#023248"}>
+                Duration: {curriculum?.data?.duration.toLowerCase()}
+              </Text>
+
               <Text
+                display="flex"
+                alignItems={"center"}
                 fontSize="md"
+                gap={2}
                 fontWeight="semibold"
                 color={"#023248"}
                 mb={6}
               >
-                Duration: {curriculum?.data?.duration.toLowerCase()}
+                Curriculum: <FaArrowTurnDown />
               </Text>
 
               <Flex color="white" justify={"space-between"}>
