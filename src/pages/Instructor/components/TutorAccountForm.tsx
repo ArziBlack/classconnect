@@ -13,7 +13,7 @@ import { submitAccountDetails } from "../../../services/tutor/tutorThunk";
 import { IAccountDetails } from "../../../typings/tutor";
 import useCustomToast from "../../../hooks/useCustomToast";
 
-const TutorAccountForm = () => {
+const TutorAccountForm = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useAppDispatch();
   const showToast = useCustomToast();
   const { isLoading } = useAppSelector((state) => state.tutor);
@@ -57,6 +57,7 @@ const TutorAccountForm = () => {
         const tutorData = data_st ? JSON.parse(data_st) : {};
         tutorData.accountSignupPageURL = "null";
         sessionStorage.setItem("tutor", JSON.stringify(tutorData));
+        onClose();
       } else if (result.meta.requestStatus === "rejected") {
         showToast("An error occurred", "error");
       }

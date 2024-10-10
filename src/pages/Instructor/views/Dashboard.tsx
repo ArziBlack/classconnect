@@ -193,7 +193,7 @@ const Dashboard = () => {
       <StudentPerformance />
       <TopCourses />
       <ChakraModal size="xl" isOpen={modal} onClose={() => setModal(false)}>
-        <TutorAccountForm />
+        <TutorAccountForm onClose={() => setModal(false)} />
       </ChakraModal>
     </div>
   );
