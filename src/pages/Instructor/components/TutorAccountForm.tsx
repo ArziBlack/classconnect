@@ -60,11 +60,6 @@ const TutorAccountForm = () => {
       } else if (result.meta.requestStatus === "rejected") {
         showToast("An error occurred", "error");
       }
-      console.log({
-        accountName,
-        accountNumber,
-        bank,
-      });
     }
   };
 
