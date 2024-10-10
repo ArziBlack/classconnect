@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../app/axios";
 import axios from "axios";
 import {
+  IAccountDetails,
   IAssessmentData,
   IAssessmentResponse,
   IClassData,
@@ -103,6 +104,26 @@ export const createGeneralReport = createAsyncThunk<
     const response = await axiosInstance.post<IAssessmentResponse>(
       "/tutor/generalReport",
       report
+    );
+    return response.data;
+  } catch (err) {
+    const error = err.response
+      ? err.response.data
+      : err.message || "An unknown error occurred";
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// Submit account details
+export const submitAccountDetails = createAsyncThunk<
+  IAccountDetails,
+  { accountDetails: IAccountDetails },
+  { rejectValue: string }
+>("tutor/registerBankAccount", async ({ accountDetails }, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post<IAccountDetails>(
+      "/tutor/registerBankAccount",
+      accountDetails
     );
     return response.data;
   } catch (err) {

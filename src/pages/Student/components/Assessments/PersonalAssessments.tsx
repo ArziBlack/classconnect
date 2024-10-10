@@ -98,7 +98,7 @@ const AssessmentList = () => {
             paddingX={1}
           >
             {personalAssessment?.data?.map((assess, index: number) => (
-              <AccordionItem border="none" mb="2px">
+              <AccordionItem key={index} border="none" mb="2px">
                 <h2 className="py-2">
                   <AccordionButton
                     h="50px"

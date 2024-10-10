@@ -11,6 +11,7 @@ import {
 import {
   createGeneralAssessments,
   createGeneralReport,
+  submitAccountDetails,
   createPersonnalAssessment,
   createStudentReport,
   getCurriculum,
@@ -29,6 +30,7 @@ const initialState = {
   generalAssessment: null,
   personnalAssessment: null,
   reportResponse: null,
+  accountResponse: null,
   classReportResponse: null,
   classSchedule: null,
   noticeResponse: null,
@@ -131,6 +133,21 @@ const tutorSlice = createSlice({
         state.reportResponse = action.payload;
       })
       .addCase(createGeneralReport.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload || "Something went wrong";
+      })
+      .addCase(submitAccountDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = "";
+        state.isSuccess = false;
+      })
+      .addCase(submitAccountDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.accountResponse = action.payload;
+      })
+      .addCase(submitAccountDetails.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload || "Something went wrong";

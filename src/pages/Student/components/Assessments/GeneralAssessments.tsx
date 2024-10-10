@@ -93,8 +93,8 @@ const AssessmentList = () => {
       {!error ? (
         <>
           <Accordion allowToggle display={{ base: "block", md: "none" }}>
-            {generalAssessment?.data?.map((assess) => (
-              <AccordionItem border="none" mb="2px">
+            {generalAssessment?.data?.map((assess, index: number) => (
+              <AccordionItem key={index} border="none" mb="2px">
                 <h2 className="py-2">
                   <AccordionButton
                     h="50px"

@@ -66,6 +66,12 @@ export interface IClassSchedule {
   class_link: string;
 }
 
+export interface IAccountDetails {
+  account_name: string;
+  account_number: string;
+  bank_name: string;
+}
+
 export interface INoticeResponse {
   statusCode: number;
   message: string;
@@ -89,6 +95,7 @@ export interface ITutor {
   generalAssessment: IAssessmentResponse | null;
   personnalAssessment: IAssessmentResponse | null;
   reportResponse: IReportResponse | null;
+  accountResponse: object | null;
   classReportResponse: IReportResponse | null;
   classSchedule: IClassSchedule | null;
   noticeResponse: INoticeResponse | null;

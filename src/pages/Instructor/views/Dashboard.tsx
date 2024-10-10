@@ -6,6 +6,8 @@ import { CgPerformance } from "react-icons/cg";
 import { SiGoogleanalytics } from "react-icons/si";
 import VideoEmbed from "../../Student/components/VideoComp";
 import { useEffect, useState } from "react";
+import ChakraModal from "../../../components/ChakraModal";
+import TutorAccountForm from "../components/TutorAccountForm";
 
 const HeaderComponent = () => {
   const [isSmallerThan500] = useMediaQuery("(max-width: 550px)");
@@ -182,6 +184,7 @@ const Dashboard = () => {
 
   const videoIdMatch = data.video.match(/v=([^&]+)/);
   const videoId = videoIdMatch ? videoIdMatch[1] : null;
+  const [modal, setModal] = useState(true);
 
   return (
     <div className="flex flex-col gap-4 w-full h-full mb-4">
@@ -189,6 +192,9 @@ const Dashboard = () => {
       <VideoEmbed videoId={videoId} iframeHeight={iframeHeight} />
       <StudentPerformance />
       <TopCourses />
+      <ChakraModal size="xl" isOpen={modal} onClose={() => setModal(false)}>
+        <TutorAccountForm />
+      </ChakraModal>
     </div>
   );
 };
