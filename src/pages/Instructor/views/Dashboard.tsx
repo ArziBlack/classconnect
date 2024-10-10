@@ -184,7 +184,7 @@ const Dashboard = () => {
 
   const videoIdMatch = data.video.match(/v=([^&]+)/);
   const videoId = videoIdMatch ? videoIdMatch[1] : null;
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(data.accountSignupPageURL !== "null");
 
   return (
     <div className="flex flex-col gap-4 w-full h-full mb-4">

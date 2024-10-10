@@ -29,6 +29,7 @@ export interface IResponse {
   sex?: string;
   dateOfBirth?: string;
   message: string;
+  accountSignupPageURL: string;
   greeting?: string;
   student_count?: number;
   classNoticeUrl?: string;

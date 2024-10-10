@@ -50,10 +50,13 @@ const TutorAccountForm = () => {
         account_number: accountNumber,
         bank_name: bank,
       };
-      // Handle form submission
       const result = await dispatch(submitAccountDetails({ accountDetails }));
       if (result.meta.requestStatus === "fulfilled") {
         showToast("Account details submitted successfully", "success");
+        const data_st = sessionStorage.getItem("tutor");
+        const tutorData = data_st ? JSON.parse(data_st) : {};
+        tutorData.accountSignupPageURL = "null";
+        sessionStorage.setItem("tutor", JSON.stringify(tutorData));
       } else if (result.meta.requestStatus === "rejected") {
         showToast("An error occurred", "error");
       }
@@ -76,9 +79,13 @@ const TutorAccountForm = () => {
       bg={"white"}
       borderRadius="md"
     >
-      <Text fontSize="lg" mb={6}>
-        We would like to collect your account details at this point. Please
-        register your account details for payment.
+      <Text fontSize="2xl" fontWeight={500} mb={2}>
+        Account Detail Submission
+      </Text>
+      <Text fontSize="sm" mb={6}>
+        At this stage, we need to gather your account details for future
+        payments. Please register your account information to facilitate payment
+        when it’s due.
       </Text>
 
       <FormControl isInvalid={errors.accountName} mb={4}>
