@@ -59,8 +59,8 @@ const Courses = () => {
   return (
     <section>
       <SecondaryHero
-        title="HEP Programs Are For Everyone"
-        description="At Hepcoding Academy, we offer a diverse range of programs designed to equip you with the skills needed to excel in the tech industry. Whether you’re a beginner eager to learn the basics or an experienced professional looking to advance your knowledge, our programs cater to all skill levels."
+        title="CLASSCONNECTS courses Are For Everyone"
+        description="At ClassConnects, we offer a diverse range of programs designed to equip you with the skills needed to excel in the tech industry. Whether you’re a beginner eager to learn the basics or an experienced professional looking to advance your knowledge, our programs cater to all skill levels."
       />
       <VStack>
         <Box
@@ -78,7 +78,7 @@ const Courses = () => {
             w={{ base: "90%", md: "450px" }}
             marginBottom={{ base: "4", md: "0" }}
           >
-            Browse Through Our Elite Programs
+            Browse Through Our Elite Courses
           </Heading>
 
           <Text
@@ -90,9 +90,9 @@ const Courses = () => {
             w={{ base: "90%", md: "650px" }}
             fontSize={{ base: "16px", md: "20px" }}
           >
-            Welcome to our tech programs! We take you from beginner to advanced
+            Welcome to our courses page! We take you from beginner to advanced
             levels with a curriculum designed to be comprehensive yet
-            accessible. Our programs is perfect for those just starting out,
+            accessible. Our Courses are perfect for those just starting out,
             providing clear and easy-to-follow lessons. As you progress, you'll
             delve into more advanced topics, ensuring a thorough understanding
             of the subject. Join us and transform your skills and knowledge in

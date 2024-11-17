@@ -33,7 +33,7 @@ const NavbarLinks = ({ onClick }: NavbarLinksProp) => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/tutor", label: "Tutor" },
-    { to: "/programs", label: "Programs" },
+    { to: "/programs", label: "Courses" },
     { to: "/pricing", label: "Pricing" },
     { to: "/about", label: "About" },
   ];
@@ -138,7 +138,7 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <HStack>
-          <Image src={LOGO} marginRight="1.4" width={"40px"} />
+          <Image src={LOGO} marginRight="1.4" width={"70px"} />
         </HStack>
 
         <IconButton

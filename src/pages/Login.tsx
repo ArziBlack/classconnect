@@ -142,7 +142,7 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
                     fontWeight={600}
                     lineHeight={1.3}
                   >
-                    Welcome to <br /> HEP Online <br /> Learning Platform
+                    Welcome to <br /> CLASSCONNECTS <br /> Learning Platform
                   </Text>
 
                   <Image p={0} m={0} src={LOGIN} maxW="240px" />

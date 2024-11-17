@@ -9,7 +9,7 @@ import eight from "../assets/icons/8.png";
 import nine from "../assets/icons/9.png";
 import ten from "../assets/icons/10.png";
 import A from "../assets/icons/A.png";
-import logo from "../assets/icons/Logo.png";
+import logo from "../assets/icons/logo.png";
 import php from "../assets/icons/php.png";
 import java from "../assets/icons/java.png";
 import live from "../assets/icons/live.png";

@@ -237,7 +237,7 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                     fontWeight={600}
                     lineHeight={1.3}
                   >
-                    Welcome to <br /> HEP Online <br /> Learning Platform
+                    Welcome to <br /> CLASSCONNECTS <br /> Learning Platform
                   </Text>
 
                   <Image p={0} m={0} src={SIGNUP} maxW="240px" />
@@ -285,8 +285,8 @@ const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       Create your account
                     </Heading>
                     <Text fontSize="15px" fontWeight="400" mt={4} mb={6}>
-                      Join thousands of students advancing their careers on HEP
-                      Coding.
+                      Join thousands of students advancing their careers on
+                      Classconnects.
                     </Text>
                     {signTypeModal === true ? (
                       <SignUpType />

@@ -1,4 +1,4 @@
-import { Box, SkeletonText, Text, keyframes } from "@chakra-ui/react";
+import { Box, Text, keyframes } from "@chakra-ui/react";
 import { useAppSelector } from "../hooks/reactReduxHooks";
 
 const slide = keyframes`
@@ -32,18 +32,18 @@ const AdmissionBanner = () => {
         color: "white",
       }}
     >
-      <SkeletonText w="100%" isLoaded={home !== null} noOfLines={2}>
-        <Text
-          m="0 auto"
-          textAlign="center"
-          width="fit-content"
-          textTransform="uppercase"
-        >
-          {home?.admissionMessage || "Enroll now and get a discount  → "}{" "}
-          {home?.admission?.from && "  / "} {home?.admission?.from}{" "}
-          {home?.admission?.to && "  → "} {home?.admission?.to}
-        </Text>
-      </SkeletonText>
+      {/* <SkeletonText w="100%" isLoaded={home !== null} noOfLines={2}> */}
+      <Text
+        m="0 auto"
+        textAlign="center"
+        width="fit-content"
+        textTransform="uppercase"
+      >
+        {home?.admissionMessage || "Enroll now and get a discount  → "}{" "}
+        {home?.admission?.from && "  / "} {home?.admission?.from}{" "}
+        {home?.admission?.to && "  → "} {home?.admission?.to}
+      </Text>
+      {/* </SkeletonText> */}
     </Box>
   );
 };

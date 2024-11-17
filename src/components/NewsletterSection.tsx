@@ -110,7 +110,8 @@ const NewsletterSection: React.FC = () => {
             Subscribe To Get Update Of Our New Courses
           </Text>
           <Text color={"brand.page"} fontSize={{ base: "sm", md: "md" }} my={4}>
-            20k+ students daily learn with HEP. Subscribe for new courses.
+            20k+ students daily learn with CLASSCONNECTS. Subscribe for new
+            courses.
           </Text>
         </Box>
         <Flex justify="center" mt={6}>

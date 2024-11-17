@@ -10,7 +10,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Logo from "../assets/icons/dark-logo.png";
+import Logo from "../assets/icons/logo.png";
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsTwitter, BsLinkedin } from "react-icons/bs";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -39,12 +39,18 @@ function Footer() {
         spacing={{ base: 5, md: 10 }}
       >
         <Box textAlign="left" w="100%">
-          <Flex w="100%" gap="1" py="2px">
+          <Flex
+            w="80%"
+            gap="1"
+            py="2px"
+            className="bg-primary-dark rounded-lg items-center justify-center"
+          >
             <Image
               mt="3px"
               alt="logo"
               src={Logo}
-              width={"40px"}
+              width={"80px"}
+              h={"50px"}
               objectFit="cover"
             />
           </Flex>
@@ -79,8 +85,10 @@ function Footer() {
             </a>
           </Flex>
           <Box px="5px" py="10px" gap={10}>
-            <Text>© 2024 HEP Coding</Text>
-            <Text>HEP is a registered trademark of HEP.co</Text>
+            <Text>© 2024 CLASS CONNECTS</Text>
+            <Text>
+              CLASS-CONNECTS is a registered trademark of Blackdice Inc
+            </Text>
           </Box>
         </Box>
 
