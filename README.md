@@ -3,6 +3,7 @@
 Welcome to the Online Educational Website! This project is a modern and responsive educational platform built using React.js, with various features such as courses, pricing, tutor profiles, user authentication, and more. Below is an overview of the project structure, dependencies, and instructions to get started.
 
 ## Table of Contents
+
 - [Features](#features)
 - [Dependencies](#dependencies)
 - [Dev Dependencies](#dev-dependencies)
@@ -15,6 +16,7 @@ Welcome to the Online Educational Website! This project is a modern and responsi
 - [Contributors](#contributors)
 
 ## Features
+
 - **Courses**: Browse and enroll in various educational courses.
 - **Pricing**: View different pricing plans for the courses.
 - **Tutors**: Learn more about the tutors.
@@ -22,6 +24,7 @@ Welcome to the Online Educational Website! This project is a modern and responsi
 - **Privacy Policy**: Detailed privacy policy for users.
 
 ## Dependencies
+
 The following dependencies are used in this project:
 
 ```json
@@ -49,6 +52,7 @@ The following dependencies are used in this project:
 ```
 
 ## Dev Dependencies
+
 The following dev dependencies are used for development and build processes:
 
 ```json
@@ -68,29 +72,34 @@ The following dev dependencies are used for development and build processes:
 ```
 
 ## Getting Started
+
 Follow these steps to set up the project on your local machine:
 
 1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/yourusername/online-educational-website.git
-    ```
+
+   ```sh
+   git clone https://github.com/yourusername/online-educational-website.git
+   ```
 
 2. **Navigate to the project directory**:
-    ```sh
-    cd online-educational-website
-    ```
+
+   ```sh
+   cd online-educational-website
+   ```
 
 3. **Install dependencies using Yarn**:
-    ```sh
-    yarn install
-    ```
+
+   ```sh
+   yarn install
+   ```
 
 4. **Start the development server**:
-    ```sh
-    yarn dev
-    ```
+   ```sh
+   yarn dev
+   ```
 
 ## Project Structure
+
 The project structure is organized as follows:
 
 ```
@@ -113,6 +122,7 @@ online-educational-website/
 ```
 
 ## Available Scripts
+
 In the project directory, you can run the following scripts:
 
 - `yarn dev`: Starts the development server using Vite.
@@ -123,6 +133,7 @@ In the project directory, you can run the following scripts:
 - `yarn preview`: Previews the production build locally using Vite.
 
 ## Pages
+
 - **Home**: Landing page with an overview of the platform.
 - **Courses**: List and detail pages for various courses.
 - **Pricing**: Information on different pricing plans.
@@ -134,15 +145,14 @@ In the project directory, you can run the following scripts:
 - **Privacy Policy**: Detailed privacy policy.
 
 ## Contributing
+
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the coding standards and include relevant tests.
 
 ## License
+
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributors
+
 - **@ArziBlack**
 - **ArziBlack**
-- **@King-Lord**
-- **King-Lord MONEYBAG**
-- **@PherbCampton**
-- **PherbCampton Samuel Tuinperi**
