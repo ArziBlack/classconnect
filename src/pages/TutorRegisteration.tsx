@@ -129,7 +129,7 @@ const ApplyModal = ({ isOpen, onClose }: RegisterModalProps) => {
                     fontWeight={600}
                     lineHeight={1.3}
                   >
-                    Welcome to <br /> HEP Online <br /> Learning Platform
+                    Welcome to <br /> CLASSCONNECTS <br /> Learning Platform
                   </Text>
 
                   <Image p={0} m={0} src={SIGNUP} maxW="240px" />
@@ -177,7 +177,8 @@ const ApplyModal = ({ isOpen, onClose }: RegisterModalProps) => {
                       Become a tutor
                     </Heading>
                     <Text fontSize="15px" fontWeight="400" mt={4} mb={6}>
-                      Join thousands of dedicated tutors on HEP Coding.
+                      Join thousands of dedicated tutors on the CLASSCONNECTS
+                      Platform.
                     </Text>
 
                     <Box>

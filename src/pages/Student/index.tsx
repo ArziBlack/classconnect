@@ -194,7 +194,7 @@ const MainView: FC = () => {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const { data } = useAppSelector((state) => state.auth);
   useEffect(() => {
-    document.title = "HEP | Student Dashboard";
+    document.title = "classconnects | Student Dashboard";
   }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   function toggleMenu() {

@@ -42,7 +42,7 @@ const Home = () => {
       {videoList && videoList.length > 0 ? (
         <YoutubeEmbed
           initialEmbedId={videoList[0]}
-          title={"All you need to know about HEP Coding"}
+          title={"All you need to know about CLASSCONNECTS Platform"}
           videoList={videoList}
         />
       ) : (

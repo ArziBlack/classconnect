@@ -56,28 +56,28 @@ function Footer() {
           </Flex>
           <Flex gap={5} py="5px" mt="5px" fontSize={26}>
             <a
-              href="https://web.facebook.com/profile.php?id=61555382193329"
+              href="https://web.facebook.com/profile.php?id=6155538219329"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaFacebook className="pointer" />
             </a>
             <a
-              href="https://www.instagram.com/hep_coding/"
+              href="https://www.instagram.com/classconnects/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <BsInstagram className="pointer" />
             </a>
             <a
-              href="https://twitter.com/HepCoding"
+              href="https://twitter.com/classconnects"
               target="_blank"
               rel="noopener noreferrer"
             >
               <BsTwitter className="pointer" />
             </a>
             <a
-              href="https://www.linkedin.com/in/hepcoding"
+              href="https://www.linkedin.com/company/classconnects"
               target="_blank"
               rel="noopener noreferrer"
             >

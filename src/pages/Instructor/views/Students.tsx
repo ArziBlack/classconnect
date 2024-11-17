@@ -12,7 +12,7 @@ export const Students = () => {
   const toast = useCustomToast();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    document.title = "HEP Tutors - My Students";
+    document.title = "CLASSCONNECTS Tutors - My Students";
     dispatch(getMyStudents());
   }, [dispatch]);
 
@@ -23,7 +23,7 @@ export const Students = () => {
     } else if (getMyStudents.rejected.match(response)) {
       toast(response?.payload, "warning");
     }
-  }
+  };
 
   return (
     <>
@@ -31,7 +31,7 @@ export const Students = () => {
         title="Students"
         subtext="Access your student list and interact with your students. View their contact information, office hours, and schedule one-on-one sessions to support their learning experience."
       />
-      <Refresh handleRefresh={handleRefresh}/>
+      <Refresh handleRefresh={handleRefresh} />
       <BreadCrumb links={links} />
     </>
   );

@@ -18,7 +18,7 @@ export const MyCourses = () => {
     (state) => state.student
   );
   useEffect(() => {
-    document.title = "HEP My Courses - Student";
+    document.title = "CLASSCONNECTS My Courses - Student";
     if (!allCoursesResponse || !myCoursesRes) {
       dispatch(getAllCourses());
       dispatch(getMyCourses());

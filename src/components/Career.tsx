@@ -52,8 +52,8 @@ const Career = () => {
               fontSize="medium"
               color="brand.text"
             >
-              Join Hepcoding Academy as a tutor and inspire the next generation
-              of tech professionals. We seek passionate experts with strong
+              Join CLASSCONNECTS as a tutor and inspire the next generation of
+              tech professionals. We seek passionate experts with strong
               communication skills to provide high-quality education.
             </Text>
             <Button text="Join as Tutor" onClick={() => handleLinkClick()} />

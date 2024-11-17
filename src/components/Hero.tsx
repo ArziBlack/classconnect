@@ -50,7 +50,8 @@ const Hero = () => {
           paddingY={{ base: "5", md: "0" }}
           paddingRight={{ base: "0", md: "20px" }}
         >
-          Grow up your Skills with online courses on HEP Educational Platform
+          Grow up your Skills with online courses on CLASSCONNECTS Educational
+          Platform
         </Heading>
         <Text
           fontSize={`medium`}
@@ -58,9 +59,9 @@ const Hero = () => {
           paddingY={`10px`}
           fontWeight={400}
         >
-          HEP is a Global training provider based in Nigeria that specializes in
-          accredited and bespoke training courses. We crush the barriers to
-          getting a degree.
+          CLASSCONNECTS is a Global training provider based in Nigeria that
+          specializes in accredited and bespoke training courses. We crush the
+          barriers to getting a degree.
         </Text>
         <InputGroup
           w={`100%`}
