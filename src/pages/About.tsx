@@ -7,7 +7,7 @@ const About = () => {
     <Box>
       <SecondaryHero
         title="Discover Your Tech Potential"
-        description="Welcome to Hepcoding Academy, where your journey in technology and software development begins. Our mission is to empower individuals from all backgrounds to achieve their dreams in the tech industry."
+        description="Welcome to Class Connects where your journey in education and self development begins. Our mission is to empower individuals, students, communities from all backgrounds to achieve their dreams through an educational perspective"
       />
       <CAbout />
     </Box>

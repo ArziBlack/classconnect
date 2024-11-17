@@ -39,9 +39,9 @@ const AdmissionBanner = () => {
           width="fit-content"
           textTransform="uppercase"
         >
-          {home?.admissionMessage} {home?.admission?.from && "  / "}{" "}
-          {home?.admission?.from} {home?.admission?.to && "  → "}{" "}
-          {home?.admission?.to}
+          {home?.admissionMessage || "Enroll now and get a discount  → "}{" "}
+          {home?.admission?.from && "  / "} {home?.admission?.from}{" "}
+          {home?.admission?.to && "  → "} {home?.admission?.to}
         </Text>
       </SkeletonText>
     </Box>

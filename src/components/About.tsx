@@ -64,25 +64,27 @@ const UserInfo: React.FC = () => {
               About us
             </Text> */}
             <Text mt={2}>
-              <strong>HEP-CODING ACADEMY </strong>is a virtual learning platform
-              dedicated to shaping the next generation of technology leaders.
-              With a primary focus on children and teens aged 8-18, we provide a
-              structured, engaging, and hands-on approach to learning software
-              development. Whether you're a parent seeking to empower your child
-              with technical skills or a student eager to explore the world of
-              coding, our platform connects you with world-class tutors who are
-              carefully vetted through a rigorous screening process.
+              <strong>CLASS CONNECTS </strong>is a virtual and e learning
+              platform dedicated to shaping the next generation of technology
+              leaders with proper and affordable education. With a primary focus
+              on college students, high-school students, educational communities
+              and organisations, we provide a structured, engaging, and hands-on
+              approach to learning. Whether you're a parent seeking to empower
+              your child with technical skills or a student eager to explore the
+              world of learning and education, our platform connects you with
+              world-class tutors who are carefully vetted through a rigorous
+              screening process.
             </Text>
             <Text mt={2}>
               We recognize the unique learning needs of young minds and offer
               age-specific programs that cater to students in the 8-10, 11-14,
-              and 15-18 age brackets. In addition to our youth-focused programs,
-              we provide specialised courses for learners of all ages, ensuring
-              everyone has the opportunity to develop their software development
-              skills.
+              15-18, and 19 above age brackets. In addition to our youth-focused
+              programs, we provide specialised courses with a matching and
+              expercienced tutor for learners of all ages, ensuring everyone has
+              the opportunity to develop themselves and their skills.
             </Text>
             <Text mt={2}>
-              At <strong>HEP-CODING ACADEMY</strong>, our commitment to quality
+              At <strong>CLASS CONNECTS</strong>, our commitment to quality
               education is reflected in our practical, real-world teaching
               methods, guided by modern technologies and seasoned instructors.
               We also offer a flexible learning system with options for class
@@ -94,7 +96,7 @@ const UserInfo: React.FC = () => {
               Goal
             </Text> */}
             <Text mt={2}>
-              Our goal is to make quality software development education
+              Our goal is to make quality learning process and education
               accessible and exciting for young learners, while also providing
               opportunities for lifelong learning to individuals of any age.
             </Text>
@@ -102,7 +104,7 @@ const UserInfo: React.FC = () => {
             {videoList && videoList.length > 0 ? (
               <YoutubeEmbed
                 initialEmbedId={videoList[0]}
-                title={"All you need to know about HEP Coding"}
+                title={"All you need to know about CLASS CONNECTS"}
                 videoList={videoList}
               />
             ) : (
@@ -122,7 +124,7 @@ const UserInfo: React.FC = () => {
           <TabPanel>
             <Text>
               Our mission is to inspire and empower children and teens, ages
-              8-18, by providing access to world-class software development
+              8-18, by providing access to world-class self development
               education tailored to their developmental stages. Through
               engaging, hands-on learning experiences, we aim to nurture
               creativity and technical skills in young minds. In addition, we
