@@ -64,7 +64,7 @@ const UserInfo: React.FC = () => {
               About us
             </Text> */}
             <Text mt={2}>
-              <strong>CLASS CONNECTS </strong>is a virtual and e learning
+              <strong>CLASSCONNECTS </strong>is a virtual and e learning
               platform dedicated to shaping the next generation of technology
               leaders with proper and affordable education. With a primary focus
               on college students, high-school students, educational communities

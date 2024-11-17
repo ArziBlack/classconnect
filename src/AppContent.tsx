@@ -15,12 +15,12 @@ import TutorLayout from "./pages/Instructor";
 import VerifyAccount from "./pages/VerifyEmail";
 import ResetPassword from "./pages/ResetPassword";
 import FireBaseUpload from "./pages/FireBaseUpload";
-import { Tutors } from "./pages/Student/views/Tutors";
+import Tutors from "./pages/Student/views/Tutors";
 import Profile from "./pages/Student/views/Profile";
 import TutorProfile from "./pages/Instructor/views/Profile";
 import { MakePayment } from "./pages/Student/components/Billing/MakePayment";
 import { MyCourses } from "./pages/Student/views/MyCourses";
-import { Assessment } from "./pages/Student/views/Assessments";
+import Assessment from "./pages/Student/views/Assessments";
 import { Assessments as TutorAssessment } from "./pages/Instructor/views/Assessments";
 import { Home as StudentHome } from "./pages/Student/views/Home";
 import { Home as TutorHome } from "./pages/Instructor/views/Home";
@@ -28,7 +28,6 @@ import { Students } from "./pages/Instructor/views/Students";
 import { Browse } from "./pages/Student/components/Courses/Browse";
 import { Started } from "./pages/Student/components/Courses/Started";
 import { ProfileDetails } from "./pages/Student/components/Profile/ProfileDetails";
-import { Notification } from "./pages/Student/views/Notification";
 import { Invite } from "./pages/Student/components/Profile/Invite";
 import { BecomeTutor } from "./pages/Student/components/Profile/BecomeTutor";
 import { MyTutors } from "./pages/Student/components/Tutors/MyTutors";
@@ -47,13 +46,11 @@ import StudentDetail from "./pages/Instructor/views/Studentdetail";
 import { CreateAssessment } from "./pages/Instructor/components/Assessments/CreateAssessment";
 import { CreateReport } from "./pages/Instructor/components/Assessments/CreateReport";
 import CreateClassNotice from "./pages/Instructor/components/Assessments/CreateClassNotice";
-import { Billing } from "./pages/Student/views/Billing";
+import Billing from "./pages/Student/views/Billing";
 import { PaymentHistory } from "./pages/Student/components/Billing/PaymentHistory";
 import TutorEmailV from "./pages/TutorEmailV";
 import NotificationTutor from "./pages/Instructor/views/NotificationTutor";
 import { Referral } from "./pages/Student/views/Referral";
-import { Internship } from "./pages/Student/views/Internship";
-import { Scholarship } from "./pages/Student/views/Scholarship";
 import { ClassReport } from "./pages/Instructor/components/Assessments/ClassReport";
 import TutorNewPassword from "./pages/TutorNewPassword";
 import StudentNewPassword from "./pages/StudentNewPassword";
@@ -61,6 +58,7 @@ import TutorPasswordV from "./pages/TutorPasswordV";
 import StudentPasswordV from "./pages/StudentPasswordV";
 import TutorRecommendation from "./pages/TutorRecommendation";
 import AwaitingStudentEmailV from "./pages/AwaitingStudentEmailV";
+import Classes from "./pages/Student/views/Classes";
 
 function AppContent() {
   const location = useLocation();
@@ -120,6 +118,7 @@ function AppContent() {
           <Route path="tutors/:tutorId" element={<TutorDetails />}>
             <Route index element={<AboutMe />} />
           </Route>
+          <Route path="classes" element={<Classes />} />
           <Route path="courses/:courseId" element={<Content />} />
           <Route path="courses" element={<MyCourses />}>
             <Route index element={<Browse />} />
@@ -127,7 +126,6 @@ function AppContent() {
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileDetails />} />
-            <Route path="notification" element={<Notification />} />
             <Route path="invite" element={<Invite />} />
             <Route path="become-a-tutor" element={<BecomeTutor />} />
           </Route>
@@ -137,13 +135,10 @@ function AppContent() {
           </Route>
           <Route path="assessment" element={<Assessment />} />
           <Route path="referral" element={<Referral />} />
-          <Route path="internship" element={<Internship />} />
-          <Route path="scholarship" element={<Scholarship />} />
           <Route path="billing" element={<Billing />}>
             <Route index element={<MakePayment />} />
             <Route path="payment-history" element={<PaymentHistory />} />
           </Route>
-          <Route path="notification" element={<Notification />} />
         </Route>
       </Route>
 

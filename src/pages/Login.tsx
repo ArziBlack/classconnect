@@ -62,6 +62,11 @@ const SignInModal = ({ isOpen, onClose }: SignInModalProps) => {
   });
 
   const handleSubmit = async () => {
+    if (user === "student") {
+      navigate("/student");
+    } else {
+      navigate("/instructor");
+    }
     if (userData.email === "" || userData.password === "") {
       showToast("All fields must be filled", "error");
       return;

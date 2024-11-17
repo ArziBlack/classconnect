@@ -172,26 +172,15 @@ const SideBarNav: FC = () => {
       <Flex w={"full"} flexDirection={"column"}>
         <Image w="40px" src={LOGO} marginLeft={"5px"} marginBottom={"20px"} />
         <Nav text="Home" to="/student" icon={HOME} />
-        <Nav text="Tutors" to="tutors" icon={TUTORS} />
+        <Nav text="Classes" to="classes" icon={TUTORS} />
         <Nav text="Courses" to="courses" icon={COURSES} />
-        <Nav text="Profile" to="profile" icon={PROFILE} />
-        <Nav text="Assessments" to="assessments" icon={ASSESSMENT} />
-        <Nav text="Billing" to="billing" icon={SETTINGS} />
-        <Nav
-          text="Notification"
-          to="notification"
-          icon={NOTIFICATION}
-          w="14px"
-        />
-        <Nav text="Referral" to="referral" isImage={false}>
+        <Nav text="Tutors" to="tutors" icon={PROFILE} />
+        <Nav text="Assessment" to="assessment" icon={ASSESSMENT} />
+        <Nav text="Billing" to="billing" icon={ASSESSMENT} />
+        <Nav text="Profile" to="profile" icon={SETTINGS} />
+        {/* <Nav text="Referral" to="referral" isImage={false}>
           <FaLink />
-        </Nav>
-        <Nav text="Scholarship" to="scholarship" isImage={false}>
-          <FaGoogleScholar />
-        </Nav>
-        <Nav text="Internship" to="internship" isImage={false}>
-          <MdOutlineWorkHistory />
-        </Nav>
+        </Nav> */}
       </Flex>
       <Flex onClick={handleLogout}>
         <Nav text="Log out" to="/" icon={LOGOUT} />
@@ -237,7 +226,7 @@ const MainView: FC = () => {
           display={isSmallerThan900 ? "none" : "flex"}
         >
           <Text fontSize={"26px"} fontWeight={600}>
-            Student LRC
+            Student LRC Dashboard
           </Text>
         </Flex>
         <Flex alignItems={"center"} gap={"20px"}>
@@ -260,12 +249,12 @@ const MainView: FC = () => {
           <Image
             w={"40px"}
             h={"40px"}
-            src={data.profileImage}
+            src={data?.profileImage}
             borderRadius={"50%"}
             objectFit={"cover"}
           />
           <Text fontSize={"12px"} color="#ffffff">
-            {data.first_name + " " + data.last_name}
+            {data?.first_name + " " + data?.last_name}
           </Text>
         </Flex>
         <Flex

@@ -1,30 +1,7 @@
-import ViewHeader from "../components/ViewHeader";
-import { BreadCrumb } from "../components/Courses/BreadCrumb";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
-import { getMyTuitionFee } from "../../../services/student/studentThunks";
-
-const links = [
-  { to: "", label: "Details" },
-  { to: "become-a-tutor", label: "Become a Tutor" },
-];
+import React from "react";
 
 const Profile = () => {
-  const dispatch = useAppDispatch();
-  const { tuitionFeeResponse } = useAppSelector((state) => state.student);
-  useEffect(() => {
-    document.title = "HEP Profile - Student";
-    !tuitionFeeResponse && dispatch(getMyTuitionFee());
-  }, []);
-  return (
-    <>
-      <ViewHeader
-        title="Profile"
-        subtext="Update and manage your personal details, academic information, and preferences. Ensure your profile is always up-to-date to receive relevant notifications and updates."
-      />
-      <BreadCrumb links={links} />
-    </>
-  );
+  return <div>Profile</div>;
 };
 
 export default Profile;
