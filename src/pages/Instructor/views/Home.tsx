@@ -4,7 +4,7 @@ import DashBoard from "../views/Dashboard";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reactReduxHooks";
 import { useEffect } from "react";
 import { getMyStudents } from "../../../services/tutor/tutorThunk";
-import moment from "moment";
+// import moment from "moment";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useMediaQuery } from "@chakra-ui/react";
 
@@ -19,21 +19,21 @@ export const Home = () => {
 
   const { data } = useAppSelector((store) => store.auth);
 
-  const futureDate = moment(data.upcomingClassDate);
-  const formattedDate = futureDate.format("YYYY-MM-DD");
+  // const futureDate = moment(data?.upcomingClassDate);
+  // const formattedDate = futureDate?.format("YYYY-MM-DD");
 
-  const highlightedDates = [new Date(futureDate.toISOString())];
+  // const highlightedDates = [new Date(futureDate?.toISOString())];
 
-  const active = new Date();
+  // const active = new Date();
 
   const cells = {
     margin: "0.2rem",
   };
 
-  const modifiers = {
-    highlighted: highlightedDates,
-    active: active,
-  };
+  // const modifiers = {
+  //   highlighted: highlightedDates,
+  //   active: active,
+  // };
 
   const modifiersStyles = {
     active: {
@@ -70,7 +70,7 @@ export const Home = () => {
               },
             }}
             showOutsideDays
-            modifiers={modifiers}
+            // modifiers={modifiers}
             className="custom-day-picker"
             modifiersStyles={modifiersStyles}
           />
@@ -80,22 +80,22 @@ export const Home = () => {
               <h2 className="font-semibold">Upcoming classes</h2>
             </div>
             <div className="">
-              {formattedDate ? (
-                <div className="flex w-full items-center my-2 p-1 rounded justify-between">
-                  <div className="w-2/4 flex items-center text-[12px]">
-                    <div className="flex items-center justify-center bg-black/50 rounded-md h-7 w-7 p-1">
-                      <BsCalendar2Date color="white" size={"18px"} />
-                    </div>
-                    <div className="flex flex-col h-full justify-between  ml-2">
-                      <h2 className="font-semibold">{formattedDate}</h2>
-                    </div>
+              {/* {formattedDate ? ( */}
+              <div className="flex w-full items-center my-2 p-1 rounded justify-between">
+                <div className="w-2/4 flex items-center text-[12px]">
+                  <div className="flex items-center justify-center bg-black/50 rounded-md h-7 w-7 p-1">
+                    <BsCalendar2Date color="white" size={"18px"} />
+                  </div>
+                  <div className="flex flex-col h-full justify-between  ml-2">
+                    <h2 className="font-semibold">{"formattedDate"}</h2>
                   </div>
                 </div>
-              ) : (
-                <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">
-                  You Dont Have any Upcoming Classes
-                </div>
-              )}
+              </div>
+              {/* ) : ( */}
+              <div className="flex w-full h-full items-center my-2 p-1 rounded justify-center">
+                You Dont Have any Upcoming Classes
+              </div>
+              {/* )} */}
             </div>
           </div>
         </div>
